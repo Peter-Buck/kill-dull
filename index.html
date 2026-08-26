@@ -3,881 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
 <title>Kill Dull&#x2122; &#x2014; The Dense Idea Company</title>
+<meta name="description" content="Kill Dull is the checkpoint between thinking and commitment. An independent interrogation of consequential organizational commitments, before they become expensive to undo.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-:root {
-  --ink:            #0D0D0C;
-  --paper:          #EFEDE4;
-  --yellow:         #FFFF00;
-  --border:         #2a2925;
-  --border-inner:   #1c1b18;
-  --text-secondary: #8a8880;
-  --text-tertiary:  #6f6d66;
-  --text-body:      #c9c6bd;
-  --pending:        #4a4844;
-
-  --type-hero:    clamp(72px, 12vw, 148px);
-  --type-product: clamp(48px, 8vw, 72px);
-  --type-body:    17px;
-  --type-small:   15px;
-  --type-label:   11px;
-  --type-micro:   10px;
-
-  --section-pad-v: 100px;
-  --section-pad-h: 120px;
-}
-
-/*
-  KILL DULL MOTION PRINCIPLE — CONSTITUTIONAL
-  No two interface elements animate simultaneously.
-  Motion is sequential, deliberate, procedural.
-  The site processes. It does not decorate.
-*/
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: auto; }
-
-body {
-  background: var(--ink);
-  color: var(--paper);
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 400;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* { border-radius: 0 !important; }
-a { color: inherit; text-decoration: none; }
-a:hover { color: var(--yellow); }
-a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; }
-  .terminal, .hero-line { animation: none; }
-}
-
-/* TERMINAL MARK */
-@keyframes kd-terminal-rotate {
-  0%   { transform: rotate(0deg); }
-  8%   { transform: rotate(90deg); }
-  100% { transform: rotate(90deg); }
-}
-
-.terminal {
-  display: inline-block;
-  width: 0.72em;
-  height: 0.72em;
-  background: var(--yellow);
-  margin-left: 0.08em;
-  vertical-align: baseline;
-  flex-shrink: 0;
-  animation: kd-terminal-rotate 7s ease-in-out infinite;
-}
-
-.footer .terminal {
-  animation-delay: 3.5s;
-}
-
-/* CTA SQUARE MARKER */
-.sq {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  background: var(--yellow);
-  flex-shrink: 0;
-}
-
-/* TRADEMARK MARK */
-.tm {
-  font-size: 0.45em;
-  vertical-align: super;
-  line-height: 0;
-  letter-spacing: 0.02em;
-  margin-left: 0.05em;
-  color: var(--paper);
-}
-
-/* MASTHEAD */
-.masthead {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 200;
-  background: var(--ink);
-  border-bottom: 1px solid var(--border);
-}
-
-/* TOP ROW */
-.masthead-top {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: baseline;
-  padding: 20px 120px 0;
-  gap: 24px;
-}
-
-.masthead-date {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.16em;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  line-height: 1;
-}
-
-.masthead-wordmark {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: 54px;
-  letter-spacing: -0.03em;
-  line-height: 1;
-  color: var(--paper);
-  text-align: center;
-  white-space: nowrap;
-}
-
-.masthead-designation {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: 15px;
-  letter-spacing: 0.10em;
-  color: var(--paper);
-  text-align: right;
-  text-transform: uppercase;
-  line-height: 1;
-  white-space: nowrap;
-}
-.masthead-designation .tm {
-  font-size: 0.85em;
-  vertical-align: top;
-  line-height: 1;
-  color: var(--paper);
-  margin-left: 0.06em;
-}
-
-/* SECOND ROW */
-.masthead-tagline {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 400;
-  font-size: 12px;
-  color: var(--text-secondary);
-  text-align: center;
-  padding: 6px 120px 16px;
-  letter-spacing: 0;
-}
-
-/* BORDER */
-.masthead-rule {
-  border-top: 1px solid var(--border);
-}
-
-/* BUREAU BULLETIN */
-.masthead-bulletin {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 10px 120px;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-
-.bulletin-label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-}
-
-.bulletin-text {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--text-body);
-  letter-spacing: 0;
-}
-
-/* UNIFIED NAV */
-.unified-nav {
-  position: fixed;
-  left: 0; right: 0;
-  z-index: 190;
-  background: var(--ink);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: stretch;
-  justify-content: space-between;
-  padding: 0 120px;
-}
-
-.unified-nav-chapters {
-  display: flex;
-  align-items: stretch;
-  margin-left: 0;
-}
-
-.reg-item {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  text-decoration: none;
-  padding: 11px 16px 9px;
-  border-right: 1px solid var(--border);
-  color: #8a8880;
-  white-space: nowrap;
-  transition: color 0.15s,
-              padding-top 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              padding-bottom 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.6s ease;
-}
-.reg-item:first-child { border-left: none; }
-.reg-item.is-past { color: #6f6d66; padding-top: 6px; padding-bottom: 6px; opacity: 0.6; }
-.reg-item.is-active { color: var(--paper); border-bottom: 2px solid var(--yellow); opacity: 1; }
-
-.unified-nav-products {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  border-left: 1px solid var(--border);
-  margin-right: 0;
-}
-
-.product-link {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--paper);
-  text-decoration: none;
-  padding: 11px 20px 9px;
-  border-right: 1px solid var(--border);
-  white-space: nowrap;
-}
-.product-link:hover { color: var(--yellow); }
-
-.product-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--yellow);
-  text-decoration: none;
-  padding: 11px 24px 9px;
-  white-space: nowrap;
-}
-.product-cta .enter-arrow {
-  display: inline-block;
-  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.product-cta .enter-text {
-  display: inline-block;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;
-}
-.product-cta:hover .enter-arrow { transform: translateX(4px); }
-.product-cta:hover .enter-text { transform: translateX(2px); }
-.product-cta:hover { color: var(--paper); }
-
-.registrar-mobile { display: none; }
-
-@media (max-width: 767px) {
-  .unified-nav-chapters { display: none; }
-  .unified-nav-products { display: none; }
-  .registrar-mobile { display: flex; flex: 1; }
-  .reg-mobile-current {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 12px 24px;
-    background: transparent;
-    border: none;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--paper);
-    cursor: pointer;
-  }
-  .reg-mobile-arrow { color: var(--yellow); }
-  .reg-mobile-dropdown {
-    background: var(--ink);
-    border-top: 1px solid var(--border);
-  }
-  .reg-mobile-dropdown .reg-item {
-    display: block;
-    padding: 12px 24px;
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-  .reg-mobile-dropdown .reg-item:first-child { border-left: none; }
-}
-
-/* VIEWPORTS */
-.viewport {
-  min-height: 100vh;
-  padding: 90px var(--section-pad-h) 90px;
-  display: flex;
-  flex-direction: column;
-}
-.viewport + .viewport {
-  padding-top: 90px;
-  border-top: 1px solid var(--border);
-}
-
-/* RUNNING HEAD */
-.running-head {
-  display: flex;
-  justify-content: space-between;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--type-label);
-  letter-spacing: 0.16em;
-  color: var(--text-secondary);
-  border-top: 1px solid var(--border);
-  padding-top: 18px;
-  margin-bottom: 56px;
-  text-transform: uppercase;
-}
-
-/* HERO HEADLINE (fitToWidth) */
-.hero-headline {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: var(--type-hero);
-  letter-spacing: -0.05em;
-  line-height: 0.88;
-  white-space: nowrap;
-  color: var(--paper);
-  margin-bottom: 52px;
-}
-
-/* HERO LINE (two-line fitToWidth, VP1) */
-@keyframes kd-reveal {
-  from { transform: translateY(110%); }
-  to   { transform: translateY(0); }
-}
-
-.hero-line-wrap {
-  overflow: hidden;
-  display: block;
-  margin-bottom: 4px;
-}
-
-.hero-line {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.05em;
-  line-height: 0.88;
-  white-space: nowrap;
-  color: var(--paper);
-  display: block;
-  animation: kd-reveal 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-#hero-line-1 { animation-delay: 0.1s; }
-#hero-line-2 { animation-delay: 0.25s; }
-
-/* HERO BODY */
-.hero-body {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  max-width: 560px;
-  font-size: var(--type-body);
-  line-height: 1.8;
-  color: var(--text-body);
-}
-.hero-body .text-secondary { color: var(--text-secondary); }
-
-/* INLINE LINK */
-.inline-link {
-  color: inherit;
-  text-decoration: underline;
-  text-decoration-color: var(--yellow);
-  text-underline-offset: 3px;
-}
-.inline-link:hover { color: var(--yellow); }
-
-/* PUSH */
-.push { margin-top: auto; }
-.standalone-word.push { margin-top: auto; padding-top: 80px; }
-#conviction .push { margin-top: 80px; }
-#observation.viewport,
-#evidence.viewport,
-#conviction.viewport,
-#decision.viewport,
-#access.viewport,
-#bureau.viewport {
-  min-height: auto;
-  padding-bottom: 180px;
-}
-
-/* STANDALONE WORD */
-.standalone-word {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: 32px;
-  line-height: 1;
-}
-.standalone-word--yellow { color: var(--yellow); }
-.standalone-word--paper  { color: var(--paper); }
-
-/* SECTION INDEX */
-.section-index {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--type-label);
-  letter-spacing: 0.14em;
-  color: var(--text-tertiary);
-  margin-bottom: 16px;
-}
-
-/* EVIDENCE GRID (VP2) */
-.evidence-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  border-left: 1px solid var(--border);
-  border-top: 1px solid var(--border);
-  margin-top: 80px;
-  margin-bottom: 56px;
-}
-.evidence-col {
-  border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 40px;
-}
-.evidence-concept {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: clamp(28px, 4vw, 48px);
-  letter-spacing: -0.03em;
-  line-height: 1.0;
-  color: var(--paper);
-  margin-bottom: 24px;
-}
-.evidence-divider { border: none; border-top: 1px solid var(--border); margin-bottom: 20px; }
-.evidence-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 15px;
-  color: var(--text-body);
-  line-height: 1.5;
-}
-.evidence-list li { display: flex; align-items: center; }
-.evidence-list li::before {
-  content: '';
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  background: var(--yellow);
-  margin-right: 10px;
-  flex-shrink: 0;
-}
-.evidence-statement {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: clamp(28px, 4vw, 48px);
-  letter-spacing: -0.03em;
-  color: var(--paper);
-  margin-bottom: 28px;
-  line-height: 1.0;
-}
-.evidence-intro {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.05em;
-  line-height: 0.88;
-  color: var(--paper);
-  margin-bottom: 56px;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-.evidence-body {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: var(--type-body);
-  line-height: 1.7;
-  color: var(--text-body);
-  max-width: 560px;
-}
-
-/* READING (VP4) */
-.reading-headline {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: clamp(40px, 6vw, 80px);
-  letter-spacing: -0.04em;
-  line-height: 0.95;
-  color: var(--paper);
-  margin-bottom: 48px;
-}
-
-#discipline-hl {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.05em;
-  line-height: 0.88;
-  white-space: nowrap;
-  color: var(--paper);
-  display: block;
-  margin-bottom: 48px;
-}
-.reading-body {
-  max-width: 560px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  font-size: var(--type-body);
-  line-height: 1.8;
-  color: var(--text-body);
-  margin-bottom: 48px;
-}
-.reading-label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-}
-
-/* DISCIPLINE LIST (VP5) */
-.discipline-list {
-  margin-top: 64px;
-  border-top: 1px solid var(--border);
-}
-.discipline-item {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 0;
-  border-bottom: 1px solid var(--border);
-  padding: 48px 0;
-}
-.discipline-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding-right: 40px;
-}
-.discipline-number {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  color: var(--text-tertiary);
-}
-.discipline-status {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  color: var(--text-secondary);
-}
-.discipline-status--pending { color: var(--yellow); }
-.discipline-name {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: clamp(24px, 3vw, 40px);
-  letter-spacing: -0.02em;
-  color: var(--paper);
-  margin-bottom: 16px;
-  line-height: 1.0;
-}
-.discipline-desc {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 15px;
-  color: var(--text-body);
-  line-height: 1.7;
-  max-width: 560px;
-}
-.discipline-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 28px;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--paper);
-  text-decoration: none;
-  border-top: 1px solid var(--border);
-  padding-top: 16px;
-}
-.discipline-cta:hover { color: var(--yellow); }
-
-/* EARLY ACCESS (VP6) */
-.access-body {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-bottom: 40px;
-}
-.access-statement {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: 28px;
-  color: var(--text-secondary);
-  line-height: 1.2;
-}
-.access-desc {
-  font-family: 'Space Grotesk', sans-serif;
-  max-width: 480px;
-  font-size: var(--type-small);
-  line-height: 1.7;
-  color: var(--text-body);
-}
-
-/* CHAPTER HEADLINE */
-.chapter-headline {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: clamp(36px, 6vw, 80px);
-  letter-spacing: -0.04em;
-  line-height: 0.9;
-  color: var(--paper);
-  margin-bottom: 0;
-}
-
-/* BUREAU HEADLINE */
-#bureau-hl {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.05em;
-  line-height: 0.88;
-  white-space: nowrap;
-  color: var(--paper);
-  text-transform: uppercase;
-  display: block;
-  margin-bottom: 32px;
-}
-
-/* BUREAU MISSION */
-.bureau-mission {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 400;
-  font-size: clamp(16px, 2vw, 22px);
-  letter-spacing: -0.01em;
-  line-height: 1.4;
-  color: var(--text-body);
-  margin-top: 32px;
-  margin-bottom: 48px;
-  max-width: 560px;
-}
-
-/* BUREAU BODY */
-.bureau-body {
-  max-width: 560px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  font-size: var(--type-small);
-  line-height: 1.9;
-  color: var(--text-body);
-}
-
-/* BUREAU FRAMEWORK */
-.bureau-framework {
-  border-left: 2px solid var(--yellow);
-  padding-left: 24px;
-  margin: 40px 0;
-}
-.bureau-framework-label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
-.bureau-framework-intro {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 15px;
-  color: var(--text-secondary);
-  margin-bottom: 16px;
-}
-.bureau-questions {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 17px;
-  color: var(--paper);
-  line-height: 1.5;
-}
-
-/* FOOTER */
-.footer {
-  background: var(--paper);
-  color: var(--ink);
-  border-top: 1px solid #2a2925;
-}
-
-.footer-inner {
-  padding: 80px 120px;
-}
-
-.footer-bureau {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: clamp(40px, 6vw, 80px);
-  letter-spacing: -0.04em;
-  line-height: 0.9;
-  color: var(--ink);
-  margin-bottom: 64px;
-  border-top: 2px solid var(--ink);
-  padding-top: 32px;
-}
-
-.footer-index {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  border-top: 1px solid #2a2925;
-  margin-bottom: 80px;
-}
-
-.footer-section {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 0;
-  padding: 28px 0;
-  border-bottom: 1px solid #2a2925;
-  align-items: baseline;
-}
-
-.footer-section-label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  color: #6f6d66;
-  text-transform: uppercase;
-  padding-right: 40px;
-}
-
-.footer-section nav {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  flex-wrap: nowrap;
-}
-
-.footer-section nav a {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 15px;
-  font-weight: 400;
-  color: var(--ink);
-  text-decoration: none;
-  line-height: 1;
-  display: block;
-}
-
-.footer-section nav a:hover {
-  color: #555;
-}
-
-.footer-section nav a:focus-visible {
-  outline: 2px solid var(--yellow);
-  outline-offset: 3px;
-}
-
-.footer .tm {
-  font-size: 1.2em;
-  color: #6f6d66;
-  vertical-align: top;
-  line-height: 1;
-}
-
-.footer-colophon {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.08em;
-  color: #6f6d66;
-}
-
-/* INSTITUTIONAL PAGES */
-.inst-section {
-  padding: 90px 120px 180px;
-  max-width: 1400px;
-}
-
-.inst-headline {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: clamp(40px, 6vw, 80px);
-  letter-spacing: -0.04em;
-  line-height: 0.9;
-  color: var(--paper);
-  margin-bottom: 48px;
-  margin-top: 24px;
-}
-
-.inst-body {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 17px;
-  font-weight: 400;
-  color: var(--text-body);
-  line-height: 1.8;
-  max-width: 640px;
-}
-
-.inst-body p { margin-bottom: 24px; }
-.inst-body p:last-child { margin-bottom: 0; }
-
-/* TABLET */
-@media (max-width: 1279px) {
-  :root { --section-pad-v: 64px; --section-pad-h: 64px; }
-  .masthead-top { padding: 16px 64px 0; }
-  .masthead-tagline { padding: 6px 64px 14px; }
-  .masthead-bulletin { padding: 10px 64px; }
-  .masthead-wordmark { font-size: 45px; }
-  .unified-nav { padding: 0 64px; }
-  .evidence-grid { grid-template-columns: 1fr 1fr; }
-}
-
-@media (max-width: 1279px) {
-  .footer-inner { padding: 64px; }
-}
-
-/* MOBILE */
-@media (max-width: 767px) {
-  :root { --section-pad-v: 48px; --section-pad-h: 24px; }
-  .masthead-top {
-    grid-template-columns: 1fr;
-    text-align: center;
-    padding: 16px 24px 0;
-    gap: 8px;
-  }
-  .masthead-date { text-align: center; }
-  .masthead-designation { text-align: center; font-size: 11px; }
-  .masthead-wordmark { font-size: 36px; }
-  .masthead-tagline { padding: 6px 24px 12px; }
-  .masthead-bulletin { padding: 10px 24px; }
-  .unified-nav { padding: 0; }
-  .evidence-grid { grid-template-columns: 1fr; }
-  .discipline-item { grid-template-columns: 1fr; gap: 16px; }
-  .discipline-meta { flex-direction: row; padding-right: 0; }
-}
-
-@media (max-width: 767px) {
-  .footer-inner { padding: 48px 24px; }
-  .footer-section { grid-template-columns: 1fr; gap: 12px; }
-  .footer-section-label { padding-right: 0; }
-  .footer-colophon { flex-direction: column; gap: 8px; }
-}
-</style>
+<link rel="stylesheet" href="/assets/kd.css">
 </head>
 <body>
 
@@ -887,7 +19,7 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
   <div class="masthead-top">
     <div class="masthead-date" id="masthead-date"></div>
     <div class="masthead-wordmark">
-      KILL DULL<span class="tm">&#x2122;</span><span class="terminal"></span>
+      <a href="/">KILL DULL<span class="tm">&#x2122;</span><span class="terminal"></span></a>
     </div>
     <div class="masthead-designation">
       <span>THE</span> DENSE IDEA COMPANY<span class="tm">&#x2122;</span>
@@ -902,7 +34,7 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
   <!-- BUREAU BULLETIN -->
   <div class="masthead-bulletin">
     <span class="bulletin-label">FROM THE BUREAU</span>
-    <span class="bulletin-text">Case 017 released</span>
+    <span class="bulletin-text">First Readings in production.</span>
   </div>
 
   <!-- BORDER -->
@@ -917,21 +49,21 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
     <a class="reg-item" data-chapter="evidence" href="#evidence">EVIDENCE</a>
     <a class="reg-item" data-chapter="conviction" href="#conviction">CONVICTION</a>
     <a class="reg-item" data-chapter="judgment" href="#judgment">JUDGMENT</a>
-    <a class="reg-item" data-chapter="access" href="#access">EARLY ACCESS</a>
     <a class="reg-item" data-chapter="bureau" href="#bureau">THE BUREAU</a>
   </div>
 
-  <!-- Product navigation — right -->
+  <!-- Destination navigation — right -->
   <div class="unified-nav-products">
-    <a class="product-link" href="/truth.html">THE CASE</a>
-    <a class="product-link" href="/reckoning.html">THE BENCH</a>
-    <a class="product-cta" href="/truth.html">
-      <span class="enter-text">DEMO YOUR CASE</span>
+    <a class="product-link" href="/discipline">THE DISCIPLINE</a>
+    <a class="product-link" href="/bench">THE BENCH</a>
+    <a class="product-link" href="/readings">READINGS</a>
+    <a class="product-cta" href="/bench#discuss">
+      <span class="enter-text">DISCUSS A DECISION</span>
       <span class="enter-arrow">&#x2192;</span>
     </a>
   </div>
 
-  <!-- Mobile: active chapter dropdown (unchanged) -->
+  <!-- Mobile: active chapter dropdown -->
   <div class="registrar-mobile">
     <button class="reg-mobile-current" id="reg-mobile-btn">
       <span id="reg-mobile-label">OBSERVATION</span>
@@ -942,22 +74,24 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
       <a class="reg-item" data-chapter="evidence" href="#evidence">EVIDENCE</a>
       <a class="reg-item" data-chapter="conviction" href="#conviction">CONVICTION</a>
       <a class="reg-item" data-chapter="judgment" href="#judgment">JUDGMENT</a>
-      <a class="reg-item" data-chapter="access" href="#access">EARLY ACCESS</a>
       <a class="reg-item" data-chapter="bureau" href="#bureau">THE BUREAU</a>
+      <a class="reg-item" href="/discipline">THE DISCIPLINE</a>
+      <a class="reg-item" href="/bench">THE BENCH</a>
+      <a class="reg-item" href="/readings">PUBLISHED READINGS</a>
     </div>
   </div>
 </div>
 
 <main>
 
-<!-- VP1: OBSERVATION -->
+<!-- 01 — OBSERVATION -->
 <section class="viewport" id="observation" aria-label="Observation">
   <div class="running-head">
-    <span>KD &middot; OFFICE &middot; CASE&#x2014;000</span>
+    <span>KD &middot; OFFICE &middot; OBS&#x2014;001</span>
     <span>OBSERVATION</span>
   </div>
-  <span class="hero-line-wrap"><h1 class="hero-line" id="hero-line-1">DRIFT IS SUBTLE.</h1></span>
-  <span class="hero-line-wrap" style="margin-bottom: 52px;"><h1 class="hero-line" id="hero-line-2">DANGEROUSLY SUBTLE.</h1></span>
+  <span class="hero-line-wrap"><h1 class="hero-line js-fit" id="hero-line-1">GOOD DECISIONS CAN</h1></span>
+  <span class="hero-line-wrap" style="margin-bottom: 52px;"><h1 class="hero-line js-fit" id="hero-line-2">STILL ADD UP WRONG.</h1></span>
   <div class="hero-body">
     <p>At first, you don&#x2019;t notice it.</p>
     <p>One reasonable commitment.<br>Then another.<br>A new trend.<br>A new priority.<br>A new opinion.<br>A new technology.<br>A new strategy.</p>
@@ -966,169 +100,241 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
     <p>Every commitment changes the course.</p>
     <p>When everything tells you where to go,<br>what reminds you who you are?</p>
   </div>
+  <p class="kd-statement">DRIFT IS SUBTLE.<br>DANGEROUSLY SUBTLE.</p>
 </section>
 
-<!-- VP2: EVIDENCE -->
+<!-- 02 — EVIDENCE -->
 <section class="viewport" id="evidence" aria-label="Evidence">
   <div class="running-head">
-    <span>KD &middot; OFFICE &middot; CASE&#x2014;000</span>
+    <span>KD &middot; OFFICE &middot; EVD&#x2014;002</span>
     <span>EVIDENCE</span>
   </div>
-  <span class="hero-line-wrap"><p class="hero-line" id="evidence-hl-1">INTRODUCING</p></span>
-  <span class="hero-line-wrap"><p class="hero-line" id="evidence-hl-2">THE IDEA BALANCE SHEET.</p></span>
+  <h2 class="chapter-headline">THREE DIRECTIONS.</h2>
+  <div class="kd-examples">
+
+    <div class="kd-example">
+      <div class="kd-example-org">Red Bull</div>
+      <div>
+        <p class="kd-example-idea">A worldview.</p>
+        <p class="kd-example-note">Different decades. Different expressions. Still Red Bull.</p>
+      </div>
+      <span class="kd-verdict kd-verdict--duh">DUH.</span>
+    </div>
+
+    <div class="kd-example">
+      <div class="kd-example-org">Talenti</div>
+      <div>
+        <p class="kd-example-idea">Transparency.</p>
+        <p class="kd-example-note">Layers. Bars. Formats. Extensions. More Talenti? Or merely more?</p>
+      </div>
+      <span class="kd-verdict kd-verdict--hmm">HMM.</span>
+    </div>
+
+    <div class="kd-example">
+      <div class="kd-example-org">Nike</div>
+      <div>
+        <p class="kd-example-idea">Everyone is an athlete.</p>
+        <p class="kd-example-note">DTC. Digital. Data. Margin. Efficiency. And somewhere along the way, less Nike.</p>
+      </div>
+      <span class="kd-verdict kd-verdict--dull">DULL.</span>
+    </div>
+
+  </div>
+  <p class="kd-statement">THESE ARE NOT JUDGMENTS ON COMPANIES.<br>THEY&#x2019;RE JUDGMENTS ON DIRECTION.</p>
+  <div class="hero-body" style="margin-top:40px;">
+    <p>A company can compound.<br>A company can drift.</p>
+    <p>And sometimes the difference is a series of entirely reasonable decisions.</p>
+  </div>
+  <a class="kd-call-secondary" href="/readings"><span class="sq"></span>READ THE READINGS &#x2192;</a>
+</section>
+
+<!-- 03 — CONVICTION -->
+<section class="viewport" id="conviction" aria-label="Conviction">
+  <div class="running-head">
+    <span>KD &middot; OFFICE &middot; CNV&#x2014;003</span>
+    <span>CONVICTION</span>
+  </div>
+  <h2 class="hero-headline js-fit" id="conviction-hl">WHAT MAKES GOOD DECISIONS ADD UP?</h2>
+  <div class="hero-body">
+    <p>A company needs something to make them from.</p>
+  </div>
+  <p class="kd-statement kd-statement--yellow">A DENSE IDEA.</p>
+  <div class="hero-body" style="margin-top:40px;">
+    <p>Not a tagline.<br>Not a campaign.<br>Not a brand purpose written on a wall.</p>
+    <p>An idea dense enough to keep generating decisions without losing itself.</p>
+  </div>
+
+  <div class="kd-examples">
+    <div class="kd-example">
+      <div class="kd-example-org">LEGO</div>
+      <div><p class="kd-example-idea">System of play.</p></div>
+      <span></span>
+    </div>
+    <div class="kd-example">
+      <div class="kd-example-org">Costco</div>
+      <div><p class="kd-example-idea">Member value.</p></div>
+      <span></span>
+    </div>
+    <div class="kd-example">
+      <div class="kd-example-org">Patagonia</div>
+      <div><p class="kd-example-idea">Environmental responsibility.</p></div>
+      <span></span>
+    </div>
+    <div class="kd-example">
+      <div class="kd-example-org">Muji</div>
+      <div><p class="kd-example-idea">No-brand quality.</p></div>
+      <span></span>
+    </div>
+    <div class="kd-example">
+      <div class="kd-example-org">WD-40</div>
+      <div><p class="kd-example-idea">One problem. Solved exceptionally well.</p></div>
+      <span></span>
+    </div>
+    <div class="kd-example">
+      <div class="kd-example-org">The New Yorker</div>
+      <div><p class="kd-example-idea">A particular view of the world.</p></div>
+      <span></span>
+    </div>
+  </div>
+
+  <div class="hero-body" style="margin-top:48px;">
+    <p>Different industries.<br>Different business models.<br>Different generations.</p>
+  </div>
+  <p class="kd-statement">SAME PRINCIPLE.</p>
+  <div class="hero-body" style="margin-top:40px;">
+    <p>A Dense Idea tells an organization what it can do.</p>
+  </div>
+  <p class="kd-statement">AND, CRUCIALLY:<br><span style="color:var(--yellow);">WHAT IT SHOULDN&#x2019;T.</span></p>
+</section>
+
+<!-- 04 — JUDGMENT -->
+<section class="viewport" id="judgment" aria-label="Judgment">
+  <div class="running-head">
+    <span>KD &middot; OFFICE &middot; JDG&#x2014;004</span>
+    <span>JUDGMENT</span>
+  </div>
+  <h2 class="hero-headline js-fit" id="judgment-hl">KNOWING WHAT YOU STAND FOR ISN&#x2019;T ENOUGH.</h2>
+  <div class="hero-body">
+    <p>A Dense Idea gives you something to make decisions from.<br>It doesn&#x2019;t make the decision for you.</p>
+    <p>A new market.<br>A new product.<br>A new technology.<br>A new competitor.<br>A difficult quarter.<br>A seductive opportunity.</p>
+    <p>Each can create a perfectly reasonable case for an exception.</p>
+  </div>
+  <p class="kd-statement">THAT&#x2019;S WHERE JUDGMENT BEGINS.</p>
+
   <div class="evidence-grid">
     <div class="evidence-col">
       <div class="evidence-concept">Big Data.</div>
       <hr class="evidence-divider">
       <ul class="evidence-list">
-        <li>Market research.</li>
-        <li>Audience behaviour.</li>
-        <li>Performance benchmarks.</li>
-        <li>Category data.</li>
-        <li>System1 evidence.</li>
-        <li>Effie proof.</li>
+        <li>Evidence.</li>
+        <li>Research.</li>
+        <li>Performance.</li>
+        <li>Finance.</li>
+        <li>Markets.</li>
+        <li>AI.</li>
       </ul>
     </div>
     <div class="evidence-col">
       <div class="evidence-concept">Gut Data.</div>
       <hr class="evidence-divider">
       <ul class="evidence-list">
-        <li>Creative instinct.</li>
-        <li>Lived experience.</li>
+        <li>Experience.</li>
+        <li>Instinct.</li>
         <li>Pattern recognition.</li>
-        <li>Cultural reading.</li>
+        <li>Culture.</li>
+        <li>Tacit knowledge.</li>
         <li>Human judgment.</li>
-        <li>The room&#x2019;s feeling.</li>
       </ul>
     </div>
   </div>
+
   <p class="evidence-statement">Neither is sufficient alone.</p>
-  <p class="evidence-body">Better decisions emerge when both are present.<br>That&#x2019;s what Kill Dull builds for.</p>
-</section>
+  <p class="kd-statement kd-statement--yellow">YOU NEED BOTH.</p>
 
-<!-- VP3: CONVICTION -->
-<section class="viewport" id="conviction" aria-label="Conviction">
-  <div class="running-head">
-    <span>KD &middot; OFFICE &middot; CASE&#x2014;000</span>
-    <span>CONVICTION</span>
-  </div>
-  <h2 class="hero-headline" id="conviction-hl">DULL IS EXPENSIVE.</h2>
-  <div class="hero-body">
-    <p class="text-secondary">System1 and Effie proved it.</p>
-    <p>Entertaining work compounds.<br>Dull work depreciates.</p>
-    <p>Before you show it to the world,<br>build your <a href="/truth.html" class="inline-link">Case</a>.<br>Take it to <a href="/reckoning.html" class="inline-link">The Bench</a>.</p>
-  </div>
-  <div class="push">
-    <p class="standalone-word standalone-word--yellow">DUH.</p>
+  <div style="margin-top:72px;">
+    <div class="section-index">AN INSTRUMENT OF THE DISCIPLINE</div>
+    <h3 class="kd-subhead">The Dense Idea Balance Sheet.</h3>
+    <p class="evidence-body">It makes visible what a decision could compound &#x2014; and what it could depreciate.</p>
+    <a class="kd-call-secondary" href="/discipline"><span class="sq"></span>INSIDE THE DISCIPLINE &#x2192;</a>
   </div>
 </section>
 
-<!-- VP4+VP5: READING + DECISION (merged) -->
-<section class="viewport" id="judgment" aria-label="Judgment">
+<!-- 05 — THE DENSE IDEA DISCIPLINE -->
+<section class="viewport" id="discipline" aria-label="The Dense Idea Discipline">
   <div class="running-head">
-    <span>KD &middot; OFFICE &middot; CASE&#x2014;000</span>
-    <span>JUDGMENT</span>
+    <span>KD &middot; OFFICE &middot; DSC&#x2014;005</span>
+    <span>THE DISCIPLINE</span>
   </div>
-  <h2 class="hero-line" id="discipline-hl">THE DENSE IDEA DISCIPLINE.</h2>
+  <h2 class="hero-line js-fit" id="discipline-hl">THE DENSE IDEA DISCIPLINE.</h2>
   <div class="reading-body">
-    <p>Kill Dull is building a new practice for better decisions.</p>
     <p>Not a tool. Not a platform. Not an AI assistant.</p>
     <p>A discipline.</p>
-    <p>One that brings Big Data and Gut Data together.<br>One that builds conviction before it defends it.<br>One that challenges ideas before the world does.<br>One that compounds over time.</p>
+    <p>A discipline for making consequential decisions without slowly becoming less yourself.</p>
+    <p>Evidence matters. Experience matters. Identity matters. Consequences matter.</p>
   </div>
-  <div id="judgment-sentinel" style="height:1px;"></div>
-  <div class="discipline-list">
+  <p class="kd-statement kd-statement--yellow">JUDGMENT REMAINS HUMAN.</p>
 
-    <div class="discipline-item">
-      <div class="discipline-meta">
-        <span class="discipline-number">01</span>
-        <span class="discipline-status">AVAILABLE</span>
-      </div>
-      <div class="discipline-content">
-        <h3 class="discipline-name">The Case.</h3>
-        <p class="discipline-desc">Build conviction. Interrogate assumptions. Gather evidence. Define the problem worth solving before creative work begins. Leave with a Case File worth defending.</p>
-        <a class="discipline-cta" href="/truth.html"><span class="sq"></span>START YOUR CASE &#x2192;</a>
-      </div>
-    </div>
-
-    <div class="discipline-item">
-      <div class="discipline-meta">
-        <span class="discipline-number">02</span>
-        <span class="discipline-status">AVAILABLE</span>
-      </div>
-      <div class="discipline-content">
-        <h3 class="discipline-name">The Bench.</h3>
-        <p class="discipline-desc">Challenge conviction. Judge creative work before the world does. Present your evidence. Receive a verdict. Before your client. Before the world.</p>
-        <a class="discipline-cta" href="/reckoning.html"><span class="sq"></span>GO TO THE BENCH &#x2192;</a>
-      </div>
-    </div>
-
-    <div class="discipline-item">
-      <div class="discipline-meta">
-        <span class="discipline-number">03</span>
-        <span class="discipline-status discipline-status--pending">COMING SOON</span>
-      </div>
-      <div class="discipline-content">
-        <h3 class="discipline-name">The Library.</h3>
-        <p class="discipline-desc">Learn from great decisions. A growing collection of public cases, historical decisions, and original thinking on judgment, evidence, and creative courage.</p>
-      </div>
-    </div>
-
-    <div class="discipline-item" style="border-bottom: none;">
-      <div class="discipline-meta">
-        <span class="discipline-number">04</span>
-        <span class="discipline-status">ALWAYS</span>
-      </div>
-      <div class="discipline-content">
-        <h3 class="discipline-name">Private.</h3>
-        <p class="discipline-desc">Protect conviction. No fine print. No leaks. No sharing. No public AI training. Your briefs stay yours. Your campaigns stay yours. Your ideas stay yours.</p>
-      </div>
-    </div>
-
+  <div class="kd-gateways">
+    <a class="kd-gateway" href="/discipline">
+      <span class="kd-gateway-label">01 &middot; The system</span>
+      <span class="kd-gateway-name">The Discipline.</span>
+      <span class="kd-gateway-desc">Dense Ideas, compounding and depreciation, the Dense Idea Balance Sheet, and where human judgment sits.</span>
+      <span class="kd-gateway-arrow">ENTER &#x2192;</span>
+    </a>
+    <a class="kd-gateway" href="/bench">
+      <span class="kd-gateway-label">02 &middot; The process</span>
+      <span class="kd-gateway-name">The Bench.</span>
+      <span class="kd-gateway-desc">One consequential commitment. Evidence assembled. Assumptions challenged. Consequences exposed.</span>
+      <span class="kd-gateway-arrow">ENTER &#x2192;</span>
+    </a>
+    <a class="kd-gateway" href="/readings">
+      <span class="kd-gateway-label">03 &middot; The practice in public</span>
+      <span class="kd-gateway-name">Published Readings.</span>
+      <span class="kd-gateway-desc">Decisions already made, put back on The Bench and interrogated against the same discipline.</span>
+      <span class="kd-gateway-arrow">ENTER &#x2192;</span>
+    </a>
   </div>
 </section>
 
-<!-- VP6: EARLY ACCESS -->
-<section class="viewport" id="access" aria-label="Early Access">
-  <div class="running-head">
-    <span>KD &middot; OFFICE &middot; MAN&#x2014;001</span>
-    <span>EARLY ACCESS</span>
-  </div>
-  <h2 class="hero-headline" id="access-hl">EARLY ACCESS.</h2>
-  <div class="access-body">
-    <p class="access-statement">No subscription.</p>
-    <p class="access-statement">No catch.</p>
-    <p class="access-statement">Just better work.</p>
-  </div>
-  <p class="access-desc">We&#x2019;re building Kill Dull with the people who&#x2019;ll use it.<br><a href="/truth.html" class="inline-link">The Case</a> and <a href="/reckoning.html" class="inline-link">The Bench</a> are available now.<br>The Library is coming.</p>
-</section>
-
-<!-- VP7: THE BUREAU -->
-<section class="viewport" id="bureau" aria-label="The Bureau" style="padding-bottom: calc(var(--section-pad-v) + 48px);">
+<!-- THE BUREAU -->
+<section class="viewport" id="bureau" aria-label="The Bureau">
   <div class="running-head">
     <span>KD &middot; OFFICE &middot; AR&#x2014;2026</span>
     <span>THE BUREAU</span>
   </div>
   <div class="section-index">THE BUREAU</div>
-  <h2 class="hero-line" id="bureau-hl">DEPARTMENT OF HARD EVIDENCE.</h2>
+  <h2 class="hero-line js-fit" id="bureau-hl">DEPARTMENT OF HARD EVIDENCE.</h2>
   <p class="bureau-mission">Kill Dull makes better judgment a repeatable practice.</p>
   <div class="bureau-body">
-    <p>The Bureau exists to improve judgment.<br>Every decision compounds.<br>The only question is what.</p>
-    <div class="bureau-framework">
-      <p class="bureau-framework-label">Questions from the Department of Hard Evidence.</p>
-      <p class="bureau-framework-intro">Before making an important decision, ask:</p>
-      <div class="bureau-questions">
-        <p>Does this compound?</p>
-        <p>What evidence supports it?</p>
-        <p>What assumptions am I making?</p>
-        <p>What would change my mind?</p>
-        <p>Has this been to The Bench?</p>
-      </div>
-    </div>
+    <p>The Department exists to improve judgment.<br>Every decision compounds.<br>The only question is what.</p>
     <p>Opinions are welcome.<br>Evidence is preferred.<br>Experience is respected.<br>Ego is expensive.</p>
     <p>Good judgment is not a talent.<br>It is a practice.</p>
   </div>
+  <a class="kd-call-secondary" href="/bureau"><span class="sq"></span>ENTER THE DEPARTMENT &#x2192;</a>
   <p class="standalone-word standalone-word--yellow push">DUH.</p>
+</section>
+
+<!-- 10 — CLOSE -->
+<section class="viewport" id="close" aria-label="Close">
+  <div class="running-head">
+    <span>KD &middot; OFFICE &middot; MAN&#x2014;001</span>
+    <span>BEFORE YOU COMMIT</span>
+  </div>
+  <h2 class="hero-headline js-fit" id="close-hl">WHAT ARE YOU ABOUT TO COMMIT TO?</h2>
+  <p class="kd-close-list">
+    A positioning.<br>
+    A product.<br>
+    A market.<br>
+    A technology.<br>
+    An acquisition.<br>
+    An experience.<br>
+    A change that makes perfect sense.
+  </p>
+  <p class="kd-statement">BEFORE IT BECOMES EXPENSIVE TO UNDO:<br><span style="color:var(--yellow);">PUT IT ON THE BENCH.</span></p>
+  <div class="kd-calls">
+    <a class="kd-call" href="/bench#discuss">DISCUSS A DECISION <span>&#x2192;</span></a>
+    <a class="kd-call-secondary" href="/readings"><span class="sq"></span>READ THE READINGS &#x2192;</a>
+  </div>
 </section>
 
 </main>
@@ -1142,29 +348,30 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
     <div class="footer-index">
 
       <div class="footer-section">
-        <div class="footer-section-label">PUBLICATIONS</div>
-        <nav aria-label="Publications">
-          <a href="/truth.html">The Case</a>
-          <a href="/reckoning.html">The Bench</a>
-          <a href="/library.html" aria-label="The Kill Dull Library">The Library</a>
+        <div class="footer-section-label">THE PRACTICE</div>
+        <nav aria-label="The practice">
+          <a href="/discipline">The Dense Idea Discipline</a>
+          <a href="/bench">The Bench</a>
+          <a href="/bench#discuss">Independent Interrogation</a>
+        </nav>
+      </div>
+
+      <div class="footer-section">
+        <div class="footer-section-label">PUBLIC RECORD</div>
+        <nav aria-label="Public record">
+          <a href="/readings">Published Readings</a>
+          <a href="/bureau">Department of Hard Evidence</a>
         </nav>
       </div>
 
       <div class="footer-section">
         <div class="footer-section-label">INSTITUTION</div>
         <nav aria-label="Institution">
+          <a href="/office">The Office</a>
           <a href="/accessibility.html" aria-label="Accessibility statement">Accessibility</a>
           <a href="/language.html" aria-label="Language settings">Language</a>
           <a href="/privacy.html" aria-label="Privacy policy">Privacy</a>
           <a href="/terms.html" aria-label="Terms of use">Terms</a>
-        </nav>
-      </div>
-
-      <div class="footer-section">
-        <div class="footer-section-label">ENGAGE</div>
-        <nav aria-label="Engage">
-          <a href="/truth.html" aria-label="Apply for early access">Early Access</a>
-          <a href="/contact.html" aria-label="Contact Kill Dull">Contact</a>
         </nav>
       </div>
 
@@ -1178,138 +385,7 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
   </div>
 </footer>
 
-<script>
-function fitToWidth(el, horizontalPad) {
-  if (!el) return;
-  el.style.whiteSpace = 'nowrap';
-  el.style.fontSize = '500px';
-  var ratio = (window.innerWidth - horizontalPad) / el.scrollWidth;
-  el.style.fontSize = Math.max(10, Math.floor(ratio * 500)) + 'px';
-}
-
-// Dynamic masthead date
-(function() {
-  var months = ['JANUARY','FEBRUARY','MARCH','APRIL','MAY','JUNE',
-                'JULY','AUGUST','SEPTEMBER','OCTOBER','NOVEMBER','DECEMBER'];
-  var now = new Date();
-  var day = now.getDate();
-  var month = months[now.getMonth()];
-  var year = now.getFullYear();
-  var el = document.getElementById('masthead-date');
-  if (el) el.textContent = day + ' ' + month + ' ' + year;
-})();
-
-function fitAll() {
-  const pad = window.innerWidth < 768 ? 48 :
-              window.innerWidth < 1280 ? 128 : 240;
-  fitToWidth(document.getElementById('hero-line-1'), pad);
-  fitToWidth(document.getElementById('hero-line-2'), pad);
-  fitToWidth(document.getElementById('evidence-hl-1'), pad);
-  fitToWidth(document.getElementById('evidence-hl-2'), pad);
-  fitToWidth(document.getElementById('conviction-hl'), pad);
-  fitToWidth(document.getElementById('discipline-hl'), pad);
-  fitToWidth(document.getElementById('bureau-hl'), pad);
-  fitToWidth(document.getElementById('access-hl'), pad);
-}
-
-document.addEventListener('DOMContentLoaded', fitAll);
-window.addEventListener('load', fitAll);
-
-(function() {
-  var chapters = ['observation','evidence','conviction','judgment','access','bureau'];
-  var elMap = {
-    observation: 'observation',
-    evidence: 'evidence',
-    conviction: 'conviction',
-    judgment: 'judgment',
-    access: 'access',
-    bureau: 'bureau'
-  };
-  var scrollMap = {
-    observation: 'observation',
-    evidence: 'evidence',
-    conviction: 'conviction',
-    judgment: 'judgment',
-    access: 'access',
-    bureau: 'bureau'
-  };
-  var labels = ['OBSERVATION','EVIDENCE','CONVICTION','JUDGMENT','EARLY ACCESS','THE BUREAU'];
-
-  function getOffset() {
-    var mh = document.getElementById('masthead');
-    var reg = document.getElementById('registrar');
-    return (mh ? mh.offsetHeight : 0) + (reg ? reg.offsetHeight : 0);
-  }
-
-  function positionRegistrar() {
-    var mh = document.getElementById('masthead');
-    var bl = document.querySelector('.masthead-bulletin');
-    var reg = document.getElementById('registrar');
-    var mhH = mh ? mh.offsetHeight : 0;
-    if (reg) reg.style.top = mhH + 'px';
-  }
-
-  function setBodyOffset() {
-    var main = document.querySelector('main');
-    if (main) main.style.paddingTop = getOffset() + 'px';
-  }
-
-  function getActive() {
-    var threshold = getOffset() + 20;
-    var active = chapters[0];
-    chapters.forEach(function(ch) {
-      var el = document.getElementById(elMap[ch]);
-      if (el && el.getBoundingClientRect().top <= threshold) active = ch;
-    });
-    return active;
-  }
-
-  function updateRegistrar() {
-    var active = getActive();
-    var activeIdx = chapters.indexOf(active);
-    document.querySelectorAll('#registrar-desktop .reg-item').forEach(function(item, i) {
-      item.classList.remove('is-active', 'is-past');
-      if (i < activeIdx) item.classList.add('is-past');
-      else if (i === activeIdx) item.classList.add('is-active');
-    });
-    var mobileLabel = document.getElementById('reg-mobile-label');
-    if (mobileLabel) mobileLabel.textContent = labels[activeIdx] || labels[0];
-  }
-
-  var mobileBtn = document.getElementById('reg-mobile-btn');
-  var mobileDropdown = document.getElementById('reg-mobile-dropdown');
-  if (mobileBtn && mobileDropdown) {
-    mobileBtn.addEventListener('click', function() {
-      if (mobileDropdown.hasAttribute('hidden')) mobileDropdown.removeAttribute('hidden');
-      else mobileDropdown.setAttribute('hidden', '');
-    });
-    mobileDropdown.querySelectorAll('a').forEach(function(a) {
-      a.addEventListener('click', function() { mobileDropdown.setAttribute('hidden', ''); });
-    });
-  }
-
-  document.querySelectorAll('.reg-item[data-chapter]').forEach(function(a) {
-    a.addEventListener('click', function(e) {
-      e.preventDefault();
-      var target = document.getElementById(scrollMap[this.getAttribute('data-chapter')]);
-      if (target) window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - getOffset(), behavior: 'smooth' });
-    });
-  });
-
-  positionRegistrar();
-  setBodyOffset();
-  updateRegistrar();
-  fitAll();
-
-  window.addEventListener('scroll', updateRegistrar);
-  window.addEventListener('resize', function() {
-    positionRegistrar();
-    setBodyOffset();
-    updateRegistrar();
-    fitAll();
-  });
-})();
-</script>
+<script src="/assets/kd.js"></script>
 
 </body>
 </html>

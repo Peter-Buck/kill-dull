@@ -1,13 +1,22 @@
 {
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
-    { "source": "/truth", "destination": "/truth.html" },
-    { "source": "/reckoning", "destination": "/reckoning.html" },
-    { "source": "/storm", "destination": "/storm.html" },
-    { "source": "/library", "destination": "/library.html" },
+    { "source": "/discipline", "destination": "/discipline.html" },
+    { "source": "/bench", "destination": "/bench.html" },
+    { "source": "/readings", "destination": "/readings.html" },
+    { "source": "/bureau", "destination": "/bureau.html" },
+    { "source": "/office", "destination": "/office.html" },
     { "source": "/accessibility", "destination": "/accessibility.html" },
     { "source": "/language", "destination": "/language.html" },
     { "source": "/privacy", "destination": "/privacy.html" },
     { "source": "/terms", "destination": "/terms.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive, nosnippet, noimageindex" }
+      ]
+    }
   ]
 }
