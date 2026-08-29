@@ -11,8 +11,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/kd.css">
 <link rel="stylesheet" href="/assets/v3.css">
+<link rel="stylesheet" href="/assets/v4.css">
 </head>
-<body class="v3">
+<body class="v3 v4">
 <header class="masthead" id="masthead">
   <div class="masthead-top">
     <div class="masthead-date" id="masthead-date"></div>
@@ -30,84 +31,77 @@
 </nav>
 
 <main class="pub-main">
-  <section class="front-grid" aria-label="Kill Dull front page">
-    <article class="lead-story tile">
-      <div class="eyebrow">THE PROPOSITION · KD—001</div>
-      <h1>GOOD DECISIONS CAN STILL ADD UP WRONG.</h1>
-      <div class="lead-copy"><p>It rarely starts with a terrible decision. Usually it starts with a reasonable one. Then another. Each makes sense on its own.</p><p>Until the organization no longer quite resembles itself.</p></div>
-      <p class="lead-question">What does this decision do to the company over time?</p>
-    </article>
+  <section class="guided-stage" data-guided-stage aria-label="Kill Dull proposition">
+    <div class="guided-track">
 
-    <article class="bench-panel tile dark-panel">
-      <div class="eyebrow">THE WORK WE DO · PRIVATE</div>
-      <h2>THE BENCH.</h2>
-      <p>Independent interrogation of one consequential commitment before you make it.</p>
-      <div class="bench-steps"><span>01 · EVIDENCE ASSEMBLED</span><span>02 · ASSUMPTIONS CHALLENGED</span><span>03 · CONSEQUENCES EXPOSED</span></div>
-      <p class="human-line">HUMANS JUDGE.<br>HUMANS DECIDE.</p>
-      <a class="panel-link" href="/bench">PUT IT ON THE BENCH →</a>
-    </article>
+      <section class="guided-panel guided-proposition" aria-label="The proposition">
+        <div class="guided-inner">
+          <article class="guided-lead">
+            <div class="eyebrow">THE PROPOSITION · KD—001</div>
+            <h1>GOOD DECISIONS CAN STILL ADD UP WRONG.</h1>
+            <p class="lead-question">What does this decision do to the company over time?</p>
+          </article>
 
-    <article class="reading-card tile reading-duh">
-      <div class="eyebrow">PUBLISHED READING · 001</div>
-      <h3>RED BULL</h3>
-      <p class="reading-idea">A worldview.</p>
-      <p>Different decades. Different expressions. Still Red Bull.</p>
-      <div class="verdict">DUH.</div>
-    </article>
+          <aside class="guided-context">
+            <div class="eyebrow">HOW IT HAPPENS</div>
+            <p>It rarely starts with a terrible decision. Usually it starts with a reasonable one.</p>
+            <p>Then another. Each makes sense on its own. Until the organization no longer quite resembles itself.</p>
+            <p class="context-close">THE QUESTION IS NOT ONLY WHETHER A DECISION WORKS. IT IS WHAT DIRECTION IT CREATES.</p>
+          </aside>
 
-    <article class="reading-card tile reading-hmm">
-      <div class="eyebrow">PUBLISHED READING · 002</div>
-      <h3>STARBUCKS</h3>
-      <p class="reading-idea">The Third Place.</p>
-      <p>Convenience, digital and efficiency. More Starbucks — or merely more convenient?</p>
-      <div class="verdict">HMM.</div>
-    </article>
+          <button class="guided-next" type="button" data-guided-next aria-expanded="false" aria-controls="directions-panel">
+            <span><strong>SEE THREE DIRECTIONS.</strong></span>
+            <span class="move-arrow" aria-hidden="true">→</span>
+          </button>
+        </div>
+      </section>
 
-    <article class="reading-card tile reading-dull">
-      <div class="eyebrow">PUBLISHED READING · 003</div>
-      <h3>NIKE</h3>
-      <p class="reading-idea">Everyone is an athlete.</p>
-      <p>DTC. Digital. Data. Margin. Efficiency. Somewhere along the way, less Nike.</p>
-      <div class="verdict">DULL.</div>
-    </article>
+      <section class="guided-panel guided-directions" id="directions-panel" aria-label="Three directions">
+        <div class="guided-inner">
+          <header class="directions-head">
+            <div>
+              <div class="eyebrow">THREE DECISIONS · THREE DIRECTIONS</div>
+              <h2>THREE DIRECTIONS.</h2>
+            </div>
+            <p>The point is not whether these are good companies. The point is what individual decisions accumulate toward.</p>
+          </header>
 
-    <article class="dense-panel tile">
-      <div class="eyebrow">THE DENSE IDEA · NOTE 01</div>
-      <h2>WHAT DO YOU MAKE DECISIONS FROM?</h2>
-      <p>A Dense Idea is strong enough to keep generating decisions without losing itself. It tells an organization what it can do — and, crucially, what it shouldn’t.</p>
-      <div class="dense-strip">NOT A TAGLINE. NOT A CAMPAIGN. A SOURCE OF DECISIONS.</div>
-    </article>
+          <div class="direction-grid">
+            <article class="direction-card direction-duh">
+              <div class="eyebrow">PUBLISHED READING · 001</div>
+              <h3>RED BULL</h3>
+              <p class="direction-idea">A worldview.</p>
+              <p>Different decades. Different expressions. Still Red Bull.</p>
+              <div class="verdict">DUH.</div>
+            </article>
 
-    <article class="criteria-panel tile">
-      <div class="eyebrow">THE INTERROGATION · FIVE LENSES</div>
-      <h2>WHAT GETS CONSIDERED?</h2>
-      <div class="criteria-list">
-        <div><b>DISTINCTIVENESS</b><span>Recognizable or interchangeable?</span></div>
-        <div><b>PREFERENCE</b><span>Strengthen why people choose you?</span></div>
-        <div><b>COHERENCE</b><span>Compound or depreciate?</span></div>
-        <div><b>IMITABILITY</b><span>Advantage or easier to copy?</span></div>
-        <div><b>IDENTITY</b><span>More itself or less itself?</span></div>
-      </div>
-      <small>Five criteria. Not the entire interrogation.</small>
-    </article>
+            <article class="direction-card direction-hmm">
+              <div class="eyebrow">PUBLISHED READING · 002</div>
+              <h3>STARBUCKS</h3>
+              <p class="direction-idea">The Third Place.</p>
+              <p>Convenience, digital and efficiency. More Starbucks — or merely more convenient?</p>
+              <div class="verdict">HMM.</div>
+            </article>
 
-    <article class="record-panel tile yellow-panel">
-      <div class="eyebrow">THE WORK WE PUBLISH · PUBLIC</div>
-      <h2>READINGS.</h2>
-      <p>Decisions already made, put back on The Bench. Same scrutiny. Public record.</p>
-      <a class="panel-link" href="/readings">ENTER THE RECORD →</a>
-    </article>
+            <article class="direction-card direction-dull">
+              <div class="eyebrow">PUBLISHED READING · 003</div>
+              <h3>NIKE</h3>
+              <p class="direction-idea">Everyone is an athlete.</p>
+              <p>DTC. Digital. Data. Margin. Efficiency. Somewhere along the way, less Nike.</p>
+              <div class="verdict">DULL.</div>
+            </article>
+          </div>
 
-    <article class="closing-panel tile">
-      <div class="eyebrow">INDEPENDENT INTERROGATION · BEFORE COMMITMENT</div>
-      <h2>NO CAMPAIGN TO SELL.<br>NO STRATEGY TO DEFEND.<br>NO PREFERRED OUTCOME.</h2>
-      <p>Only whether the commitment deserves to be made.</p>
-      <a class="closing-link" href="/bench#discuss">HAVE A DECISION? →</a>
-    </article>
+          <button class="guided-back" type="button" data-guided-back><span aria-hidden="true">←</span><span>BACK TO THE PROPOSITION</span></button>
+        </div>
+      </section>
+
+    </div>
   </section>
 </main>
 
 <footer class="pub-footer"><span>© 2026 KILL DULL™</span><span>THE DENSE IDEA COMPANY™</span><span>HUMAN@KILLDULL.COM</span></footer>
 <script src="/assets/kd.js"></script>
+<script src="/assets/v4.js"></script>
 </body>
 </html>
