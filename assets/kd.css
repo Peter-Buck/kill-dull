@@ -8,7 +8,7 @@
 /* TERMINAL MARK — CONSTANT COMPOUND PULSE */
 @keyframes kd-terminal-compound{
   0%{transform:scale(1)}
-  50%{transform:scale(1.075)}
+  50%{transform:scale(1.175)}
   100%{transform:scale(1)}
 }
 .terminal{display:inline-block;width:.72em;height:.72em;background:var(--yellow);margin-left:.08em;vertical-align:baseline;flex-shrink:0;transform-origin:center;animation:kd-terminal-compound 5.06s linear infinite}
