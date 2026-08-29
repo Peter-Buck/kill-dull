@@ -1,0 +1,27 @@
+/* V5 — EDIT THE ORIGINAL. DO NOT REDESIGN IT. */
+@keyframes kd-terminal-compound{0%{transform:scale(1)}50%{transform:scale(1.175)}100%{transform:scale(1)}}
+.terminal{transform-origin:center;animation:kd-terminal-compound 5.06s linear infinite}
+.footer .terminal{animation-delay:2.53s}
+.masthead-wordmark a,.masthead-wordmark a:hover,.masthead-wordmark a:focus,.masthead-wordmark a:active,.masthead-wordmark a:visited{color:var(--paper)!important}
+
+/* Homepage is an edit of the original: fewer chapters, less vertical waste. */
+.v5-home .viewport{min-height:auto;padding-top:72px;padding-bottom:112px}
+.v5-home #observation{padding-top:82px}
+.v5-home .hero-body{max-width:650px;gap:18px}
+.v5-home .hero-body p{margin:0}
+.v5-home .kd-statement{margin-top:42px}
+.v5-home .kd-examples{margin-top:46px}
+.v5-home .kd-example{padding:28px 0}
+.v5-home .evidence-grid{margin-top:48px;margin-bottom:34px}
+.v5-home .kd-gateways{margin-top:52px}
+.v5-home .kd-gateway{padding:28px}
+.v5-home .home-definition{font-size:clamp(20px,2.4vw,30px);line-height:1.35;max-width:780px;color:var(--paper);margin-top:28px}
+.v5-home .home-definition strong{color:var(--yellow)}
+.v5-home .home-bridge{font-size:17px;line-height:1.65;max-width:660px;color:var(--text-body);margin-top:26px}
+.v5-home .home-bench-process{margin-top:44px;border-top:1px solid var(--border)}
+.v5-home .home-bench-row{display:grid;grid-template-columns:90px 1fr;padding:20px 0;border-bottom:1px solid var(--border);align-items:baseline}
+.v5-home .home-bench-row span:first-child{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--text-tertiary)}
+.v5-home .home-bench-row strong{font-size:clamp(18px,2vw,25px);letter-spacing:-.02em}
+.v5-home .home-final{padding-bottom:130px}
+@media(prefers-reduced-motion:reduce){.terminal{animation:none!important}}
+@media(max-width:767px){.v5-home .viewport{padding-top:54px;padding-bottom:80px}.v5-home .home-bench-row{grid-template-columns:56px 1fr}.v5-home .kd-example{padding:24px 0}}
