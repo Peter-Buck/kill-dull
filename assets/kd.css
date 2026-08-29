@@ -5,13 +5,13 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:auto}body{background:var(--ink);color:var(--paper);font-family:'Space Grotesk',sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}*{border-radius:0!important}a{color:inherit;text-decoration:none}a:hover{color:var(--yellow)}a:focus-visible{outline:2px solid var(--yellow);outline-offset:2px}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 
-/* TERMINAL MARK — QUIET ACCUMULATION, NOT A PULSE */
+/* TERMINAL MARK — SLOW ACCUMULATION AND RELEASE, SAME SPEED */
 @keyframes kd-terminal-compound{
-  0%,18%{transform:scale(1)}
-  72%,88%{transform:scale(1.075)}
-  88.01%,100%{transform:scale(1)}
+  0%,12%{transform:scale(1)}
+  44%,56%{transform:scale(1.075)}
+  88%,100%{transform:scale(1)}
 }
-.terminal{display:inline-block;width:.72em;height:.72em;background:var(--yellow);margin-left:.08em;vertical-align:baseline;flex-shrink:0;transform-origin:center;animation:kd-terminal-compound 12s cubic-bezier(.16,1,.3,1) infinite}
+.terminal{display:inline-block;width:.72em;height:.72em;background:var(--yellow);margin-left:.08em;vertical-align:baseline;flex-shrink:0;transform-origin:center;animation:kd-terminal-compound 12s linear infinite}
 .footer .terminal{animation-delay:6s}.sq{display:inline-block;width:8px;height:8px;background:var(--yellow);flex-shrink:0}.tm{font-size:.45em;vertical-align:super;line-height:0;letter-spacing:.02em;margin-left:.05em;color:var(--paper)}
 
 /* MASTHEAD */
