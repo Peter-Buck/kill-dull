@@ -51,6 +51,45 @@
     if (main) main.style.paddingTop = getOffset() + 'px';
   }
 
+  /* ---- Homepage BENCH / PITCH introductions --------------------------- */
+  function buildHomepageIntroductions() {
+    var observation = document.getElementById('observation');
+    if (!observation || document.getElementById('pitch-intro')) return;
+
+    var benchLabel = document.createElement('div');
+    benchLabel.className = 'product-orientation';
+    benchLabel.innerHTML = '<span></span><span>BENCH</span>';
+    observation.insertBefore(benchLabel, observation.firstChild);
+
+    var pitch = document.createElement('section');
+    pitch.className = 'viewport home-paper pitch-intro';
+    pitch.id = 'pitch-intro';
+    pitch.innerHTML = '<div class="product-orientation"><span></span><span>PITCH</span></div>' +
+      '<span class="hero-line-wrap"><h2 class="hero-line js-fit">ABOUT TO MAKE SOMETHING?</h2></span>' +
+      '<div class="pitch-copy"><p>Good work rarely becomes dull all at once.</p><p>It happens along the way. A brief closes things down too early. The obvious answer wins before the interesting one gets a chance. Design makes something look finished before the thinking is. And what happened last time gets measured, filed away and forgotten.</p><p><strong>PITCH</strong> brings better judgment into the creative process — while there’s still time to do something about it.</p></div>' +
+      '<div class="pitch-steps"><div><strong>BRIEF</strong><span>Interrogate the problem before you solve it.</span></div><div><strong>PLAY</strong><span>Open up possibilities before you narrow them down.</span></div><div><strong>DESIGN</strong><span>Make the strongest idea stronger.</span></div><div><strong>LEARN</strong><span>Turn what happened into an advantage next time.</span></div></div>' +
+      '<div class="pitch-actions"><a class="pitch-watch" href="#pitch-video"><span class="pulse-square" aria-hidden="true"></span><span>Watch how PITCH works · 60 sec</span></a><a class="pitch-go" href="https://pitchagainstdull.com"><span class="pitch-prompt">Have something in the works?</span><span class="pitch-command">Pitch it</span><span class="pitch-arrow">→</span></a></div>' +
+      '<div class="pitch-video" id="pitch-video" aria-label="PITCH video placeholder"><span aria-hidden="true">▶</span></div>';
+    observation.insertAdjacentElement('afterend', pitch);
+
+    var style = document.createElement('style');
+    style.textContent =
+      '.product-orientation{display:flex;align-items:center;gap:20px;margin-bottom:42px;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.24em;color:var(--text-secondary)}' +
+      '.product-orientation:before{content:"";display:block;flex:1;height:1px;background:var(--border)}' +
+      '.product-orientation>span:first-child{display:none}' +
+      '#observation .product-orientation{color:var(--text-secondary)}' +
+      '.pitch-intro{background:var(--paper);color:var(--ink)}' +
+      '.pitch-intro .product-orientation{color:#77736b}.pitch-intro .product-orientation:before{background:#aaa69d}' +
+      '.pitch-intro .hero-line{color:var(--ink)}' +
+      '.pitch-copy{width:100%;max-width:50%;font-size:17px;line-height:1.8;color:#44413c;margin-top:36px}.pitch-copy p{margin:0}.pitch-copy p+p{margin-top:18px}.pitch-copy strong{color:var(--ink)}' +
+      '.pitch-steps{display:grid;grid-template-columns:repeat(4,1fr);margin-top:48px;border-top:1px solid #aaa69d;border-bottom:1px solid #aaa69d}.pitch-steps>div{padding:22px 22px 24px 0;border-right:1px solid #aaa69d}.pitch-steps>div+div{padding-left:22px}.pitch-steps>div:last-child{border-right:0}.pitch-steps strong{display:block;font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.16em;color:var(--ink);margin-bottom:12px}.pitch-steps span{display:block;font-size:15px;line-height:1.55;color:#55514b}' +
+      '.pitch-actions{display:flex;align-items:center;gap:34px;flex-wrap:wrap;margin-top:36px}.pitch-watch,.pitch-go{display:inline-flex;align-items:center;text-decoration:none;text-transform:none}.pitch-watch{gap:10px;color:#77736b;font-size:14px}.pitch-watch .pulse-square{width:10px;height:10px;background:var(--yellow);display:inline-block;animation:kdPulse 1.8s ease-in-out infinite}.pitch-go{gap:8px;font-size:17px;margin-left:auto}.pitch-prompt{color:#77736b}.pitch-command,.pitch-arrow{font-weight:700;color:var(--ink)}.pitch-arrow{display:inline-block;transition:transform .22s cubic-bezier(.2,.8,.2,1)}.pitch-go:hover .pitch-arrow{transform:translateX(7px)}' +
+      '.pitch-video{width:100%;aspect-ratio:16/9;margin-top:48px;border:1px solid #aaa69d;background:#e5e2d9;display:flex;align-items:center;justify-content:center}.pitch-video>span{color:var(--ink);font-size:34px;line-height:1;padding-left:3px}' +
+      '@media(max-width:767px){.product-orientation{margin-bottom:30px}.pitch-copy{max-width:100%}.pitch-steps{grid-template-columns:1fr}.pitch-steps>div,.pitch-steps>div+div{padding:18px 0;border-right:0;border-bottom:1px solid #aaa69d}.pitch-steps>div:last-child{border-bottom:0}.pitch-go{margin-left:0}}' +
+      '@media(prefers-reduced-motion:reduce){.pitch-watch .pulse-square{animation:none}.pitch-arrow{transition:none}}';
+    document.head.appendChild(style);
+  }
+
   /* ---- Chapter registrar (home only) ----------------------------------- */
   var deskItems = document.querySelectorAll('#registrar-desktop .reg-item[data-chapter]');
   var chapters = [];
@@ -115,6 +154,7 @@
 
   /* ---- Boot ------------------------------------------------------------ */
   function boot() {
+    buildHomepageIntroductions();
     setDate();
     positionRegistrar();
     setBodyOffset();
