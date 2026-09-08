@@ -66,6 +66,7 @@
 .v5-home .home-dark-link:hover{color:var(--ink);text-decoration-color:var(--ink)}
 .v5-home .home-close{margin-top:28px}
 .v5-home .home-final{padding-bottom:130px}
+.v5-home #observation .opening-actions{justify-content:space-between!important;width:100%}
 @media(prefers-reduced-motion:reduce){.terminal{animation:none!important}}
 @media(max-width:767px){
 .v5-home .viewport{padding-top:54px;padding-bottom:80px}.v5-home .home-fourps{grid-template-columns:1fr 1fr}.v5-home .home-fourps div:nth-child(2){border-right:0}.v5-home .home-fourps div:nth-child(-n+2){border-bottom:1px solid var(--ink)}.v5-home .home-split,.v5-home .home-cases,.v5-home .home-brands,.v5-home .home-balance,.v5-home .home-system{grid-template-columns:1fr}.v5-home .home-cases article,.v5-home .home-brands>div:nth-child(even),.v5-home .home-brands>div:nth-child(odd),.v5-home .home-balance>div+div,.v5-home .home-system article+article{border-left:0}.v5-home .home-brands>div:nth-child(even),.v5-home .home-brands>div:nth-child(odd){padding:18px 0}.v5-home .home-brands>div{grid-template-columns:130px 1fr}.v5-home .home-process>div{grid-template-columns:56px 1fr}.v5-home .home-readings>div{grid-template-columns:76px 1fr 58px;gap:12px}.v5-home .home-readings strong{font-size:15px}}
