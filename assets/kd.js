@@ -65,7 +65,7 @@
     pitch.className = 'viewport home-paper pitch-intro';
     pitch.id = 'pitch-intro';
     pitch.innerHTML = '<div class="product-orientation"><span></span><span>PITCH</span></div>' +
-      '<span class="hero-line-wrap"><h2 class="hero-line js-fit">ABOUT TO MAKE SOMETHING?</h2></span>' +
+      '<span class="hero-line-wrap"><h2 class="hero-line js-fit">ABOUT TO MAKE SOMETHING</h2></span><span class="hero-line-wrap"><h2 class="hero-line js-fit">YOU’LL WANT TO DEFEND?</h2></span>' +
       '<div class="pitch-copy"><p>Good work rarely becomes dull all at once.</p><p>It happens along the way. A brief closes things down too early. The obvious answer wins before the interesting one gets a chance. Design makes something look finished before the thinking is. And what happened last time gets measured, filed away and forgotten.</p><p><strong>PITCH</strong> brings better judgment into the creative process — while there’s still time to do something about it.</p></div>' +
       '<div class="pitch-steps"><div><strong>BRIEF</strong><span>Interrogate the problem before you solve it.</span></div><div><strong>PLAY</strong><span>Open up possibilities before you narrow them down.</span></div><div><strong>DESIGN</strong><span>Make the strongest idea stronger.</span></div><div><strong>LEARN</strong><span>Turn what happened into an advantage next time.</span></div></div>' +
       '<div class="pitch-actions"><a class="pitch-watch" href="#pitch-video"><span class="pulse-square" aria-hidden="true"></span><span>Watch how PITCH works · 60 sec</span></a><a class="pitch-go" href="https://pitchagainstdull.com"><span class="pitch-prompt">Have something in the works?</span><span class="pitch-command">Pitch it</span><span class="pitch-arrow">→</span></a></div>' +
