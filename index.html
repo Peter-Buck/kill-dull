@@ -15,20 +15,10 @@
 <script src="/assets/kd.js"></script>
 <script>
 (function(){
-  var observation=document.getElementById('observation');
-  if(!observation)return;
-  var applied=false;
-  function applyFourPs(){
-    if(applied||!observation.querySelector('.opening-copy')||!observation.querySelector('.bench-definition'))return;
-    applied=true;
-    var copy=observation.querySelector('.opening-copy');
-    copy.innerHTML='<div class="opening-columns"><div class="opening-column"><p>Before you commit, find out what else you might be committing to.</p><p><strong>A marketing decision rarely stays where it started.</strong></p><p>Marketing has four Ps.</p><p><strong>Product. Price. Place. Promotion.</strong></p><p>But in most companies, they don’t live in the same room.</p><p><strong>Three out of four can become blind spots in the same decision.</strong></p></div><div class="opening-column"><p>Customers don’t experience four departments.</p><p><strong>They experience one company.</strong></p><p>Every decision adds up. Some <strong>compound</strong> what makes the company valuable. Some <strong>depreciate</strong> it.</p><p>The difficult ones can look perfectly sensible either way.</p><p><strong>BENCH</strong> brings independent scrutiny to consequential marketing decisions — before they become expensive to undo.</p></div></div>';
-    var definition=observation.querySelector('.bench-definition');
-    if(definition)definition.remove();
-  }
-  var observer=new MutationObserver(function(){applyFourPs();if(applied)observer.disconnect();});
-  observer.observe(observation,{childList:true,subtree:true});
-  applyFourPs();
+  var observation=document.getElementById('observation');if(!observation)return;var applied=false;
+  function applyFourPs(){if(applied||!observation.querySelector('.opening-copy')||!observation.querySelector('.bench-definition'))return;applied=true;var copy=observation.querySelector('.opening-copy');copy.innerHTML='<div class="opening-columns"><div class="opening-column"><p>Before you commit, find out what else you might be committing to.</p><p><strong>A marketing decision rarely stays where it started.</strong></p><p>Marketing has four Ps.</p><p><strong>Product. Price. Place. Promotion.</strong></p><p>But in most companies, they don’t live in the same room.</p><p><strong>Three out of four can become blind spots in the same decision.</strong></p></div><div class="opening-column"><p>Customers don’t experience four departments.</p><p><strong>They experience one company.</strong></p><p>Every decision adds up. Some <strong>compound</strong> what makes the company valuable. Some <strong>depreciate</strong> it.</p><p>The difficult ones can look perfectly sensible either way.</p><p><strong>BENCH</strong> brings independent scrutiny to consequential marketing decisions — before they become expensive to undo.</p></div></div>';var definition=observation.querySelector('.bench-definition');if(definition)definition.remove();}
+  function clarifyReadings(){var section=document.getElementById('readings-home');if(!section||section.dataset.organized)return false;section.dataset.organized='1';var copy=section.querySelector('.compact-copy');if(copy)copy.innerHTML='<p>Some decisions come to us <strong>before</strong> they are made. Others are already out in the world.</p><p><strong>Private Readings.</strong> For the client. Before commitment.<br><strong>Published Readings.</strong> For the record. After commitment.</p><p>Two kinds of Readings. One standard of judgment.</p>';var link=section.querySelector('.text-link');if(link)link.innerHTML='Explore Readings <span>→</span>';return true;}
+  var observer=new MutationObserver(function(){applyFourPs();clarifyReadings();if(applied&&clarifyReadings())observer.disconnect();});observer.observe(document.querySelector('main'),{childList:true,subtree:true});applyFourPs();clarifyReadings();
 })();
 </script>
 </body></html>
