@@ -71,13 +71,14 @@
 .v5-home #observation .bench-action{gap:0!important}
 .v5-home #observation .bench-prompt{margin-right:10px}
 .v5-home #observation .bench-command{display:inline-flex;align-items:center;background:var(--yellow);color:var(--ink)!important;border:0;padding:10px 4px 10px 16px;transition:background .18s ease}
-.v5-home #observation .bench-arrow{position:relative;box-sizing:border-box;width:31px;min-width:31px;align-self:stretch;display:inline-block;overflow:hidden;background:var(--yellow);color:var(--ink)!important;border:0;padding:0;font-size:0;transform:none!important}
-.v5-home #observation .bench-arrow:before,.v5-home #observation .bench-arrow:after{content:'↗';position:absolute;left:7px;top:50%;width:14px;height:14px;margin-top:-7px;font-size:14px;line-height:14px;text-align:center;transition:transform .32s cubic-bezier(.16,1,.3,1)}
+.v5-home #observation .bench-arrow{position:relative;box-sizing:border-box;width:27px;min-width:27px;align-self:stretch;display:inline-block;overflow:hidden;background:var(--yellow);color:var(--ink)!important;border:0;padding:0;font-size:0;transform:none!important}
+.v5-home #observation .bench-arrow:before,.v5-home #observation .bench-arrow:after{content:'';position:absolute;left:7px;top:50%;width:10px;height:10px;margin-top:-5px;border-top:1.5px solid currentColor;border-right:1.5px solid currentColor;transition:transform .32s cubic-bezier(.16,1,.3,1)}
 .v5-home #observation .bench-arrow:before{transform:translate(0,0)}
-.v5-home #observation .bench-arrow:after{transform:translate(-11px,11px)}
-.v5-home #observation .bench-action:hover .bench-command,.v5-home #observation .bench-action:hover .bench-arrow{background:var(--yellow);color:var(--ink)!important}
+.v5-home #observation .bench-arrow:after{transform:translate(-13px,13px)}
+.v5-home #observation .bench-arrow:before,.v5-home #observation .bench-arrow:after{background:linear-gradient(45deg,transparent 45%,currentColor 46%,currentColor 54%,transparent 55%) center/14px 14px no-repeat}
+.v5-home #observation .bench-action:hover .bench-command,.v5-home #observation .bench-action:hover .bench-arrow{background-color:var(--yellow);color:var(--ink)!important}
 .v5-home #observation .bench-action:hover .bench-arrow{transform:none!important}
-.v5-home #observation .bench-action:hover .bench-arrow:before{transform:translate(11px,-11px)}
+.v5-home #observation .bench-action:hover .bench-arrow:before{transform:translate(13px,-13px)}
 .v5-home #observation .bench-action:hover .bench-arrow:after{transform:translate(0,0)}
 .v5-home #dense-home .text-link,.v5-home #readings-home .text-link{display:flex;width:max-content;margin-left:auto}
 .v5-home #home-close .close-options{border-top:0!important;border-bottom:0!important}
