@@ -69,6 +69,8 @@
 .v5-home #observation .opening-actions{justify-content:space-between!important;width:100%}
 .v5-home #dense-home .text-link,.v5-home #readings-home .text-link{display:flex;width:max-content;margin-left:auto}
 .v5-home #home-close .close-options{border-top:0!important;border-bottom:0!important}
+.v5-home .bench-arrow,.v5-home .pitch-arrow,.v5-home .text-link span,.v5-home .close-options b{transform:rotate(-45deg)}
+.v5-home .bench-action:hover .bench-arrow,.v5-home .pitch-go:hover .pitch-arrow,.v5-home .text-link:hover span,.v5-home .close-options a:hover b{transform:rotate(-45deg) translateY(-5px)}
 @media(min-width:768px){.v5-home .pitch-intro .pitch-steps{border-top:0!important;border-bottom:0!important}.v5-home .pitch-intro .pitch-steps>div{border-right:0!important}.v5-home .pitch-intro .pitch-steps>div+div{border-left:1px solid var(--border)!important}}
 @media(prefers-reduced-motion:reduce){.terminal{animation:none!important}}
 @media(max-width:767px){
