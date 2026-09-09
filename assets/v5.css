@@ -101,10 +101,10 @@
 .v5-home .pitch-go,.v5-home .text-link,.v5-home .close-options a,.v5-home .product-cta{box-sizing:border-box;display:inline-flex!important;align-items:center;gap:9px;width:max-content;border:.5px solid currentColor;padding:10px 14px;text-decoration:none!important;background:transparent;transition:border-color .18s ease}
 .v5-home .pitch-go{margin-left:auto}
 .v5-home .close-options a{font-size:28px}
-.v5-home .pitch-intro .pitch-go,.v5-home #dense-home .text-link,.v5-home #home-close .close-options a{color:var(--paper)!important}
-.v5-home #readings-home .text-link{color:var(--ink)!important}
-.v5-home .pitch-intro .pitch-go:hover,.v5-home #dense-home .text-link:hover,.v5-home #home-close .close-options a:hover{background:transparent!important;color:var(--paper)!important;border-color:var(--yellow)!important}
-.v5-home #readings-home .text-link:hover{background:transparent!important;color:var(--ink)!important;border-color:var(--yellow)!important}
+.v5-home .pitch-intro .pitch-go,.v5-home #readings-home .text-link{color:var(--paper)!important}
+.v5-home #dense-home .text-link,.v5-home #home-close .close-options a{color:var(--ink)!important}
+.v5-home .pitch-intro .pitch-go:hover,.v5-home #readings-home .text-link:hover{background:transparent!important;color:var(--paper)!important;border-color:var(--yellow)!important}
+.v5-home #dense-home .text-link:hover,.v5-home #home-close .close-options a:hover{background:transparent!important;color:var(--ink)!important;border-color:var(--yellow)!important}
 .v5-home .product-cta:hover{background:transparent!important;border-color:var(--yellow)!important}
 .v5-home .pitch-arrow,.v5-home .text-link span,.v5-home .close-options b,.v5-home .enter-arrow{display:inline-block;transform:none!important;transition:transform .22s cubic-bezier(.2,.8,.2,1)}
 .v5-home .pitch-arrow{font-size:0}
