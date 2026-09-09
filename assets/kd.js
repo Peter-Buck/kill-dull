@@ -11,7 +11,8 @@
     '.masthead-date,.reg-item,.product-link,.product-cta{font-size:15px!important}'+
     '.masthead-tagline,.bulletin-text{font-size:16px!important}'+
     '.masthead-designation{font-size:19px!important}'+
-    '.bulletin-label{font-size:14px!important}'+
+    '.masthead-bulletin .bulletin-label{display:none!important}'+
+    '.masthead-bulletin{padding-top:0!important}'+
     '.unified-nav{min-height:40px!important;height:40px!important}'+
     '.footer-inner{padding:80px 120px!important}'+
     '.footer-bureau{font-size:clamp(40px,6vw,80px)!important;margin-bottom:64px!important;padding-top:32px!important}'+
