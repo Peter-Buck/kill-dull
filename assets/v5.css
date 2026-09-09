@@ -8,6 +8,11 @@
 /* HOMEPAGE CURSOR */
 .v5-home,.v5-home a,.v5-home button{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Crect width='16' height='16' fill='%23ffff00'/%3E%3C/svg%3E") 8 8,auto}
 
+/* DENSE IDEA SIGNATURE — no trademarks */
+.v5-home #dense-home .signature-tm{display:none!important}
+.v5-home #dense-home .compact-signature>span{font-size:0!important}
+.v5-home #dense-home .compact-signature>span:before{content:'THE DENSE IDEA COMPANY';font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.14em}
+
 /* HOMEPAGE READABILITY PASS — logo unchanged */
 .v5-home{--type-body:20px;--type-small:17px;--type-label:13px;--type-micro:12px}
 .v5-home .masthead-date,.v5-home .reg-item,.v5-home .product-link,.v5-home .product-cta{font-size:13px}
