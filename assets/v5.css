@@ -68,6 +68,11 @@
 .v5-home .home-close{margin-top:28px}
 .v5-home .home-final{padding-bottom:130px}
 .v5-home #observation .opening-actions{justify-content:space-between!important;width:100%}
+.v5-home #observation .bench-action{gap:0!important}
+.v5-home #observation .bench-prompt{margin-right:10px}
+.v5-home #observation .bench-command{display:inline-flex;align-items:center;border:1px solid var(--ink);padding:8px 0 8px 12px;transition:background .18s ease,color .18s ease}
+.v5-home #observation .bench-arrow{border:1px solid var(--ink);border-left:0;padding:8px 12px 8px 7px;align-self:stretch;display:inline-flex;align-items:center;transition:background .18s ease,color .18s ease,transform .22s cubic-bezier(.2,.8,.2,1)}
+.v5-home #observation .bench-action:hover .bench-command,.v5-home #observation .bench-action:hover .bench-arrow{background:var(--ink);color:var(--paper)!important}
 .v5-home #dense-home .text-link,.v5-home #readings-home .text-link{display:flex;width:max-content;margin-left:auto}
 .v5-home #home-close .close-options{border-top:0!important;border-bottom:0!important}
 .v5-home .bench-arrow,.v5-home .pitch-arrow,.v5-home .text-link span,.v5-home .close-options b,.v5-home .enter-arrow{display:inline-block;transform:rotate(-45deg);transition:transform .22s cubic-bezier(.2,.8,.2,1)}
