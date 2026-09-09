@@ -14,7 +14,7 @@
     '.masthead-bulletin .bulletin-label{display:none!important}'+
     '.masthead-bulletin{min-height:70px!important;box-sizing:border-box!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:0!important;text-align:center!important}'+
     '.masthead-bulletin .bulletin-text{display:block!important;width:100%!important;text-align:center!important}'+
-    '.unified-nav{min-height:40px!important;height:40px!important}'+
+    '.unified-nav{min-height:44px!important;height:44px!important}'+
     '.footer-inner{padding:80px 120px!important}'+
     '.footer-bureau{font-size:clamp(40px,6vw,80px)!important;margin-bottom:64px!important;padding-top:32px!important}'+
     '.footer-index{margin-bottom:80px!important}'+
