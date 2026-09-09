@@ -52,7 +52,17 @@
     var designation=document.querySelector('.masthead-designation');
     if(designation) designation.innerHTML='<span>THE</span> DENSE IDEA COMPANY<span class="tm">™</span>';
     var bulletin=document.querySelector('.masthead-bulletin');
-    if(bulletin) bulletin.innerHTML='<a class="bulletin-text" href="/readings">First Readings in production.<span class="bulletin-arrow">↗</span></a>';
+    if(bulletin){
+      bulletin.innerHTML='<a class="bulletin-text" href="/readings">First Readings in production.<span class="bulletin-arrow">↗</span></a>';
+      bulletin.style.setProperty('display','flex','important');
+      bulletin.style.setProperty('align-items','center','important');
+      bulletin.style.setProperty('justify-content','flex-start','important');
+      bulletin.style.setProperty('text-align','left','important');
+      bulletin.style.setProperty('padding-left',window.innerWidth<768?'24px':window.innerWidth<1280?'64px':'120px','important');
+      bulletin.style.setProperty('padding-right',window.innerWidth<768?'24px':window.innerWidth<1280?'64px':'120px','important');
+      var bulletinText=bulletin.querySelector('.bulletin-text');
+      if(bulletinText){bulletinText.style.setProperty('margin','0','important');bulletinText.style.setProperty('text-align','left','important');}
+    }
     var desktop=document.getElementById('registrar-desktop');
     if(desktop) desktop.innerHTML='<a class="reg-item'+(key==='home'?' is-current':'')+'" href="/">KILL DULL</a><a class="reg-item'+(key==='bench'?' is-current':'')+'" href="/bench">BENCH</a><a class="reg-item" href="https://pitchagainstdull.com">PITCH</a><a class="reg-item'+(key==='readings'?' is-current':'')+'" href="/readings">READINGS</a><a class="reg-item'+(key==='deeper'?' is-current':'')+'" href="/go-deeper">GO DEEPER</a><a class="reg-item'+(key==='bureau'?' is-current':'')+'" href="/bureau">THE BUREAU</a>';
     var products=document.querySelector('.unified-nav-products');
