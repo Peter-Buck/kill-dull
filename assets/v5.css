@@ -86,20 +86,23 @@
 .v5-home #observation .opening-actions{justify-content:space-between!important;width:100%}
 .v5-home #observation .bench-action{gap:0!important}
 .v5-home #observation .bench-prompt{margin-right:10px}
-.v5-home #observation .bench-command{display:inline-flex;align-items:center;background:var(--yellow);color:var(--ink)!important;border:0;padding:10px 6px 10px 16px;transition:background .18s ease}
-.v5-home #observation .bench-arrow{box-sizing:border-box;width:25px;min-width:25px;align-self:stretch;display:inline-flex;align-items:center;justify-content:flex-start;overflow:hidden;background:var(--yellow);color:var(--ink)!important;border:0;padding:0 8px 0 3px;font-size:0;transform:none!important}
+.v5-home #observation .bench-command{display:inline-flex;align-items:center;background:transparent;color:inherit!important;border:0;padding:10px 6px 10px 16px;transition:background .18s ease,color .18s ease}
+.v5-home #observation .bench-arrow{box-sizing:border-box;width:25px;min-width:25px;align-self:stretch;display:inline-flex;align-items:center;justify-content:flex-start;overflow:hidden;background:transparent;color:inherit!important;border:0;padding:0 8px 0 3px;font-size:0;transform:none!important;transition:background .18s ease,color .18s ease}
 .v5-home #observation .bench-arrow:before{content:'↗';font-size:15px;line-height:1;letter-spacing:0;transform:none;transition:transform .2s cubic-bezier(.2,.8,.2,1)}
 .v5-home #observation .bench-arrow:after{content:none}
-.v5-home #observation .bench-action:hover .bench-command,.v5-home #observation .bench-action:hover .bench-arrow{background:var(--yellow);color:var(--ink)!important}
+.v5-home #observation .bench-action{box-sizing:border-box;border:.5px solid currentColor;transition:background .18s ease,color .18s ease}
+.v5-home #observation .bench-action:hover{background:var(--yellow);color:var(--ink)!important}
+.v5-home #observation .bench-action:hover .bench-command,.v5-home #observation .bench-action:hover .bench-arrow{background:transparent;color:var(--ink)!important}
 .v5-home #observation .bench-action:hover .bench-arrow{transform:none!important}
 .v5-home #observation .bench-action:hover .bench-arrow:before{transform:translate(2px,-2px)}
 .v5-home #dense-home .text-link,.v5-home #readings-home .text-link{display:flex;width:max-content;margin-left:auto}
 .v5-home #home-close .close-options{border-top:0!important;border-bottom:0!important}
 
 /* CTA TEST — all homepage CTAs boxed; all arrows point up/right */
-.v5-home .pitch-go,.v5-home .text-link,.v5-home .close-options a,.v5-home .product-cta{box-sizing:border-box;display:inline-flex!important;align-items:center;gap:9px;width:max-content;border:.5px solid currentColor;padding:10px 14px;text-decoration:none!important}
+.v5-home .pitch-go,.v5-home .text-link,.v5-home .close-options a,.v5-home .product-cta{box-sizing:border-box;display:inline-flex!important;align-items:center;gap:9px;width:max-content;border:.5px solid currentColor;padding:10px 14px;text-decoration:none!important;background:transparent;transition:background .18s ease,color .18s ease}
 .v5-home .pitch-go{margin-left:auto}
 .v5-home .close-options a{font-size:28px}
+.v5-home .pitch-go:hover,.v5-home .text-link:hover,.v5-home .close-options a:hover,.v5-home .product-cta:hover{background:var(--yellow)!important;color:var(--ink)!important;border-color:var(--yellow)!important}
 .v5-home .pitch-arrow,.v5-home .text-link span,.v5-home .close-options b,.v5-home .enter-arrow{display:inline-block;transform:none!important;transition:transform .22s cubic-bezier(.2,.8,.2,1)}
 .v5-home .pitch-arrow{font-size:0}
 .v5-home .pitch-arrow:before{content:'↗';font-size:15px;line-height:1}
