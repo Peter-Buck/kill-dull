@@ -5,6 +5,9 @@
 .masthead-wordmark a,.masthead-wordmark a:hover,.masthead-wordmark a:focus,.masthead-wordmark a:active,.masthead-wordmark a:visited{color:var(--paper)!important}
 .masthead-wordmark .tm{display:inline-block;font-size:.44em;vertical-align:baseline;line-height:1;margin-left:6px;position:relative;top:-1.02em;letter-spacing:0}
 
+/* HOMEPAGE CURSOR */
+.v5-home,.v5-home a,.v5-home button{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Crect width='16' height='16' fill='%23ffff00'/%3E%3C/svg%3E") 8 8,auto}
+
 /* HOMEPAGE READABILITY PASS — logo unchanged */
 .v5-home{--type-body:20px;--type-small:17px;--type-label:13px;--type-micro:12px}
 .v5-home .masthead-date,.v5-home .reg-item,.v5-home .product-link,.v5-home .product-cta{font-size:13px}
