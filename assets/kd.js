@@ -20,8 +20,15 @@
     '.footer-section-label{font-size:10px!important}'+
     '.footer-section nav a{font-size:15px!important}'+
     '.footer-colophon{font-size:10px!important}'+
+    '.pitch-intro.pitch-sequence-ready .pitch-steps>div{opacity:.12;transform:translateY(18px);border-right-color:transparent!important;transition:opacity .5s cubic-bezier(.2,.8,.2,1),transform .5s cubic-bezier(.2,.8,.2,1),border-color .55s ease}'+
+    '.pitch-intro.pitch-sequence-ready.pitch-sequence-play .pitch-steps>div{opacity:1;transform:translateY(0);border-right-color:var(--border)!important}'+
+    '.pitch-intro.pitch-sequence-ready.pitch-sequence-play .pitch-steps>div:nth-child(1){transition-delay:0s}'+
+    '.pitch-intro.pitch-sequence-ready.pitch-sequence-play .pitch-steps>div:nth-child(2){transition-delay:.18s}'+
+    '.pitch-intro.pitch-sequence-ready.pitch-sequence-play .pitch-steps>div:nth-child(3){transition-delay:.36s}'+
+    '.pitch-intro.pitch-sequence-ready.pitch-sequence-play .pitch-steps>div:nth-child(4){transition-delay:.54s;border-right-color:transparent!important}'+
     '@media(max-width:1279px){.footer-inner{padding:64px!important}}'+
-    '@media(max-width:767px){.footer-inner{padding:48px 24px!important}.footer-section{grid-template-columns:1fr!important;gap:12px!important}}';
+    '@media(max-width:767px){.footer-inner{padding:48px 24px!important}.footer-section{grid-template-columns:1fr!important;gap:12px!important}.pitch-intro.pitch-sequence-ready .pitch-steps>div{transform:translateY(12px);border-right-color:transparent!important}.pitch-intro.pitch-sequence-ready.pitch-sequence-play .pitch-steps>div{border-right-color:transparent!important}}'+
+    '@media(prefers-reduced-motion:reduce){.pitch-intro.pitch-sequence-ready .pitch-steps>div{opacity:1!important;transform:none!important;transition:none!important}.pitch-intro.pitch-sequence-ready .pitch-steps>div:not(:last-child){border-right-color:var(--border)!important}}';
   document.head.appendChild(style);
 
   function currentKey(){
@@ -69,6 +76,34 @@
     }
   }
 
+  function wirePitchSequence(){
+    var pitch=document.getElementById('pitch-intro');
+    if(!pitch||pitch.dataset.sequenceWired==='1')return;
+    pitch.dataset.sequenceWired='1';
+    pitch.classList.add('pitch-sequence-ready');
+
+    if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      pitch.classList.add('pitch-sequence-play');
+      return;
+    }
+
+    if(!('IntersectionObserver' in window)){
+      pitch.classList.add('pitch-sequence-play');
+      return;
+    }
+
+    var observer=new IntersectionObserver(function(entries){
+      for(var i=0;i<entries.length;i++){
+        if(entries[i].isIntersecting){
+          requestAnimationFrame(function(){pitch.classList.add('pitch-sequence-play');});
+          observer.disconnect();
+          break;
+        }
+      }
+    },{threshold:.28,rootMargin:'0px 0px -8% 0px'});
+    observer.observe(pitch.querySelector('.pitch-steps')||pitch);
+  }
+
   normalizeShell();
 
   var core=document.createElement('script');
@@ -76,6 +111,7 @@
   core.onload=function(){
     normalizeShell();
     document.head.appendChild(style);
+    wirePitchSequence();
   };
   document.head.appendChild(core);
 })();
