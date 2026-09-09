@@ -12,8 +12,10 @@
     '.masthead-tagline,.bulletin-text{font-size:16px!important}'+
     '.masthead-designation{font-size:19px!important}'+
     '.masthead-bulletin .bulletin-label{display:none!important}'+
-    '.masthead-bulletin{min-height:70px!important;box-sizing:border-box!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:0!important;text-align:center!important}'+
-    '.masthead-bulletin .bulletin-text{display:block!important;width:100%!important;text-align:center!important}'+
+    '.masthead-bulletin{min-height:70px!important;box-sizing:border-box!important;display:flex!important;align-items:center!important;justify-content:flex-start!important;padding:0!important;text-align:left!important}'+
+    '.masthead-bulletin .bulletin-text{display:inline-flex!important;align-items:center!important;gap:8px!important;width:auto!important;text-align:left!important;color:inherit!important;text-decoration:none!important}'+
+    '.masthead-bulletin .bulletin-arrow{display:inline-block!important;color:var(--yellow)!important;transition:transform .22s cubic-bezier(.2,.8,.2,1)}'+
+    '.masthead-bulletin .bulletin-text:hover .bulletin-arrow{transform:translate(2px,-2px)}'+
     '.unified-nav{min-height:44px!important;height:44px!important}'+
     '.footer-inner{padding:80px 120px!important}'+
     '.footer-bureau{font-size:clamp(40px,6vw,80px)!important;margin-bottom:64px!important;padding-top:32px!important}'+
@@ -48,8 +50,8 @@
     if(wm) wm.innerHTML='KILL DULL<span class="terminal"></span><span class="tm">™</span>';
     var designation=document.querySelector('.masthead-designation');
     if(designation) designation.innerHTML='<span>THE</span> DENSE IDEA COMPANY<span class="tm">™</span>';
-    var bulletin=document.querySelector('.masthead-bulletin .bulletin-text');
-    if(bulletin) bulletin.textContent='First Readings in production.';
+    var bulletin=document.querySelector('.masthead-bulletin');
+    if(bulletin) bulletin.innerHTML='<a class="bulletin-text" href="/readings">First Readings in production.<span class="bulletin-arrow">↗</span></a>';
     var desktop=document.getElementById('registrar-desktop');
     if(desktop) desktop.innerHTML='<a class="reg-item'+(key==='home'?' is-current':'')+'" href="/">KILL DULL</a><a class="reg-item'+(key==='bench'?' is-current':'')+'" href="/bench">BENCH</a><a class="reg-item" href="https://pitchagainstdull.com">PITCH</a><a class="reg-item'+(key==='readings'?' is-current':'')+'" href="/readings">READINGS</a><a class="reg-item'+(key==='deeper'?' is-current':'')+'" href="/go-deeper">GO DEEPER</a><a class="reg-item'+(key==='bureau'?' is-current':'')+'" href="/bureau">THE BUREAU</a>';
     var products=document.querySelector('.unified-nav-products');
