@@ -125,6 +125,10 @@
 .v5-home #home-close .close-options a.close-choice .close-reveal{background:var(--ink)!important;color:var(--paper)!important}
 .v5-home #home-close .close-options a.close-choice .close-reveal,.v5-home #home-close .close-options a.close-choice .close-reveal *{color:var(--paper)!important}
 
+/* FINAL SECTION — no divider into footer */
+.v5-home #home-close{border-bottom:0!important;outline:0!important}
+.v5-home #home-close + .footer,.v5-home .footer{border-top:0!important;box-shadow:none!important}
+
 @media(min-width:768px){.v5-home .pitch-intro .pitch-steps{border-top:0!important;border-bottom:0!important}.v5-home .pitch-intro .pitch-steps>div{border-right:0!important}.v5-home .pitch-intro .pitch-steps>div+div{border-left:1px solid var(--border)!important}}
 @media(prefers-reduced-motion:reduce){.terminal{animation:none!important}}
 @media(max-width:767px){
