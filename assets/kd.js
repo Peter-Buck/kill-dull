@@ -98,8 +98,8 @@
       '<div class="product-orientation"><span></span><span>READINGS</span></div>' +
       '<span class="hero-line-wrap"><h2 class="hero-line js-fit">AAH. HMM. DULL.</h2></span>' +
       '<span class="hero-line-wrap"><h2 class="hero-line js-fit">ONLY ONE REACTION COMPOUNDS.</h2></span>' +
-      '<div class="compact-copy"><p>We put the thinking on record.</p><p>Published Readings examine real decisions, what they add, what they subtract, and what they might teach the organization to approve next.</p></div>' +
-      '<a class="text-link light-link" href="/readings">Read the Readings <span>→</span></a>';
+      '<div class="compact-copy"><p><strong>AAH.</strong> So good.<br><strong>HMM.</strong> So so.<br><strong>DULL.</strong> So not.</p></div>' +
+      '<a class="text-link light-link" href="/readings">See what earned the reaction <span>→</span></a>';
     dense.insertAdjacentElement('afterend', readings);
 
     var close = document.createElement('section');
