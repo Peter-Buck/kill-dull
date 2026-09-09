@@ -120,6 +120,11 @@
 .v5-home #home-close .close-options a,.v5-home #home-close .close-options a *,.v5-home #home-close .close-options a:hover,.v5-home #home-close .close-options a:hover *{color:var(--ink)!important}
 .v5-home #dense-home .text-link:hover,.v5-home #readings-home .text-link:hover,.v5-home #home-close .close-options a:hover{border-color:var(--yellow)!important}
 
+/* FINAL CHOICE REVEAL — override generic CTA hover rules */
+.v5-home #home-close .close-options a.close-choice:hover,.v5-home #home-close .close-options a.close-choice:focus-visible{background:var(--paper)!important;border-color:transparent!important;color:var(--ink)!important}
+.v5-home #home-close .close-options a.close-choice .close-reveal{background:var(--ink)!important;color:var(--paper)!important}
+.v5-home #home-close .close-options a.close-choice .close-reveal,.v5-home #home-close .close-options a.close-choice .close-reveal *{color:var(--paper)!important}
+
 @media(min-width:768px){.v5-home .pitch-intro .pitch-steps{border-top:0!important;border-bottom:0!important}.v5-home .pitch-intro .pitch-steps>div{border-right:0!important}.v5-home .pitch-intro .pitch-steps>div+div{border-left:1px solid var(--border)!important}}
 @media(prefers-reduced-motion:reduce){.terminal{animation:none!important}}
 @media(max-width:767px){
