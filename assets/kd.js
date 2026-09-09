@@ -20,7 +20,7 @@
     '.footer-section-label{font-size:10px!important}'+
     '.footer-section nav a{font-size:15px!important}'+
     '.footer-colophon{font-size:10px!important}'+
-    '.pitch-intro.pitch-scroll-ready .pitch-steps{height:520px!important;align-items:start!important;overflow:hidden!important}'+
+    '.pitch-intro.pitch-scroll-ready .pitch-steps{height:var(--pitch-grid-h,520px)!important;align-items:start!important;overflow:hidden!important}'+
     '.pitch-intro.pitch-scroll-ready .pitch-steps>div{will-change:transform;transform:translate3d(0,var(--pitch-y,0px),0);opacity:1!important;border-right-color:var(--border)!important}'+
     '.pitch-intro.pitch-scroll-ready .pitch-steps>div:last-child{border-right-color:transparent!important}'+
     '@media(max-width:1279px){.footer-inner{padding:64px!important}}'+
@@ -99,11 +99,16 @@
       var scrollTravel=540;
       var stagger=90;
       var startOffset=220;
+      var maxY=0;
 
       for(var i=0;i<steps.length;i++){
         var y=Math.max(0,startOffset+(i*stagger)-(progress*scrollTravel));
+        maxY=Math.max(maxY,y);
         steps[i].style.setProperty('--pitch-y',y.toFixed(1)+'px');
       }
+
+      var gridHeight=150+Math.min(370,maxY);
+      grid.style.setProperty('--pitch-grid-h',gridHeight.toFixed(1)+'px');
     }
     function requestUpdate(){
       if(ticking)return;
