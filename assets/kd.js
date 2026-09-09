@@ -84,8 +84,7 @@
     dense.id = 'dense-home';
     dense.innerHTML =
       '<div class="product-orientation"><span></span><span>DENSE IDEAS</span></div>' +
-      '<span class="hero-line-wrap"><h2 class="hero-line js-fit">THE BEST IDEAS</h2></span>' +
-      '<span class="hero-line-wrap"><h2 class="hero-line js-fit">DON’T JUST LAST.</h2></span>' +
+      '<span class="hero-line-wrap"><h2 class="hero-line js-fit">DENSE IDEAS DON’T JUST LAST.</h2></span>' +
       '<span class="hero-line-wrap"><h2 class="hero-line js-fit">THEY COMPOUND.</h2></span>' +
       '<div class="compact-copy"><p>A Dense Idea keeps a company recognizably itself while everything around it changes.</p><p>Not a tagline.<br>Not a campaign.<br>Not a set of guidelines.</p><p>An idea dense enough to help you decide what belongs — and what doesn’t.</p></div>' +
       '<div class="compact-signature"><strong>KILL DULL™</strong><span>THE DENSE IDEA COMPANY™</span></div>' +
