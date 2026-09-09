@@ -4,6 +4,27 @@
 (function () {
   'use strict';
 
+  /* Canonical shell: every Kill Dull page uses the homepage header/footer scale. */
+  var shellStyle = document.createElement('style');
+  shellStyle.id = 'kd-canonical-shell';
+  shellStyle.textContent =
+    '.masthead-date,.reg-item,.product-link,.product-cta{font-size:15px!important}' +
+    '.masthead-tagline,.bulletin-text{font-size:16px!important}' +
+    '.masthead-designation{font-size:19px!important}' +
+    '.bulletin-label{font-size:14px!important}' +
+    '.unified-nav{min-height:40px!important;height:40px!important}' +
+    '.masthead-wordmark .tm{display:inline-block;font-size:.44em;vertical-align:baseline;line-height:1;margin-left:6px;position:relative;top:-.895em;letter-spacing:0}' +
+    '.footer-inner{padding:80px 120px!important}' +
+    '.footer-bureau{font-size:clamp(40px,6vw,80px)!important;margin-bottom:64px!important;padding-top:32px!important}' +
+    '.footer-index{margin-bottom:80px!important}' +
+    '.footer-section{grid-template-columns:200px 1fr!important;padding:28px 0!important}' +
+    '.footer-section-label{font-size:10px!important}' +
+    '.footer-section nav a{font-size:15px!important}' +
+    '.footer-colophon{font-size:10px!important}' +
+    '@media(max-width:1279px){.footer-inner{padding:64px!important}}' +
+    '@media(max-width:767px){.footer-inner{padding:48px 24px!important}.footer-section{grid-template-columns:1fr!important;gap:12px!important}}';
+  document.head.appendChild(shellStyle);
+
   function fitToWidth(el, horizontalPad) {
     if (!el) return;
     el.style.whiteSpace = 'nowrap';
