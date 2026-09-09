@@ -71,7 +71,8 @@
       '<div class="product-orientation"><span></span><span>BENCH</span></div>' +
       '<span class="hero-line-wrap"><h1 class="hero-line js-fit">ABOUT TO MAKE A BIG</h1></span>' +
       '<span class="hero-line-wrap"><h1 class="hero-line js-fit">MARKETING DECISION?</h1></span>' +
-      '<div class="opening-copy"><p>Before you commit, find out what else you might be committing to.</p><p>Every decision adds up. Some <strong>compound</strong> what makes the company valuable. Some <strong>depreciate</strong> it. The difficult ones can look perfectly sensible either way.</p><p><strong>BENCH</strong> brings independent scrutiny to consequential marketing decisions — before they become expensive to undo.</p></div>' +
+      '<div class="opening-copy"><p>Before you commit, find out what else you might be committing to.</p><p>Every decision adds up. Some <strong>compound</strong> what makes the company valuable. Some <strong>depreciate</strong> it. The difficult ones can look perfectly sensible either way.</p></div>' +
+      '<p class="bench-definition"><strong>BENCH</strong> brings independent scrutiny to consequential marketing decisions — before they become expensive to undo.</p>' +
       '<div class="opening-actions"><a class="watch-action" href="#opening-video"><span class="pulse-square" aria-hidden="true"></span><span>Watch how it works · 60 sec</span></a><a class="bench-action" href="/bench#discuss"><span class="bench-prompt">Have a decision in mind?</span><span class="bench-command">Bench it</span><span class="bench-arrow">→</span></a></div>' +
       '<div class="opening-video" id="opening-video" aria-label="Video placeholder"><span class="opening-video-mark" aria-hidden="true">▶</span></div>';
 
