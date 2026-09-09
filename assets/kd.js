@@ -96,12 +96,12 @@
       var start=vh*.90;
       var end=-rect.height*.30;
       var progress=clamp((start-rect.top)/(start-end),0,1);
-      var scrollTravel=380;
+      var scrollTravel=540;
       var stagger=90;
       var startOffset=220;
 
       for(var i=0;i<steps.length;i++){
-        var y=startOffset+(i*stagger)-(progress*scrollTravel);
+        var y=Math.max(0,startOffset+(i*stagger)-(progress*scrollTravel));
         steps[i].style.setProperty('--pitch-y',y.toFixed(1)+'px');
       }
     }
