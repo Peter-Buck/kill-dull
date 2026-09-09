@@ -3,7 +3,7 @@
 .terminal{transform-origin:center;animation:kd-terminal-compound 5.06s linear infinite}
 .footer .terminal{animation-delay:2.53s}
 .masthead-wordmark a,.masthead-wordmark a:hover,.masthead-wordmark a:focus,.masthead-wordmark a:active,.masthead-wordmark a:visited{color:var(--paper)!important}
-.masthead-wordmark .tm{display:inline-block;font-size:.30em;vertical-align:baseline;line-height:1;margin-left:6px;position:relative;top:-1.58em;letter-spacing:0}
+.masthead-wordmark .tm{display:inline-block;font-size:.37em;vertical-align:baseline;line-height:1;margin-left:6px;position:relative;top:-1.23em;letter-spacing:0}
 
 .v5-home .viewport{min-height:auto;padding-top:72px;padding-bottom:112px}
 .v5-home #observation{padding-top:82px}
