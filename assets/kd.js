@@ -76,7 +76,7 @@
       '<span class="hero-line-wrap"><h2 class="hero-line js-fit">STILL ADD UP WRONG.</h2></span>' +
       '<div class="drift-copy"><p>At first, you don’t notice it.</p><p>One reasonable commitment.<br>Then another.<br>A new trend.<br>A new priority.<br>A new opinion.<br>A new technology.<br>A new strategy.</p><p>None of them are wrong. Until one day, you no longer recognize the organization you’ve become. <strong>When every commitment tells you where to go, what reminds you who you are?</strong></p></div>' +
       '<p class="drift-close"><strong>Drift is subtle. Dangerously subtle.</strong></p>' +
-      '<p class="drift-bridge">And that’s why there’s <a href="/bench"><strong>BENCH</strong></a> and <a href="https://pitchagainstdull.com"><strong>PITCH</strong></a>.</p>';
+      '<p class="drift-bridge">And that’s why there’s <a href="/bench"><strong>BENCH →</strong></a> and <a href="https://pitchagainstdull.com"><strong>PITCH →</strong></a>.</p>';
     pitch.insertAdjacentElement('afterend', drift);
 
     var dense = document.createElement('section');
