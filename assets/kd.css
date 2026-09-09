@@ -785,6 +785,8 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
   color: #6f6d66;
   vertical-align: top;
   line-height: 1;
+  position: relative;
+  top: 6px;
 }
 
 .footer-colophon {
