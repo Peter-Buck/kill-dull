@@ -99,6 +99,16 @@
       '<p class="drift-close"><strong>Drift is subtle. Dangerously subtle.</strong></p>';
     pitch.insertAdjacentElement('afterend', drift);
 
+    var independence = document.createElement('section');
+    independence.className = 'viewport compact-section independence-home';
+    independence.id = 'independence-home';
+    independence.innerHTML =
+      '<div class="product-orientation"><span></span><span>INDEPENDENCE</span></div>' +
+      '<span class="hero-line-wrap"><h2 class="hero-line js-fit">NOTHING FOR SALE BUT</h2></span>' +
+      '<span class="hero-line-wrap"><h2 class="hero-line js-fit">THE RIGHT ANSWER.</h2></span>' +
+      '<div class="independence-copy"><p>Your agency wants to make it.<br>Your team wants to move it forward.<br>Your consultancy has a recommendation.<br>Leadership has a decision to make.</p><p>Everyone in the room has an interest in what happens next.</p><p><strong>We don’t.</strong></p><p>We don’t execute the decision.<br>We don’t produce the work.<br>We don’t profit from what comes next.</p><p><strong>A no is as successful for us as a yes.</strong></p><p class="independence-close">Independence isn’t about being outside the company.<br><strong>It’s about being outside the outcome.</strong></p></div>';
+    drift.insertAdjacentElement('afterend', independence);
+
     var dense = document.createElement('section');
     dense.className = 'viewport home-paper compact-section';
     dense.id = 'dense-home';
@@ -109,7 +119,7 @@
       '<div class="compact-copy"><p>A Dense Idea keeps a company recognizably itself while everything around it changes.</p><p>Not a tagline.<br>Not a campaign.<br>Not a set of guidelines.</p><p>An idea dense enough to help you decide what belongs — and what doesn’t.</p></div>' +
       '<div class="compact-signature"><strong>KILL DULL<span class="signature-terminal" aria-hidden="true"></span><span class="signature-tm">™</span></strong><span>THE DENSE IDEA COMPANY™</span></div>' +
       '<a class="text-link" href="/dense-ideas">Learn about Dense Ideas <span>→</span></a>';
-    drift.insertAdjacentElement('afterend', dense);
+    independence.insertAdjacentElement('afterend', dense);
 
     var readings = document.createElement('section');
     readings.className = 'viewport compact-section readings-home';
@@ -132,7 +142,7 @@
       '<div class="close-options"><div><span>BENCH handles the consequential decisions.</span><a href="/bench#discuss">Bench it <b>→</b></a></div><div><span>PITCH handles the things you can’t wait to make.</span><a href="https://pitchagainstdull.com">Pitch it <b>→</b></a></div></div>';
     readings.insertAdjacentElement('afterend', close);
 
-    var oldSections = document.querySelectorAll('main > section:not(#observation):not(#pitch-intro):not(#drift):not(#dense-home):not(#readings-home):not(#home-close)');
+    var oldSections = document.querySelectorAll('main > section:not(#observation):not(#pitch-intro):not(#drift):not(#independence-home):not(#dense-home):not(#readings-home):not(#home-close)');
     for (var i = 0; i < oldSections.length; i++) oldSections[i].style.display = 'none';
 
     var style = document.createElement('style');
@@ -141,7 +151,7 @@
       '.product-orientation{display:flex;align-items:center;gap:20px;margin-bottom:42px;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.24em;color:var(--text-secondary)}' +
       '.product-orientation:before{content:"";display:block;flex:1;height:1px;background:var(--border)}.product-orientation>span:first-child{display:none}' +
       '#observation .opening-copy p+p{margin-top:18px}' +
-      '.pitch-copy,.compact-copy{width:100%;max-width:50%;font-size:17px;line-height:1.8;margin-top:36px}.pitch-copy p,.compact-copy p{margin:0}.pitch-copy p+p,.compact-copy p+p{margin-top:18px}' +
+      '.pitch-copy,.compact-copy,.independence-copy{width:100%;max-width:50%;font-size:17px;line-height:1.8;margin-top:36px}.pitch-copy p,.compact-copy p,.independence-copy p{margin:0}.pitch-copy p+p,.compact-copy p+p,.independence-copy p+p{margin-top:18px}' +
       '.pitch-steps{display:grid;grid-template-columns:repeat(4,1fr);margin-top:48px}.pitch-steps>div{padding:22px 22px 24px 0}.pitch-steps>div+div{padding-left:22px}.pitch-steps>div:last-child{border-right:0}.pitch-steps strong{display:block;font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.16em;margin-bottom:12px}.pitch-steps span{display:block;font-size:15px;line-height:1.55}' +
       '.pitch-actions{display:flex;align-items:center;gap:34px;flex-wrap:wrap;margin-top:36px}.pitch-watch,.pitch-go{display:inline-flex;align-items:center;text-decoration:none;text-transform:none}.pitch-watch{gap:10px;font-size:14px}.pitch-watch .pulse-square{width:10px;height:10px;background:var(--yellow);display:inline-block;animation:kdPulse 1.8s ease-in-out infinite}.pitch-go{gap:8px;font-size:17px;margin-left:auto}.pitch-arrow{display:inline-block;transition:transform .22s cubic-bezier(.2,.8,.2,1)}.pitch-go:hover .pitch-arrow{transform:translateY(-5px)}' +
       '.pitch-video{width:100%;aspect-ratio:16/9;margin-top:48px;display:flex;align-items:center;justify-content:center}.pitch-video>span{font-size:34px;line-height:1;padding-left:3px}' +
@@ -151,10 +161,11 @@
       '#observation{background:var(--paper)!important;color:var(--ink)!important}#observation .product-orientation{color:#77736b}#observation .product-orientation:before{background:#aaa69d}#observation .hero-line{color:var(--ink)!important}#observation .opening-copy{color:#44413c}#observation .opening-copy strong{color:var(--ink)}#observation .watch-action{color:#77736b}#observation .bench-prompt{color:#77736b}#observation .bench-command,#observation .bench-arrow{color:var(--ink)}#observation .opening-video{border-color:#aaa69d;background:#e5e2d9}#observation .opening-video-mark{color:var(--ink)}' +
       '.pitch-intro{background:var(--ink)!important;color:var(--paper)!important}.pitch-intro .product-orientation{color:var(--text-secondary)}.pitch-intro .product-orientation:before{background:var(--border)}.pitch-intro .hero-line{color:var(--paper)!important}.pitch-intro .pitch-copy{color:var(--text-body)}.pitch-intro .pitch-copy strong{color:var(--paper)}.pitch-intro .pitch-steps{border-top:0;border-bottom:0}.pitch-intro .pitch-steps>div{border-right:1px solid var(--border)}.pitch-intro .pitch-steps strong{color:var(--paper)}.pitch-intro .pitch-steps span{color:var(--text-body)}.pitch-intro .pitch-watch,.pitch-intro .pitch-prompt{color:var(--text-secondary)}.pitch-intro .pitch-command,.pitch-intro .pitch-arrow{color:var(--paper)}.pitch-intro .pitch-video{border:1px solid var(--border);background:#171715}.pitch-intro .pitch-video>span{color:var(--paper)}' +
       '.drift-intro{background:var(--paper)!important;color:var(--ink)!important}.drift-intro .product-orientation{color:#77736b}.drift-intro .product-orientation:before{background:#aaa69d}.drift-intro .hero-line{color:var(--ink)!important}.drift-intro .drift-copy{color:#44413c}.drift-intro .drift-copy strong,.drift-intro .drift-close{color:var(--ink)}' +
-      '#dense-home{background:var(--ink)!important;color:var(--paper)!important}#dense-home .product-orientation{color:var(--text-secondary)}#dense-home .product-orientation:before{background:var(--border)}#dense-home .hero-line{color:var(--paper)!important}#dense-home .compact-copy{color:var(--text-body)}#dense-home .compact-signature strong{color:var(--paper)}#dense-home .compact-signature>span{color:var(--text-secondary)}#dense-home .compact-signature .signature-terminal{background:var(--yellow)}#dense-home .text-link{color:var(--yellow)}' +
-      '.readings-home{background:var(--paper)!important;color:var(--ink)!important}.readings-home .product-orientation{color:#77736b}.readings-home .product-orientation:before{background:#aaa69d}.readings-home .hero-line{color:var(--ink)!important}.readings-home .compact-copy{color:#44413c}.readings-home .text-link{color:var(--ink)}' +
-      '.home-new-close{background:var(--ink)!important;color:var(--paper)!important}.home-new-close .hero-line{color:var(--paper)!important}.home-new-close .close-lead{color:var(--paper)}.home-new-close .close-options{border-top:1px solid var(--border);border-bottom:1px solid var(--border)}.home-new-close .close-options>div+div{border-left:1px solid var(--border)}.home-new-close .close-options span{color:var(--text-secondary)}.home-new-close .close-options a{color:var(--paper)}' +
-      '@media(max-width:767px){.product-orientation{margin-bottom:30px}.pitch-copy,.drift-copy,.compact-copy{max-width:100%}.pitch-steps{grid-template-columns:1fr}.pitch-steps>div,.pitch-steps>div+div{padding:18px 0;border-right:0!important;border-bottom:1px solid currentColor}.pitch-steps>div:last-child{border-bottom:0}.pitch-go{margin-left:0}.close-options{grid-template-columns:1fr}.close-options>div+div{padding-left:0;border-left:0!important;border-top:1px solid var(--border)}}' +
+      '.independence-home{background:var(--ink)!important;color:var(--paper)!important}.independence-home .product-orientation{color:var(--text-secondary)}.independence-home .product-orientation:before{background:var(--border)}.independence-home .hero-line{color:var(--paper)!important}.independence-home .independence-copy{color:var(--text-body)}.independence-home .independence-copy strong{color:var(--paper)}' +
+      '#dense-home{background:var(--paper)!important;color:var(--ink)!important}#dense-home .product-orientation{color:#77736b}#dense-home .product-orientation:before{background:#aaa69d}#dense-home .hero-line{color:var(--ink)!important}#dense-home .compact-copy{color:#44413c}#dense-home .compact-signature strong{color:var(--ink)}#dense-home .compact-signature>span{color:#77736b}#dense-home .compact-signature .signature-terminal{background:var(--yellow)}#dense-home .text-link{color:var(--ink)}' +
+      '.readings-home{background:var(--ink)!important;color:var(--paper)!important}.readings-home .product-orientation{color:var(--text-secondary)}.readings-home .product-orientation:before{background:var(--border)}.readings-home .hero-line{color:var(--paper)!important}.readings-home .compact-copy{color:var(--text-body)}.readings-home .text-link{color:var(--paper)}' +
+      '.home-new-close{background:var(--paper)!important;color:var(--ink)!important}.home-new-close .hero-line{color:var(--ink)!important}.home-new-close .close-lead{color:var(--ink)}.home-new-close .close-options{border-top:1px solid #aaa69d;border-bottom:1px solid #aaa69d}.home-new-close .close-options>div+div{border-left:1px solid #aaa69d}.home-new-close .close-options span{color:#55524c}.home-new-close .close-options a{color:var(--ink)}' +
+      '@media(max-width:767px){.product-orientation{margin-bottom:30px}.pitch-copy,.drift-copy,.compact-copy,.independence-copy{max-width:100%}.pitch-steps{grid-template-columns:1fr}.pitch-steps>div,.pitch-steps>div+div{padding:18px 0;border-right:0!important;border-bottom:1px solid currentColor}.pitch-steps>div:last-child{border-bottom:0}.pitch-go{margin-left:0}.close-options{grid-template-columns:1fr}.close-options>div+div{padding-left:0;border-left:0!important;border-top:1px solid var(--border)}}' +
       '@media(prefers-reduced-motion:reduce){#masthead,#registrar{transition:none}.pitch-watch .pulse-square{animation:none}.pitch-arrow,.text-link span,.close-options b{transition:none}}';
     document.head.appendChild(style);
   }
