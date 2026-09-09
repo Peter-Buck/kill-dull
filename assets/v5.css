@@ -69,7 +69,7 @@
 .v5-home .home-system{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink);margin-top:48px}
 .v5-home .home-system article{min-height:290px;padding:30px;display:flex;flex-direction:column}
 .v5-home .home-system article+article{border-left:1px solid var(--ink)}
-.v5-home .home-system article>span{font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.14em;color:#6f6b64}
+.v5-home .home-system article>span{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:500;letter-spacing:.14em;color:#6f6b64}
 .v5-home .home-system h3{font-size:44px;letter-spacing:-.04em;margin:30px 0 16px}
 .v5-home .home-system p{font-size:22px;line-height:1.5;max-width:430px;color:#55524c}
 .v5-home .home-system b{margin-top:auto;font-size:21px}
@@ -113,6 +113,13 @@
 .v5-home .text-link span:before,.v5-home .close-options b:before,.v5-home .enter-arrow:before{content:'↗';font-size:15px;line-height:1}
 .v5-home .pitch-go:hover .pitch-arrow,.v5-home .text-link:hover span,.v5-home .close-options a:hover b,.v5-home .product-cta:hover .enter-arrow{transform:translate(2px,-2px)!important}
 .v5-home .product-cta:hover .enter-text{transform:none!important}
+
+/* CTA CONTRAST — explicit after homepage color flip */
+.v5-home #dense-home .text-link,.v5-home #dense-home .text-link *,.v5-home #dense-home .text-link:hover,.v5-home #dense-home .text-link:hover *{color:var(--ink)!important}
+.v5-home #readings-home .text-link,.v5-home #readings-home .text-link *,.v5-home #readings-home .text-link:hover,.v5-home #readings-home .text-link:hover *{color:var(--paper)!important}
+.v5-home #home-close .close-options a,.v5-home #home-close .close-options a *,.v5-home #home-close .close-options a:hover,.v5-home #home-close .close-options a:hover *{color:var(--ink)!important}
+.v5-home #dense-home .text-link:hover,.v5-home #readings-home .text-link:hover,.v5-home #home-close .close-options a:hover{border-color:var(--yellow)!important}
+
 @media(min-width:768px){.v5-home .pitch-intro .pitch-steps{border-top:0!important;border-bottom:0!important}.v5-home .pitch-intro .pitch-steps>div{border-right:0!important}.v5-home .pitch-intro .pitch-steps>div+div{border-left:1px solid var(--border)!important}}
 @media(prefers-reduced-motion:reduce){.terminal{animation:none!important}}
 @media(max-width:767px){
