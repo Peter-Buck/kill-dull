@@ -12,8 +12,8 @@
     '.masthead-tagline,.bulletin-text{font-size:16px!important}'+
     '.masthead-designation{font-size:19px!important}'+
     '.masthead-bulletin .bulletin-label{display:none!important}'+
-    '.masthead-bulletin{min-height:70px!important;box-sizing:border-box!important;display:flex!important;align-items:center!important;justify-content:flex-start!important;padding:0 120px!important;text-align:left!important}'+
-    '.masthead-bulletin .bulletin-text{display:inline-flex!important;align-items:center!important;gap:8px!important;width:auto!important;text-align:left!important;color:inherit!important;text-decoration:none!important}'+
+    '.masthead-bulletin{min-height:70px!important;box-sizing:border-box!important;position:relative!important;padding:0!important;text-align:left!important}'+
+    '.masthead-bulletin .bulletin-text{position:absolute!important;left:120px!important;top:50%!important;transform:translateY(-50%)!important;display:inline-flex!important;align-items:center!important;gap:8px!important;width:auto!important;text-align:left!important;color:inherit!important;text-decoration:none!important;margin:0!important}'+
     '.masthead-bulletin .bulletin-arrow{display:inline-block!important;color:var(--yellow)!important;transition:transform .22s cubic-bezier(.2,.8,.2,1)}'+
     '.masthead-bulletin .bulletin-text:hover .bulletin-arrow{transform:translate(2px,-2px)}'+
     '.bulletin-arrow,.enter-arrow:before,.bench-arrow:before,.pitch-arrow:before,.text-link span:before,.close-options b:before,.bench-action span:before{font-family:"Space Grotesk",sans-serif!important;font-size:16px!important;font-weight:400!important;line-height:1!important}'+
@@ -30,8 +30,8 @@
     '.pitch-intro.pitch-scroll-ready .pitch-steps{height:var(--pitch-grid-h,520px)!important;align-items:start!important;overflow:hidden!important}'+
     '.pitch-intro.pitch-scroll-ready .pitch-steps>div{will-change:transform;transform:translate3d(0,var(--pitch-y,0px),0);opacity:1!important;border-right-color:var(--border)!important}'+
     '.pitch-intro.pitch-scroll-ready .pitch-steps>div:last-child{border-right-color:transparent!important}'+
-    '@media(max-width:1279px){.footer-inner{padding:64px!important}.masthead-bulletin{padding-left:64px!important;padding-right:64px!important}}'+
-    '@media(max-width:767px){.masthead-bulletin{padding-left:24px!important;padding-right:24px!important}.footer-inner{padding:48px 24px!important}.footer-section{grid-template-columns:1fr!important;gap:12px!important}.pitch-intro.pitch-scroll-ready .pitch-scroll-runway{height:auto!important}.pitch-intro.pitch-scroll-ready .pitch-scroll-stage{position:static!important}.pitch-intro.pitch-scroll-ready .pitch-steps{height:auto!important;overflow:visible!important}.pitch-intro.pitch-scroll-ready .pitch-steps>div{transform:none!important;will-change:auto!important;border-right-color:transparent!important}}'+
+    '@media(max-width:1279px){.footer-inner{padding:64px!important}.masthead-bulletin .bulletin-text{left:64px!important}}'+
+    '@media(max-width:767px){.masthead-bulletin .bulletin-text{left:24px!important}.footer-inner{padding:48px 24px!important}.footer-section{grid-template-columns:1fr!important;gap:12px!important}.pitch-intro.pitch-scroll-ready .pitch-scroll-runway{height:auto!important}.pitch-intro.pitch-scroll-ready .pitch-scroll-stage{position:static!important}.pitch-intro.pitch-scroll-ready .pitch-steps{height:auto!important;overflow:visible!important}.pitch-intro.pitch-scroll-ready .pitch-steps>div{transform:none!important;will-change:auto!important;border-right-color:transparent!important}}'+
     '@media(prefers-reduced-motion:reduce){.pitch-intro.pitch-scroll-ready .pitch-scroll-runway{height:auto!important}.pitch-intro.pitch-scroll-ready .pitch-scroll-stage{position:static!important}.pitch-intro.pitch-scroll-ready .pitch-steps{height:auto!important;overflow:visible!important}.pitch-intro.pitch-scroll-ready .pitch-steps>div{transform:none!important;will-change:auto!important}}';
   document.head.appendChild(style);
 
@@ -52,17 +52,7 @@
     var designation=document.querySelector('.masthead-designation');
     if(designation) designation.innerHTML='<span>THE</span> DENSE IDEA COMPANY<span class="tm">™</span>';
     var bulletin=document.querySelector('.masthead-bulletin');
-    if(bulletin){
-      bulletin.innerHTML='<a class="bulletin-text" href="/readings">First Readings in production.<span class="bulletin-arrow">↗</span></a>';
-      bulletin.style.setProperty('display','flex','important');
-      bulletin.style.setProperty('align-items','center','important');
-      bulletin.style.setProperty('justify-content','flex-start','important');
-      bulletin.style.setProperty('text-align','left','important');
-      bulletin.style.setProperty('padding-left',window.innerWidth<768?'24px':window.innerWidth<1280?'64px':'120px','important');
-      bulletin.style.setProperty('padding-right',window.innerWidth<768?'24px':window.innerWidth<1280?'64px':'120px','important');
-      var bulletinText=bulletin.querySelector('.bulletin-text');
-      if(bulletinText){bulletinText.style.setProperty('margin','0','important');bulletinText.style.setProperty('text-align','left','important');}
-    }
+    if(bulletin) bulletin.innerHTML='<a class="bulletin-text" href="/readings">First Readings in production.<span class="bulletin-arrow">↗</span></a>';
     var desktop=document.getElementById('registrar-desktop');
     if(desktop) desktop.innerHTML='<a class="reg-item'+(key==='home'?' is-current':'')+'" href="/">KILL DULL</a><a class="reg-item'+(key==='bench'?' is-current':'')+'" href="/bench">BENCH</a><a class="reg-item" href="https://pitchagainstdull.com">PITCH</a><a class="reg-item'+(key==='readings'?' is-current':'')+'" href="/readings">READINGS</a><a class="reg-item'+(key==='deeper'?' is-current':'')+'" href="/go-deeper">GO DEEPER</a><a class="reg-item'+(key==='bureau'?' is-current':'')+'" href="/bureau">THE BUREAU</a>';
     var products=document.querySelector('.unified-nav-products');
