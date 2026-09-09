@@ -43,112 +43,27 @@
     var key=currentKey();
     var wm=document.querySelector('.masthead-wordmark a');
     if(wm) wm.innerHTML='KILL DULL<span class="terminal"></span><span class="tm">™</span>';
-
     var designation=document.querySelector('.masthead-designation');
     if(designation) designation.innerHTML='<span>THE</span> DENSE IDEA COMPANY<span class="tm">™</span>';
-
     var bulletin=document.querySelector('.masthead-bulletin .bulletin-text');
     if(bulletin) bulletin.textContent='First Readings in production.';
-
     var desktop=document.getElementById('registrar-desktop');
-    if(desktop){
-      desktop.innerHTML=
-        '<a class="reg-item'+(key==='home'?' is-current':'')+'" href="/">KILL DULL</a>'+ 
-        '<a class="reg-item'+(key==='bench'?' is-current':'')+'" href="/bench">BENCH</a>'+ 
-        '<a class="reg-item" href="https://pitchagainstdull.com">PITCH</a>'+ 
-        '<a class="reg-item'+(key==='readings'?' is-current':'')+'" href="/readings">READINGS</a>'+ 
-        '<a class="reg-item'+(key==='bureau'?' is-current':'')+'" href="/bureau">THE BUREAU</a>';
-    }
-
+    if(desktop) desktop.innerHTML='<a class="reg-item'+(key==='home'?' is-current':'')+'" href="/">KILL DULL</a><a class="reg-item'+(key==='bench'?' is-current':'')+'" href="/bench">BENCH</a><a class="reg-item" href="https://pitchagainstdull.com">PITCH</a><a class="reg-item'+(key==='readings'?' is-current':'')+'" href="/readings">READINGS</a><a class="reg-item'+(key==='bureau'?' is-current':'')+'" href="/bureau">THE BUREAU</a>';
     var products=document.querySelector('.unified-nav-products');
     if(products) products.innerHTML='<a class="product-cta" href="/bench#discuss"><span class="enter-text">DECISION COMING UP?</span><span class="enter-arrow">↗</span></a>';
-
     var mobile=document.querySelector('.registrar-mobile');
-    if(mobile){
-      var label=key==='bench'?'BENCH':key==='readings'?'READINGS':key==='bureau'?'THE BUREAU':key==='home'?'KILL DULL':'KILL DULL';
-      mobile.innerHTML='<button class="reg-mobile-current" id="reg-mobile-btn"><span id="reg-mobile-label">'+label+'</span><span class="reg-mobile-arrow">▾</span></button><div class="reg-mobile-dropdown" id="reg-mobile-dropdown" hidden><a class="reg-item" href="/">KILL DULL</a><a class="reg-item" href="/bench">BENCH</a><a class="reg-item" href="https://pitchagainstdull.com">PITCH</a><a class="reg-item" href="/readings">READINGS</a><a class="reg-item" href="/bureau">THE BUREAU</a></div>';
-    }
-
+    if(mobile){var label=key==='bench'?'BENCH':key==='readings'?'READINGS':key==='bureau'?'THE BUREAU':key==='home'?'KILL DULL':'KILL DULL';mobile.innerHTML='<button class="reg-mobile-current" id="reg-mobile-btn"><span id="reg-mobile-label">'+label+'</span><span class="reg-mobile-arrow">▾</span></button><div class="reg-mobile-dropdown" id="reg-mobile-dropdown" hidden><a class="reg-item" href="/">KILL DULL</a><a class="reg-item" href="/bench">BENCH</a><a class="reg-item" href="https://pitchagainstdull.com">PITCH</a><a class="reg-item" href="/readings">READINGS</a><a class="reg-item" href="/bureau">THE BUREAU</a></div>';}
     var footer=document.querySelector('.footer');
-    if(footer){
-      footer.innerHTML='<div class="footer-inner"><div class="footer-bureau">THE BUREAU.</div><div class="footer-index"><div class="footer-section"><div class="footer-section-label">THE PRACTICE</div><nav aria-label="The practice"><a href="/discipline">The Dense Idea Discipline</a><a href="/bench">The Bench</a><a href="/bench#discuss">Independent Interrogation</a></nav></div><div class="footer-section"><div class="footer-section-label">PUBLIC RECORD</div><nav aria-label="Public record"><a href="/readings">Published Readings</a><a href="/bureau">Department of Hard Evidence</a></nav></div><div class="footer-section"><div class="footer-section-label">INSTITUTION</div><nav aria-label="Institution"><a href="/office">The Office</a><a href="/faq">FAQ</a><a href="/accessibility.html" aria-label="Accessibility statement">Accessibility</a><a href="/language.html" aria-label="Language settings">Language</a><a href="/privacy.html" aria-label="Privacy policy">Privacy</a><a href="/terms.html" aria-label="Terms of use">Terms</a></nav></div></div><div class="footer-colophon"><span>© 2026 Kill Dull<span class="tm">™</span></span><span>KD · OFFICE · MAN—001</span></div></div>';
-    }
+    if(footer) footer.innerHTML='<div class="footer-inner"><div class="footer-bureau">THE BUREAU.</div><div class="footer-index"><div class="footer-section"><div class="footer-section-label">THE PRACTICE</div><nav aria-label="The practice"><a href="/discipline">The Dense Idea Discipline</a><a href="/bench">BENCH</a></nav></div><div class="footer-section"><div class="footer-section-label">PUBLIC RECORD</div><nav aria-label="Public record"><a href="/readings">Published Readings</a><a href="/bureau">Department of Hard Evidence</a></nav></div><div class="footer-section"><div class="footer-section-label">INSTITUTION</div><nav aria-label="Institution"><a href="/office">The Office</a><a href="/faq">FAQ</a><a href="/accessibility.html" aria-label="Accessibility statement">Accessibility</a><a href="/language.html" aria-label="Language settings">Language</a><a href="/privacy.html" aria-label="Privacy policy">Privacy</a><a href="/terms.html" aria-label="Terms of use">Terms</a></nav></div></div><div class="footer-colophon"><span>© 2026 Kill Dull<span class="tm">™</span></span><span>KD · OFFICE · MAN—001</span></div></div>';
   }
 
   function wirePitchScroll(){
-    var pitch=document.getElementById('pitch-intro');
-    if(!pitch||pitch.dataset.scrollWired==='1')return;
-    pitch.dataset.scrollWired='1';
-    pitch.classList.add('pitch-scroll-ready');
-
-    var grid=pitch.querySelector('.pitch-steps');
-    var actions=pitch.querySelector('.pitch-actions');
-    if(!grid||!actions)return;
-
-    var runway=document.createElement('div');
-    runway.className='pitch-scroll-runway';
-    var stage=document.createElement('div');
-    stage.className='pitch-scroll-stage';
-    var first=pitch.firstElementChild;
-    var nodes=[];
-    var node=first;
-    while(node&&node!==actions){
-      nodes.push(node);
-      node=node.nextElementSibling;
-    }
-    pitch.insertBefore(runway,first);
-    runway.appendChild(stage);
-    for(var n=0;n<nodes.length;n++)stage.appendChild(nodes[n]);
-
-    var steps=stage.querySelectorAll('.pitch-steps>div');
-    if(!steps.length)return;
-
-    if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-
-    var ticking=false;
-    var travel=560;
-    function clamp(v,min,max){return Math.max(min,Math.min(max,v));}
-    function update(){
-      ticking=false;
-      if(window.innerWidth<768)return;
-      var rect=runway.getBoundingClientRect();
-      var stickyTop=24;
-      var scrolled=clamp(stickyTop-rect.top,0,travel);
-      var progress=scrolled/travel;
-      var stagger=90;
-      var startOffset=220;
-      var maxY=0;
-
-      for(var i=0;i<steps.length;i++){
-        var y=Math.max(0,startOffset+(i*stagger)-(progress*540));
-        maxY=Math.max(maxY,y);
-        steps[i].style.setProperty('--pitch-y',y.toFixed(1)+'px');
-      }
-
-      var gridHeight=150+Math.min(370,maxY);
-      grid.style.setProperty('--pitch-grid-h',gridHeight.toFixed(1)+'px');
-      var stageHeight=stage.offsetHeight;
-      runway.style.setProperty('--pitch-runway-h',(stageHeight+travel).toFixed(1)+'px');
-    }
-    function requestUpdate(){
-      if(ticking)return;
-      ticking=true;
-      requestAnimationFrame(update);
-    }
-
-    update();
-    window.addEventListener('scroll',requestUpdate,{passive:true});
-    window.addEventListener('resize',requestUpdate);
+    var pitch=document.getElementById('pitch-intro');if(!pitch||pitch.dataset.scrollWired==='1')return;pitch.dataset.scrollWired='1';pitch.classList.add('pitch-scroll-ready');
+    var grid=pitch.querySelector('.pitch-steps'),actions=pitch.querySelector('.pitch-actions');if(!grid||!actions)return;
+    var runway=document.createElement('div');runway.className='pitch-scroll-runway';var stage=document.createElement('div');stage.className='pitch-scroll-stage';var first=pitch.firstElementChild,nodes=[],node=first;while(node&&node!==actions){nodes.push(node);node=node.nextElementSibling;}pitch.insertBefore(runway,first);runway.appendChild(stage);for(var n=0;n<nodes.length;n++)stage.appendChild(nodes[n]);
+    var steps=stage.querySelectorAll('.pitch-steps>div');if(!steps.length)return;if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    var ticking=false,travel=560;function clamp(v,min,max){return Math.max(min,Math.min(max,v));}function update(){ticking=false;if(window.innerWidth<768)return;var rect=runway.getBoundingClientRect(),stickyTop=24,scrolled=clamp(stickyTop-rect.top,0,travel),progress=scrolled/travel,stagger=90,startOffset=220,maxY=0;for(var i=0;i<steps.length;i++){var y=Math.max(0,startOffset+(i*stagger)-(progress*540));maxY=Math.max(maxY,y);steps[i].style.setProperty('--pitch-y',y.toFixed(1)+'px');}var gridHeight=150+Math.min(370,maxY);grid.style.setProperty('--pitch-grid-h',gridHeight.toFixed(1)+'px');var stageHeight=stage.offsetHeight;runway.style.setProperty('--pitch-runway-h',(stageHeight+travel).toFixed(1)+'px');}function requestUpdate(){if(ticking)return;ticking=true;requestAnimationFrame(update);}update();window.addEventListener('scroll',requestUpdate,{passive:true});window.addEventListener('resize',requestUpdate);
   }
 
-  normalizeShell();
-
-  var core=document.createElement('script');
-  core.src='/assets/kd-core.js';
-  core.onload=function(){
-    normalizeShell();
-    document.head.appendChild(style);
-    wirePitchScroll();
-  };
-  document.head.appendChild(core);
+  normalizeShell();var core=document.createElement('script');core.src='/assets/kd-core.js';core.onload=function(){normalizeShell();document.head.appendChild(style);wirePitchScroll();};document.head.appendChild(core);
 })();
