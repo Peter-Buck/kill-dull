@@ -19,9 +19,11 @@
   function organizeHome(){
     var drift=document.getElementById('drift');
     if(drift&&!drift.dataset.fourPs){
-      drift.dataset.fourPs='1';
-      var copy=drift.querySelector('.compact-copy');
-      if(copy)copy.innerHTML='<p>Marketing has four Ps.</p><p><strong>Product. Price. Place. Promotion.</strong></p><p>Inside most companies, they don\'t live in the same room.</p><p>Different owners. Different data. Different incentives. Different definitions of success.</p><p>Customers don\'t experience four departments.</p><p><strong>They experience one company.</strong></p><p>A decision in one place can strengthen — or quietly depreciate — what the rest of the company has spent years building.</p>';
+      var copy=drift.querySelector('.drift-copy');
+      if(copy){
+        copy.innerHTML='<p>Marketing has four Ps.</p><p><strong>Product. Price. Place. Promotion.</strong></p><p>Inside most companies, they don\'t live in the same room.</p><p>Different owners. Different data. Different incentives. Different definitions of success.</p><p>Customers don\'t experience four departments.</p><p><strong>They experience one company.</strong></p><p>A decision in one place can strengthen — or quietly depreciate — what the rest of the company has spent years building.</p>';
+        drift.dataset.fourPs='1';
+      }
     }
     var readings=document.getElementById('readings-home');
     if(readings&&!readings.dataset.organized){
