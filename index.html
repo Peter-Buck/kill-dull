@@ -5,7 +5,7 @@
 <title>Kill Dull™ — The Dense Idea Company</title><meta name="description" content="Kill Dull is the Dense Idea Company. Better judgment before consequential marketing commitments.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="/assets/kd.css"><link rel="stylesheet" href="/assets/v5.css">
 <style>
-#observation,#pitch-intro{display:none!important}.product-orientation{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:20px!important;margin-bottom:48px!important;font-family:"IBM Plex Mono",monospace!important;font-size:15px!important;font-weight:400!important;line-height:1!important;letter-spacing:.12em!important;color:var(--text-secondary)!important}.product-orientation:before{display:block!important;content:""!important;flex:1!important;height:1px!important;background:var(--border)!important}.product-orientation>span:first-child{display:none!important}.product-orientation>span:last-child{white-space:nowrap!important}
+.product-orientation{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:20px!important;margin-bottom:48px!important;font-family:"IBM Plex Mono",monospace!important;font-size:15px!important;font-weight:400!important;line-height:1!important;letter-spacing:.12em!important;color:var(--text-secondary)!important}.product-orientation:before{display:block!important;content:""!important;flex:1!important;height:1px!important;background:var(--border)!important}.product-orientation>span:first-child{display:none!important}.product-orientation>span:last-child{white-space:nowrap!important}
 </style>
 </head><body class="v5-home">
 <header class="masthead" id="masthead"><div class="masthead-top"><div class="masthead-date" id="masthead-date"></div><div class="masthead-wordmark"><a href="/">KILL DULL<span class="terminal"></span><span class="tm">™</span></a></div><div class="masthead-designation"><span>THE</span> DENSE IDEA COMPANY<span class="tm">™</span></div></div><div class="masthead-tagline">Here to Compound.</div><div class="masthead-bulletin"><span class="bulletin-label">FROM THE BUREAU</span><span class="bulletin-text">First Readings in production.</span></div><div class="masthead-rule"></div></header>
@@ -13,24 +13,4 @@
 <main><section class="viewport" id="observation"></section></main>
 <footer class="footer" role="contentinfo"><div class="footer-inner"><div class="footer-bureau">THE BUREAU.</div><div class="footer-index"><div class="footer-section"><div class="footer-section-label">THE PRACTICE</div><nav aria-label="The practice"><a href="/discipline">The Dense Idea Discipline</a><a href="/bench">BENCH</a></nav></div><div class="footer-section"><div class="footer-section-label">PUBLIC RECORD</div><nav aria-label="Public record"><a href="/readings">Published Readings</a><a href="/bureau">Department of Hard Evidence</a></nav></div><div class="footer-section"><div class="footer-section-label">INSTITUTION</div><nav aria-label="Institution"><a href="/office">The Office</a><a href="/faq">FAQ</a><a href="/accessibility.html">Accessibility</a><a href="/language.html">Language</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></nav></div></div><div class="footer-colophon"><span>© 2026 Kill Dull<span class="tm">™</span></span><span>KD · OFFICE · MAN—001</span></div></div></footer>
 <script src="/assets/kd.js"></script>
-<script>
-(function(){
-  var observation=document.getElementById('observation');if(!observation)return;
-  function organizeHome(){
-    var drift=document.getElementById('drift');
-    if(drift&&!drift.dataset.fourPs){
-      var copy=drift.querySelector('.drift-copy');
-      if(copy){
-        copy.innerHTML='<p>Marketing has four Ps.</p><p><strong>Product. Price. Place. Promotion.</strong></p><p>Inside most companies, they don\'t live in the same room.</p><p>Different owners. Different data. Different incentives. Different definitions of success.</p><p>Customers don\'t experience four departments.</p><p><strong>They experience one company.</strong></p><p>A decision in one place can strengthen — or quietly depreciate — what the rest of the company has spent years building.</p>';
-        drift.dataset.fourPs='1';
-      }
-    }
-    var readings=document.getElementById('readings-home');
-    if(readings&&!readings.dataset.organized){
-      readings.dataset.organized='1';var readingsCopy=readings.querySelector('.compact-copy');if(readingsCopy)readingsCopy.innerHTML='<p>Some decisions come to us <strong>before</strong> they are made. Others are already out in the world.</p><p><strong>Private Readings.</strong> For the client. Before commitment.<br><strong>Published Readings.</strong> For the record. After commitment.</p><p>Two kinds of Readings. One standard of judgment.</p>';var link=readings.querySelector('.text-link');if(link)link.innerHTML='Explore Readings <span>→</span>';
-    }
-  }
-  var observer=new MutationObserver(organizeHome);observer.observe(document.querySelector('main'),{childList:true,subtree:true});organizeHome();
-})();
-</script>
 </body></html>
