@@ -3,6 +3,7 @@
     { "source": "/", "destination": "/index.html" },
     { "source": "/discipline", "destination": "/discipline.html" },
     { "source": "/bench", "destination": "/bench.html" },
+    { "source": "/pitch", "destination": "/pitch.html" },
     { "source": "/readings", "destination": "/readings.html" },
     { "source": "/bureau", "destination": "/bureau.html" },
     { "source": "/office", "destination": "/office.html" },
