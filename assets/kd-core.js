@@ -180,8 +180,7 @@
     why.id = 'why-home';
     why.innerHTML =
       '<div class="product-orientation"><span></span><span>WHY KILL DULL?</span></div>' +
-      '<span class="hero-line-wrap"><h2 class="hero-line js-fit">WHY CALL IT</h2></span>' +
-      '<span class="hero-line-wrap"><h2 class="hero-line js-fit">KILL DULL?</h2></span>' +
+      '<span class="hero-line-wrap"><h2 class="hero-line js-fit">WHY CALL IT KILL DULL?</h2></span>' +
       '<div class="home-copy">' +
         '<p>We could have called ourselves:</p>' +
         '<p><strong>The Institute for Independent Marketing Judgment and Compounding Institutional Value.</strong></p>' +
