@@ -9,6 +9,7 @@
     '.masthead-wordmark .terminal{order:1!important;animation:kd-terminal-compound 5.06s linear infinite!important;transform-origin:center!important}'+
     '.masthead-wordmark .tm{order:2!important;display:inline-block!important;font-size:.44em!important;vertical-align:baseline!important;line-height:1!important;margin-left:6px!important;position:relative!important;top:-.895em!important;letter-spacing:0!important}'+
     '.masthead-date,.reg-item,.product-link,.product-cta{font-size:15px!important}'+
+    '.product-orientation{font-size:15px!important}'+
     '.masthead-tagline,.bulletin-text{font-size:16px!important}'+
     '.masthead-designation{font-size:19px!important}'+
     '.masthead-bulletin .bulletin-label{display:none!important}'+
