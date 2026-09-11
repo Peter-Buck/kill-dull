@@ -139,3 +139,12 @@
 .hero-line,.chapter-headline,.kd-case-headline,.kd-case-conclusion,.bench-process-headline{font-family:'Space Grotesk',sans-serif!important;font-size:var(--kd-major-headline-size)!important;font-weight:500!important;line-height:.98!important;letter-spacing:-.04em!important;text-align:left!important;margin-left:0!important;margin-right:0!important}
 .hero-line-wrap{display:block!important;width:100%!important;text-align:left!important}
 @media(max-width:767px){:root{--kd-major-headline-size:clamp(38px,10.5vw,54px)}}
+
+/* GLOBAL CTA BEHAVIOR — signal, never fill. */
+.product-cta,.bench-action,.reading-cta,.pitch-go,.text-link,.kd-call{background:transparent!important;transition:border-color .18s ease!important}
+.product-cta:hover,.product-cta:focus-visible,.bench-action:hover,.bench-action:focus-visible,.reading-cta:hover,.reading-cta:focus-visible,.pitch-go:hover,.pitch-go:focus-visible,.text-link:hover,.text-link:focus-visible,.kd-call:hover,.kd-call:focus-visible{background:transparent!important;border-color:var(--yellow)!important;color:inherit!important}
+.product-cta .enter-arrow,.bench-action>span:last-child,.reading-cta>span:last-child,.pitch-go .pitch-arrow,.text-link>span:last-child,.kd-call>span:last-child{display:inline-block;transition:transform .22s cubic-bezier(.2,.8,.2,1)!important}
+.product-cta:hover .enter-arrow,.product-cta:focus-visible .enter-arrow,.bench-action:hover>span:last-child,.bench-action:focus-visible>span:last-child,.reading-cta:hover>span:last-child,.reading-cta:focus-visible>span:last-child,.pitch-go:hover .pitch-arrow,.pitch-go:focus-visible .pitch-arrow,.text-link:hover>span:last-child,.text-link:focus-visible>span:last-child,.kd-call:hover>span:last-child,.kd-call:focus-visible>span:last-child{transform:translate(2px,-2px)!important}
+
+/* HEADER SIDE LABELS — same typographic voice. */
+.masthead-date,.masthead-designation{font-family:'Space Grotesk',sans-serif!important;font-weight:700!important;letter-spacing:.10em!important;text-transform:uppercase!important}
