@@ -36,9 +36,9 @@
     '.footer-bureau{font-size:clamp(40px,6vw,80px)!important;margin-bottom:64px!important;padding-top:32px!important}'+
     '.footer-index{margin-bottom:80px!important}'+
     '.footer-section{grid-template-columns:200px 1fr!important;padding:28px 0!important}'+
-    '.footer-section-label{font-size:10px!important}'+
-    '.footer-section nav a{font-size:15px!important}'+
-    '.footer-colophon{font-size:10px!important}'+
+    '.footer-section-label{font-size:11px!important}'+
+    '.footer-section nav a{font-size:16px!important}'+
+    '.footer-colophon{font-size:11px!important}'+
     '.readings-page .accumulate{max-width:none!important;width:100%!important;text-transform:uppercase!important}'+
     '.readings-page .accumulate .hero-line-wrap{display:block!important;width:100%!important}'+
     '.readings-page .reading-container{overflow:hidden!important;transition:border-color .18s ease!important}'+
@@ -105,11 +105,11 @@
     var bulletin=document.querySelector('.masthead-bulletin');
     if(bulletin) bulletin.innerHTML='<a class="bulletin-text" href="/readings">Here to compound. Readings in production.<span class="bulletin-arrow">↗</span></a>';
     var desktop=document.getElementById('registrar-desktop');
-    if(desktop) desktop.innerHTML='<a class="reg-item'+(key==='home'?' is-current':'')+'" href="/">KILL DULL</a><a class="reg-item'+(key==='bench'?' is-current':'')+'" href="/bench">BENCH</a><a class="reg-item'+(key==='pitch'?' is-current':'')+'" href="/pitch">PITCH</a><a class="reg-item'+(key==='readings'?' is-current':'')+'" href="/readings">READINGS</a><a class="reg-item'+(key==='deeper'?' is-current':'')+'" href="/go-deeper">DISCIPLINE</a><a class="reg-item'+(key==='bureau'?' is-current':'')+'" href="/bureau">THE BUREAU</a>';
+    if(desktop) desktop.innerHTML='<a class="reg-item'+(key==='home'?' is-current':'')+'" href="/">KILL DULL</a><a class="reg-item'+(key==='bench'?' is-current':'')+'" href="/bench">BENCH</a><a class="reg-item'+(key==='pitch'?' is-current':'')+'" href="/pitch">PITCH</a><a class="reg-item'+(key==='readings'?' is-current':'')+'" href="/readings">READINGS</a><a class="reg-item'+(key==='deeper'?' is-current':'')+'" href="/go-deeper">DISCIPLINE</a><a class="reg-item'+(key==='bureau'?' is-current':'')+'" href="/bureau">BUREAU</a>';
     var products=document.querySelector('.unified-nav-products');
     if(products) products.innerHTML='<a class="product-cta" href="/bench#discuss"><span class="enter-text">DECISION COMING UP?</span><span class="enter-arrow">↗</span></a>';
     var mobile=document.querySelector('.registrar-mobile');
-    if(mobile){var label=key==='bench'?'BENCH':key==='pitch'?'PITCH':key==='readings'?'READINGS':key==='deeper'?'DISCIPLINE':key==='bureau'?'THE BUREAU':key==='home'?'KILL DULL':'KILL DULL';mobile.innerHTML='<button class="reg-mobile-current" id="reg-mobile-btn"><span id="reg-mobile-label">'+label+'</span><span class="reg-mobile-arrow">▾</span></button><div class="reg-mobile-dropdown" id="reg-mobile-dropdown" hidden><a class="reg-item" href="/">KILL DULL</a><a class="reg-item" href="/bench">BENCH</a><a class="reg-item" href="/pitch">PITCH</a><a class="reg-item" href="/readings">READINGS</a><a class="reg-item" href="/go-deeper">DISCIPLINE</a><a class="reg-item" href="/bureau">THE BUREAU</a></div>';}
+    if(mobile){var label=key==='bench'?'BENCH':key==='pitch'?'PITCH':key==='readings'?'READINGS':key==='deeper'?'DISCIPLINE':key==='bureau'?'BUREAU':key==='home'?'KILL DULL':'KILL DULL';mobile.innerHTML='<button class="reg-mobile-current" id="reg-mobile-btn"><span id="reg-mobile-label">'+label+'</span><span class="reg-mobile-arrow">▾</span></button><div class="reg-mobile-dropdown" id="reg-mobile-dropdown" hidden><a class="reg-item" href="/">KILL DULL</a><a class="reg-item" href="/bench">BENCH</a><a class="reg-item" href="/pitch">PITCH</a><a class="reg-item" href="/readings">READINGS</a><a class="reg-item" href="/go-deeper">DISCIPLINE</a><a class="reg-item" href="/bureau">BUREAU</a></div>';}
     var burberry=document.querySelector('.readings-page img[alt="Burberry"]');
     if(burberry){burberry.src='/assets/burberry-logo.svg';burberry.classList.add('native-cream');}
     var starbucks=document.querySelector('.readings-page img[alt="Starbucks"]');
