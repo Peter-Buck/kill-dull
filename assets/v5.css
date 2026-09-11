@@ -156,3 +156,6 @@
 .footer .footer-section nav a{font-size:18px!important;line-height:1.55!important}
 .footer .footer-section-label{font-size:12px!important;line-height:1.4!important}
 .footer .footer-colophon{font-size:12px!important}
+
+/* FOOTER TRADEMARK — align to cap height of Kill Dull. */
+.footer .footer-colophon .tm{display:inline-block!important;font-size:.62em!important;line-height:1!important;vertical-align:baseline!important;position:relative!important;top:-.48em!important;margin-left:1px!important;letter-spacing:0!important}
