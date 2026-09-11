@@ -127,6 +127,8 @@
     function reveal(){clearTimers();phase='reveal';mount('is-reveal');timers.push(setTimeout(unmount,SWEEP_MS));}
 
     /* Arriving under the cover: hold it, let the page paint, then sweep it off the top. */
+    /* The page <head> may already have raised a pre-paint cover (html[data-kd-arriving]); hand over to the panel. */
+    function dropEarlyCover(){document.documentElement.removeAttribute('data-kd-arriving');var s=document.getElementById('kd-route-arriving');if(s&&s.parentNode)s.parentNode.removeChild(s);}
     function arrive(){
       var pending=null;
       try{pending=JSON.parse(sessionStorage.getItem(STORE)||'null');sessionStorage.removeItem(STORE);}catch(err){pending=null;}
@@ -134,6 +136,7 @@
         phase='cover';mount('is-covered');
         requestAnimationFrame(function(){timers.push(setTimeout(reveal,SETTLE_MS));});
       }
+      dropEarlyCover();
     }
     if(document.prerendering){
       /* A prerendered primary page is only ever activated by a sweep click, so wait under the cover;
@@ -185,7 +188,7 @@
     if(document.readyState==='complete')setTimeout(prepareRoutes,0);else window.addEventListener('load',function(){setTimeout(prepareRoutes,0);});
 
     /* Returning via back/forward cache: never restore a page still covered. */
-    window.addEventListener('pageshow',function(ev){if(ev.persisted){unmount();try{sessionStorage.removeItem(STORE);}catch(err){}}});
+    window.addEventListener('pageshow',function(ev){if(ev.persisted){unmount();dropEarlyCover();try{sessionStorage.removeItem(STORE);}catch(err){}}});
   }
 
   /* BENCH Reading headline: fit each line to its column (moved from an inline script so page bodies stay script-free before kd.js). */
