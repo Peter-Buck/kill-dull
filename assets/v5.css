@@ -133,3 +133,9 @@
 @media(prefers-reduced-motion:reduce){.terminal{animation:none!important}}
 @media(max-width:767px){
 .v5-home .viewport{padding-top:54px;padding-bottom:80px}.v5-home .home-fourps{grid-template-columns:1fr 1fr}.v5-home .home-fourps div:nth-child(2){border-right:0}.v5-home .home-fourps div:nth-child(-n+2){border-bottom:1px solid var(--ink)}.v5-home .home-split,.v5-home .home-cases,.v5-home .home-brands,.v5-home .home-balance,.v5-home .home-system{grid-template-columns:1fr}.v5-home .home-cases article,.v5-home .home-brands>div:nth-child(even),.v5-home .home-brands>div:nth-child(odd),.v5-home .home-balance>div+div,.v5-home .home-system article+article{border-left:0}.v5-home .home-brands>div:nth-child(even),.v5-home .home-brands>div:nth-child(odd){padding:18px 0}.v5-home .home-brands>div{grid-template-columns:130px 1fr}.v5-home .home-process>div{grid-template-columns:56px 1fr}.v5-home .home-readings>div{grid-template-columns:76px 1fr 58px;gap:12px}.v5-home .home-readings strong{font-size:21px}}
+
+/* INSTITUTIONAL HEADLINE RULE — one scale, one weight, one alignment. */
+:root{--kd-major-headline-size:clamp(54px,5.15vw,84px)}
+.hero-line,.chapter-headline,.kd-case-headline,.kd-case-conclusion,.bench-process-headline{font-family:'Space Grotesk',sans-serif!important;font-size:var(--kd-major-headline-size)!important;font-weight:500!important;line-height:.98!important;letter-spacing:-.04em!important;text-align:left!important;margin-left:0!important;margin-right:0!important}
+.hero-line-wrap{display:block!important;width:100%!important;text-align:left!important}
+@media(max-width:767px){:root{--kd-major-headline-size:clamp(38px,10.5vw,54px)}}
