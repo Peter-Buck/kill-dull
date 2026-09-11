@@ -34,7 +34,7 @@
     '.readings-page .accumulate{max-width:none!important;width:100%!important;text-transform:uppercase!important}'+
     '.readings-page .accumulate .hero-line-wrap{display:block!important;width:100%!important}'+
     '.readings-page .record-logo{transform-origin:left center!important}'+
-    '.readings-page .record-row:nth-child(1) .record-logo{transform:scale(.88)!important}'+
+    '.readings-page .record-row:nth-child(1) .record-logo{transform:scale(.748)!important}'+
     '.readings-page .record-row:nth-child(2) .record-logo{transform:scale(1.3175)!important}'+
     '.readings-page .record-row:nth-child(3) .record-logo{transform:scale(.82)!important}'+
     '.readings-page .record-row:nth-child(4) .record-logo{transform:scale(.9)!important}'+
