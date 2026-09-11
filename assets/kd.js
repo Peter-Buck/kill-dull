@@ -127,12 +127,20 @@
     function reveal(){clearTimers();phase='reveal';mount('is-reveal');timers.push(setTimeout(unmount,SWEEP_MS));}
 
     /* Arriving under the cover: hold it, let the page paint, then sweep it off the top. */
-    var pending=null;
-    try{pending=JSON.parse(sessionStorage.getItem(STORE)||'null');sessionStorage.removeItem(STORE);}catch(err){pending=null;}
-    if(pending&&pending.to===currentKey()&&(Date.now()-pending.t)<MAX_HOLD_MS&&!reducedMotion()){
-      phase='cover';mount('is-covered');
-      requestAnimationFrame(function(){timers.push(setTimeout(reveal,SETTLE_MS));});
+    function arrive(){
+      var pending=null;
+      try{pending=JSON.parse(sessionStorage.getItem(STORE)||'null');sessionStorage.removeItem(STORE);}catch(err){pending=null;}
+      if(pending&&pending.to===currentKey()&&(Date.now()-pending.t)<MAX_HOLD_MS&&!reducedMotion()){
+        phase='cover';mount('is-covered');
+        requestAnimationFrame(function(){timers.push(setTimeout(reveal,SETTLE_MS));});
+      }
     }
+    if(document.prerendering){
+      /* A prerendered primary page is only ever activated by a sweep click, so wait under the cover;
+         if it was activated some other way, drop the cover before anything is shown. */
+      if(!reducedMotion())mount('is-covered');
+      document.addEventListener('prerenderingchange',function(){if(panel)unmount();arrive();},{once:true});
+    }else arrive();
 
     /* Intercept only navigations between the primary destinations. */
     document.addEventListener('click',function(e){
@@ -154,6 +162,27 @@
       timers.push(setTimeout(function(){window.location.assign(href);},SWEEP_MS));
       timers.push(setTimeout(reveal,MAX_HOLD_MS));
     },true);
+
+    /* Like next/link, get the other primary destinations ready ahead of time so the swap under the cover is near-instant:
+       prerender on intent (hover/pointerdown) where speculation rules exist, otherwise prefetch the documents. */
+    function prepareRoutes(){
+      var seen={},urls=[],links=document.querySelectorAll('a[href]');
+      for(var i=0;i<links.length;i++){
+        var u;try{u=new URL(links[i].href,window.location.href);}catch(err){continue;}
+        var k=routeKey(u.pathname);
+        if(u.origin!==window.location.origin||!k||k===currentKey()||seen[u.pathname])continue;
+        seen[u.pathname]=1;urls.push(u.pathname);
+      }
+      if(!urls.length)return;
+      if(!reducedMotion()&&window.HTMLScriptElement&&HTMLScriptElement.supports&&HTMLScriptElement.supports('speculationrules')){
+        var rules=document.createElement('script');rules.type='speculationrules';
+        rules.textContent=JSON.stringify({prerender:[{where:{or:urls.map(function(p){return {href_matches:p};})},eagerness:'moderate'}]});
+        document.head.appendChild(rules);
+      }else{
+        for(var j=0;j<urls.length;j++){var l=document.createElement('link');l.rel='prefetch';l.href=urls[j];document.head.appendChild(l);}
+      }
+    }
+    if(document.readyState==='complete')setTimeout(prepareRoutes,0);else window.addEventListener('load',function(){setTimeout(prepareRoutes,0);});
 
     /* Returning via back/forward cache: never restore a page still covered. */
     window.addEventListener('pageshow',function(ev){if(ev.persisted){unmount();try{sessionStorage.removeItem(STORE);}catch(err){}}});
