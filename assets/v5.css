@@ -136,6 +136,6 @@
 
 /* INSTITUTIONAL HEADLINE RULE — one scale, one weight, one alignment. */
 :root{--kd-major-headline-size:clamp(54px,5.15vw,84px)}
-.hero-line:not(.reading-fit),.chapter-headline,.kd-case-headline,.kd-case-conclusion,.bench-process-headline{font-family:'Space Grotesk',sans-serif!important;font-size:var(--kd-major-headline-size)!important;font-weight:500!important;line-height:.98!important;letter-spacing:-.04em!important;text-align:left!important;margin-left:0!important;margin-right:0!important}
+.hero-line,.chapter-headline,.kd-case-headline,.kd-case-conclusion,.bench-process-headline{font-family:'Space Grotesk',sans-serif!important;font-size:var(--kd-major-headline-size)!important;font-weight:500!important;line-height:.98!important;letter-spacing:-.04em!important;text-align:left!important;margin-left:0!important;margin-right:0!important}
 .hero-line-wrap{display:block!important;width:100%!important;text-align:left!important}
 @media(max-width:767px){:root{--kd-major-headline-size:clamp(38px,10.5vw,54px)}}
