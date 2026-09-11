@@ -35,14 +35,14 @@
     '.readings-page .accumulate .hero-line-wrap{display:block!important;width:100%!important}'+
     '.readings-page .record-logo{transform-origin:left center!important}'+
     '.readings-page .record-row:nth-child(1) .record-logo{transform:scale(.88)!important}'+
-    '.readings-page .record-row:nth-child(2) .record-logo{transform:scale(1.55)!important}'+
+    '.readings-page .record-row:nth-child(2) .record-logo{transform:scale(1.3175)!important}'+
     '.readings-page .record-row:nth-child(3) .record-logo{transform:scale(.82)!important}'+
     '.readings-page .record-row:nth-child(4) .record-logo{transform:scale(.9)!important}'+
     '.readings-page .record-row:nth-child(5) .record-logo{transform:scale(1.18)!important}'+
     '.readings-page .record-row:nth-child(6) .record-logo{transform:scale(1.7)!important}'+
     '.readings-page .record-row:nth-child(7) .record-logo{transform:scale(.92)!important}'+
     '.readings-page .record-row:nth-child(8) .record-logo{transform:scale(.92)!important}'+
-    '.readings-page .record-row:nth-child(9) .record-logo{transform:scale(1)!important}'+
+    '.readings-page .record-row:nth-child(9) .record-logo{transform:scale(1.2)!important}'+
     '.pitch-intro.pitch-scroll-ready .pitch-scroll-runway{position:relative;height:var(--pitch-runway-h,1100px)}'+
     '.pitch-intro.pitch-scroll-ready .pitch-scroll-stage{position:sticky;top:24px;z-index:2;background:var(--paper)}'+
     '.pitch-intro.pitch-scroll-ready .pitch-steps{height:var(--pitch-grid-h,520px)!important;align-items:start!important;overflow:hidden!important}'+
