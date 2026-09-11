@@ -151,3 +151,8 @@
 
 /* CTA TYPOGRAPHY — match the hairline labels. */
 .kd-cta-unified{font-family:'IBM Plex Mono',monospace!important}
+
+/* FOOTER TYPOGRAPHY — align with site body scale. */
+.footer .footer-section nav a{font-size:18px!important;line-height:1.55!important}
+.footer .footer-section-label{font-size:12px!important;line-height:1.4!important}
+.footer .footer-colophon{font-size:12px!important}
