@@ -36,9 +36,9 @@
     '.footer-bureau{font-size:clamp(40px,6vw,80px)!important;margin-bottom:64px!important;padding-top:32px!important}'+
     '.footer-index{margin-bottom:80px!important}'+
     '.footer-section{grid-template-columns:200px 1fr!important;padding:28px 0!important}'+
-    '.footer-section-label{font-size:11px!important}'+
-    '.footer-section nav a{font-size:16px!important}'+
-    '.footer-colophon{font-size:11px!important}'+
+    '.footer-section-label{font-size:15px!important}'+
+    '.footer-section nav a{font-size:18px!important}'+
+    '.footer-colophon{font-size:13px!important}'+
     '.readings-page .accumulate{max-width:none!important;width:100%!important;text-transform:uppercase!important}'+
     '.readings-page .accumulate .hero-line-wrap{display:block!important;width:100%!important}'+
     '.readings-page .reading-container{overflow:hidden!important;transition:border-color .18s ease!important}'+
