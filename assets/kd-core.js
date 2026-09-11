@@ -9,6 +9,7 @@
   shellStyle.id = 'kd-canonical-shell';
   shellStyle.textContent =
     '.masthead-date,.reg-item,.product-link,.product-cta{font-size:15px!important}' +
+    '.masthead-top{padding:34px 120px 18px!important;align-items:center!important}' +
     '.masthead-tagline,.bulletin-text{font-size:16px!important}' +
     '.masthead-designation{font-size:19px!important}' +
     '.bulletin-label{font-size:14px!important}' +
@@ -21,8 +22,8 @@
     '.footer-section-label{font-size:10px!important}' +
     '.footer-section nav a{font-size:15px!important}' +
     '.footer-colophon{font-size:10px!important}' +
-    '@media(max-width:1279px){.footer-inner{padding:64px!important}}' +
-    '@media(max-width:767px){.footer-inner{padding:48px 24px!important}.footer-section{grid-template-columns:1fr!important;gap:12px!important}}';
+    '@media(max-width:1279px){.masthead-top{padding:30px 64px 16px!important}.footer-inner{padding:64px!important}}' +
+    '@media(max-width:767px){.masthead-top{padding:24px 24px 14px!important}.footer-inner{padding:48px 24px!important}.footer-section{grid-template-columns:1fr!important;gap:12px!important}}';
   document.head.appendChild(shellStyle);
 
   function fitToWidth(el, horizontalPad) {
@@ -40,10 +41,8 @@
   }
 
   function setDate() {
-    var months = ['JANUARY','FEBRUARY','MARCH','APRIL','MAY','JUNE','JULY','AUGUST','SEPTEMBER','OCTOBER','NOVEMBER','DECEMBER'];
-    var now = new Date();
     var el = document.getElementById('masthead-date');
-    if (el) el.textContent = now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+    if (el) el.textContent = 'THE DENSE IDEA COMPANY™';
   }
 
   function getOffset() {
