@@ -2,6 +2,11 @@
 (function(){
   'use strict';
 
+  var palette=document.createElement('style');
+  palette.id='kd-global-palette';
+  palette.textContent=':root{--ink:#24222B!important;--paper:#FFFFFF!important;--border:#504D57!important;--border-inner:#3E3B45!important;--yellow:#FFFF00!important}';
+  document.head.appendChild(palette);
+
   var style=document.createElement('style');
   style.id='kd-shell-override';
   style.textContent='@keyframes kd-terminal-compound{0%{transform:scale(1)}50%{transform:scale(1.175)}100%{transform:scale(1)}}'+
