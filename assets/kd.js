@@ -85,7 +85,7 @@
     var tagline=document.querySelector('.masthead-tagline');
     if(tagline) tagline.textContent='';
     var bulletin=document.querySelector('.masthead-bulletin');
-    if(bulletin) bulletin.innerHTML='<span class="bulletin-mission">HERE TO COMPOUND.</span><a class="bulletin-text" href="/readings">First Readings in production.<span class="bulletin-arrow">↗</span></a>';
+    if(bulletin) bulletin.innerHTML='<a class="bulletin-text" href="/readings">Here to compound. Readings in production.<span class="bulletin-arrow">↗</span></a>';
     var desktop=document.getElementById('registrar-desktop');
     if(desktop) desktop.innerHTML='<a class="reg-item'+(key==='home'?' is-current':'')+'" href="/">KILL DULL</a><a class="reg-item'+(key==='bench'?' is-current':'')+'" href="/bench">BENCH</a><a class="reg-item'+(key==='pitch'?' is-current':'')+'" href="/pitch">PITCH</a><a class="reg-item'+(key==='readings'?' is-current':'')+'" href="/readings">READINGS</a><a class="reg-item'+(key==='deeper'?' is-current':'')+'" href="/go-deeper">GO DEEPER</a><a class="reg-item'+(key==='bureau'?' is-current':'')+'" href="/bureau">THE BUREAU</a>';
     var products=document.querySelector('.unified-nav-products');
