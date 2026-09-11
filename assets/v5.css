@@ -148,3 +148,6 @@
 
 /* HEADER SIDE LABELS — same typographic voice. */
 .masthead-date,.masthead-designation{font-family:'Space Grotesk',sans-serif!important;font-weight:700!important;letter-spacing:.10em!important;text-transform:uppercase!important}
+
+/* CTA TYPOGRAPHY — match the hairline labels. */
+.kd-cta-unified{font-family:'IBM Plex Mono',monospace!important}
