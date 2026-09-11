@@ -42,7 +42,7 @@
     '.readings-page .record-row:nth-child(6) .record-logo{transform:scale(1.7)!important}'+
     '.readings-page .record-row:nth-child(7) .record-logo{transform:scale(.92)!important}'+
     '.readings-page .record-row:nth-child(8) .record-logo{transform:scale(.92)!important}'+
-    '.readings-page .record-row:nth-child(9) .record-logo{transform:scale(1.65)!important}'+
+    '.readings-page .record-row:nth-child(9) .record-logo{transform:scale(1)!important}'+
     '.pitch-intro.pitch-scroll-ready .pitch-scroll-runway{position:relative;height:var(--pitch-runway-h,1100px)}'+
     '.pitch-intro.pitch-scroll-ready .pitch-scroll-stage{position:sticky;top:24px;z-index:2;background:var(--paper)}'+
     '.pitch-intro.pitch-scroll-ready .pitch-steps{height:var(--pitch-grid-h,520px)!important;align-items:start!important;overflow:hidden!important}'+
@@ -78,6 +78,10 @@
     if(products) products.innerHTML='<a class="product-cta" href="/bench#discuss"><span class="enter-text">DECISION COMING UP?</span><span class="enter-arrow">↗</span></a>';
     var mobile=document.querySelector('.registrar-mobile');
     if(mobile){var label=key==='bench'?'BENCH':key==='pitch'?'PITCH':key==='readings'?'READINGS':key==='deeper'?'GO DEEPER':key==='bureau'?'THE BUREAU':key==='home'?'KILL DULL':'KILL DULL';mobile.innerHTML='<button class="reg-mobile-current" id="reg-mobile-btn"><span id="reg-mobile-label">'+label+'</span><span class="reg-mobile-arrow">▾</span></button><div class="reg-mobile-dropdown" id="reg-mobile-dropdown" hidden><a class="reg-item" href="/">KILL DULL</a><a class="reg-item" href="/bench">BENCH</a><a class="reg-item" href="/pitch">PITCH</a><a class="reg-item" href="/readings">READINGS</a><a class="reg-item" href="/go-deeper">GO DEEPER</a><a class="reg-item" href="/bureau">THE BUREAU</a></div>';}
+    var burberry=document.querySelector('.readings-page img[alt="Burberry"]');
+    if(burberry){burberry.src='/assets/burberry-logo.svg';burberry.classList.add('native-cream');}
+    var starbucks=document.querySelector('.readings-page img[alt="Starbucks"]');
+    if(starbucks){starbucks.src='/assets/starbucks-logo.svg';starbucks.classList.add('native-cream');}
     var accumulate=document.querySelector('.readings-page .accumulate');
     if(accumulate) accumulate.innerHTML='<span class="hero-line-wrap"><span class="hero-line js-fit">A BODY OF EVIDENCE ABOUT WHAT</span></span><span class="hero-line-wrap"><span class="hero-line js-fit">COMPOUNDS — AND WHAT DOESN’T.</span></span>';
     var footer=document.querySelector('.footer');
