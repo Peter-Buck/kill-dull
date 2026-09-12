@@ -2,6 +2,9 @@
   "alias": [
     "kill-dull-git-build-homepage-sept-7-peter-buck-s-projects.vercel.app"
   ],
+  "redirects": [
+    { "source": "/go-deeper", "destination": "/discipline", "permanent": false }
+  ],
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
     { "source": "/discipline", "destination": "/discipline.html" },
