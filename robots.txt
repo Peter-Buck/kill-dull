@@ -1,0 +1,3 @@
+# Kill Dull — V1 preview. Not for indexing.
+User-agent: *
+Disallow: /

@@ -1,0 +1,161 @@
+/* V5 — EDIT THE ORIGINAL. DO NOT REDESIGN IT. */
+@keyframes kd-terminal-compound{0%{transform:scale(1)}50%{transform:scale(1.175)}100%{transform:scale(1)}}
+.terminal{transform-origin:center;animation:kd-terminal-compound 5.06s linear infinite}
+.footer .terminal{animation-delay:2.53s}
+.masthead-wordmark a,.masthead-wordmark a:hover,.masthead-wordmark a:focus,.masthead-wordmark a:active,.masthead-wordmark a:visited{color:var(--paper)!important}
+.masthead-wordmark .tm{display:inline-block;font-size:.44em;vertical-align:baseline;line-height:1;margin-left:6px;position:relative;top:-.90em;letter-spacing:0}
+
+/* HOMEPAGE CURSOR */
+.v5-home,.v5-home a,.v5-home button{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Crect width='16' height='16' fill='%23ffff00'/%3E%3C/svg%3E") 8 8,auto}
+
+/* DENSE IDEA SIGNATURE — no trademarks; terminal matches cap height */
+.v5-home #dense-home .signature-tm{display:none!important}
+.v5-home #dense-home .compact-signature strong{align-items:baseline!important}
+.v5-home #dense-home .compact-signature .signature-terminal{width:.72em!important;height:.72em!important;align-self:baseline!important;position:relative;top:.02em}
+.v5-home #dense-home .compact-signature>span{font-size:0!important}
+.v5-home #dense-home .compact-signature>span:before{content:'THE DENSE IDEA COMPANY';font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:.14em}
+
+/* HOMEPAGE READABILITY PASS II — logo unchanged */
+.v5-home{--type-body:22px;--type-small:19px;--type-label:15px;--type-micro:14px}
+.v5-home .masthead-date,.v5-home .reg-item,.v5-home .product-link,.v5-home .product-cta{font-size:15px}
+.v5-home .masthead-tagline,.v5-home .bulletin-text{font-size:16px}
+.v5-home .masthead-designation{font-size:19px}
+.v5-home .bulletin-label{font-size:14px}
+.v5-home .viewport{min-height:auto;padding-top:72px;padding-bottom:112px}
+.v5-home #observation{padding-top:82px}
+.v5-home .hero-body{max-width:650px;gap:18px}
+.v5-home .hero-body p{margin:0}
+.v5-home .kd-statement{margin-top:42px}
+.v5-home .home-bridge{font-size:22px;line-height:1.65;max-width:700px;color:var(--text-body);margin-top:26px}
+.v5-home .home-kicker{font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:500;letter-spacing:.16em;color:var(--text-secondary);text-transform:uppercase;margin-bottom:26px}
+.v5-home .home-paper{background:var(--paper);color:var(--ink);border-color:#bbb7ad}
+.v5-home .home-paper .running-head{color:#77746d;border-color:#aaa69d}
+.v5-home .home-paper .chapter-headline,.v5-home .home-paper .kd-statement{color:var(--ink)}
+.v5-home .home-paper .home-bridge{color:#55524c}
+.v5-home .home-fourps{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--ink);margin-top:48px}
+.v5-home .home-fourps div{padding:22px 20px;border-right:1px solid var(--ink);font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:500;letter-spacing:.14em}
+.v5-home .home-fourps div:last-child{border-right:0}
+.v5-home .home-split{display:grid;grid-template-columns:1fr 1fr;gap:8vw;margin-top:68px}
+.v5-home .home-big{font-weight:700;font-size:clamp(36px,4.8vw,66px);line-height:1.02;letter-spacing:-.035em}
+.v5-home .home-list{font-size:22px;line-height:1.65;color:#4f4c46}
+.v5-home .home-cases{display:grid;grid-template-columns:repeat(3,1fr);border-left:1px solid var(--ink);border-top:1px solid var(--ink);margin-top:48px}
+.v5-home .home-cases article{min-height:320px;padding:28px;border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);display:flex;flex-direction:column}
+.v5-home .home-meta{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:500;letter-spacing:.15em}
+.v5-home .home-cases h3{font-size:34px;line-height:1.05;letter-spacing:-.025em;margin-top:30px}
+.v5-home .home-cases p{font-size:19px;line-height:1.55;color:#5d5952;margin-top:16px}
+.v5-home .home-verdict{font-size:36px;line-height:1;font-weight:700;margin-top:auto}
+.v5-home .home-verdict-duh{background:var(--yellow);padding:4px 7px;width:max-content}
+.v5-home .home-verdict-dull{color:#a6a198}
+.v5-home .home-brands{display:grid;grid-template-columns:1fr 1fr;margin-top:48px;border-top:1px solid var(--border)}
+.v5-home .home-brands>div{display:grid;grid-template-columns:190px 1fr;gap:24px;padding:18px 0;border-bottom:1px solid var(--border)}
+.v5-home .home-brands>div:nth-child(even){padding-left:28px;border-left:1px solid var(--border)}
+.v5-home .home-brands>div:nth-child(odd){padding-right:28px}
+.v5-home .home-brands strong{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:500;letter-spacing:.14em;color:var(--paper)}
+.v5-home .home-brands span{font-size:21px;color:var(--text-body)}
+.v5-home .home-super{font-size:clamp(46px,6.4vw,90px);line-height:.95;letter-spacing:-.045em}
+.v5-home .home-small-statement{font-size:clamp(32px,3.8vw,50px);line-height:1.05}
+.v5-home .home-balance{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink);margin-top:48px}
+.v5-home .home-balance>div{padding:30px}
+.v5-home .home-balance>div+div{border-left:1px solid var(--ink)}
+.v5-home .home-balance h3{font-size:38px;letter-spacing:-.03em;margin-bottom:24px}
+.v5-home .home-balance p{font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:.08em;line-height:2}
+.v5-home .home-process{border-top:1px solid var(--ink)}
+.v5-home .home-process>div{display:grid;grid-template-columns:90px 1fr;padding:20px 0;border-bottom:1px solid var(--ink);align-items:baseline}
+.v5-home .home-process span{font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.14em}
+.v5-home .home-process strong{font-size:clamp(24px,2.6vw,32px);letter-spacing:-.02em}
+.v5-home .home-ai{font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:500;letter-spacing:.14em;line-height:2;margin:58px 0 24px}
+.v5-home .home-paper .kd-call{background:var(--ink);color:var(--paper)}
+.v5-home .home-paper .kd-call:hover{background:var(--yellow);color:var(--ink)}
+.v5-home .home-system{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink);margin-top:48px}
+.v5-home .home-system article{min-height:290px;padding:30px;display:flex;flex-direction:column}
+.v5-home .home-system article+article{border-left:1px solid var(--ink)}
+.v5-home .home-system article>span{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:500;letter-spacing:.14em;color:#6f6b64}
+.v5-home .home-system h3{font-size:44px;letter-spacing:-.04em;margin:30px 0 16px}
+.v5-home .home-system p{font-size:22px;line-height:1.5;max-width:430px;color:#55524c}
+.v5-home .home-system b{margin-top:auto;font-size:21px}
+.v5-home .home-substatement{font-size:.46em;letter-spacing:-.02em}
+.v5-home .home-readings{margin-top:44px;border-top:1px solid var(--ink)}
+.v5-home .home-readings>div{display:grid;grid-template-columns:120px 1fr 90px;gap:20px;align-items:center;padding:21px 0;border-bottom:1px solid var(--ink)}
+.v5-home .home-readings span{font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.13em}
+.v5-home .home-readings strong{font-size:25px}
+.v5-home .home-readings b{text-align:right}
+.v5-home .home-dark-link{color:var(--ink)}
+.v5-home .home-dark-link:hover{color:var(--ink);text-decoration-color:var(--ink)}
+.v5-home .home-close{margin-top:28px}
+.v5-home .home-final{padding-bottom:130px}
+.v5-home #observation .opening-actions{justify-content:space-between!important;width:100%}
+.v5-home #observation .bench-action{gap:0!important;box-sizing:border-box;border:.5px solid currentColor;padding-left:14px;transition:border-color .18s ease;color:var(--ink)!important}
+.v5-home #observation .bench-prompt{margin-right:10px}
+.v5-home #observation .bench-command{display:inline-flex;align-items:center;background:transparent;color:var(--ink)!important;border:0;padding:10px 6px;transition:color .18s ease}
+.v5-home #observation .bench-arrow{box-sizing:border-box;width:25px;min-width:25px;align-self:stretch;display:inline-flex;align-items:center;justify-content:flex-start;overflow:hidden;background:transparent;color:var(--ink)!important;border:0;padding:0 8px 0 3px;font-size:0;transform:none!important;transition:color .18s ease}
+.v5-home #observation .bench-arrow:before{content:'↗';font-size:15px;line-height:1;letter-spacing:0;transform:none;transition:transform .2s cubic-bezier(.2,.8,.2,1)}
+.v5-home #observation .bench-arrow:after{content:none}
+.v5-home #observation .bench-action:hover{background:transparent;color:var(--ink)!important;border-color:var(--yellow)}
+.v5-home #observation .bench-action:hover .bench-command,.v5-home #observation .bench-action:hover .bench-arrow{background:transparent;color:var(--ink)!important}
+.v5-home #observation .bench-action:hover .bench-arrow{transform:none!important}
+.v5-home #observation .bench-action:hover .bench-arrow:before{transform:translate(2px,-2px)}
+.v5-home #dense-home .text-link,.v5-home #readings-home .text-link{display:flex;width:max-content;margin-left:auto}
+.v5-home #home-close .close-options{border-top:0!important;border-bottom:0!important}
+
+/* CTA TEST — all homepage CTAs boxed; all arrows point up/right */
+.v5-home .pitch-go,.v5-home .text-link,.v5-home .close-options a,.v5-home .product-cta{box-sizing:border-box;display:inline-flex!important;align-items:center;gap:9px;width:max-content;border:.5px solid currentColor;padding:10px 14px;text-decoration:none!important;background:transparent;transition:border-color .18s ease}
+.v5-home .pitch-go{margin-left:auto}
+.v5-home .close-options a{font-size:28px}
+.v5-home .pitch-intro .pitch-go,.v5-home #readings-home .text-link{color:var(--paper)!important}
+.v5-home #dense-home .text-link,.v5-home #home-close .close-options a{color:var(--ink)!important}
+.v5-home .pitch-intro .pitch-go:hover,.v5-home #readings-home .text-link:hover{background:transparent!important;color:var(--paper)!important;border-color:var(--yellow)!important}
+.v5-home #dense-home .text-link:hover,.v5-home #home-close .close-options a:hover{background:transparent!important;color:var(--ink)!important;border-color:var(--yellow)!important}
+.v5-home .product-cta:hover{background:transparent!important;border-color:var(--yellow)!important}
+.v5-home .pitch-arrow,.v5-home .text-link span,.v5-home .close-options b,.v5-home .enter-arrow{display:inline-block;transform:none!important;transition:transform .22s cubic-bezier(.2,.8,.2,1)}
+.v5-home .pitch-arrow{font-size:0}
+.v5-home .pitch-arrow:before{content:'↗';font-size:15px;line-height:1}
+.v5-home .text-link span,.v5-home .close-options b,.v5-home .enter-arrow{font-size:0}
+.v5-home .text-link span:before,.v5-home .close-options b:before,.v5-home .enter-arrow:before{content:'↗';font-size:15px;line-height:1}
+.v5-home .pitch-go:hover .pitch-arrow,.v5-home .text-link:hover span,.v5-home .close-options a:hover b,.v5-home .product-cta:hover .enter-arrow{transform:translate(2px,-2px)!important}
+.v5-home .product-cta:hover .enter-text{transform:none!important}
+
+/* CTA CONTRAST — explicit after homepage color flip */
+.v5-home #dense-home .text-link,.v5-home #dense-home .text-link *,.v5-home #dense-home .text-link:hover,.v5-home #dense-home .text-link:hover *{color:var(--ink)!important}
+.v5-home #readings-home .text-link,.v5-home #readings-home .text-link *,.v5-home #readings-home .text-link:hover,.v5-home #readings-home .text-link:hover *{color:var(--paper)!important}
+.v5-home #home-close .close-options a,.v5-home #home-close .close-options a *,.v5-home #home-close .close-options a:hover,.v5-home #home-close .close-options a:hover *{color:var(--ink)!important}
+.v5-home #dense-home .text-link:hover,.v5-home #readings-home .text-link:hover,.v5-home #home-close .close-options a:hover{border-color:var(--yellow)!important}
+
+/* FINAL CHOICE REVEAL — override generic CTA hover rules */
+.v5-home #home-close .close-options a.close-choice:hover,.v5-home #home-close .close-options a.close-choice:focus-visible{background:var(--paper)!important;border-color:transparent!important;color:var(--ink)!important}
+.v5-home #home-close .close-options a.close-choice .close-reveal{background:var(--ink)!important;color:var(--paper)!important}
+.v5-home #home-close .close-options a.close-choice .close-reveal,.v5-home #home-close .close-options a.close-choice .close-reveal *{color:var(--paper)!important}
+
+/* FINAL SECTION — no divider into footer */
+.v5-home #home-close{border-bottom:0!important;outline:0!important}
+.v5-home #home-close + .footer,.v5-home .footer{border-top:0!important;box-shadow:none!important}
+
+@media(min-width:768px){.v5-home .pitch-intro .pitch-steps{border-top:0!important;border-bottom:0!important}.v5-home .pitch-intro .pitch-steps>div{border-right:0!important}.v5-home .pitch-intro .pitch-steps>div+div{border-left:1px solid var(--border)!important}}
+@media(prefers-reduced-motion:reduce){.terminal{animation:none!important}}
+@media(max-width:767px){
+.v5-home .viewport{padding-top:54px;padding-bottom:80px}.v5-home .home-fourps{grid-template-columns:1fr 1fr}.v5-home .home-fourps div:nth-child(2){border-right:0}.v5-home .home-fourps div:nth-child(-n+2){border-bottom:1px solid var(--ink)}.v5-home .home-split,.v5-home .home-cases,.v5-home .home-brands,.v5-home .home-balance,.v5-home .home-system{grid-template-columns:1fr}.v5-home .home-cases article,.v5-home .home-brands>div:nth-child(even),.v5-home .home-brands>div:nth-child(odd),.v5-home .home-balance>div+div,.v5-home .home-system article+article{border-left:0}.v5-home .home-brands>div:nth-child(even),.v5-home .home-brands>div:nth-child(odd){padding:18px 0}.v5-home .home-brands>div{grid-template-columns:130px 1fr}.v5-home .home-process>div{grid-template-columns:56px 1fr}.v5-home .home-readings>div{grid-template-columns:76px 1fr 58px;gap:12px}.v5-home .home-readings strong{font-size:21px}}
+
+/* INSTITUTIONAL HEADLINE RULE — one scale, one weight, one alignment. */
+:root{--kd-major-headline-size:clamp(54px,5.15vw,84px)}
+.hero-line,.chapter-headline,.kd-case-headline,.kd-case-conclusion,.bench-process-headline{font-family:'Space Grotesk',sans-serif!important;font-size:var(--kd-major-headline-size)!important;font-weight:500!important;line-height:.98!important;letter-spacing:-.04em!important;text-align:left!important;margin-left:0!important;margin-right:0!important}
+.hero-line-wrap{display:block!important;width:100%!important;text-align:left!important}
+@media(max-width:767px){:root{--kd-major-headline-size:clamp(38px,10.5vw,54px)}}
+
+/* GLOBAL CTA BEHAVIOR — signal, never fill. */
+.product-cta,.bench-action,.reading-cta,.pitch-go,.text-link,.kd-call{background:transparent!important;transition:border-color .18s ease!important}
+.product-cta:hover,.product-cta:focus-visible,.bench-action:hover,.bench-action:focus-visible,.reading-cta:hover,.reading-cta:focus-visible,.pitch-go:hover,.pitch-go:focus-visible,.text-link:hover,.text-link:focus-visible,.kd-call:hover,.kd-call:focus-visible{background:transparent!important;border-color:var(--yellow)!important;color:inherit!important}
+.product-cta .enter-arrow,.bench-action>span:last-child,.reading-cta>span:last-child,.pitch-go .pitch-arrow,.text-link>span:last-child,.kd-call>span:last-child{display:inline-block;transition:transform .22s cubic-bezier(.2,.8,.2,1)!important}
+.product-cta:hover .enter-arrow,.product-cta:focus-visible .enter-arrow,.bench-action:hover>span:last-child,.bench-action:focus-visible>span:last-child,.reading-cta:hover>span:last-child,.reading-cta:focus-visible>span:last-child,.pitch-go:hover .pitch-arrow,.pitch-go:focus-visible .pitch-arrow,.text-link:hover>span:last-child,.text-link:focus-visible>span:last-child,.kd-call:hover>span:last-child,.kd-call:focus-visible>span:last-child{transform:translate(2px,-2px)!important}
+
+/* HEADER SIDE LABELS — same typographic voice. */
+.masthead-date,.masthead-designation{font-family:'Space Grotesk',sans-serif!important;font-weight:700!important;letter-spacing:.10em!important;text-transform:uppercase!important}
+
+/* CTA TYPOGRAPHY — match the hairline labels. */
+.kd-cta-unified{font-family:'IBM Plex Mono',monospace!important}
+
+/* FOOTER TYPOGRAPHY — align with site body scale. */
+.footer .footer-section nav a{font-size:18px!important;line-height:1.55!important}
+.footer .footer-section-label{font-size:12px!important;line-height:1.4!important}
+.footer .footer-colophon{font-size:12px!important}
+
+/* FOOTER TRADEMARK — align to cap height of Kill Dull. */
+.footer .footer-colophon .tm{display:inline-block!important;font-size:.62em!important;line-height:1!important;vertical-align:baseline!important;position:relative!important;top:-.48em!important;margin-left:1px!important;letter-spacing:0!important}
