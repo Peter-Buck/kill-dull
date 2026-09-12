@@ -1,233 +1,25 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
-<title>The Dense Idea Discipline — Kill Dull™</title>
-<meta name="description" content="The Dense Idea Discipline is a structured process for scrutinizing consequential marketing commitments across Product, Price, Place and Promotion.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="robots" content="noindex, nofollow">
+<title>The Dense Idea Discipline — Kill Dull™</title><meta name="description" content="The Dense Idea Discipline is a structured process for scrutinizing consequential marketing commitments across Product, Price, Place and Promotion.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="/assets/kd.css"><link rel="stylesheet" href="/assets/v5.css">
 <style>
-:root{--paper:#EFEDE4;--ink:#0D0D0C;--yellow:#FFFF00;--rule:#B8B4AA;--muted:#6D6961}
-*{box-sizing:border-box;margin:0;padding:0}
-html{background:var(--paper)}
-body{background:var(--paper);color:var(--ink);font-family:'Space Grotesk',sans-serif;-webkit-font-smoothing:antialiased}
-a{color:inherit;text-decoration:none}
-.mono{font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.14em}
-
-/* APPROVED KILL DULL SHELL — CREAM */
-.masthead{background:var(--paper);border-bottom:1px solid var(--ink)}
-.masthead-top{display:grid;grid-template-columns:1fr auto 1fr;align-items:start;padding:22px 56px 10px}
-.masthead-date,.masthead-designation{font:500 10px/1.2 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;padding-top:6px}
-.masthead-designation{text-align:right}
-.masthead-wordmark{font-weight:700;font-size:52px;line-height:.9;letter-spacing:-.055em;text-align:center;white-space:nowrap}
-.tm{font-size:.28em;vertical-align:super;margin-left:.08em;letter-spacing:0}
-.terminal{display:inline-block;width:.48em;height:.48em;background:var(--yellow);margin-left:.07em;vertical-align:.08em}
-.masthead-tagline{text-align:center;font-size:14px;line-height:1.35;padding:0 56px 16px}
-.masthead-bulletin{border-top:1px solid var(--rule);padding:12px 56px 13px;display:flex;align-items:center;gap:18px}
-.bulletin-label{font:500 9px/1 'IBM Plex Mono',monospace;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
-.bulletin-text{font-size:14px}
-.bulletin-arrow{color:#A6A600;font-size:18px;margin-left:2px}
-
-.global-nav{display:flex;align-items:stretch;justify-content:space-between;border-bottom:1px solid var(--ink);min-height:44px;padding:0 56px}
-.nav-left,.nav-right{display:flex;align-items:stretch}
-.global-nav a{display:flex;align-items:center;padding:0 15px;border-right:1px solid var(--rule);font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.13em;text-transform:uppercase;white-space:nowrap}
-.nav-left a:first-child{border-left:1px solid var(--rule)}
-.global-nav a.current{box-shadow:inset 0 -3px var(--ink);font-weight:500}
-.nav-right{border-left:1px solid var(--rule)}
-.nav-cta{gap:8px}
-.nav-cta .arrow{font-size:14px}
-
-/* DISCIPLINE DOCUMENT */
-.discipline{max-width:1360px;margin:0 auto;padding:74px 56px 140px}
-.hero-rule{height:1px;background:var(--ink);margin-bottom:14px}
-.hero-grid{display:grid;grid-template-columns:220px minmax(0,1fr);gap:42px;align-items:start}
-.kicker{font:500 10px/1.45 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding-top:7px}
-h1{font-size:clamp(70px,7.7vw,118px);font-weight:700;line-height:.84;letter-spacing:-.062em;text-transform:uppercase;max-width:960px}
-.hero-dek{font-size:22px;line-height:1.42;max-width:760px;margin-top:38px}
-.scope{font:500 10px/1.3 'IBM Plex Mono',monospace;letter-spacing:.15em;text-transform:uppercase;margin-top:28px;color:var(--muted)}
-
-.architecture{margin:82px 0 132px;border-top:1px solid var(--ink)}
-.arch-row{display:grid;grid-template-columns:64px 260px 1fr;gap:20px;align-items:baseline;padding:18px 0;border-bottom:1px solid var(--rule)}
-.arch-row .n{font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;color:var(--muted)}
-.arch-row strong{font-size:20px;letter-spacing:-.02em}
-.arch-row span:last-child{font-size:17px;color:#4D4943}
-
-.section{border-top:1px solid var(--ink);padding-top:14px;margin-top:132px}
-.section-head{display:grid;grid-template-columns:220px minmax(0,1fr);gap:42px;align-items:start;margin-bottom:54px}
-.section-label{font:500 10px/1.45 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding-top:7px}
-h2{font-size:clamp(50px,5.6vw,82px);font-weight:700;line-height:.9;letter-spacing:-.055em;text-transform:uppercase;max-width:900px}
-.section-body{margin-left:262px;max-width:790px;font-size:18px;line-height:1.62}
-.section-body p+p{margin-top:18px}
-h3{font:500 11px/1.4 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;margin:48px 0 14px}
-.question{font-size:clamp(34px,3.7vw,56px);line-height:1.02;letter-spacing:-.045em;font-weight:700;text-transform:uppercase;margin:48px 0!important}
-.statement{font-size:24px;line-height:1.18;letter-spacing:-.025em;font-weight:700;text-transform:uppercase;margin:44px 0!important}
-.note{display:flex;align-items:center;gap:13px;font-weight:500;margin:36px 0!important}
-.note:before{content:'';width:10px;height:10px;flex:0 0 10px;background:var(--yellow)}
-.register{border-top:1px solid var(--ink);margin:22px 0 44px}
-.reg-row{display:grid;grid-template-columns:255px 1fr;gap:22px;align-items:baseline;padding:13px 0;border-bottom:1px solid var(--rule)}
-.reg-row strong{font-weight:500}
-.reg-row span{color:#4D4943}
-.standards .reg-row{grid-template-columns:42px 205px 1fr}
-.standards .reg-row>span:first-child{font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;color:var(--muted)}
-.cols{display:grid;grid-template-columns:1fr 1fr;gap:34px;margin:24px 0 44px}
-.cols>div{border-top:1px solid var(--ink);padding-top:14px}
-.cols h3{margin:0 0 14px}
-.cols p{font-size:16px;line-height:1.55}
-.verdicts .reg-row{grid-template-columns:96px 1fr}
-.verdicts strong{font-size:29px;letter-spacing:-.03em}
-.list{list-style:none;border-top:1px solid var(--ink);margin:18px 0 42px}
-.list li{padding:11px 0;border-bottom:1px solid var(--rule);font:500 10px/1.4 'IBM Plex Mono',monospace;letter-spacing:.11em;text-transform:uppercase}
-.close{border-top:1px solid var(--ink);margin-top:132px;padding-top:14px}
-.close-grid{display:grid;grid-template-columns:220px 1fr;gap:42px}
-.close .architecture{margin:0}
-.footer{border-top:1px solid var(--ink);margin-top:120px;padding-top:16px;display:flex;justify-content:space-between;font:500 10px/1.4 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-
-@media(max-width:900px){
-.masthead-top{padding:18px 24px 8px;grid-template-columns:1fr auto}.masthead-date{display:none}.masthead-wordmark{font-size:38px;text-align:left;justify-self:start}.masthead-designation{font-size:8px}.masthead-tagline{text-align:left;padding:0 24px 14px;font-size:13px}.masthead-bulletin{padding:10px 24px}.global-nav{padding:0 24px;overflow-x:auto}.nav-right{display:none}.global-nav a{min-height:42px}.discipline{padding:54px 24px 100px}.hero-grid,.section-head,.close-grid{grid-template-columns:1fr;gap:14px}.kicker,.section-label{padding-top:0}h1{font-size:clamp(54px,15vw,84px)}.hero-dek{font-size:19px;margin-top:26px}.architecture{margin:58px 0 90px}.arch-row{grid-template-columns:42px 1fr}.arch-row span:last-child{grid-column:2}.section{margin-top:90px}.section-head{margin-bottom:36px}h2{font-size:clamp(42px,11vw,64px)}.section-body{margin-left:0;font-size:17px}.register .reg-row,.standards .reg-row,.verdicts .reg-row{grid-template-columns:1fr;gap:4px}.standards .reg-row{grid-template-columns:36px 1fr}.standards .reg-row>span:last-child{grid-column:2}.cols{grid-template-columns:1fr}.question{font-size:34px}.statement{font-size:21px}.footer{gap:20px;flex-direction:column}}
+.discipline-page .product-orientation{display:flex;align-items:center;gap:20px;margin-bottom:42px;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.24em;color:#6f6d66}.discipline-page .product-orientation:before{content:"";display:block;flex:1;height:1px;background:#aaa69d}.discipline-page .product-orientation>span:first-child{display:none}.discipline-page .home-paper .hero-line{color:var(--ink)!important}
+.discipline-page .viewport{background:#fff;color:#24222B;min-height:auto!important;padding-bottom:104px}.discipline-page .viewport+.viewport{border-top:1px solid #aaa69d}
+.discipline-copy{width:100%;max-width:58%;font-size:17px;line-height:1.8;margin-top:36px}.discipline-copy p{margin:0}.discipline-copy p+p{margin-top:18px}.discipline-scope{font-family:"IBM Plex Mono",monospace;font-size:14px;letter-spacing:.14em;margin-top:32px}
+.discipline-architecture,.discipline-register{border-top:1px solid #24222B;margin-top:48px}.discipline-row{display:grid;grid-template-columns:72px 240px 1fr;gap:20px;align-items:baseline;padding:16px 0;border-bottom:1px solid #b9b6ae}.discipline-row .n{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.12em;color:#77746d}.discipline-row strong{font-weight:700}.discipline-row span:last-child{color:#55524c}.discipline-register .discipline-row{grid-template-columns:240px 1fr}.discipline-register.standards .discipline-row{grid-template-columns:48px 210px 1fr}.discipline-register.verdicts .discipline-row{grid-template-columns:90px 1fr}.discipline-register.verdicts strong{font-size:26px}
+.discipline-question{font-size:clamp(32px,3.8vw,54px);font-weight:700;line-height:1.02;letter-spacing:-.04em;margin:46px 0}.discipline-statement{font-size:22px;font-weight:700;line-height:1.2;margin-top:38px}.discipline-note{display:flex;align-items:center;gap:12px;font-weight:700;margin-top:32px}.discipline-note:before{content:"";width:10px;height:10px;background:#FFFF00;flex:0 0 10px}.discipline-subhead{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.14em;margin:46px 0 14px}.discipline-cols{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-top:28px}.discipline-cols>div{border-top:1px solid #24222B;padding-top:14px}.discipline-cols p{font-size:15px;line-height:1.6;color:#55524c}.discipline-list{list-style:none;border-top:1px solid #24222B;margin-top:20px}.discipline-list li{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.1em;padding:11px 0;border-bottom:1px solid #b9b6ae}
+@media(max-width:767px){.discipline-copy{max-width:100%}.discipline-row,.discipline-register .discipline-row,.discipline-register.standards .discipline-row,.discipline-register.verdicts .discipline-row{grid-template-columns:1fr;gap:4px}.discipline-cols{grid-template-columns:1fr}.discipline-question{font-size:34px}}
 </style>
-</head>
-<body>
-<header class="masthead">
-  <div class="masthead-top">
-    <div class="masthead-date mono" id="today">SEP 12 2026</div>
-    <div class="masthead-wordmark"><a href="/">KILL DULL<span class="terminal"></span><span class="tm">™</span></a></div>
-    <div class="masthead-designation">THE DENSE IDEA COMPANY<span class="tm">™</span></div>
-  </div>
-  <div class="masthead-tagline">Human Judgment. Dense Ideas. Compounding Value.</div>
-  <div class="masthead-bulletin"><span class="bulletin-label">FROM THE BUREAU</span><span class="bulletin-text">First Readings in production.</span><span class="bulletin-arrow">↗</span></div>
-</header>
-<nav class="global-nav" aria-label="Primary">
-  <div class="nav-left"><a href="/">KILL DULL</a><a href="/bench">BENCH</a><a href="https://pitchagainstdull.com">PITCH</a><a href="/readings">READINGS</a><a class="current" href="/discipline">DISCIPLINE</a><a href="/bureau">BUREAU</a></div>
-  <div class="nav-right"><a class="nav-cta" href="/bench#discuss"><span>DECISION COMING UP?</span><span class="arrow">↗</span></a></div>
-</nav>
-
-<main class="discipline">
-  <section class="hero">
-    <div class="hero-rule"></div>
-    <div class="hero-grid">
-      <div class="kicker">KD · DISCIPLINE · V1.1</div>
-      <div>
-        <h1>THE DENSE IDEA DISCIPLINE.</h1>
-        <p class="hero-dek">The Dense Idea Discipline is a structured process for scrutinizing consequential marketing commitments.</p>
-        <p class="scope">PRODUCT · PRICE · PLACE · PROMOTION</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="architecture" aria-label="The four parts">
-    <div class="arch-row"><span class="n">01</span><strong>DIAGNOSIS</strong><span>Establish what is true.</span></div>
-    <div class="arch-row"><span class="n">02</span><strong>JUDGMENT</strong><span>Expose the total trade.</span></div>
-    <div class="arch-row"><span class="n">03</span><strong>RECOMMENDATION</strong><span>Take a position.</span></div>
-    <div class="arch-row"><span class="n">04</span><strong>THE READING</strong><span>Put it on record.</span></div>
-  </section>
-
-  <section class="section">
-    <div class="section-head"><div class="section-label">01 / DIAGNOSIS</div><h2>ESTABLISH WHAT IS TRUE.</h2></div>
-    <div class="section-body">
-      <p>Diagnosis establishes the conditions in which the proposed commitment must work. It precedes evaluation of the commitment itself.</p>
-      <div class="register">
-        <div class="reg-row"><strong>01 / MARKET ORIENTATION</strong><span>What is true outside the building?</span></div>
-        <div class="reg-row"><strong>02 / MARKET POSITION</strong><span>Where does the company actually stand?</span></div>
-        <div class="reg-row"><strong>03 / BRAND REALITY</strong><span>What, if anything, exists in people's minds about the company?</span></div>
-        <div class="reg-row"><strong>04 / COMMERCIAL REALITY</strong><span>What resources and constraints sit behind the ambition?</span></div>
-        <div class="reg-row"><strong>05 / DENSE IDEA STATUS</strong><span>What has the company accumulated?</span></div>
-        <div class="reg-row"><strong>06 / MARKETING JOB</strong><span>What actually needs to happen across Product, Price, Place and Promotion?</span></div>
-      </div>
-      <h3>EVIDENCE STATUS</h3>
-      <div class="register">
-        <div class="reg-row"><strong>KNOWN</strong><span>Established.</span></div>
-        <div class="reg-row"><strong>INDICATED</strong><span>Supported but not established.</span></div>
-        <div class="reg-row"><strong>UNKNOWN</strong><span>Material information is absent or insufficient.</span></div>
-      </div>
-      <p class="note">Unknown is a finding.</p>
-      <p>Diagnosis needs sufficient reality, not complete knowledge.</p>
-      <p class="statement">ENOUGH TO DECIDE. NOT ENOUGH TO KNOW EVERYTHING.</p>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-head"><div class="section-label">02 / JUDGMENT</div><h2>EXPOSE THE TOTAL TRADE.</h2></div>
-    <div class="section-body">
-      <p>Judgment examines what the proposed commitment will do to the company.</p>
-      <p class="question">WHAT WILL THIS COMMITMENT DO TO THE COMPANY?</p>
-      <h3>THE SEVEN STANDARDS</h3>
-      <div class="register standards">
-        <div class="reg-row"><span>01</span><strong>DISTINCTIVENESS</strong><span>Does this make the company easier to recognize — or easier to replace?</span></div>
-        <div class="reg-row"><span>02</span><strong>PREFERENCE</strong><span>Does this create another reason to choose the company?</span></div>
-        <div class="reg-row"><span>03</span><strong>COHERENCE</strong><span>Does this make the company add up better?</span></div>
-        <div class="reg-row"><span>04</span><strong>IMITABILITY</strong><span>If competitors copy this tomorrow, what will still be ours?</span></div>
-        <div class="reg-row"><span>05</span><strong>IDENTITY</strong><span>Does this make the company more itself — or less itself?</span></div>
-        <div class="reg-row"><span>06</span><strong>PRECEDENT</strong><span>What will this yes teach the next yes?</span></div>
-        <div class="reg-row"><span>07</span><strong>COMPOUNDING</strong><span>What happens if this becomes normal?</span></div>
-      </div>
-      <p>The standards are not converted into a composite score. They do not carry fixed weights. Their materiality depends on the commitment.</p>
-      <p class="statement">JUDGMENT IS NOT ARITHMETIC.</p>
-      <h3>EVIDENCE</h3>
-      <div class="cols"><div><h3>BIG DATA</h3><p>Research. Behavior. Performance. Economics. Markets. Measurement.</p></div><div><h3>GUT DATA</h3><p>Experience. Instinct. Pattern recognition. Culture. Tacit knowledge.</p></div></div>
-      <p>Neither automatically outranks the other. Contradictions are retained as tension or uncertainty.</p>
-      <h3>THE COUNTERFACTUAL</h3>
-      <p class="question">IF WE DO NOT MAKE THIS COMMITMENT, WHAT HAPPENS INSTEAD?</p>
-      <p>Doing nothing is not consequence-free.</p>
-      <h3>THE DENSE IDEA BALANCE SHEET</h3>
-      <p>The Dense Idea Balance Sheet records what the proposed commitment adds and what it takes away. It does not calculate the recommendation.</p>
-      <div class="register">
-        <div class="reg-row"><strong>STRENGTHENING</strong><span>WEAKENING</span></div>
-        <div class="reg-row"><strong>DISTINCTIVENESS</strong><span>GENERICITY</span></div>
-        <div class="reg-row"><strong>COHERENCE</strong><span>FRAGMENTATION</span></div>
-        <div class="reg-row"><strong>ACCUMULATION</strong><span>EROSION</span></div>
-        <div class="reg-row"><strong>COMPOUNDING</strong><span>DEPRECIATION</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-head"><div class="section-label">03 / RECOMMENDATION</div><h2>TAKE A POSITION.</h2></div>
-    <div class="section-body">
-      <p class="question">DOES THIS COMMITMENT DESERVE TO BE MADE?</p>
-      <div class="register verdicts">
-        <div class="reg-row"><strong>AAH.</strong><span>The commitment deserves to be made.</span></div>
-        <div class="reg-row"><strong>HMM.</strong><span>The Discipline cannot responsibly recommend for or against in its present state.</span></div>
-        <div class="reg-row"><strong>DULL.</strong><span>The commitment does not deserve to be made in its present form.</span></div>
-      </div>
-      <p>AI produces an independent recommendation from the completed Judgment Record. Its recommendation is locked before human review.</p>
-      <p>A human reviews the completed record and the locked AI recommendation. Agreement or disagreement is recorded. Material disagreement requires reasoning.</p>
-      <p>Human judgment determines Kill Dull's final recommendation because institutional judgment requires accountability.</p>
-      <p class="statement">THE DISCIPLINE RECOMMENDS. THE CLIENT DECIDES.</p>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-head"><div class="section-label">04 / THE READING</div><h2>PUT IT ON RECORD.</h2></div>
-    <div class="section-body">
-      <p>The Reading is the finished expression of the Discipline. It is not another analytical stage. It does not reopen Judgment.</p>
-      <h3>THE RECORD</h3>
-      <ul class="list"><li>READING ID</li><li>DATE</li><li>COMMITMENT</li><li>EVIDENCE CUTOFF</li><li>DISCIPLINE VERSION</li><li>AI MODEL RECORD</li><li>AI RECOMMENDATION</li><li>HUMAN RESPONSIBLE</li><li>FINAL RECOMMENDATION</li><li>MATERIAL TENSIONS</li><li>WHAT WOULD CHANGE THE RECOMMENDATION</li><li>READING VERSION</li></ul>
-      <p>The recommendation appears first. The machinery does not.</p>
-      <p class="statement">CONSIDERED. CONCLUDED. ON RECORD.</p>
-      <h3>PRIVATE READING</h3><p>Commissioned before commitment. Confidential. A durable digital record and physical book.</p>
-      <h3>PUBLISHED READING</h3><p>Initiated by Kill Dull after a commitment is publicly observable. Public evidence. Same Discipline. Independent judgment.</p>
-      <p class="statement">SAME DISCIPLINE. DIFFERENT MOMENT.</p>
-      <h3>INDEPENDENCE</h3><p>Kill Dull does not automatically develop strategy, rewrite propositions, develop campaigns, redesign products, implement recommendations, police execution or manage brands.</p>
-      <p class="statement">NOTHING FOR SALE BUT THE JUDGMENT.</p>
-      <h3>THE RECORD OVER TIME</h3><p>One Reading records one judgment. Across many, the record becomes evidence: where evidence and experience agreed or diverged, where AI and human judgment differed, which assumptions mattered and which commitments compounded or depreciated.</p>
-    </div>
-  </section>
-
-  <section class="close">
-    <div class="close-grid"><div class="section-label">THE DENSE IDEA DISCIPLINE</div><div class="architecture">
-      <div class="arch-row"><span class="n">01</span><strong>DIAGNOSIS</strong><span>Establish what is true.</span></div>
-      <div class="arch-row"><span class="n">02</span><strong>JUDGMENT</strong><span>Expose the total trade.</span></div>
-      <div class="arch-row"><span class="n">03</span><strong>RECOMMENDATION</strong><span>Take a position.</span></div>
-      <div class="arch-row"><span class="n">04</span><strong>THE READING</strong><span>Put it on record.</span></div>
-    </div></div>
-  </section>
-  <div class="footer"><span>KILL DULL™ · THE DENSE IDEA COMPANY™</span><span>DISCIPLINE · V1.1</span></div>
+</head><body class="v5-home discipline-page">
+<header class="masthead" id="masthead"><div class="masthead-top"><div class="masthead-date" id="masthead-date"></div><div class="masthead-wordmark"><a href="/">KILL DULL<span class="terminal"></span><span class="tm">™</span></a></div><div class="masthead-designation"><span>THE</span> DENSE IDEA COMPANY<span class="tm">™</span></div></div><div class="masthead-tagline">Here to Compound.</div><div class="masthead-bulletin"><span class="bulletin-text">First Readings in production.</span></div><div class="masthead-rule"></div></header>
+<div class="unified-nav v5-global-nav" id="registrar"><div class="unified-nav-chapters" id="registrar-desktop"><a class="reg-item" href="/">KILL DULL</a><a class="reg-item" href="/bench">BENCH</a><a class="reg-item" href="https://pitchagainstdull.com">PITCH</a><a class="reg-item" href="/readings">READINGS</a><a class="reg-item is-current" href="/discipline">DISCIPLINE</a><a class="reg-item" href="/bureau">THE BUREAU</a></div><div class="unified-nav-products"><a class="product-cta" href="/bench#discuss"><span class="enter-text">DECISION COMING UP?</span><span class="enter-arrow">↗</span></a></div></div>
+<main>
+<section class="viewport home-paper"><div class="product-orientation"><span></span><span>DISCIPLINE</span></div><span class="hero-line-wrap"><h1 class="hero-line js-fit">THE DENSE IDEA</h1></span><span class="hero-line-wrap"><h1 class="hero-line js-fit">DISCIPLINE.</h1></span><div class="discipline-copy"><p>The Dense Idea Discipline is a structured process for scrutinizing consequential marketing commitments.</p><p class="discipline-scope">PRODUCT · PRICE · PLACE · PROMOTION</p></div><div class="discipline-architecture"><div class="discipline-row"><span class="n">01</span><strong>DIAGNOSIS</strong><span>Establish what is true.</span></div><div class="discipline-row"><span class="n">02</span><strong>JUDGMENT</strong><span>Expose the total trade.</span></div><div class="discipline-row"><span class="n">03</span><strong>RECOMMENDATION</strong><span>Take a position.</span></div><div class="discipline-row"><span class="n">04</span><strong>THE READING</strong><span>Put it on record.</span></div></div></section>
+<section class="viewport home-paper"><div class="product-orientation"><span></span><span>01 · DIAGNOSIS</span></div><span class="hero-line-wrap"><h2 class="hero-line js-fit">ESTABLISH WHAT IS TRUE.</h2></span><div class="discipline-copy"><p>Diagnosis establishes the conditions in which the proposed commitment must work. It precedes evaluation of the commitment itself.</p><div class="discipline-register"><div class="discipline-row"><strong>01 / MARKET ORIENTATION</strong><span>What is true outside the building?</span></div><div class="discipline-row"><strong>02 / MARKET POSITION</strong><span>Where does the company actually stand?</span></div><div class="discipline-row"><strong>03 / BRAND REALITY</strong><span>What, if anything, exists in people's minds about the company?</span></div><div class="discipline-row"><strong>04 / COMMERCIAL REALITY</strong><span>What resources and constraints sit behind the ambition?</span></div><div class="discipline-row"><strong>05 / DENSE IDEA STATUS</strong><span>What has the company accumulated?</span></div><div class="discipline-row"><strong>06 / MARKETING JOB</strong><span>What actually needs to happen across Product, Price, Place and Promotion?</span></div></div><div class="discipline-subhead">EVIDENCE STATUS</div><div class="discipline-register"><div class="discipline-row"><strong>KNOWN</strong><span>Established.</span></div><div class="discipline-row"><strong>INDICATED</strong><span>Supported but not established.</span></div><div class="discipline-row"><strong>UNKNOWN</strong><span>Material information is absent or insufficient.</span></div></div><p class="discipline-note">Unknown is a finding.</p><p>Diagnosis needs sufficient reality, not complete knowledge.</p><p class="discipline-statement">ENOUGH TO DECIDE. NOT ENOUGH TO KNOW EVERYTHING.</p></div></section>
+<section class="viewport home-paper"><div class="product-orientation"><span></span><span>02 · JUDGMENT</span></div><span class="hero-line-wrap"><h2 class="hero-line js-fit">EXPOSE THE TOTAL TRADE.</h2></span><div class="discipline-copy"><p>Judgment examines what the proposed commitment will do to the company.</p><p class="discipline-question">WHAT WILL THIS COMMITMENT DO TO THE COMPANY?</p><div class="discipline-subhead">THE SEVEN STANDARDS</div><div class="discipline-register standards"><div class="discipline-row"><span>01</span><strong>DISTINCTIVENESS</strong><span>Does this make the company easier to recognize — or easier to replace?</span></div><div class="discipline-row"><span>02</span><strong>PREFERENCE</strong><span>Does this create another reason to choose the company?</span></div><div class="discipline-row"><span>03</span><strong>COHERENCE</strong><span>Does this make the company add up better?</span></div><div class="discipline-row"><span>04</span><strong>IMITABILITY</strong><span>If competitors copy this tomorrow, what will still be ours?</span></div><div class="discipline-row"><span>05</span><strong>IDENTITY</strong><span>Does this make the company more itself — or less itself?</span></div><div class="discipline-row"><span>06</span><strong>PRECEDENT</strong><span>What will this yes teach the next yes?</span></div><div class="discipline-row"><span>07</span><strong>COMPOUNDING</strong><span>What happens if this becomes normal?</span></div></div><p>The standards are not converted into a composite score. They do not carry fixed weights. Their materiality depends on the commitment.</p><p class="discipline-statement">JUDGMENT IS NOT ARITHMETIC.</p><div class="discipline-subhead">EVIDENCE</div><div class="discipline-cols"><div><strong>BIG DATA</strong><p>Research. Behavior. Performance. Economics. Markets. Measurement.</p></div><div><strong>GUT DATA</strong><p>Experience. Instinct. Pattern recognition. Culture. Tacit knowledge.</p></div></div><p>Neither automatically outranks the other. Contradictions are retained as tension or uncertainty.</p><div class="discipline-subhead">THE COUNTERFACTUAL</div><p class="discipline-question">IF WE DO NOT MAKE THIS COMMITMENT, WHAT HAPPENS INSTEAD?</p><p>Doing nothing is not consequence-free.</p><div class="discipline-subhead">THE DENSE IDEA BALANCE SHEET</div><p>The Dense Idea Balance Sheet records what the proposed commitment adds and what it takes away. It does not calculate the recommendation.</p><div class="discipline-register"><div class="discipline-row"><strong>STRENGTHENING</strong><span>WEAKENING</span></div><div class="discipline-row"><strong>DISTINCTIVENESS</strong><span>GENERICITY</span></div><div class="discipline-row"><strong>COHERENCE</strong><span>FRAGMENTATION</span></div><div class="discipline-row"><strong>ACCUMULATION</strong><span>EROSION</span></div><div class="discipline-row"><strong>COMPOUNDING</strong><span>DEPRECIATION</span></div></div></div></section>
+<section class="viewport home-paper"><div class="product-orientation"><span></span><span>03 · RECOMMENDATION</span></div><span class="hero-line-wrap"><h2 class="hero-line js-fit">TAKE A POSITION.</h2></span><div class="discipline-copy"><p class="discipline-question">DOES THIS COMMITMENT DESERVE TO BE MADE?</p><div class="discipline-register verdicts"><div class="discipline-row"><strong>AAH.</strong><span>The commitment deserves to be made.</span></div><div class="discipline-row"><strong>HMM.</strong><span>The Discipline cannot responsibly recommend for or against in its present state.</span></div><div class="discipline-row"><strong>DULL.</strong><span>The commitment does not deserve to be made in its present form.</span></div></div><p>AI produces an independent recommendation from the completed Judgment Record. Its recommendation is locked before human review.</p><p>A human reviews the completed record and the locked AI recommendation. Agreement or disagreement is recorded. Material disagreement requires reasoning.</p><p>Human judgment determines Kill Dull's final recommendation because institutional judgment requires accountability.</p><p class="discipline-statement">THE DISCIPLINE RECOMMENDS. THE CLIENT DECIDES.</p></div></section>
+<section class="viewport home-paper"><div class="product-orientation"><span></span><span>04 · THE READING</span></div><span class="hero-line-wrap"><h2 class="hero-line js-fit">PUT IT ON RECORD.</h2></span><div class="discipline-copy"><p>The Reading is the finished expression of the Discipline. It is not another analytical stage. It does not reopen Judgment.</p><div class="discipline-subhead">THE RECORD</div><ul class="discipline-list"><li>READING ID</li><li>DATE</li><li>COMMITMENT</li><li>EVIDENCE CUTOFF</li><li>DISCIPLINE VERSION</li><li>AI MODEL RECORD</li><li>AI RECOMMENDATION</li><li>HUMAN RESPONSIBLE</li><li>FINAL RECOMMENDATION</li><li>MATERIAL TENSIONS</li><li>WHAT WOULD CHANGE THE RECOMMENDATION</li><li>READING VERSION</li></ul><p>The recommendation appears first. The machinery does not.</p><p class="discipline-statement">CONSIDERED. CONCLUDED. ON RECORD.</p><div class="discipline-subhead">PRIVATE READING</div><p>Commissioned before commitment. Confidential. A durable digital record and physical book.</p><div class="discipline-subhead">PUBLISHED READING</div><p>Initiated by Kill Dull after a commitment is publicly observable. Public evidence. Same Discipline. Independent judgment.</p><p class="discipline-statement">SAME DISCIPLINE. DIFFERENT MOMENT.</p><div class="discipline-subhead">INDEPENDENCE</div><p>Kill Dull does not automatically develop strategy, rewrite propositions, develop campaigns, redesign products, implement recommendations, police execution or manage brands.</p><p class="discipline-statement">NOTHING FOR SALE BUT THE JUDGMENT.</p><div class="discipline-subhead">THE RECORD OVER TIME</div><p>One Reading records one judgment. Across many, the record becomes evidence: where evidence and experience agreed or diverged, where AI and human judgment differed, which assumptions mattered and which commitments compounded or depreciated.</p></div></section>
 </main>
-<script>
-(function(){const d=new Date();const m=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];document.getElementById('today').textContent=m[d.getMonth()]+' '+String(d.getDate()).padStart(2,'0')+' '+d.getFullYear();})();
-</script>
-</body>
-</html>
+<footer class="footer" role="contentinfo"><div class="footer-inner"><div class="footer-bureau">THE BUREAU.</div><div class="footer-index"><div class="footer-section"><div class="footer-section-label">THE PRACTICE</div><nav><a href="/discipline">The Dense Idea Discipline</a><a href="/bench">BENCH</a><a href="https://pitchagainstdull.com">PITCH</a></nav></div><div class="footer-section"><div class="footer-section-label">PUBLIC RECORD</div><nav><a href="/readings#published">Published Readings</a><a href="/bureau">Department of Hard Evidence</a></nav></div><div class="footer-section"><div class="footer-section-label">INSTITUTION</div><nav><a href="/office">The Office</a><a href="/faq">FAQ</a><a href="/accessibility.html">Accessibility</a><a href="/language.html">Language</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></nav></div></div><div class="footer-colophon"><span>© 2026 Kill Dull™</span><span>KD · OFFICE · MAN—001</span></div></div></footer><script src="/assets/kd.js"></script></body></html>
