@@ -92,15 +92,17 @@
       '<span class="hero-line-wrap"><h1 class="hero-line js-fit">MARKETING DECISION?</h1></span>' +
       '<div class="home-copy premise-lead">' +
         '<p>Before you commit, find out what else you might be committing to.</p>' +
+        '<p>Inside most companies, the fundamentals of marketing — the four Ps: <strong>Product. Price. Place. Promotion.</strong> — don\'t live in the same room.</p>' +
       '</div>' +
-      '<div class="home-ps">' +
-        '<div><strong>PRODUCT</strong><span>What you make.</span></div>' +
-        '<div><strong>PRICE</strong><span>What you ask.</span></div>' +
-        '<div><strong>PLACE</strong><span>Where and how it reaches people.</span></div>' +
-        '<div><strong>PROMOTION</strong><span>What you say and signal.</span></div>' +
+      '<div class="ps-room">' +
+        '<div class="ps-row">' +
+        '<article class="ps-object"><h3>PRODUCT</h3><p>What you make.</p></article>' +
+        '<article class="ps-object"><h3>PRICE</h3><p>What you ask.</p></article>' +
+        '<article class="ps-object"><h3>PLACE</h3><p>Where and how it reaches people.</p></article>' +
+        '<article class="ps-object"><h3>PROMOTION</h3><p>What you say and signal.</p></article>' +
+        '</div>' +
       '</div>' +
       '<div class="home-copy opening-copy">' +
-        '<p>Inside most companies, they don\'t live in the same room.</p>' +
         '<p>Customers don\'t care.</p>' +
         '<p><strong>They experience one company.</strong></p>' +
         '<p>A decision in one place can strengthen—or quietly depreciate—what the rest of the company has spent years building.</p>' +
