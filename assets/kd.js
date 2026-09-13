@@ -264,6 +264,7 @@
     var vw=document.documentElement.clientWidth,vh=document.documentElement.clientHeight,
         d=window.KD_PS;
     psRunway.style.setProperty('--ps-vw',vw+'px');
+    psRunway.style.marginBottom='';
     if(!psPlate||!d)return;
     psPlate.style.setProperty('--ps-pw',d.w+'px');
     psPlate.style.setProperty('--ps-ph',d.h+'px');
@@ -304,6 +305,14 @@
     oy=Math.min(oy,vh-24-(d.bot||d.anchor)*s);
     oy=Math.max(Math.min(oy,0),vh-d.h*s);
     psPlate.style.setProperty('--ps-oy',oy.toFixed(1)+'px');
+
+    // The section ends sooner after the masses. Two fifths of the floor below
+    // them is taken out of the section's height in flow, so the section that
+    // follows rises into it. Nothing inside the stage moves: the plate, the
+    // masses, the copy and the whole composition above their base are exactly
+    // where they were - only where the room stops is different.
+    psRunway.style.marginBottom=
+      (-Math.max(0,(vh-(oy+(d.bot||d.anchor)*s))*0.40)).toFixed(1)+'px';
 
     // If those clamps have pulled the masses up into the copy - a window too
     // short to hold both - scale the copy about the text's own left edge, so
