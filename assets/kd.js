@@ -184,7 +184,156 @@
 
   function wirePitchScroll(){var pitch=document.getElementById('pitch-intro');if(!pitch||pitch.dataset.scrollWired==='1')return;pitch.dataset.scrollWired='1';pitch.classList.add('pitch-scroll-ready');var grid=pitch.querySelector('.pitch-steps'),actions=pitch.querySelector('.pitch-actions');if(!grid||!actions)return;var runway=document.createElement('div');runway.className='pitch-scroll-runway';var stage=document.createElement('div');stage.className='pitch-scroll-stage';var first=pitch.firstElementChild,nodes=[],node=first;while(node&&node!==actions){nodes.push(node);node=node.nextElementSibling;}pitch.insertBefore(runway,first);runway.appendChild(stage);for(var n=0;n<nodes.length;n++)stage.appendChild(nodes[n]);var steps=stage.querySelectorAll('.pitch-steps>div');if(!steps.length)return;var stagger=90,startOffset=220,settle=startOffset+(steps.length-1)*stagger+50;if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;var ticking=false,travel=560;function clamp(v,min,max){return Math.max(min,Math.min(max,v));}function update(){ticking=false;if(window.innerWidth<768)return;var rect=runway.getBoundingClientRect(),stickyTop=24,scrolled=clamp(stickyTop-rect.top,0,travel),progress=scrolled/travel,maxY=0;for(var i=0;i<steps.length;i++){var y=Math.max(0,startOffset+(i*stagger)-(progress*settle));maxY=Math.max(maxY,y);steps[i].style.setProperty('--pitch-y',y.toFixed(1)+'px');}var gridHeight=150+Math.min(370,maxY);grid.style.setProperty('--pitch-grid-h',gridHeight.toFixed(1)+'px');var stageHeight=stage.offsetHeight;runway.style.setProperty('--pitch-runway-h',(stageHeight+travel).toFixed(1)+'px');}function requestUpdate(){if(ticking)return;ticking=true;requestAnimationFrame(update);}update();window.addEventListener('scroll',requestUpdate,{passive:true});window.addEventListener('resize',requestUpdate);}
 
-  function wireFourPs(){var obs=document.getElementById('observation');if(!obs)return;var cubes=[],cx=[],S=0,ticking=false,bound=false;var DIR=[1,0.3333,-0.3333,-1],YOFF=[0.034,-0.042,0.022,-0.028],ZOFF=[-36,24,-16,30],XJIT=[-0.035,0.028,-0.02,0.032];function reduced(){return !!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);}function small(){return window.innerWidth<768;}function ease(t){t=t<0?0:(t>1?1:t);return 1-Math.pow(1-t,3);}function smooth(t){t=t<0?0:(t>1?1:t);return t*t*(3-2*t);}function layout(){var runway=document.querySelector('.ps-runway');cubes=[];if(!runway)return;var found=[].slice.call(runway.querySelectorAll('.ps-cube'));if(found.length!==4)return;cubes=found;var dw=document.documentElement.clientWidth,dh=document.documentElement.clientHeight;runway.style.setProperty('--ps-vw',dw+'px');if(small()||reduced()){for(var k=0;k<4;k++){cubes[k].style.removeProperty('--x');cubes[k].style.removeProperty('--y');cubes[k].style.removeProperty('--z');}return;}var margin=Math.max(40,dw*0.05),AW=dw-2*margin;S=Math.round(Math.max(110,Math.min(300,AW/5.9,dh*0.34)));var D=S*1.55;cx=[];for(var q=0;q<4;q++)cx.push((q-1.5)*D+XJIT[q]*D);for(var i=0;i<4;i++){var c=cubes[i];c.style.setProperty('--s',S+'px');c.style.setProperty('--y',Math.round(YOFF[i]*dh)+'px');c.style.setProperty('--z',ZOFF[i]+'px');}}function update(){ticking=false;if(cubes.length!==4)return;var runway=document.querySelector('.ps-runway');if(!runway)return;if(small()||reduced()){for(var k=0;k<4;k++)cubes[k].style.removeProperty('--x');return;}var r=runway.getBoundingClientRect(),travel=r.height-(document.documentElement.clientHeight||1);if(travel<=0)travel=1;var p=(-r.top)/travel;p=p<0?0:(p>1?1:p);var t=(p-0.10)/0.90;t=t<0?0:(t>1?1:t);var APPROACH=S*0.63,REPEL=APPROACH*0.34;var closing=APPROACH*ease(Math.min(t/0.74,1))-REPEL*smooth((t-0.74)/0.26);var x=[],i;for(i=0;i<4;i++)x.push(cx[i]+DIR[i]*closing);var MIN=Math.max(18,S*0.12);for(var pass=0;pass<5;pass++){for(i=0;i<3;i++){var gap=(x[i+1]-S/2)-(x[i]+S/2);if(gap<MIN){var push=(MIN-gap)/2;x[i]-=push;x[i+1]+=push;}}}for(i=0;i<4;i++)cubes[i].style.setProperty('--x',x[i].toFixed(1)+'px');}function req(){if(ticking)return;ticking=true;requestAnimationFrame(update);}function rebind(){layout();update();}rebind();if(bound)return;bound=true;window.addEventListener('scroll',req,{passive:true});window.addEventListener('resize',function(){layout();req();});window.addEventListener('load',function(){setTimeout(rebind,0);});try{new MutationObserver(function(){setTimeout(rebind,0);}).observe(obs,{childList:true});}catch(e){}setTimeout(rebind,300);setTimeout(rebind,1200);setTimeout(rebind,2200);}
+  // Plate geometry, emitted by the render so the markup and the scroll
+  // driver cannot drift from the image they are positioning against.
+  window.KD_PS={"w":2132,"h":1600,"masses":[{"name":"PRODUCT","copy":"What you make.","mass":{"x":99,"y":602,"w":437,"h":435},"shadow":{"x":0,"y":204,"w":2095,"h":1166},"matrix3d":[1.007391,0.005614,0,8e-06,0.001434,1.002004,0,1e-06,0,0,1,0,97.960792,609.016991,0,1],"quad":[[98.0,609.0],[519.4,609.4],[519.7,1028.2],[98.5,1029.3]]},{"name":"PRICE","copy":"What you ask.","mass":{"x":603,"y":600,"w":439,"h":440},"shadow":{"x":6,"y":211,"w":2107,"h":1155},"matrix3d":[1.019322,0.005053,0,7e-06,0.001451,1.01439,0,1e-06,0,0,1,0,602.719582,607.717657,0,1],"quad":[[602.7,607.7],[1027.8,608.0],[1027.8,1032.2],[603.0,1033.2]]},{"name":"PLACE","copy":"Where and how it reaches people.","mass":{"x":1095,"y":602,"w":448,"h":434},"shadow":{"x":23,"y":211,"w":2109,"h":1155},"matrix3d":[1.004782,0.00529,0,7e-06,0.001431,0.99966,0,1e-06,0,0,1,0,1111.30807,609.262967,0,1],"quad":[[1111.3,609.3],[1528.6,609.6],[1528.3,1027.6],[1111.3,1028.5]]},{"name":"PROMOTION","copy":"What you say and signal.","mass":{"x":1595,"y":601,"w":466,"h":438},"shadow":{"x":37,"y":214,"w":2095,"h":1152},"matrix3d":[1.015473,0.00472,0,7e-06,0.001447,1.010838,0,1e-06,0,0,1,0,1626.735594,608.090377,0,1],"quad":[[1626.7,608.1],[2047.6,608.4],[2047.0,1031.2],[1626.4,1032.1]]}]};
+
+  // ── the four Ps room ─────────────────────────────────────────────────────
+  // A rendered cream room with four blue-black masses, composited from flat
+  // plates: room x shadow (multiply) over mass (alpha), with the labels as
+  // live HTML transformed onto each face. The masses repel on scroll.
+  //
+  // kd-core rebuilds #observation on both DOMContentLoaded and window.load,
+  // and the inline homepage script removes the legacy sections that
+  // buildHomepage() guards on - so a second rebuild can replace the runway
+  // with a fresh empty one. Everything below is therefore re-entrant: state
+  // lives in module scope, listeners attach once, and the observer stays
+  // connected for the life of the page so a replaced runway is rebuilt.
+  var psRunway=null,psPlate=null,psBound=false,psTicking=false;
+
+  // x_i(s) = XS_i * (1 + s*SPREAD_MAX): a uniform dilation about the centre of
+  // the row, which is where four like-pole magnets in a row settle. The outer
+  // pair travels furthest, the inner pair barely moves.
+  //
+  // s runs -1 -> 0, NOT 0 -> 1. The plates were rendered at the fully repelled
+  // positions, so the scroll CONTRACTS toward them rather than expanding past
+  // them. Expanding would push the outer masses out of the rendered frame -
+  // the composition fills its width, and there is no room to the sides. This
+  // way the approved frame is the end state and nothing can ever crop.
+  //
+  // SPREAD_MAX is set by the tightest gap: at s=-1 the closest pair still
+  // holds ~12px clear at 1440. Every offset is XS_i * s * SPREAD_MAX with XS_i
+  // keeping its sign, so the gaps open monotonically as s rises - they never
+  // touch by construction, not by a collision check.
+  var PS_XS=[-5.05,-1.65,1.70,5.10],PS_SPREAD_MAX=0.0664,PS_MW=2.80;
+
+  function psReduced(){return !!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);}
+  function psSmall(){return window.innerWidth<900;}
+  function psEsc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+
+  function psStaticMarkup(M){
+    var h='<div class="ps-static">',k;
+    for(k=0;k<4;k++)h+='<div><h3>'+psEsc(M[k].name)+'</h3><p>'+psEsc(M[k].copy)+'</p></div>';
+    return h+'</div>';
+  }
+
+  function psStageMarkup(d){
+    var M=d.masses,h='<div class="ps-stage"><div class="ps-plate">'+
+      '<img class="ps-room-img" src="/assets/ps-room.webp" alt="" width="'+d.w+
+      '" height="'+d.h+'" decoding="async">',k,s,m;
+    // every shadow paints before any mass, so a mass occludes its neighbour's
+    // shadow instead of being tinted by it
+    for(k=0;k<4;k++){
+      s=M[k].shadow;
+      h+='<img class="ps-shadow" data-ps-i="'+k+'" src="/assets/ps-shadow-'+k+'.webp" '+
+         'alt="" aria-hidden="true" decoding="async" style="left:'+s.x+'px;top:'+s.y+
+         'px;width:'+s.w+'px;height:'+s.h+'px">';
+    }
+    for(k=0;k<4;k++){
+      m=M[k].mass;
+      h+='<div class="ps-obj" data-ps-i="'+k+'">'+
+         '<img class="ps-mass" src="/assets/ps-mass-'+k+'.webp" alt="" aria-hidden="true" '+
+         'decoding="async" style="left:'+m.x+'px;top:'+m.y+'px;width:'+m.w+'px;height:'+m.h+'px">'+
+         '<div class="ps-label" style="transform:matrix3d('+M[k].matrix3d.join(',')+')">'+
+         '<h3>'+psEsc(M[k].name)+'</h3><p>'+psEsc(M[k].copy)+'</p></div></div>';
+    }
+    return h+'</div></div>';
+  }
+
+  function psFit(){
+    if(!psRunway)return;
+    var vw=document.documentElement.clientWidth,vh=document.documentElement.clientHeight,
+        d=window.KD_PS;
+    psRunway.style.setProperty('--ps-vw',vw+'px');
+    if(!psPlate||!d)return;
+    psPlate.style.setProperty('--ps-pw',d.w+'px');
+    psPlate.style.setProperty('--ps-ph',d.h+'px');
+    // The plate is 2132x1600, so for any viewport wider than 4:3 this resolves
+    // to the WIDTH term: the full horizontal composition is always shown and
+    // only the empty room above and below is ever cropped. The masses cannot
+    // be clipped, at rest or at full spread.
+    psPlate.style.setProperty('--ps-s',Math.max(vw/d.w,vh/d.h));
+  }
+
+  // smoothstep across the middle of the runway only, so the masses hold still
+  // as the room arrives and again before it leaves: the movement reads as
+  // something happening inside the section, not as a transition into it
+  function psEase(t){t=t<0?0:(t>1?1:t);return t*t*(3-2*t);}
+
+  function psUpdate(){
+    psTicking=false;
+    if(!psRunway||!psPlate||!psRunway.isConnected||!window.KD_PS)return;
+    var M=window.KD_PS.masses,i;
+    if(psReduced()){
+      for(i=0;i<4;i++)psPlate.style.setProperty('--dx'+i,'0px');
+      return;
+    }
+    var r=psRunway.getBoundingClientRect(),
+        travel=r.height-(document.documentElement.clientHeight||1);
+    if(travel<=0)travel=1;
+    var p=(-r.top)/travel;
+    p=p<0?0:(p>1?1:p);
+    var s=psEase((p-0.12)/0.76)-1.0;
+    for(i=0;i<4;i++){
+      // px per world metre comes from each mass's own rendered face, so the
+      // four travel in step with the perspective they were rendered with
+      var pxPerM=(M[i].quad[1][0]-M[i].quad[0][0])/PS_MW;
+      psPlate.style.setProperty('--dx'+i,(PS_XS[i]*PS_SPREAD_MAX*s*pxPerM).toFixed(2)+'px');
+    }
+  }
+
+  function psRequest(){if(psTicking)return;psTicking=true;requestAnimationFrame(psUpdate);}
+
+  function psBuild(){
+    var runway=document.querySelector('.ps-runway'),d=window.KD_PS;
+    if(!runway||!d||!d.masses||d.masses.length!==4)return false;
+    if(runway===psRunway&&runway.dataset.psWired==='1')return true;
+    runway.dataset.psWired='1';
+    psRunway=runway;
+    // Below 900px the stage is never built, so none of the plates are even
+    // requested. display:none would still have fetched them in most browsers.
+    psRunway.innerHTML=(psSmall()?'':psStageMarkup(d))+psStaticMarkup(d.masses);
+    psPlate=psRunway.querySelector('.ps-plate');
+    psFit();psUpdate();
+    return true;
+  }
+
+  function wireFourPs(){
+    psBuild();
+    if(psBound)return;
+    psBound=true;
+    window.addEventListener('scroll',psRequest,{passive:true});
+    window.addEventListener('resize',function(){
+      // crossing the breakpoint changes whether the stage exists at all
+      var wantStage=!psSmall();
+      if(psRunway&&window.KD_PS&&wantStage!==!!psPlate){
+        psRunway.innerHTML=(wantStage?psStageMarkup(window.KD_PS):'')+
+                           psStaticMarkup(window.KD_PS.masses);
+        psPlate=psRunway.querySelector('.ps-plate');
+      }
+      psFit();psRequest();
+    });
+    window.addEventListener('load',function(){setTimeout(psBuild,0);});
+    // Stays connected for the life of the page on purpose: if a later rebuild
+    // swaps in a fresh runway, psBuild repopulates it. When the runway is
+    // already current the callback is one querySelector and a flag check.
+    try{
+      new MutationObserver(psBuild).observe(
+        document.querySelector('main')||document.body,{childList:true,subtree:true});
+    }catch(e){}
+    if(document.fonts&&document.fonts.ready)document.fonts.ready.then(psFit);
+    setTimeout(psBuild,300);setTimeout(psBuild,1200);setTimeout(psBuild,2500);
+  }
 
   normalizeShell();normalizeCtas();wireRouteTransition();wireReadingFit();var core=document.createElement('script');core.src='/assets/kd-core.js';core.onload=function(){normalizeShell();normalizeCtas();document.head.appendChild(style);wireRouteTransition();wirePitchScroll();wireFourPs();normalizeCtas();};document.head.appendChild(core);
 })();

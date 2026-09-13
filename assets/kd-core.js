@@ -94,42 +94,7 @@
         '<p>Before you commit, find out what else you might be committing to.</p>' +
         '<p>Inside most companies, the fundamentals of marketing — the four Ps: <strong>Product. Price. Place. Promotion.</strong> — don\'t live in the same room.</p>' +
       '</div>' +
-      '<div class="ps-runway">' +
-        '<div class="ps-stage"><div class="ps-scene">' +
-          '<div class="ps-cube" style="--i:0">' +
-            '<div class="ps-face ps-back"></div>' +
-            '<div class="ps-face ps-left"></div>' +
-            '<div class="ps-face ps-right"></div>' +
-            '<div class="ps-face ps-top"></div>' +
-            '<div class="ps-face ps-bottom"></div>' +
-            '<div class="ps-face ps-front"><h3>PRODUCT</h3><p>What you make.</p></div>' +
-          '</div>' +
-          '<div class="ps-cube" style="--i:1">' +
-            '<div class="ps-face ps-back"></div>' +
-            '<div class="ps-face ps-left"></div>' +
-            '<div class="ps-face ps-right"></div>' +
-            '<div class="ps-face ps-top"></div>' +
-            '<div class="ps-face ps-bottom"></div>' +
-            '<div class="ps-face ps-front"><h3>PRICE</h3><p>What you ask.</p></div>' +
-          '</div>' +
-          '<div class="ps-cube" style="--i:2">' +
-            '<div class="ps-face ps-back"></div>' +
-            '<div class="ps-face ps-left"></div>' +
-            '<div class="ps-face ps-right"></div>' +
-            '<div class="ps-face ps-top"></div>' +
-            '<div class="ps-face ps-bottom"></div>' +
-            '<div class="ps-face ps-front"><h3>PLACE</h3><p>Where and how it reaches people.</p></div>' +
-          '</div>' +
-          '<div class="ps-cube" style="--i:3">' +
-            '<div class="ps-face ps-back"></div>' +
-            '<div class="ps-face ps-left"></div>' +
-            '<div class="ps-face ps-right"></div>' +
-            '<div class="ps-face ps-top"></div>' +
-            '<div class="ps-face ps-bottom"></div>' +
-            '<div class="ps-face ps-front"><h3>PROMOTION</h3><p>What you say and signal.</p></div>' +
-          '</div>' +
-        '</div></div>' +
-      '</div>' +
+      '<div class="ps-runway"></div>' +
       '<div class="home-copy opening-copy">' +
         '<p>Customers don\'t care.</p>' +
         '<p><strong>They experience one company.</strong></p>' +
