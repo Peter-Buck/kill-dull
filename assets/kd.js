@@ -77,6 +77,7 @@
     '@media(max-width:1279px){.masthead-top{padding-left:64px!important;padding-right:64px!important}.footer-inner{padding:64px!important}.masthead-bulletin{padding-left:64px!important;padding-right:64px!important}}'+
     '@media(max-width:767px){.masthead-top{padding:30px 24px 24px!important;grid-template-columns:1fr auto 1fr!important}.masthead-wordmark{font-size:34px!important}.masthead-date,.masthead-designation{font-size:9px!important;letter-spacing:.08em!important}.masthead-bulletin{padding-left:24px!important;padding-right:24px!important}.footer-inner{padding:48px 24px!important}.footer-section{grid-template-columns:1fr!important;gap:12px!important}.readings-page .reading-container .container-copy{max-height:none!important;margin-top:24px!important;opacity:1!important;transform:none!important}.pitch-intro.pitch-scroll-ready .pitch-scroll-runway{height:auto!important}.pitch-intro.pitch-scroll-ready .pitch-scroll-stage{position:static!important}.pitch-intro.pitch-scroll-ready .pitch-steps{height:auto!important;overflow:visible!important}.pitch-intro.pitch-scroll-ready .pitch-steps>div{transform:none!important;will-change:auto!important;border-right-color:transparent!important}}'+
     '@media(prefers-reduced-motion:reduce){.readings-page .reading-container h2,.readings-page .reading-container .container-copy{transition:none!important}.pitch-intro.pitch-scroll-ready .pitch-scroll-runway{height:auto!important}.pitch-intro.pitch-scroll-ready .pitch-scroll-stage{position:static!important}.pitch-intro.pitch-scroll-ready .pitch-steps{height:auto!important;overflow:visible!important}.pitch-intro.pitch-scroll-ready .pitch-steps>div{transform:none!important;will-change:auto!important;border-right-color:transparent!important}.kd-cta-unified::after{transition:none!important}}'+
+    '.kd-skip{position:absolute!important;left:-9999px!important;top:0;z-index:10001;display:inline-block;padding:12px 18px;background:var(--ink,#24222B);color:var(--paper,#FFFFFF)!important;font-family:"IBM Plex Mono",monospace;font-size:15px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}.kd-skip:focus{left:12px!important;top:12px!important;outline:2px solid #FFFF00;outline-offset:2px}main:focus{outline:none}:focus-visible{outline:2px solid #FFFF00!important;outline-offset:2px!important;box-shadow:0 0 0 4px #24222B!important}.product-orientation>span:last-child{color:#736F65!important}.viewport.is-dark .product-orientation>span:last-child,.bench-process .product-orientation>span:last-child,#discuss .product-orientation>span:last-child,.record-intro .product-orientation>span:last-child,.dept-section:not(.is-light) .product-orientation>span:last-child{color:#A5A299!important}.reg-item{color:#A09D94!important}.reg-item.is-current,.reg-item.is-active{color:#FFFFFF!important}'+
     '.kd-talk{background:var(--paper)!important;color:var(--ink)!important}'+
     '.kd-talk .hero-line{color:var(--ink)!important}'+
     '.kd-talk-copy{width:100%;max-width:50%;font-size:17px;line-height:1.8;margin-top:48px}'+
@@ -123,10 +124,17 @@
     if(starbucks){starbucks.src='/assets/starbucks-logo.svg';starbucks.classList.add('native-cream');}
     var accumulate=document.querySelector('.readings-page .accumulate');
     if(accumulate) accumulate.innerHTML='<span class="hero-line-wrap"><span class="hero-line js-fit">A BODY OF EVIDENCE ABOUT WHAT</span></span><span class="hero-line-wrap"><span class="hero-line js-fit">COMPOUNDS — AND WHAT DOESN’T.</span></span>';
+    var mainTarget=document.querySelector('main');
+    if(mainTarget&&!mainTarget.id){mainTarget.id='main';mainTarget.setAttribute('tabindex','-1');}
+    if(mainTarget&&!document.querySelector('.kd-skip')){
+      var skip=document.createElement('a');
+      skip.className='kd-skip';skip.href='#main';skip.textContent='Skip to content';
+      document.body.insertBefore(skip,document.body.firstChild);
+    }
     var footEl=document.querySelector('.footer');
     if(footEl&&footEl.parentNode&&!document.querySelector('.kd-talk')){
       var contact=document.createElement('section');
-      contact.className='viewport home-paper kd-talk';
+      contact.className='viewport home-paper kd-talk';contact.setAttribute('aria-label','Contact Kill Dull');
       contact.innerHTML='<span class="hero-line-wrap"><h2 class="hero-line js-fit">TALK TO KILL DULL.</h2></span>'+
         '<div class="kd-talk-copy"><p>Have a consequential marketing decision?</p><p>Put it before The Bench.</p></div>'+
         '<a class="kd-cta-unified kd-talk-cta" href="mailto:human@killdull.com">START A CONVERSATION</a>';
