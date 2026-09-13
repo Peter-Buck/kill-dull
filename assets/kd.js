@@ -80,11 +80,7 @@
     '.kd-skip{position:absolute!important;left:-9999px!important;top:0;z-index:10001;display:inline-block;padding:12px 18px;background:var(--ink,#24222B);color:var(--paper,#FFFFFF)!important;font-family:"IBM Plex Mono",monospace;font-size:15px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}.kd-skip:focus{left:12px!important;top:12px!important;outline:2px solid #FFFF00;outline-offset:2px}main:focus{outline:none}:focus-visible{outline:2px solid #FFFF00!important;outline-offset:2px!important;box-shadow:0 0 0 4px #24222B!important}.product-orientation>span:last-child{color:#736F65!important}.viewport.is-dark .product-orientation>span:last-child,.bench-process .product-orientation>span:last-child,#discuss .product-orientation>span:last-child,.record-intro .product-orientation>span:last-child,.dept-section:not(.is-light) .product-orientation>span:last-child{color:#A5A299!important}.reg-item{color:#A09D94!important}.reg-item.is-current,.reg-item.is-active{color:#FFFFFF!important}'+
     '.kd-talk{background:var(--paper)!important;color:var(--ink)!important}'+
     '.kd-talk .hero-line{color:var(--ink)!important}'+
-    '.kd-talk-copy{width:100%;max-width:50%;font-size:17px;line-height:1.8;margin-top:48px}'+
-    '.kd-talk-copy p{margin:0}'+
-    '.kd-talk-copy p+p{margin-top:18px}'+
-    '.kd-talk-cta{margin-top:36px;width:max-content}'+
-    '@media(max-width:767px){.kd-talk-copy{max-width:100%}}';
+    '.kd-talk-cta{margin-top:36px;width:max-content}';
   document.head.appendChild(style);
 
   function routeKey(pathname){
@@ -135,9 +131,8 @@
     if(footEl&&footEl.parentNode&&!document.querySelector('.kd-talk')){
       var contact=document.createElement('section');
       contact.className='viewport home-paper kd-talk';contact.setAttribute('aria-label','Contact Kill Dull');
-      contact.innerHTML='<span class="hero-line-wrap"><h2 class="hero-line js-fit">TALK TO KILL DULL.</h2></span>'+
-        '<div class="kd-talk-copy"><p>Have a consequential marketing decision?</p><p>Put it before The Bench.</p></div>'+
-        '<a class="kd-cta-unified kd-talk-cta" href="mailto:human@killdull.com">START A CONVERSATION</a>';
+      contact.innerHTML='<span class="hero-line-wrap"><h2 class="hero-line js-fit">BRING WHAT’S BUGGING YOU.</h2></span>'+
+        '<a class="kd-cta-unified kd-talk-cta" href="mailto:human@killdull.com">REALHUMAN@KILLDULL.COM</a>';
       footEl.parentNode.insertBefore(contact,footEl);
     }
     var footer=document.querySelector('.footer');
