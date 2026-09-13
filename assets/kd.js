@@ -76,7 +76,14 @@
     '.v5-home #home-close .close-options a.kd-cta-unified:hover,.v5-home #home-close .close-options a.kd-cta-unified:focus-visible{background:transparent!important;border-color:var(--yellow)!important;color:inherit!important}'+
     '@media(max-width:1279px){.masthead-top{padding-left:64px!important;padding-right:64px!important}.footer-inner{padding:64px!important}.masthead-bulletin{padding-left:64px!important;padding-right:64px!important}}'+
     '@media(max-width:767px){.masthead-top{padding:30px 24px 24px!important;grid-template-columns:1fr auto 1fr!important}.masthead-wordmark{font-size:34px!important}.masthead-date,.masthead-designation{font-size:9px!important;letter-spacing:.08em!important}.masthead-bulletin{padding-left:24px!important;padding-right:24px!important}.footer-inner{padding:48px 24px!important}.footer-section{grid-template-columns:1fr!important;gap:12px!important}.readings-page .reading-container .container-copy{max-height:none!important;margin-top:24px!important;opacity:1!important;transform:none!important}.pitch-intro.pitch-scroll-ready .pitch-scroll-runway{height:auto!important}.pitch-intro.pitch-scroll-ready .pitch-scroll-stage{position:static!important}.pitch-intro.pitch-scroll-ready .pitch-steps{height:auto!important;overflow:visible!important}.pitch-intro.pitch-scroll-ready .pitch-steps>div{transform:none!important;will-change:auto!important;border-right-color:transparent!important}}'+
-    '@media(prefers-reduced-motion:reduce){.readings-page .reading-container h2,.readings-page .reading-container .container-copy{transition:none!important}.pitch-intro.pitch-scroll-ready .pitch-scroll-runway{height:auto!important}.pitch-intro.pitch-scroll-ready .pitch-scroll-stage{position:static!important}.pitch-intro.pitch-scroll-ready .pitch-steps{height:auto!important;overflow:visible!important}.pitch-intro.pitch-scroll-ready .pitch-steps>div{transform:none!important;will-change:auto!important;border-right-color:transparent!important}.kd-cta-unified::after{transition:none!important}}';
+    '@media(prefers-reduced-motion:reduce){.readings-page .reading-container h2,.readings-page .reading-container .container-copy{transition:none!important}.pitch-intro.pitch-scroll-ready .pitch-scroll-runway{height:auto!important}.pitch-intro.pitch-scroll-ready .pitch-scroll-stage{position:static!important}.pitch-intro.pitch-scroll-ready .pitch-steps{height:auto!important;overflow:visible!important}.pitch-intro.pitch-scroll-ready .pitch-steps>div{transform:none!important;will-change:auto!important;border-right-color:transparent!important}.kd-cta-unified::after{transition:none!important}}'+
+    '.kd-talk{background:var(--paper)!important;color:var(--ink)!important}'+
+    '.kd-talk .hero-line{color:var(--ink)!important}'+
+    '.kd-talk-copy{width:100%;max-width:50%;font-size:17px;line-height:1.8;margin-top:48px}'+
+    '.kd-talk-copy p{margin:0}'+
+    '.kd-talk-copy p+p{margin-top:18px}'+
+    '.kd-talk-cta{margin-top:36px;width:max-content}'+
+    '@media(max-width:767px){.kd-talk-copy{max-width:100%}}';
   document.head.appendChild(style);
 
   function routeKey(pathname){
@@ -116,6 +123,15 @@
     if(starbucks){starbucks.src='/assets/starbucks-logo.svg';starbucks.classList.add('native-cream');}
     var accumulate=document.querySelector('.readings-page .accumulate');
     if(accumulate) accumulate.innerHTML='<span class="hero-line-wrap"><span class="hero-line js-fit">A BODY OF EVIDENCE ABOUT WHAT</span></span><span class="hero-line-wrap"><span class="hero-line js-fit">COMPOUNDS — AND WHAT DOESN’T.</span></span>';
+    var footEl=document.querySelector('.footer');
+    if(footEl&&footEl.parentNode&&!document.querySelector('.kd-talk')){
+      var contact=document.createElement('section');
+      contact.className='viewport home-paper kd-talk';
+      contact.innerHTML='<span class="hero-line-wrap"><h2 class="hero-line js-fit">TALK TO KILL DULL.</h2></span>'+
+        '<div class="kd-talk-copy"><p>Have a consequential marketing decision?</p><p>Put it before The Bench.</p></div>'+
+        '<a class="kd-cta-unified kd-talk-cta" href="mailto:human@killdull.com">START A CONVERSATION</a>';
+      footEl.parentNode.insertBefore(contact,footEl);
+    }
     var footer=document.querySelector('.footer');
     if(footer) footer.innerHTML='<div class="footer-inner"><div class="footer-bureau">THE BUREAU.</div><div class="footer-index"><div class="footer-section"><div class="footer-section-label">DISCIPLINE</div><nav aria-label="Discipline"><a href="/discipline">The Dense Idea Discipline</a></nav></div><div class="footer-section"><div class="footer-section-label">THE BENCH</div><nav aria-label="The Bench"><a href="/bench">How The Bench Works</a><a href="/readings">Private Readings</a><a href="/readings#record">Published Readings</a></nav></div><div class="footer-section"><div class="footer-section-label">PUBLIC RECORD</div><nav aria-label="Public record"><a href="/bureau">Department of Hard Evidence</a></nav></div><div class="footer-section"><div class="footer-section-label">KILL DULL</div><nav aria-label="Kill Dull"><a href="/office">About</a><a href="/faq">FAQ</a><a href="/accessibility.html" aria-label="Accessibility statement">Accessibility</a><a href="/privacy.html" aria-label="Privacy policy">Privacy</a><a href="/terms.html" aria-label="Terms of use">Terms</a></nav></div></div><div class="footer-colophon"><span>© 2026 Kill Dull. All rights reserved.</span></div></div>';
   }
