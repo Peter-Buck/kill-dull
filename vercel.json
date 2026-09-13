@@ -5,7 +5,12 @@
   "redirects": [
     { "source": "/go-deeper", "destination": "/discipline", "permanent": false },
     { "source": "/office", "destination": "/bureau", "permanent": true },
-    { "source": "/office.html", "destination": "/bureau", "permanent": true }
+    { "source": "/office.html", "destination": "/bureau", "permanent": true },
+    { "source": "/storm.html", "destination": "/", "permanent": true },
+    { "source": "/heather-preview.html", "destination": "/", "permanent": true },
+    { "source": "/language", "destination": "/", "permanent": true },
+    { "source": "/language.html", "destination": "/", "permanent": true },
+    { "source": "/site/:path*", "destination": "/", "permanent": true }
   ],
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
@@ -15,7 +20,6 @@
     { "source": "/readings", "destination": "/readings.html" },
     { "source": "/bureau", "destination": "/bureau.html" },
     { "source": "/accessibility", "destination": "/accessibility.html" },
-    { "source": "/language", "destination": "/language.html" },
     { "source": "/privacy", "destination": "/privacy.html" },
     { "source": "/terms", "destination": "/terms.html" }
   ],

@@ -1,0 +1,18 @@
+# Deploy the public site only. Everything at the repository root is excluded
+# and the public pages are re-included explicitly, so working files, source
+# projects, previews and media cannot become public routes by accident.
+/*
+
+!assets/
+!faq/
+!vercel.json
+
+!index.html
+!discipline.html
+!bench.html
+!readings.html
+!bureau.html
+!pitch.html
+!accessibility.html
+!privacy.html
+!terms.html

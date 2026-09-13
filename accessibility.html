@@ -5,9 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>Accessibility &#x2014; Kill Dull&#x2122;</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/fonts.css">
 <style>
 :root {
   --ink:            #0D0D0C;
@@ -871,7 +869,7 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
 }
 </style>
 </head>
-<body>
+<body><a class="kd-skip" href="#main">Skip to content</a><style>.kd-skip{position:absolute;left:-9999px;top:0;z-index:10001;display:inline-block;padding:12px 18px;background:#24222B;color:#FFFFFF;font-family:"IBM Plex Mono",monospace;font-size:15px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}.kd-skip:focus{left:12px;top:12px;outline:2px solid #FFFF00;outline-offset:2px}main:focus{outline:none}:focus-visible{outline:2px solid #FFFF00;outline-offset:2px;box-shadow:0 0 0 4px #24222B}.footer-section-label,.footer-colophon span{color:#65625B!important}</style>
 
 <header class="masthead" id="masthead">
 
@@ -902,7 +900,7 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
 
 </header>
 
-<div class="unified-nav" id="registrar">
+<div class="unified-nav" id="registrar" role="navigation" aria-label="Primary">
   <!-- Chapter navigation — left -->
   <div class="unified-nav-chapters" id="registrar-desktop"><a class="reg-item" href="/">KILL DULL</a><a class="reg-item" href="/discipline">DISCIPLINE</a><a class="reg-item" href="/bench">BENCH</a><a class="reg-item" href="/readings">READINGS</a></div>
 
@@ -924,17 +922,14 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
   </div>
 </div>
 
-<main>
+<main id="main" tabindex="-1">
   <section class="inst-section">
-    <div class="running-head">
-      <span>KD &middot; OFFICE &middot; STD&#x2014;003</span>
-      <span>ACCESSIBILITY</span>
-    </div>
+    <div class="running-head"><span>KD &middot; STD&#x2014;003</span><span>ACCESSIBILITY</span></div>
     <h1 class="inst-headline">Accessibility.</h1>
     <div class="inst-body">
-      <p>Accessibility is fundamental to the way Kill Dull is built.</p>
-      <p>Our accessibility standards are being implemented alongside the development of the institution and will be fully active when Kill Dull launches publicly.</p>
-      <p>If you encounter a barrier while previewing the site, please contact us.</p>
+      <p>Kill Dull is designed to be accessible to as many people as possible. We aim to meet WCAG 2.2 Level AA and test the site as it changes.</p>
+      <p>If you experience difficulty accessing any part of Kill Dull, tell us.</p>
+      <p class="inst-cta-wrap"><a class="inst-cta" href="mailto:human@killdull.com">Contact Kill Dull <span aria-hidden="true">&#8599;</span></a></p>
     </div>
   </section>
 </main>
@@ -942,46 +937,13 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
 <!-- FOOTER -->
 <footer class="footer" role="contentinfo">
   <div class="footer-inner">
-
-    <div class="footer-bureau">THE BUREAU</div>
-
+    <div class="footer-bureau">THE BUREAU.</div>
     <div class="footer-index">
-
-      <div class="footer-section">
-        <div class="footer-section-label">THE PRACTICE</div>
-        <nav aria-label="The practice">
-          <a href="/discipline">The Dense Idea Discipline</a>
-          <a href="/bench">The Bench</a>
-          <a href="/bench#discuss">Independent Interrogation</a>
-        </nav>
-      </div>
-
-      <div class="footer-section">
-        <div class="footer-section-label">PUBLIC RECORD</div>
-        <nav aria-label="Public record">
-          <a href="/readings">Published Readings</a>
-          <a href="/bureau">Department of Hard Evidence</a>
-        </nav>
-      </div>
-
-      <div class="footer-section">
-        <div class="footer-section-label">INSTITUTION</div>
-        <nav aria-label="Institution">
-          <a href="/bureau">Department of Hard Evidence</a>
-          <a href="/accessibility.html" aria-label="Accessibility statement">Accessibility</a>
-          <a href="/language.html" aria-label="Language settings">Language</a>
-          <a href="/privacy.html" aria-label="Privacy policy">Privacy</a>
-          <a href="/terms.html" aria-label="Terms of use">Terms</a>
-        </nav>
-      </div>
-
+      <div class="footer-section"><div class="footer-section-label">DISCIPLINE</div><nav aria-label="Discipline"><a href="/discipline">The Dense Idea Discipline</a></nav></div>
+      <div class="footer-section"><div class="footer-section-label">THE BENCH</div><nav aria-label="The Bench"><a href="/bench">How The Bench Works</a><a href="/readings">Private Readings</a><a href="/readings#record">Published Readings</a></nav></div>
+      <div class="footer-section"><div class="footer-section-label">KILL DULL</div><nav aria-label="Kill Dull"><a href="/bureau">Department of Hard Evidence</a><a href="/faq">FAQ</a><a href="/accessibility.html" aria-label="Accessibility statement">Accessibility</a><a href="/privacy.html" aria-label="Privacy policy">Privacy</a><a href="/terms.html" aria-label="Terms of use">Terms</a></nav></div>
     </div>
-
-    <div class="footer-colophon">
-      <span>&#169; 2026 Kill Dull. All rights reserved.</span>
-      <span>KD &middot; OFFICE &middot; MAN&#x2014;001</span>
-    </div>
-
+    <div class="footer-colophon"><span>&#169; 2026 Kill Dull. All rights reserved.</span></div>
   </div>
 </footer>
 
