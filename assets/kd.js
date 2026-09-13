@@ -186,7 +186,7 @@
 
   // Plate geometry, emitted by the render so the markup and the scroll
   // driver cannot drift from the image they are positioning against.
-  window.KD_PS={"w":2132,"h":1600,"masses":[{"name":"PRODUCT","copy":"What you make.","mass":{"x":99,"y":602,"w":437,"h":435},"shadow":{"x":0,"y":204,"w":2095,"h":1166},"matrix3d":[1.007391,0.005614,0,8e-06,0.001434,1.002004,0,1e-06,0,0,1,0,97.960792,609.016991,0,1],"quad":[[98.0,609.0],[519.4,609.4],[519.7,1028.2],[98.5,1029.3]]},{"name":"PRICE","copy":"What you ask.","mass":{"x":603,"y":600,"w":439,"h":440},"shadow":{"x":6,"y":211,"w":2107,"h":1155},"matrix3d":[1.019322,0.005053,0,7e-06,0.001451,1.01439,0,1e-06,0,0,1,0,602.719582,607.717657,0,1],"quad":[[602.7,607.7],[1027.8,608.0],[1027.8,1032.2],[603.0,1033.2]]},{"name":"PLACE","copy":"Where and how it reaches people.","mass":{"x":1095,"y":602,"w":448,"h":434},"shadow":{"x":23,"y":211,"w":2109,"h":1155},"matrix3d":[1.004782,0.00529,0,7e-06,0.001431,0.99966,0,1e-06,0,0,1,0,1111.30807,609.262967,0,1],"quad":[[1111.3,609.3],[1528.6,609.6],[1528.3,1027.6],[1111.3,1028.5]]},{"name":"PROMOTION","copy":"What you say and signal.","mass":{"x":1595,"y":601,"w":466,"h":438},"shadow":{"x":37,"y":214,"w":2095,"h":1152},"matrix3d":[1.015473,0.00472,0,7e-06,0.001447,1.010838,0,1e-06,0,0,1,0,1626.735594,608.090377,0,1],"quad":[[1626.7,608.1],[2047.6,608.4],[2047.0,1031.2],[1626.4,1032.1]]}]};
+  window.KD_PS={"w":2132,"h":1600,"masses":[{"name":"PRODUCT","copy":"What you make.","mass":{"x":99,"y":602,"w":437,"h":435},"shadow":{"x":0,"y":204,"w":2093,"h":1086},"matrix3d":[1.007391,0.005614,0,8e-06,0.001434,1.002004,0,1e-06,0,0,1,0,97.960792,609.016991,0,1],"quad":[[98.0,609.0],[519.4,609.4],[519.7,1028.2],[98.5,1029.3]],"travel":-50.46,"curve":[-0.0,0.0379,0.0751,0.1118,0.148,0.1836,0.2187,0.2533,0.2875,0.3212,0.3544,0.3873,0.4197,0.4518,0.4835,0.5148,0.5457,0.5764,0.6066,0.6366,0.6662,0.6955,0.7246,0.7533,0.7818,0.8099,0.8379,0.8655,0.8929,0.92,0.9469,0.9736,1.0],"phase":0.0,"dscale":0.00465,"ddy":1.45,"dshadow":31.23},{"name":"PRICE","copy":"What you ask.","mass":{"x":603,"y":600,"w":439,"h":440},"shadow":{"x":6,"y":210,"w":2107,"h":1080},"matrix3d":[1.019322,0.005053,0,7e-06,0.001451,1.01439,0,1e-06,0,0,1,0,602.719582,607.717657,0,1],"quad":[[602.7,607.7],[1027.8,608.0],[1027.8,1032.2],[603.0,1033.2]],"travel":-16.63,"curve":[-0.0,0.0299,0.0603,0.091,0.1222,0.1536,0.1852,0.217,0.249,0.281,0.3131,0.3453,0.3774,0.4095,0.4416,0.4737,0.5057,0.5375,0.5693,0.601,0.6326,0.664,0.6953,0.7265,0.7575,0.7884,0.8191,0.8496,0.88,0.9103,0.9404,0.9703,1.0],"phase":0.12,"dscale":-0.00295,"ddy":-0.92,"dshadow":-20.16},{"name":"PLACE","copy":"Where and how it reaches people.","mass":{"x":1095,"y":602,"w":448,"h":434},"shadow":{"x":23,"y":211,"w":2109,"h":1079},"matrix3d":[1.004782,0.00529,0,7e-06,0.001431,0.99966,0,1e-06,0,0,1,0,1111.30807,609.262967,0,1],"quad":[[1111.3,609.3],[1528.6,609.6],[1528.3,1027.6],[1111.3,1028.5]],"travel":16.82,"curve":[0.0,0.0262,0.0534,0.0814,0.1102,0.1397,0.1697,0.2002,0.2311,0.2624,0.2939,0.3257,0.3577,0.3898,0.4221,0.4544,0.4868,0.5192,0.5517,0.5842,0.6166,0.649,0.6814,0.7137,0.7459,0.778,0.81,0.842,0.8738,0.9055,0.9372,0.9686,1.0],"phase":0.07,"dscale":0.00204,"ddy":0.63,"dshadow":13.61},{"name":"PROMOTION","copy":"What you say and signal.","mass":{"x":1595,"y":601,"w":466,"h":438},"shadow":{"x":37,"y":211,"w":2095,"h":1079},"matrix3d":[1.015473,0.00472,0,7e-06,0.001447,1.010838,0,1e-06,0,0,1,0,1626.735594,608.090377,0,1],"quad":[[1626.7,608.1],[2047.6,608.4],[2047.0,1031.2],[1626.4,1032.1]],"travel":50.89,"curve":[0.0,0.0402,0.0795,0.118,0.1556,0.1925,0.2286,0.2641,0.2989,0.3331,0.3667,0.3998,0.4324,0.4644,0.496,0.5271,0.5578,0.588,0.6179,0.6473,0.6764,0.7051,0.7335,0.7615,0.7892,0.8165,0.8436,0.8704,0.8968,0.923,0.9489,0.9746,1.0],"phase":0.02,"dscale":-0.00406,"ddy":-1.26,"dshadow":-27.44}],"anchor":820};
 
   // ── the four Ps room ─────────────────────────────────────────────────────
   // A rendered cream room with four blue-black masses, composited from flat
@@ -199,23 +199,16 @@
   // with a fresh empty one. Everything below is therefore re-entrant: state
   // lives in module scope, listeners attach once, and the observer stays
   // connected for the life of the page so a replaced runway is rebuilt.
-  var psRunway=null,psPlate=null,psBound=false,psTicking=false;
+  var psRunway=null,psPlate=null,psBound=false,psTicking=false,psCopies=[];
 
-  // x_i(s) = XS_i * (1 + s*SPREAD_MAX): a uniform dilation about the centre of
-  // the row, which is where four like-pole magnets in a row settle. The outer
-  // pair travels furthest, the inner pair barely moves.
-  //
-  // s runs -1 -> 0, NOT 0 -> 1. The plates were rendered at the fully repelled
-  // positions, so the scroll CONTRACTS toward them rather than expanding past
-  // them. Expanding would push the outer masses out of the rendered frame -
-  // the composition fills its width, and there is no room to the sides. This
-  // way the approved frame is the end state and nothing can ever crop.
-  //
-  // SPREAD_MAX is set by the tightest gap: at s=-1 the closest pair still
-  // holds ~12px clear at 1440. Every offset is XS_i * s * SPREAD_MAX with XS_i
-  // keeping its sign, so the gaps open monotonically as s rises - they never
-  // touch by construction, not by a collision check.
-  var PS_XS=[-5.05,-1.65,1.70,5.10],PS_SPREAD_MAX=0.0664,PS_MW=2.80;
+  // Each mass carries its own travel, progress curve and phase, baked from an
+  // overdamped simulation of four like poles repelling on the face gap - so
+  // they separate fastest when closest, and the four no longer move in
+  // lockstep. Progress runs 0 (tight) -> 1 (the rendered positions). The
+  // plates were rendered fully repelled, so the scroll CONTRACTS toward them
+  // rather than expanding past them: the composition fills its width and
+  // there is no room to the sides. Every offset keeps its sign, so the gaps
+  // open monotonically and the masses never touch by construction.
 
   function psReduced(){return !!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);}
   function psSmall(){return window.innerWidth<900;}
@@ -262,20 +255,45 @@
     // to the WIDTH term: the full horizontal composition is always shown and
     // only the empty room above and below is ever cropped. The masses cannot
     // be clipped, at rest or at full spread.
-    psPlate.style.setProperty('--ps-s',Math.max(vw/d.w,vh/d.h));
+    var s=Math.max(vw/d.w,vh/d.h);
+    psPlate.style.setProperty('--ps-s',s);
+    // Explicit pixel offsets with transform-origin 0 0. A percentage translate
+    // resolves against the element's UNSCALED width, so it cannot centre a
+    // scaled plate.
+    psPlate.style.setProperty('--ps-ox',((vw - d.w*s)/2).toFixed(1)+'px');
+    // Anchor the masses low in frame rather than centring the plate, so the
+    // upper half is clear cream for the copy and the darkest part of the floor
+    // falls below the fold. Clamped so the plate always covers the stage:
+    // without the clamp the anchor can pull the plate down off its own top
+    // edge and expose the bare stage behind it.
+    var oy=vh*0.70 - d.anchor*s;
+    oy=Math.max(Math.min(oy,0),vh - d.h*s);
+    psPlate.style.setProperty('--ps-oy',oy.toFixed(1)+'px');
   }
 
   // smoothstep across the middle of the runway only, so the masses hold still
   // as the room arrives and again before it leaves: the movement reads as
   // something happening inside the section, not as a transition into it
-  function psEase(t){t=t<0?0:(t>1?1:t);return t*t*(3-2*t);}
+  function psRamp(p,a,b){var t=(p-a)/(b-a);return t<0?0:(t>1?1:t*t*(3-2*t));}
+
+  function psCurve(m,p){
+    var c=m.curve,n=c.length,
+        t=(p-m.phase)/(1-m.phase);
+    t=t<0?0:(t>1?1:t);
+    var j=t*(n-1),k=Math.floor(j);
+    if(k>=n-1)return c[n-1];
+    return c[k]+(c[k+1]-c[k])*(j-k);
+  }
 
   function psUpdate(){
     psTicking=false;
     if(!psRunway||!psPlate||!psRunway.isConnected||!window.KD_PS)return;
     var M=window.KD_PS.masses,i;
     if(psReduced()){
-      for(i=0;i<4;i++)psPlate.style.setProperty('--dx'+i,'0px');
+      for(i=0;i<4;i++){
+        psPlate.style.setProperty('--dx'+i,'0px');
+        psPlate.style.setProperty('--sx'+i,'0px');
+      }
       return;
     }
     var r=psRunway.getBoundingClientRect(),
@@ -283,12 +301,27 @@
     if(travel<=0)travel=1;
     var p=(-r.top)/travel;
     p=p<0?0:(p>1?1:p);
-    var s=psEase((p-0.12)/0.76)-1.0;
+    // hold at both ends so the movement happens inside the section rather
+    // than as a transition into or out of it
+    var q=(p-0.10)/0.80;
+    q=q<0?0:(q>1?1:q);
+    // the premise reads as the room arrives, the conclusion as it settles
+    if(psCopies.length===2){
+      psCopies[0].style.opacity=(1-psRamp(p,0.20,0.34)).toFixed(3);
+      psCopies[1].style.opacity=psRamp(p,0.60,0.74).toFixed(3);
+      psCopies[0].classList.toggle('is-on',p<0.34);
+      psCopies[1].classList.toggle('is-on',p>=0.60);
+    }
+    // Movement is horizontal only. Depth was tried and removed: measured
+    // against Cycles renders of the masses actually moved in depth, a sprite
+    // transform is WORSE than not moving them at all - 1.90 levels vs 1.58 at
+    // 0.25m, and at 1.2m, the smallest move that actually reads, a real depth
+    // change differs from a flat sprite by 20.8 levels. Scaling about the base
+    // does not help (21.7). Depth needs the frames rendered.
     for(i=0;i<4;i++){
-      // px per world metre comes from each mass's own rendered face, so the
-      // four travel in step with the perspective they were rendered with
-      var pxPerM=(M[i].quad[1][0]-M[i].quad[0][0])/PS_MW;
-      psPlate.style.setProperty('--dx'+i,(PS_XS[i]*PS_SPREAD_MAX*s*pxPerM).toFixed(2)+'px');
+      var m=M[i],back=1-psCurve(m,q),dx=(-m.travel*back).toFixed(2)+'px';
+      psPlate.style.setProperty('--dx'+i,dx);
+      psPlate.style.setProperty('--sx'+i,dx);
     }
   }
 
@@ -304,6 +337,22 @@
     // requested. display:none would still have fetched them in most browsers.
     psRunway.innerHTML=(psSmall()?'':psStageMarkup(d))+psStaticMarkup(d.masses);
     psPlate=psRunway.querySelector('.ps-plate');
+    psCopies=[];
+    var stage=psRunway.querySelector('.ps-stage');
+    if(stage){
+      // lift the copy out of the flow and into the room
+      var obs=psRunway.closest('#observation')||document;
+      ['.premise-lead','.opening-copy'].forEach(function(sel){
+        var el=obs.querySelector(sel);
+        if(!el||el.closest('.ps-stage'))return;
+        var wrap=document.createElement('div');
+        wrap.className='ps-copy';
+        el.parentNode.insertBefore(wrap,el);
+        wrap.appendChild(el);
+        stage.appendChild(wrap);
+        psCopies.push(wrap);
+      });
+    }
     psFit();psUpdate();
     return true;
   }
