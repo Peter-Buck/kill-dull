@@ -94,12 +94,7 @@
         '<p>Before you commit, find out what else you might be committing to.</p>' +
         '<p>Inside most companies, the fundamentals of marketing — the four Ps: <strong>Product. Price. Place. Promotion.</strong> — don\'t live in the same room.</p>' +
       '</div>' +
-      '<div class="ps-runway"></div>' +
-      '<div class="home-copy opening-copy">' +
-        '<p>Customers don\'t care.</p>' +
-        '<p><strong>They experience one company.</strong></p>' +
-        '<p>A decision in one place can strengthen—or quietly depreciate—what the rest of the company has spent years building.</p>' +
-      '</div>';
+      '<div class="ps-runway"></div>';
 
     var cost = document.createElement('section');
     cost.className = 'viewport compact-section cost-home';

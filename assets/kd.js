@@ -203,13 +203,10 @@
   // travels, lagged behind the lateral move so the back half of the scroll is
   // still doing something after the spring has spent itself.
   //
-  // There is exactly ONE block of copy inside the pinned stage and it never
-  // fades: it is there when the section arrives, it does not move, and it is
-  // still there when the masses settle. The conclusion that used to cross-fade
-  // into its place is now the beat AFTER the pin - it sits in .ps-outro, which
-  // carries the same room plate on past the stage, continuing it pixel for
-  // pixel, so the copy is still on the room and the reader simply travels down
-  // the room to reach it.
+  // There is exactly ONE block of copy in this section and it never fades: it
+  // is there when the section arrives, it does not move, and it is still there
+  // when the masses settle. There is no second block, no alternate state and
+  // nothing revealed later.
   //
   // The room plate is static and carries the whole frame; each sequence frame
   // is RGBA over it, opaque only where it differs from the room. Two <img>
@@ -219,7 +216,7 @@
   // a later rebuild can replace the runway with a fresh empty one. Everything
   // below is re-entrant: state lives in module scope, listeners attach once,
   // and the observer stays connected for the life of the page.
-  var psRunway=null,psPlate=null,psOutro=null,psBound=false,psTicking=false,psCopies=[],
+  var psRunway=null,psPlate=null,psBound=false,psTicking=false,psCopies=[],
       psA=null,psB=null,psIA=-1,psIB=-1,psLabels=[],psPreload=[];
 
   function psReduced(){return !!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);}
@@ -267,7 +264,6 @@
     var vw=document.documentElement.clientWidth,vh=document.documentElement.clientHeight,
         d=window.KD_PS;
     psRunway.style.setProperty('--ps-vw',vw+'px');
-    if(psOutro)psOutro.style.setProperty('--ps-vw',vw+'px');
     if(!psPlate||!d)return;
     psPlate.style.setProperty('--ps-pw',d.w+'px');
     psPlate.style.setProperty('--ps-ph',d.h+'px');
@@ -323,13 +319,6 @@
     // offset (vh - oy), so the outro starts its copy of the same image there;
     // at the moment the stage unpins the two are the same pixels and the join
     // cannot be seen. Its height is capped at what is left of the plate.
-    if(psOutro){
-      psOutro.style.backgroundImage="url('/assets/ps-room.webp')";
-      psOutro.style.backgroundSize=(d.w*s).toFixed(1)+'px '+(d.h*s).toFixed(1)+'px';
-      psOutro.style.backgroundPosition=ox.toFixed(1)+'px '+(oy-vh).toFixed(1)+'px';
-      psOutro.style.maxHeight=Math.max(200,d.h*s+oy-vh).toFixed(0)+'px';
-      if(d.floor)psOutro.style.backgroundColor=d.floor;
-    }
   }
 
   // build a CSS matrix3d from the 8 homography coefficients the render emitted
@@ -349,15 +338,15 @@
     var p=(-r.top)/travel;
     p=p<0?0:(p>1?1:p);
 
-    // No hold at the head: the masses start moving on the first pixel of
-    // scroll after the stage pins. There is still a settle at the tail, where
-    // the conclusion is being read off a frame that has stopped moving.
-    // Reduced motion pins the settled frame and never animates.
+    // No hold at the head: the masses start moving on the first pixel of scroll
+    // after the stage pins. The hold at the tail is a beat now rather than a
+    // wait - 8vh against the 28vh it was, with the travel the movement itself
+    // gets left exactly as approved. Reduced motion pins the settled frame.
     var ia,ib,t;
     if(psReduced()){
       ia=ib=n-1;t=1;                      // one settled frame, nothing fetched
     }else{
-      var q=Math.max(0,Math.min(1,p/0.86)),f=q*(n-1);
+      var q=Math.max(0,Math.min(1,p/0.956)),f=q*(n-1);
       ia=Math.floor(f);t=f-ia;
       if(ia>n-2){ia=n-2;t=1;}
       ib=ia+1;
@@ -389,10 +378,6 @@
     [].slice.call(psRunway.querySelectorAll('.ps-copy')).forEach(function(w){
       while(w.firstChild)obs.insertBefore(w.firstChild,psRunway);
     });
-    if(psOutro){
-      while(psOutro.firstChild)obs.insertBefore(psOutro.firstChild,psOutro);
-      psOutro.parentNode.removeChild(psOutro);psOutro=null;
-    }
     obs.style.removeProperty('padding-top');
     obs.style.removeProperty('padding-bottom');
     psCopies=[];
@@ -425,17 +410,12 @@
         var k0=psReduced()?d.n-1:0;
         for(var k=k0;k<d.n;k++){var im=new Image();im.src=psSrc(k);psPreload.push(im);}
       }
-      // Lift the section into the room. Everything that belongs to the pinned
-      // beat - the chapter rule, the headline, the premise - goes into ONE
-      // block that is simply always there. The conclusion goes into .ps-outro
-      // instead, below the runway, where the plate carries on: it is the beat
-      // after the masses settle rather than something that displaces the copy
-      // mid-animation. The section's own vertical padding goes with them, or it
-      // would leave a white band above and below.
-      //
-      // The premise is inserted BEFORE the plate the four labels live in, so a
-      // screen reader gets headline, premise, the four Ps, conclusion, in that
-      // order. Painting order is taken back by a z-index on .ps-copy.
+      // Lift the section into the room: the chapter rule, the headline and the
+      // copy, as ONE block that is simply always there. The section's own
+      // vertical padding goes with them, or it would leave a white band above
+      // and below. The block is inserted BEFORE the plate the four labels live
+      // in, so a screen reader gets headline, copy, then the four Ps; painting
+      // order is taken back by a z-index on .ps-copy.
       var obs=psRunway.closest('#observation');
       // the section's own padding is set with !important in the stylesheet
       if(obs&&obs.style){obs.style.setProperty('padding-top','0','important');
@@ -444,7 +424,7 @@
       var found=[];
       ['.kd-chapter-marker','.hero-line-wrap','.premise-lead'].forEach(function(sel){
         [].slice.call(obs.querySelectorAll(sel)).forEach(function(el){
-          if(!el.closest('.ps-stage')&&!el.closest('.ps-outro'))found.push(el);
+          if(!el.closest('.ps-stage'))found.push(el);
         });
       });
       if(found.length){
@@ -454,16 +434,6 @@
         stage.insertBefore(wrap,psPlate);
         psCopies.push(wrap);
       }
-      var tail=obs.querySelector&&obs.querySelector('.opening-copy');
-      if(tail&&!tail.closest('.ps-outro')){
-        psOutro=obs.querySelector('.ps-outro');
-        if(!psOutro){
-          psOutro=document.createElement('div');
-          psOutro.className='ps-outro';
-          psRunway.parentNode.insertBefore(psOutro,psRunway.nextSibling);
-        }
-        psOutro.appendChild(tail);
-      }else if(tail){psOutro=tail.closest('.ps-outro');}
     }
     document.documentElement.classList.remove('kd-ps-arm');
     psFit();psUpdate();
