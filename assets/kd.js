@@ -277,37 +277,44 @@
     // plate. Clamped so the plate always covers the stage.
     var ox=(vw-d.w*s)/2;
     psPlate.style.setProperty('--ps-ox',ox.toFixed(1)+'px');
-    // 0.813 of the viewport, not 0.70: the masses sit low so the near floor
-    // reads as a foreground edge rather than as a third of the frame doing
-    // nothing. The second term keeps a little floor under them on a short
-    // window, where that placement would run their base off the bottom.
-    var oy=Math.min(vh*0.813-d.anchor*s,vh-24-(d.bot||d.anchor)*s);
-    oy=Math.max(Math.min(oy,0),vh-d.h*s);
-    psPlate.style.setProperty('--ps-oy',oy.toFixed(1)+'px');
-
-    // Both blocks start at the same 120px from the top of the room that every
-    // other section on the page sets its chapter rule at, so this section reads
-    // in the same rhythm rather than floating against the masses. On a short
-    // window the block would run into them, so the offset is cut - but only as
-    // far as it has to be, and never on a normal one.
     // The section opens on the same rhythm as every other section on the site.
     // Measured at 1440: BENCH's rule sits 81px below the top of its section -
     // 72px of .viewport section padding plus 9px down an 18px marker row. This
     // marker row is 15px with its rule 7px down, so 74px of top offset puts the
-    // two rules on the same line. The copy was being placed against the masses
-    // instead, which put it 188px down.
-    var room=oy+(d.top||0)*s,
-        gap=0.29*((d.bot||0)-(d.top||0))*s,
-        i,w,last,wt,pad,tall;
+    // two rules on the same line.
+    var i,w,last,wt,pad,tall,copy=0;
     for(i=0;i<psCopies.length;i++){
       w=psCopies[i];last=w.lastElementChild;
       if(!last)continue;
       w.style.transform='';w.style.paddingTop='74px';
       wt=w.getBoundingClientRect().top;
+      copy=Math.max(copy,last.getBoundingClientRect().bottom-wt);
+    }
+
+    // The masses hang off the END OF THE COPY, not off a fraction of the
+    // viewport. A viewport fraction held the composition together at 900px tall
+    // and pulled it apart above that - 74px between the last line and the mass
+    // tops at 1440x900, 269 at 1920x1080, 540 at 2560x1440, because the copy
+    // does not grow with the screen and the masses do. Hung off the copy, the
+    // gap is the same fraction of a mass's height at every size.
+    var gap=0.29*((d.bot||0)-(d.top||0))*s,
+        oy=copy+gap-(d.top||0)*s;
+    // keep a little floor under them, never expose bare stage above the plate,
+    // and always cover the bottom of the stage
+    oy=Math.min(oy,vh-24-(d.bot||d.anchor)*s);
+    oy=Math.max(Math.min(oy,0),vh-d.h*s);
+    psPlate.style.setProperty('--ps-oy',oy.toFixed(1)+'px');
+
+    // If those clamps have pulled the masses up into the copy - a window too
+    // short to hold both - scale the copy about the text's own left edge, so
+    // the margin stays where every other section puts it.
+    var room=oy+(d.top||0)*s;
+    for(i=0;i<psCopies.length;i++){
+      w=psCopies[i];last=w.lastElementChild;
+      if(!last)continue;
+      wt=w.getBoundingClientRect().top;
       tall=last.getBoundingClientRect().bottom-wt;
       if(tall>room-gap){
-        // A window too short for the block to clear the masses at all. Scale it
-        // about the text's own left edge, so the margin stays put.
         pad=parseFloat(getComputedStyle(w).paddingLeft)||0;
         w.style.transformOrigin=pad+'px 0';
         w.style.transform='scale('+Math.max(0.55,(room-gap)/tall).toFixed(4)+')';
