@@ -34,7 +34,7 @@ var PREFIX='MARKETING COMES WITH FOUR Ps.\nDECISIONS COME WITH ',WRONG='FOUR',RI
 var FINAL=PREFIX+RIGHT+SUFFIX;
 var timers=[];function schedule(fn,d){timers.push(setTimeout(fn,d));}
 function setStyle(s){word.className=s==='selected'?'is-selected':s==='right'?'is-right':'';}
-function fit(){var pad=window.innerWidth<768?48:window.innerWidth<1280?128:240;var p=pre.textContent,w=word.textContent,s=suf.textContent;pre.textContent=FINAL;word.textContent='';suf.textContent='';h1.style.fontSize='500px';var r=(window.innerWidth-pad)/h1.scrollWidth;h1.style.fontSize=Math.max(10,Math.floor(r*500))+'px';pre.textContent=p;word.textContent=w;suf.textContent=s;}
+function fit(){var pad=window.innerWidth<768?48:window.innerWidth<1280?128:240;var p=pre.textContent,w=word.textContent,s=suf.textContent;pre.textContent=FINAL;word.textContent='';suf.textContent='';h1.style.width='auto';h1.style.height='auto';h1.style.fontSize='500px';var r=(window.innerWidth-pad)/h1.scrollWidth;h1.style.fontSize=Math.max(10,Math.floor(r*500))+'px';h1.style.width=Math.ceil(h1.scrollWidth)+'px';h1.style.height=Math.ceil(h1.getBoundingClientRect().height)+'px';pre.textContent=p;word.textContent=w;suf.textContent=s;}
 fit();el.hidden=false;
 window.addEventListener('resize',fit);
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
