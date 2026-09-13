@@ -290,17 +290,19 @@
     // in the same rhythm rather than floating against the masses. On a short
     // window the block would run into them, so the offset is cut - but only as
     // far as it has to be, and never on a normal one.
-    // The copy is placed against the MASSES, not against a page-wide spacing
-    // token: its last line sits a fixed fraction of a mass's height above their
-    // tops, so the two read as one composition at every size. Whatever room is
-    // left over goes above the chapter rule.
+    // The section opens on the same rhythm as every other section on the site.
+    // Measured at 1440: BENCH's rule sits 81px below the top of its section -
+    // 72px of .viewport section padding plus 9px down an 18px marker row. This
+    // marker row is 15px with its rule 7px down, so 74px of top offset puts the
+    // two rules on the same line. The copy was being placed against the masses
+    // instead, which put it 188px down.
     var room=oy+(d.top||0)*s,
         gap=0.29*((d.bot||0)-(d.top||0))*s,
         i,w,last,wt,pad,tall;
     for(i=0;i<psCopies.length;i++){
       w=psCopies[i];last=w.lastElementChild;
       if(!last)continue;
-      w.style.transform='';w.style.paddingTop='0px';
+      w.style.transform='';w.style.paddingTop='74px';
       wt=w.getBoundingClientRect().top;
       tall=last.getBoundingClientRect().bottom-wt;
       if(tall>room-gap){
@@ -309,16 +311,8 @@
         pad=parseFloat(getComputedStyle(w).paddingLeft)||0;
         w.style.transformOrigin=pad+'px 0';
         w.style.transform='scale('+Math.max(0.55,(room-gap)/tall).toFixed(4)+')';
-        w.style.paddingTop='0px';
-      }else{
-        w.style.paddingTop=(room-gap-tall).toFixed(0)+'px';
       }
     }
-
-    // Carry the plate on past the stage. The stage's bottom edge is at plate
-    // offset (vh - oy), so the outro starts its copy of the same image there;
-    // at the moment the stage unpins the two are the same pixels and the join
-    // cannot be seen. Its height is capped at what is left of the plate.
   }
 
   // build a CSS matrix3d from the 8 homography coefficients the render emitted
