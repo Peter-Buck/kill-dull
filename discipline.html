@@ -113,6 +113,7 @@
 <p>Because judgment without accountability is just an opinion.</p>
 <p class="discipline-statement">CONSIDERED. CONCLUDED. ON RECORD.</p>
 </div></section>
+<section class="viewport home-paper discipline-deeper-band"><button class="discipline-deeper" type="button" id="deeper-close" aria-expanded="false" aria-controls="deeper"><span class="discipline-deeper-label">ENOUGH</span><span class="discipline-deeper-mark" aria-hidden="true">↑</span></button></section>
 </div>
 </main>
 <footer class="footer" role="contentinfo"><div class="footer-inner"><div class="footer-bureau">THE BUREAU.</div><div class="footer-index"><div class="footer-section"><div class="footer-section-label">DISCIPLINE</div><nav aria-label="Discipline"><a href="/discipline">The Dense Idea Discipline</a></nav></div><div class="footer-section"><div class="footer-section-label">BENCH</div><nav aria-label="Bench"><a href="/bench">How the Bench Works</a><a href="/readings">Private Readings</a><a href="/readings#record">Published Readings</a></nav></div><div class="footer-section"><div class="footer-section-label">KILL DULL</div><nav aria-label="Kill Dull"><a href="/bureau">Department of Hard Evidence</a><a href="/faq">FAQ</a><a href="/accessibility" aria-label="Accessibility statement">Accessibility</a><a href="/privacy" aria-label="Privacy policy">Privacy</a><a href="/terms" aria-label="Terms of use">Terms</a></nav></div></div><div class="footer-colophon"><span>&#169; 2026 Kill Dull. All rights reserved.</span></div></div></footer><script src="/assets/kd.js"></script>
@@ -123,24 +124,41 @@
 // place after the toggle, now reading the other way, and the revealed
 // sections follow it in the DOM, so the next Tab walks straight into them.
 (function(){
-  var btn=document.getElementById('deeper-toggle'),
-      panel=document.getElementById('deeper');
+  var panel=document.getElementById('deeper'),
+      btn=document.getElementById('deeper-toggle'),
+      foot=document.getElementById('deeper-close');
   if(!btn||!panel)return;
   var band=btn.closest?btn.closest('.discipline-deeper-band'):null,
       label=btn.querySelector('.discipline-deeper-label'),
       mark=btn.querySelector('.discipline-deeper-mark');
+  // ONE state, whichever control moved it. Only the top control changes its
+  // own label; the one at the foot of Layer 2 only ever exists while Layer 2
+  // is open, so it always reads ENOUGH.
+  function set(open){
+    panel.hidden=!open;
+    btn.setAttribute('aria-expanded',open?'true':'false');
+    if(foot)foot.setAttribute('aria-expanded',open?'true':'false');
+    label.textContent=open?'ENOUGH':'GO DEEPER';
+    mark.textContent=open?'\u2191':'\u2193';
+  }
   // The listener sits on the band, so a click anywhere in the section
   // toggles - and a click on the button, or the click Enter/Space
   // synthesises on it, bubbles up to exactly the same handler once.
   // The band itself is not focusable: focus stays on the button, which
   // is why the site's global focus ring frames the label alone.
   (band||btn).addEventListener('click',function(){
-    var open=btn.getAttribute('aria-expanded')==='true';
-    btn.setAttribute('aria-expanded',open?'false':'true');
-    panel.hidden=open;
-    label.textContent=open?'GO DEEPER':'ENOUGH';
-    mark.textContent=open?'\u2193':'\u2191';
+    set(btn.getAttribute('aria-expanded')!=='true');
   });
-})();
-</script>
+  if(foot){
+    var footBand=foot.closest?foot.closest('.discipline-deeper-band'):null;
+    (footBand||foot).addEventListener('click',function(){
+      set(false);
+      // The reader is at the foot of Layer 2, and everything under them has
+      // just gone. Put them back at the control they opened it with, and
+      // give it the focus so a keyboard carries on from the same place.
+      (band||btn).scrollIntoView({block:'center'});
+      btn.focus({preventScroll:true});
+    });
+  }
+})();</script>
 </body></html>
