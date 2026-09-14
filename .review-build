@@ -1,3 +1,21 @@
 Kill Dull full-site review build
 Source: build/homepage-sept-7 @ bcd8d493f3eb4031b27750df6b9002cf1871a425
 Purpose: single review build for the entire site.
+
+LAUNCH BLOCKER — INDEXING IS OFF, DELIBERATELY.
+This build must not be indexed. Two things hold that, and BOTH have to be
+lifted together when the site launches. Lifting only one leaves the site
+still hidden.
+
+  1. vercel.json  "headers"
+     X-Robots-Tag: noindex, nofollow, noarchive, nosnippet, noimageindex
+     is served on /(.*) — every page and every asset.
+  2. Every public page carries <meta name="robots" content="noindex, nofollow">
+     index, discipline, bench, readings, bureau, accessibility, privacy,
+     terms, faq.
+
+Also at launch: robots.txt exists in the repository but is NOT deployed —
+.vercelignore excludes the repository root and never re-includes it. It reads
+"Disallow: /", so it must be corrected before it is ever added to the deploy.
+
+Nothing else gates indexing. Do not remove either item above for a review.

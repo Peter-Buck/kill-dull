@@ -975,7 +975,7 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
 
 /* TWO-COLUMN PRINCIPLE SPLIT — Big Data / Gut Data reuses .evidence-grid */
 
-/* PROCESS LIST — what happens on The Bench */
+/* PROCESS LIST — what happens on the Bench */
 .kd-process {
   border-top: 1px solid var(--border);
   margin-top: 56px;

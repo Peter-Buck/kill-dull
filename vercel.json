@@ -10,13 +10,24 @@
     { "source": "/heather-preview.html", "destination": "/", "permanent": true },
     { "source": "/language", "destination": "/", "permanent": true },
     { "source": "/language.html", "destination": "/", "permanent": true },
-    { "source": "/site/:path*", "destination": "/", "permanent": true }
+    { "source": "/pitch", "destination": "/", "permanent": true },
+    { "source": "/pitch.html", "destination": "/", "permanent": true },
+    { "source": "/site/:path*", "destination": "/", "permanent": true },
+
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/discipline.html", "destination": "/discipline", "permanent": true },
+    { "source": "/bench.html", "destination": "/bench", "permanent": true },
+    { "source": "/readings.html", "destination": "/readings", "permanent": true },
+    { "source": "/bureau.html", "destination": "/bureau", "permanent": true },
+    { "source": "/accessibility.html", "destination": "/accessibility", "permanent": true },
+    { "source": "/privacy.html", "destination": "/privacy", "permanent": true },
+    { "source": "/terms.html", "destination": "/terms", "permanent": true },
+    { "source": "/faq/index.html", "destination": "/faq", "permanent": true }
   ],
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
     { "source": "/discipline", "destination": "/discipline.html" },
     { "source": "/bench", "destination": "/bench.html" },
-    { "source": "/pitch", "destination": "/pitch.html" },
     { "source": "/readings", "destination": "/readings.html" },
     { "source": "/bureau", "destination": "/bureau.html" },
     { "source": "/accessibility", "destination": "/accessibility.html" },
