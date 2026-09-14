@@ -208,7 +208,304 @@
 
   function wirePitchScroll(){var pitch=document.getElementById('pitch-intro');if(!pitch||pitch.dataset.scrollWired==='1')return;pitch.dataset.scrollWired='1';pitch.classList.add('pitch-scroll-ready');var grid=pitch.querySelector('.pitch-steps'),actions=pitch.querySelector('.pitch-actions');if(!grid||!actions)return;var runway=document.createElement('div');runway.className='pitch-scroll-runway';var stage=document.createElement('div');stage.className='pitch-scroll-stage';var first=pitch.firstElementChild,nodes=[],node=first;while(node&&node!==actions){nodes.push(node);node=node.nextElementSibling;}pitch.insertBefore(runway,first);runway.appendChild(stage);for(var n=0;n<nodes.length;n++)stage.appendChild(nodes[n]);var steps=stage.querySelectorAll('.pitch-steps>div');if(!steps.length)return;var stagger=90,startOffset=220,settle=startOffset+(steps.length-1)*stagger+50;if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;var ticking=false,travel=560;function clamp(v,min,max){return Math.max(min,Math.min(max,v));}function update(){ticking=false;if(window.innerWidth<768)return;var rect=runway.getBoundingClientRect(),stickyTop=24,scrolled=clamp(stickyTop-rect.top,0,travel),progress=scrolled/travel,maxY=0;for(var i=0;i<steps.length;i++){var y=Math.max(0,startOffset+(i*stagger)-(progress*settle));maxY=Math.max(maxY,y);steps[i].style.setProperty('--pitch-y',y.toFixed(1)+'px');}var gridHeight=150+Math.min(370,maxY);grid.style.setProperty('--pitch-grid-h',gridHeight.toFixed(1)+'px');var stageHeight=stage.offsetHeight;runway.style.setProperty('--pitch-runway-h',(stageHeight+travel).toFixed(1)+'px');}function requestUpdate(){if(ticking)return;ticking=true;requestAnimationFrame(update);}update();window.addEventListener('scroll',requestUpdate,{passive:true});window.addEventListener('resize',requestUpdate);}
 
-  function wireFourPs(){var obs=document.getElementById('observation');if(!obs)return;var cubes=[],cx=[],S=0,ticking=false,bound=false;var DIR=[1,0.3333,-0.3333,-1],YOFF=[0.034,-0.042,0.022,-0.028],ZOFF=[-36,24,-16,30],XJIT=[-0.035,0.028,-0.02,0.032];function reduced(){return !!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);}function small(){return window.innerWidth<768;}function ease(t){t=t<0?0:(t>1?1:t);return 1-Math.pow(1-t,3);}function smooth(t){t=t<0?0:(t>1?1:t);return t*t*(3-2*t);}function layout(){var runway=document.querySelector('.ps-runway');cubes=[];if(!runway)return;var found=[].slice.call(runway.querySelectorAll('.ps-cube'));if(found.length!==4)return;cubes=found;var dw=document.documentElement.clientWidth,dh=document.documentElement.clientHeight;runway.style.setProperty('--ps-vw',dw+'px');if(small()||reduced()){for(var k=0;k<4;k++){cubes[k].style.removeProperty('--x');cubes[k].style.removeProperty('--y');cubes[k].style.removeProperty('--z');}return;}var margin=Math.max(40,dw*0.05),AW=dw-2*margin;S=Math.round(Math.max(110,Math.min(300,AW/5.9,dh*0.34)));var D=S*1.55;cx=[];for(var q=0;q<4;q++)cx.push((q-1.5)*D+XJIT[q]*D);for(var i=0;i<4;i++){var c=cubes[i];c.style.setProperty('--s',S+'px');c.style.setProperty('--y',Math.round(YOFF[i]*dh)+'px');c.style.setProperty('--z',ZOFF[i]+'px');}}function update(){ticking=false;if(cubes.length!==4)return;var runway=document.querySelector('.ps-runway');if(!runway)return;if(small()||reduced()){for(var k=0;k<4;k++)cubes[k].style.removeProperty('--x');return;}var r=runway.getBoundingClientRect(),travel=r.height-(document.documentElement.clientHeight||1);if(travel<=0)travel=1;var p=(-r.top)/travel;p=p<0?0:(p>1?1:p);var t=(p-0.10)/0.90;t=t<0?0:(t>1?1:t);var APPROACH=S*0.63,REPEL=APPROACH*0.34;var closing=APPROACH*ease(Math.min(t/0.74,1))-REPEL*smooth((t-0.74)/0.26);var x=[],i;for(i=0;i<4;i++)x.push(cx[i]+DIR[i]*closing);var MIN=Math.max(18,S*0.12);for(var pass=0;pass<5;pass++){for(i=0;i<3;i++){var gap=(x[i+1]-S/2)-(x[i]+S/2);if(gap<MIN){var push=(MIN-gap)/2;x[i]-=push;x[i+1]+=push;}}}for(i=0;i<4;i++)cubes[i].style.setProperty('--x',x[i].toFixed(1)+'px');}function req(){if(ticking)return;ticking=true;requestAnimationFrame(update);}function rebind(){layout();update();}rebind();if(bound)return;bound=true;window.addEventListener('scroll',req,{passive:true});window.addEventListener('resize',function(){layout();req();});window.addEventListener('load',function(){setTimeout(rebind,0);});try{new MutationObserver(function(){setTimeout(rebind,0);}).observe(obs,{childList:true});}catch(e){}setTimeout(rebind,300);setTimeout(rebind,1200);setTimeout(rebind,2200);}
+  // Plate geometry, emitted by the render so the markup and the scroll
+  // driver cannot drift from the image they are positioning against.
+  window.KD_PS={"w":2132,"h":2400,"n":36,"band":{"x":0,"y":890,"w":2132,"h":640},"anchor":1257,"top":1082,"bot":1449,"masses":[{"name":"PRODUCT","copy":"What you make."},{"name":"PRICE","copy":"What you ask."},{"name":"PLACE","copy":"Where and how it reaches people."},{"name":"PROMOTION","copy":"What you say and signal."}],"frames":[[[0.80765,0.00117,226.286324,-0.007944,0.818512,1084.277773,-7e-06,1e-06],[0.835954,0.001187,691.803109,0.018068,0.830159,1083.853054,1.6e-05,1e-06],[0.786193,0.001172,1098.720702,-0.019783,0.818813,1084.266901,-1.8e-05,1e-06],[0.836576,0.001188,1582.712782,0.01008,0.83138,1083.808565,9e-06,1e-06]],[[0.8078,0.00117,239.053824,-0.007653,0.81824,1084.287715,-7e-06,1e-06],[0.835954,0.001187,691.803109,0.018068,0.830159,1083.853054,1.6e-05,1e-06],[0.786263,0.001171,1098.245052,-0.019768,0.818849,1084.265471,-1.8e-05,1e-06],[0.836576,0.001188,1582.712782,0.01008,0.83138,1083.808565,9e-06,1e-06]],[[0.808298,0.00117,251.563977,-0.007046,0.817876,1084.301019,-6e-06,1e-06],[0.835954,0.001187,691.803109,0.018068,0.830159,1083.853054,1.6e-05,1e-06],[0.787724,0.001172,1095.54047,-0.019361,0.819405,1084.2453,-1.7e-05,1e-06],[0.836237,0.001187,1572.294747,0.009839,0.831121,1083.817935,9e-06,1e-06]],[[0.809015,0.001169,263.617494,-0.006243,0.817489,1084.315109,-6e-06,1e-06],[0.83582,0.001186,694.338551,0.0178,0.829981,1083.859563,1.6e-05,1e-06],[0.790342,0.001172,1093.156504,-0.018543,0.820241,1084.214759,-1.7e-05,1e-06],[0.835166,0.001186,1555.122691,0.008882,0.830409,1083.843899,8e-06,1e-06]],[[0.809858,0.001168,275.1218,-0.005311,0.817097,1084.329414,-5e-06,1e-06],[0.835517,0.001186,697.098475,0.016952,0.829567,1083.874655,1.5e-05,1e-06],[0.793858,0.001175,1091.046516,-0.017371,0.821284,1084.176707,-1.6e-05,1e-06],[0.833714,0.001186,1538.724662,0.007533,0.829559,1083.874941,7e-06,1e-06]],[[0.810755,0.001167,286.012911,-0.004297,0.816716,1084.34329,-4e-06,1e-06],[0.835055,0.001186,699.352569,0.015671,0.829024,1083.894467,1.4e-05,1e-06],[0.798121,0.001176,1089.2086,-0.015862,0.822503,1084.13229,-1.4e-05,1e-06],[0.831973,0.001183,1523.399036,0.005969,0.828657,1083.907843,5e-06,1e-06]],[[0.811653,0.001167,296.242396,-0.003239,0.81635,1084.356594,-3e-06,1e-06],[0.834361,0.001185,701.178158,0.014017,0.828375,1083.918142,1.3e-05,1e-06],[0.80298,0.001179,1087.660292,-0.014034,0.823877,1084.082222,-1.3e-05,1e-06],[0.830019,0.001182,1509.323849,0.004313,0.827756,1083.940673,4e-06,1e-06]],[[0.81251,0.001167,305.774068,-0.002172,0.816004,1084.369254,-2e-06,1e-06],[0.833346,0.001183,702.630268,0.012037,0.827641,1083.944893,1.1e-05,1e-06],[0.808246,0.001179,1086.428025,-0.011915,0.825376,1084.027433,-1.1e-05,1e-06],[0.827924,0.001183,1496.594536,0.002652,0.826889,1083.972359,2e-06,1e-06]],[[0.813304,0.001166,314.582163,-0.00112,0.815682,1084.381056,-1e-06,1e-06],[0.831927,0.001182,703.756807,0.009787,0.826838,1083.974147,9e-06,1e-06],[0.813688,0.001184,1085.535182,-0.009557,0.826969,1083.969426,-9e-06,1e-06],[0.825762,0.001182,1485.23308,0.001049,0.826075,1084.002042,1e-06,1e-06]],[[0.814017,0.001166,322.651655,-0.000105,0.815382,1084.391928,-0.0,1e-06],[0.830046,0.001181,704.605682,0.007339,0.82599,1084.005117,7e-06,1e-06],[0.81904,0.001184,1084.990275,-0.007035,0.828599,1083.909988,-6e-06,1e-06],[0.823603,0.001179,1475.200343,-0.000456,0.825326,1084.029293,-0.0,1e-06]],[[0.814643,0.001166,329.976569,0.000857,0.815111,1084.40187,1e-06,1e-06],[0.827709,0.00118,705.226072,0.004789,0.825124,1084.03666,4e-06,1e-06],[0.824037,0.001187,1084.774371,-0.004458,0.830208,1083.851266,-4e-06,1e-06],[0.821506,0.001179,1466.416011,-0.001839,0.824651,1084.053898,-2e-06,1e-06]],[[0.81518,0.001165,336.558655,0.001754,0.814864,1084.41081,2e-06,1e-06],[0.825001,0.001179,705.667919,0.002259,0.824278,1084.067559,2e-06,1e-06],[0.828455,0.001189,1084.83702,-0.00195,0.831728,1083.795834,-2e-06,1e-06],[0.819514,0.001179,1458.785158,-0.00309,0.824049,1084.075928,-3e-06,1e-06]],[[0.815632,0.001165,342.40633,0.002571,0.814645,1084.418821,2e-06,1e-06],[0.822097,0.001177,705.97767,-0.00012,0.82349,1084.096241,-0.0,1e-06],[0.832151,0.001191,1085.100197,0.000366,0.833098,1083.745909,0.0,1e-06],[0.817667,0.001178,1452.219974,-0.004201,0.823518,1084.09524,-4e-06,1e-06]],[[0.816006,0.001165,347.532938,0.003307,0.814453,1084.425831,3e-06,1e-06],[0.819233,0.001176,706.194146,-0.002228,0.822798,1084.12149,-2e-06,1e-06],[0.835084,0.001192,1085.473422,0.002388,0.83427,1083.703136,2e-06,1e-06],[0.816,0.001177,1446.649803,-0.005168,0.82306,1084.111977,-5e-06,1e-06]],[[0.81631,0.001164,351.958907,0.003954,0.814286,1084.431911,4e-06,1e-06],[0.816625,0.001176,706.346511,-0.003992,0.822221,1084.14259,-4e-06,1e-06],[0.837298,0.001194,1085.873588,0.004055,0.835222,1083.668447,4e-06,1e-06],[0.814539,0.001178,1442.01708,-0.00599,0.822674,1084.126139,-5e-06,1e-06]],[[0.814418,0.001163,323.144269,0.003216,0.812932,1084.481335,3e-06,1e-06],[0.816625,0.001176,706.346511,-0.003992,0.822221,1084.14259,-4e-06,1e-06],[0.837298,0.001194,1085.873588,0.004055,0.835222,1083.668447,4e-06,1e-06],[0.81584,0.001175,1486.291505,-0.004234,0.82173,1084.160471,-4e-06,1e-06]],[[0.810439,0.001159,290.833073,0.001329,0.810481,1084.57067,1e-06,1e-06],[0.816625,0.001176,706.346511,-0.003992,0.822221,1084.14259,-4e-06,1e-06],[0.837298,0.001194,1085.873588,0.004055,0.835222,1083.668447,4e-06,1e-06],[0.817604,0.001173,1514.353179,-0.002052,0.820973,1084.188008,-2e-06,1e-06]],[[0.806415,0.001156,266.782874,-0.000629,0.808284,1084.650779,-1e-06,1e-06],[0.816625,0.001176,706.346511,-0.003992,0.822221,1084.14259,-4e-06,1e-06],[0.840189,0.001198,1099.484817,0.004695,0.837675,1083.578968,4e-06,1e-06],[0.819188,0.001173,1536.820157,0.000125,0.820341,1084.211111,0.0,1e-06]],[[0.802362,0.001153,246.917911,-0.002563,0.806275,1084.724092,-2e-06,1e-06],[0.816643,0.001176,701.198872,-0.004072,0.822335,1084.13837,-4e-06,1e-06],[0.843808,0.001202,1110.851482,0.005757,0.840621,1083.471537,5e-06,1e-06],[0.820514,0.001173,1556.163452,0.00226,0.819786,1084.231424,2e-06,1e-06]],[[0.798263,0.00115,229.700345,-0.004453,0.804408,1084.792185,-4e-06,1e-06],[0.816236,0.001177,684.118375,-0.004898,0.822952,1084.115911,-4e-06,1e-06],[0.847123,0.001206,1120.111845,0.006861,0.843309,1083.373547,6e-06,1e-06],[0.821575,0.001171,1573.449242,0.004349,0.819281,1084.249735,4e-06,1e-06]],[[0.794103,0.001148,214.354149,-0.006298,0.80265,1084.856272,-6e-06,1e-06],[0.815553,0.001178,672.221035,-0.005818,0.823458,1084.097457,-5e-06,1e-06],[0.850165,0.001208,1128.186832,0.007963,0.845793,1083.282924,7e-06,1e-06],[0.822373,0.001171,1589.252424,0.006391,0.818816,1084.266758,6e-06,1e-06]],[[0.789871,0.001145,200.42329,-0.008102,0.800981,1084.91714,-7e-06,1e-06],[0.814755,0.001178,662.536362,-0.00673,0.823893,1084.081578,-6e-06,1e-06],[0.852981,0.001213,1135.482329,0.009055,0.84813,1083.197737,8e-06,1e-06],[0.822918,0.00117,1603.924238,0.008391,0.818381,1084.282565,8e-06,1e-06]],[[0.785563,0.001143,187.613092,-0.009864,0.799388,1084.975219,-9e-06,1e-06],[0.813884,0.001179,654.148511,-0.007625,0.824281,1084.067416,-7e-06,1e-06],[0.855602,0.001217,1142.217542,0.010134,0.850347,1083.116913,9e-06,1e-06],[0.82322,0.00117,1617.697744,0.010352,0.81797,1084.297585,9e-06,1e-06]],[[0.781175,0.001141,175.720454,-0.01159,0.797856,1085.03108,-1e-05,1e-06],[0.812954,0.001179,646.639589,-0.008503,0.824634,1084.054542,-8e-06,1e-06],[0.858054,0.001218,1148.526539,0.0112,0.852464,1083.039665,1e-05,1e-06],[0.823288,0.001168,1630.736236,0.012276,0.817578,1084.311819,1.1e-05,1e-06]],[[0.776706,0.001139,164.59784,-0.013279,0.796378,1085.084939,-1.2e-05,1e-06],[0.811978,0.00118,639.777489,-0.009363,0.824962,1084.042597,-8e-06,1e-06],[0.860357,0.001222,1154.497638,0.012253,0.854503,1082.96535,1.1e-05,1e-06],[0.823131,0.001167,1643.159801,0.014164,0.817203,1084.32548,1.3e-05,1e-06]],[[0.772154,0.001136,154.134518,-0.014936,0.794948,1085.137081,-1.3e-05,1e-06],[0.810958,0.00118,633.418042,-0.010207,0.825267,1084.031439,-9e-06,1e-06],[0.862524,0.001225,1160.193234,0.013294,0.856472,1082.893538,1.2e-05,1e-06],[0.822759,0.001168,1655.059301,0.016021,0.816842,1084.338713,1.4e-05,1e-06]],[[0.767519,0.001134,144.244441,-0.016562,0.793562,1085.18765,-1.5e-05,1e-06],[0.8099,0.00118,627.464162,-0.011037,0.825556,1084.020925,-1e-05,1e-06],[0.864566,0.001228,1165.658947,0.014325,0.858381,1082.823944,1.3e-05,1e-06],[0.822178,0.001166,1666.505517,0.017847,0.816491,1084.351444,1.6e-05,1e-06]],[[0.762804,0.001133,134.859463,-0.018158,0.792215,1085.236788,-1.6e-05,1e-06],[0.808805,0.001181,621.846719,-0.011854,0.825829,1084.010983,-1.1e-05,1e-06],[0.866496,0.001231,1170.929343,0.015345,0.860238,1082.756209,1.4e-05,1e-06],[0.821396,0.001167,1677.554998,0.019644,0.816154,1084.363818,1.8e-05,1e-06]],[[0.758007,0.001131,125.924553,-0.019726,0.790902,1085.28471,-1.8e-05,1e-06],[0.807678,0.00118,616.5145,-0.012659,0.826088,1084.00147,-1.1e-05,1e-06],[0.868318,0.001234,1176.031234,0.016355,0.862048,1082.690191,1.5e-05,1e-06],[0.820418,0.001166,1688.253366,0.021413,0.815822,1084.375906,1.9e-05,1e-06]],[[0.753131,0.001129,117.394375,-0.021268,0.78962,1085.331416,-1.9e-05,1e-06],[0.806518,0.001182,611.428366,-0.013453,0.826339,1083.992386,-1.2e-05,1e-06],[0.87004,0.001236,1180.986479,0.017356,0.863815,1082.625747,1.6e-05,1e-06],[0.819251,0.001165,1698.638233,0.023155,0.815498,1084.387708,2.1e-05,1e-06]],[[0.748176,0.001127,109.230879,-0.022783,0.788368,1085.377121,-2e-05,1e-06],[0.805329,0.001182,606.557564,-0.014235,0.826578,1083.98366,-1.3e-05,1e-06],[0.871667,0.001239,1185.812105,0.018348,0.865546,1082.562661,1.6e-05,1e-06],[0.817902,0.001165,1708.741117,0.024872,0.815181,1084.399223,2.2e-05,1e-06]],[[0.743145,0.001125,101.402056,-0.024274,0.78714,1085.421824,-2.2e-05,1e-06],[0.80411,0.001182,601.877378,-0.015008,0.826809,1083.97522,-1.3e-05,1e-06],[0.873205,0.001241,1190.522853,0.019332,0.867241,1082.500792,1.7e-05,1e-06],[0.816374,0.001164,1718.588449,0.026563,0.81487,1084.410596,2.4e-05,1e-06]],[[0.738038,0.001124,93.880362,-0.025741,0.78594,1085.465598,-2.3e-05,1e-06],[0.802863,0.001182,597.367666,-0.015772,0.82703,1083.967137,-1.4e-05,1e-06],[0.874658,0.001243,1195.130542,0.020309,0.868905,1082.440138,1.8e-05,1e-06],[0.814674,0.001165,1728.202848,0.028232,0.814564,1084.421754,2.5e-05,1e-06]],[[0.732858,0.001122,86.642106,-0.027185,0.784763,1085.508513,-2.4e-05,1e-06],[0.801588,0.001182,593.01159,-0.016528,0.827244,1083.959341,-1.5e-05,1e-06],[0.87603,0.001246,1199.645337,0.021278,0.870541,1082.380486,1.9e-05,1e-06],[0.812804,0.001162,1737.603885,0.029876,0.814261,1084.432769,2.7e-05,1e-06]],[[0.727605,0.00112,79.666812,-0.028607,0.783606,1085.550714,-2.6e-05,1e-06],[0.800288,0.001183,588.794917,-0.017275,0.827453,1083.951759,-1.6e-05,1e-06],[0.877323,0.001248,1204.076007,0.02224,0.872149,1082.321835,2e-05,1e-06],[0.810771,0.001165,1746.80808,0.031498,0.813965,1084.443641,2.8e-05,1e-06]],[[0.722281,0.001119,72.936403,-0.030007,0.782471,1085.592127,-2.7e-05,1e-06],[0.798962,0.001184,584.70583,-0.018014,0.827656,1083.944392,-1.6e-05,1e-06],[0.878541,0.00125,1208.43005,0.023195,0.873732,1082.264113,2.1e-05,1e-06],[0.808577,0.001164,1755.830554,0.033098,0.813671,1084.45437,3e-05,1e-06]]],"floor":"#65635B","still":{"w":1280,"h":516}};
+
+  // ── the four Ps room ─────────────────────────────────────────────────────
+  // A rendered cream room. The masses and their shadows are a Cycles frame
+  // SEQUENCE, not sprites: they move in depth as well as across, they sit at
+  // four different depths rather than in a regimented row, and their shadows
+  // fall on each other because every frame is one render. Sprites could not do
+  // any of that - measured against real depth-moved renders, transforming a
+  // flat sprite was worse than not moving it at all.
+  //
+  // The movement is in two stages. The masses are first pressed TOGETHER until
+  // their faces are a few pixels apart - decelerating the whole way, because
+  // the repulsion they are being pushed into keeps growing - and then let go,
+  // which throws them wide. Each one also turns and changes depth as it
+  // travels, lagged behind the lateral move so the back half of the scroll is
+  // still doing something after the spring has spent itself.
+  //
+  // There is exactly ONE block of copy in this section and it never fades: it
+  // is there when the section arrives, it does not move, and it is still there
+  // when the masses settle. There is no second block, no alternate state and
+  // nothing revealed later.
+  //
+  // The room plate is static and carries the whole frame; each sequence frame
+  // is RGBA over it, opaque only where it differs from the room. Two <img>
+  // layers crossfade so the frames read as continuous movement.
+  //
+  // kd-core rebuilds #observation on both DOMContentLoaded and window.load, so
+  // a later rebuild can replace the runway with a fresh empty one. Everything
+  // below is re-entrant: state lives in module scope, listeners attach once,
+  // and the observer stays connected for the life of the page.
+  var psRunway=null,psPlate=null,psBound=false,psTicking=false,psCopies=[],
+      psA=null,psB=null,psIA=-1,psIB=-1,psLabels=[],psPreload=[];
+
+  function psReduced(){return !!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);}
+  // Ask the same question the stylesheet asks, so the two can never disagree
+  // about which treatment is on - innerWidth and the CSS viewport are not
+  // always the same number on a tablet, and when they differed the stage was
+  // built, hidden by CSS, and every frame fetched for nothing.
+  function psSmall(){return !!(window.matchMedia&&
+    window.matchMedia('(max-width: 900px)').matches)||window.innerWidth<900;}
+  function psEsc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+  function psSrc(i){return '/assets/ps-f'+(i<10?'0':'')+i+'.webp';}
+
+  // Phones get the settled composition as one flat image and nothing else: no
+  // runway, no sticky stage, no frame sequence, no substitute animation. The
+  // section is ordinary document flow - rule, headline, copy, image, copy - and
+  // the image is only ever written into the page below 900px, so wider
+  // viewports never request it.
+  function psStillMarkup(d){
+    var s=d.still||{w:1280,h:516},k,alt=[];
+    for(k=0;k<4;k++)alt.push(d.masses[k].name+' - '+d.masses[k].copy);
+    return '<img class="ps-still" src="/assets/ps-still.webp" width="'+s.w+
+           '" height="'+s.h+'" decoding="async" alt="'+
+           psEsc('The four Ps as four masses in a cream room. '+alt.join(' '))+'">';
+  }
+
+  function psStageMarkup(d){
+    var b=d.band,M=d.masses,k,
+        h='<div class="ps-stage"><div class="ps-plate">'+
+          '<img class="ps-room-img" src="/assets/ps-room.webp" alt="" width="'+d.w+
+          '" height="'+d.h+'" decoding="async">';
+    // two frame layers, crossfaded; both sit exactly on the band the sequence
+    // was rendered from
+    var st='left:'+b.x+'px;top:'+b.y+'px;width:'+b.w+'px;height:'+b.h+'px';
+    h+='<img class="ps-frame" data-ps-l="a" alt="" aria-hidden="true" style="'+st+'">'+
+       '<img class="ps-frame" data-ps-l="b" alt="" aria-hidden="true" style="'+st+'">';
+    for(k=0;k<4;k++){
+      h+='<div class="ps-label" data-ps-i="'+k+'"><h3>'+psEsc(M[k].name)+'</h3>'+
+         '<p>'+psEsc(M[k].copy)+'</p></div>';
+    }
+    return h+'</div></div>';
+  }
+
+  function psFit(){
+    if(!psRunway)return;
+    var vw=document.documentElement.clientWidth,vh=document.documentElement.clientHeight,
+        d=window.KD_PS;
+    psRunway.style.setProperty('--ps-vw',vw+'px');
+    psRunway.style.marginBottom='';
+    if(!psPlate||!d)return;
+    psPlate.style.setProperty('--ps-pw',d.w+'px');
+    psPlate.style.setProperty('--ps-ph',d.h+'px');
+    // The plate is 2132x1600, so for any viewport wider than 4:3 this resolves
+    // to the WIDTH term: the whole horizontal composition is always shown and
+    // only the empty room above and below is ever cropped.
+    var s=Math.max(vw/d.w,vh/d.h);
+    psPlate.style.setProperty('--ps-s',s);
+    // Explicit pixel offsets with transform-origin 0 0: a percentage translate
+    // resolves against the element's UNSCALED width and cannot centre a scaled
+    // plate. Clamped so the plate always covers the stage.
+    var ox=(vw-d.w*s)/2;
+    psPlate.style.setProperty('--ps-ox',ox.toFixed(1)+'px');
+    // The section opens on the same rhythm as every other section on the site.
+    // Measured at 1440: BENCH's rule sits 81px below the top of its section -
+    // 72px of .viewport section padding plus 9px down an 18px marker row. This
+    // marker row is 15px, and the site now seats every rule 9px down it, so 72px
+    // of top offset - the .viewport section-start padding itself - puts the two
+    // rules on the same line. It was 74 before the seat was normalised to 9px.
+    var i,w,last,wt,pad,tall,copy=0;
+    for(i=0;i<psCopies.length;i++){
+      w=psCopies[i];last=w.lastElementChild;
+      if(!last)continue;
+      w.style.transform='';w.style.paddingTop='72px';
+      wt=w.getBoundingClientRect().top;
+      copy=Math.max(copy,last.getBoundingClientRect().bottom-wt);
+    }
+
+    // The masses hang off the END OF THE COPY, not off a fraction of the
+    // viewport. A viewport fraction held the composition together at 900px tall
+    // and pulled it apart above that - 74px between the last line and the mass
+    // tops at 1440x900, 269 at 1920x1080, 540 at 2560x1440, because the copy
+    // does not grow with the screen and the masses do. Hung off the copy, the
+    // gap is the same fraction of a mass's height at every size.
+    var gap=0.29*((d.bot||0)-(d.top||0))*s,
+        oy=copy+gap-(d.top||0)*s;
+    // keep a little floor under them, never expose bare stage above the plate,
+    // and always cover the bottom of the stage
+    oy=Math.min(oy,vh-24-(d.bot||d.anchor)*s);
+    oy=Math.max(Math.min(oy,0),vh-d.h*s);
+    psPlate.style.setProperty('--ps-oy',oy.toFixed(1)+'px');
+
+    // The section ends sooner after the masses. Two fifths of the floor below
+    // them is taken out of the section's height in flow, so the section that
+    // follows rises into it. Nothing inside the stage moves: the plate, the
+    // masses, the copy and the whole composition above their base are exactly
+    // where they were - only where the room stops is different.
+    psRunway.style.marginBottom=
+      (-Math.max(0,(vh-(oy+(d.bot||d.anchor)*s))*0.40)).toFixed(1)+'px';
+
+    // If those clamps have pulled the masses up into the copy - a window too
+    // short to hold both - scale the copy about the text's own left edge, so
+    // the margin stays where every other section puts it.
+    var room=oy+(d.top||0)*s;
+    for(i=0;i<psCopies.length;i++){
+      w=psCopies[i];last=w.lastElementChild;
+      if(!last)continue;
+      wt=w.getBoundingClientRect().top;
+      tall=last.getBoundingClientRect().bottom-wt;
+      if(tall>room-gap){
+        pad=parseFloat(getComputedStyle(w).paddingLeft)||0;
+        w.style.transformOrigin=pad+'px 0';
+        w.style.transform='scale('+Math.max(0.55,(room-gap)/tall).toFixed(4)+')';
+      }
+    }
+  }
+
+  // build a CSS matrix3d from the 8 homography coefficients the render emitted
+  function psMatrix(c){
+    return 'matrix3d('+c[0]+','+c[3]+',0,'+c[6]+','+
+                       c[1]+','+c[4]+',0,'+c[7]+',0,0,1,0,'+
+                       c[2]+','+c[5]+',0,1)';
+  }
+
+  function psUpdate(){
+    psTicking=false;
+    if(!psRunway||!psPlate||!psRunway.isConnected||!window.KD_PS)return;
+    var d=window.KD_PS,n=d.n,i;
+    var r=psRunway.getBoundingClientRect(),
+        travel=r.height-(document.documentElement.clientHeight||1);
+    if(travel<=0)travel=1;
+    var p=(-r.top)/travel;
+    p=p<0?0:(p>1?1:p);
+
+    // No hold at the head: the masses start moving on the first pixel of scroll
+    // after the stage pins. The hold at the tail is a beat now rather than a
+    // wait - 8vh against the 28vh it was, with the travel the movement itself
+    // gets left exactly as approved. Reduced motion pins the settled frame.
+    var ia,ib,t;
+    if(psReduced()){
+      ia=ib=n-1;t=1;                      // one settled frame, nothing fetched
+    }else{
+      var q=Math.max(0,Math.min(1,p/0.956)),f=q*(n-1);
+      ia=Math.floor(f);t=f-ia;
+      if(ia>n-2){ia=n-2;t=1;}
+      ib=ia+1;
+    }
+
+    if(ia!==psIA){psA.src=psSrc(ia);psIA=ia;}
+    if(ib!==psIB){psB.src=psSrc(ib);psIB=ib;}
+    psB.style.opacity=t.toFixed(3);
+
+    // the labels ride the faces, interpolated between the two frames in play
+    var ca=d.frames[ia],cb=d.frames[ib];
+    for(i=0;i<4;i++){
+      var m=[],j;
+      for(j=0;j<8;j++)m.push(ca[i][j]+(cb[i][j]-ca[i][j])*t);
+      psLabels[i].style.transform=psMatrix(m);
+    }
+  }
+
+  function psRequest(){if(psTicking)return;psTicking=true;requestAnimationFrame(psUpdate);}
+
+  // Put the section's own text back where the page built it. psBuild wipes the
+  // runway, so anything still lifted into the stage would be destroyed with it -
+  // which is what crossing the 900px breakpoint used to do to the headline, the
+  // chapter rule and both copy blocks.
+  function psUnlift(){
+    if(!psRunway)return;
+    var obs=psRunway.closest('#observation');
+    if(!obs)return;
+    [].slice.call(psRunway.querySelectorAll('.ps-copy')).forEach(function(w){
+      while(w.firstChild)obs.insertBefore(w.firstChild,psRunway);
+    });
+    obs.style.removeProperty('padding-top');
+    obs.style.removeProperty('padding-bottom');
+    psCopies=[];
+  }
+
+  function psBuild(){
+    var runway=document.querySelector('.ps-runway'),d=window.KD_PS;
+    if(!runway||!d||!d.frames||d.frames.length!==d.n)return false;
+    if(runway===psRunway&&runway.dataset.psWired==='1')return true;
+    runway.dataset.psWired='1';
+    psRunway=runway;
+    // Below 900px the stage is never built, so not one frame is requested -
+    // and above it the still is never written, so that is not requested either.
+    // display:none would have fetched both in most browsers.
+    psRunway.innerHTML=psSmall()?psStillMarkup(d):psStageMarkup(d);
+    psPlate=psRunway.querySelector('.ps-plate');
+    psIA=psIB=-1;
+    psCopies=[];psLabels=[];
+    var stage=psRunway.querySelector('.ps-stage');
+    if(stage){
+      psA=stage.querySelector('[data-ps-l="a"]');
+      psB=stage.querySelector('[data-ps-l="b"]');
+      psLabels=[].slice.call(stage.querySelectorAll('.ps-label'));
+      // Fetch every frame up front. They are small and the section is only a
+      // screen or two down the page; without this the sequence would tear as
+      // the reader scrolls into frames that have not arrived.
+      if(!psPreload.length){
+        // reduced motion shows one settled frame and never animates, so it
+        // must not pull the other 27 down the wire
+        var k0=psReduced()?d.n-1:0;
+        for(var k=k0;k<d.n;k++){var im=new Image();im.src=psSrc(k);psPreload.push(im);}
+      }
+      // Lift the section into the room: the chapter rule, the headline and the
+      // copy, as ONE block that is simply always there. The section's own
+      // vertical padding goes with them, or it would leave a white band above
+      // and below. The block is inserted BEFORE the plate the four labels live
+      // in, so a screen reader gets headline, copy, then the four Ps; painting
+      // order is taken back by a z-index on .ps-copy.
+      var obs=psRunway.closest('#observation');
+      // the section's own padding is set with !important in the stylesheet
+      if(obs&&obs.style){obs.style.setProperty('padding-top','0','important');
+                         obs.style.setProperty('padding-bottom','0','important');}
+      else obs=document;
+      var found=[];
+      ['.kd-chapter-marker','.hero-line-wrap','.premise-lead'].forEach(function(sel){
+        [].slice.call(obs.querySelectorAll(sel)).forEach(function(el){
+          if(!el.closest('.ps-stage'))found.push(el);
+        });
+      });
+      if(found.length){
+        var wrap=document.createElement('div');
+        wrap.className='ps-copy';
+        found.forEach(function(el){wrap.appendChild(el);});
+        stage.insertBefore(wrap,psPlate);
+        psCopies.push(wrap);
+      }
+    }
+    document.documentElement.classList.remove('kd-ps-arm');
+    psFit();psUpdate();
+    return true;
+  }
+
+  function wireFourPs(){
+    // Until the copy has been lifted into the room it is still sitting in the
+    // section's normal flow, where the page put it - so on a slow first paint a
+    // reader can see it there, scroll, and then meet it again pinned inside the
+    // room. Hide it for exactly that window. The timeout is the failsafe: if
+    // anything stops the lift from happening, the text comes back rather than
+    // staying hidden.
+    if(!psSmall())document.documentElement.classList.add('kd-ps-arm');
+    setTimeout(function(){document.documentElement.classList.remove('kd-ps-arm');},3000);
+    psBuild();
+    if(psBound)return;
+    psBound=true;
+    window.addEventListener('scroll',psRequest,{passive:true});
+    window.addEventListener('resize',function(){
+      var wantStage=!psSmall();
+      if(psRunway&&window.KD_PS&&wantStage!==!!psPlate){
+        psUnlift();psRunway.dataset.psWired='';psRunway=null;psBuild();
+      }
+      psFit();psRequest();
+    });
+    window.addEventListener('load',function(){setTimeout(psBuild,0);});
+    // Stays connected on purpose: if a later rebuild swaps in a fresh runway,
+    // psBuild repopulates it. When the runway is current the callback is one
+    // querySelector and a flag check.
+    try{
+      new MutationObserver(psBuild).observe(
+        document.querySelector('main')||document.body,{childList:true,subtree:true});
+    }catch(e){}
+    if(document.fonts&&document.fonts.ready)document.fonts.ready.then(psFit);
+    setTimeout(psBuild,300);setTimeout(psBuild,1200);setTimeout(psBuild,2500);
+  }
 
   normalizeShell();normalizeCtas();wireRouteTransition();wireReadingFit();var core=document.createElement('script');core.src='/assets/kd-core.js';core.onload=function(){normalizeShell();normalizeCtas();document.head.appendChild(style);wireRouteTransition();wirePitchScroll();wireFourPs();normalizeCtas();};document.head.appendChild(core);
 })();
