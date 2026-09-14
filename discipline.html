@@ -7,13 +7,13 @@
 <style>
 .discipline-page .product-orientation{display:flex;align-items:center;gap:20px;margin-bottom:42px;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.24em;color:#6f6d66}.discipline-page .product-orientation:before{content:"";display:block;flex:1;height:1px;background:#aaa69d}.discipline-page .product-orientation>span:first-child{display:none}.discipline-page .home-paper .hero-line{color:var(--ink)!important}
 .discipline-page .viewport{background:#FFFFFF;color:#24222B;min-height:auto!important;padding-bottom:112px}.discipline-page .viewport+.viewport,.discipline-page .kd-talk{padding-top:104px!important}
-.discipline-copy{width:100%;font-size:17px;line-height:1.8;margin-top:36px}.discipline-copy>p{max-width:58%}.discipline-copy>.discipline-statement{max-width:none}.discipline-copy>.discipline-question{max-width:80%}.discipline-copy p{margin:0}.discipline-register+p,.discipline-list+p,.discipline-cols+p{margin-top:40px!important}.discipline-copy p+p{margin-top:18px}
+.discipline-copy{width:100%;font-size:17px;line-height:1.8;margin-top:36px}.discipline-copy>p{max-width:58%}.discipline-copy>.discipline-statement{max-width:none}.discipline-copy>.discipline-question{max-width:80%}.discipline-copy p{margin:0}.discipline-register+p,.discipline-cols+p{margin-top:40px!important}.discipline-copy p+p{margin-top:18px}
 .discipline-register{border-top:1px solid #24222B;margin-top:48px}.discipline-row{display:grid;grid-template-columns:72px 240px 1fr;gap:20px;align-items:baseline;padding:16px 0;border-bottom:1px solid #b9b6ae}.discipline-row strong{font-weight:700}.discipline-row span:last-child{color:#55524c}.discipline-register .discipline-row{grid-template-columns:240px 1fr}.discipline-register.standards .discipline-row{grid-template-columns:48px 210px 1fr}.discipline-register.verdicts .discipline-row{grid-template-columns:90px 1fr}.discipline-register.verdicts strong{font-size:26px}
-.discipline-page .hero-line{white-space:normal!important}.discipline-headline{margin:0;font-family:'Space Grotesk',sans-serif;font-size:var(--kd-major-headline-size);font-weight:500;line-height:.98;letter-spacing:-.04em}.discipline-question{font-size:clamp(32px,3.8vw,54px);font-weight:700;line-height:1.02;letter-spacing:-.04em;margin:46px 0}/* a table that closes straight into a statement shares one rule rather than stacking the register's last border under the statement's own */.discipline-register+.discipline-statement{border-top:0;margin-top:0!important}.discipline-statement{display:block;font-size:26px;font-weight:700;line-height:1.15;letter-spacing:-.02em;border-top:1px solid #24222B;border-bottom:1px solid #24222B;padding:26px 0;margin:56px 0 0!important}.discipline-subhead{font-family:"IBM Plex Mono",monospace;font-size:15px;letter-spacing:.14em;margin:46px 0 14px}.discipline-cols{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-top:28px}.discipline-cols>div{border-top:1px solid #24222B;padding-top:14px}.discipline-cols p{font-size:15px;line-height:1.6;color:#55524c}.discipline-list{list-style:none;border-top:1px solid #24222B;margin-top:20px}.discipline-list li{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.1em;padding:11px 0;border-bottom:1px solid #b9b6ae}
-.discipline-deeper{align-self:flex-start;display:inline-flex;align-items:center;gap:10px;margin-top:64px;font-family:"IBM Plex Mono",monospace;font-size:15px;letter-spacing:.14em;color:inherit;text-decoration:none}.discipline-deeper span{display:inline-block;color:#FFFF00;transition:transform .22s cubic-bezier(.2,.8,.2,1)}.discipline-deeper:hover span,.discipline-deeper:focus-visible span{transform:translateY(3px)}@media(prefers-reduced-motion:reduce){.discipline-deeper span{transition:none}}.discipline-page .footer{border-top:1px solid #24222B!important}.discipline-page .footer-bureau{border-top:0!important;padding-top:0!important}
+.discipline-page .hero-line{white-space:normal!important}.discipline-headline{margin:0;font-family:'Space Grotesk',sans-serif;font-size:var(--kd-major-headline-size);font-weight:500;line-height:.98;letter-spacing:-.04em}.discipline-question{font-size:clamp(32px,3.8vw,54px);font-weight:700;line-height:1.02;letter-spacing:-.04em;margin:46px 0}/* a table that closes straight into a statement shares one rule rather than stacking the register's last border under the statement's own */.discipline-register+.discipline-statement,.discipline-statement+.discipline-statement{border-top:0;margin-top:0!important}.discipline-statement{display:block;font-size:26px;font-weight:700;line-height:1.15;letter-spacing:-.02em;border-top:1px solid #24222B;border-bottom:1px solid #24222B;padding:26px 0;margin:56px 0 0!important}.discipline-subhead{font-family:"IBM Plex Mono",monospace;font-size:15px;letter-spacing:.14em;margin:46px 0 14px}.discipline-cols{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-top:28px}.discipline-cols>div{border-top:1px solid #24222B;padding-top:14px}.discipline-cols p{font-size:15px;line-height:1.6;color:#55524c}
+.discipline-deeper{align-self:flex-start;display:inline-flex;align-items:center;gap:10px;margin-top:64px;appearance:none;-webkit-appearance:none;border:0;background:none;padding:0;font-family:"IBM Plex Mono",monospace;font-size:15px;font-weight:400;letter-spacing:.14em;line-height:1;color:inherit;text-align:left;cursor:pointer}.discipline-deeper-mark{display:inline-block;color:#FFFF00;transition:transform .22s cubic-bezier(.2,.8,.2,1)}.discipline-deeper:hover .discipline-deeper-mark{transform:translateY(3px)}[aria-expanded="true"].discipline-deeper:hover .discipline-deeper-mark{transform:translateY(-3px)}.discipline-deeper:focus-visible{outline:2px solid #FFFF00;outline-offset:6px}@media(prefers-reduced-motion:reduce){.discipline-deeper-mark{transition:none}}#deeper[hidden]{display:none}.discipline-page #deeper>.viewport:first-child{padding-top:104px!important}.discipline-page .footer{border-top:1px solid #24222B!important}.discipline-page .footer-bureau{border-top:0!important;padding-top:0!important}
 @media(max-width:767px){.discipline-copy>p,.discipline-copy>.discipline-question{max-width:100%}.discipline-register .discipline-row,.discipline-register.standards .discipline-row,.discipline-register.verdicts .discipline-row{grid-template-columns:1fr;gap:4px}.discipline-cols{grid-template-columns:1fr}.discipline-question{font-size:34px}}
 
-.discipline-page .viewport.is-dark{background:#24222B;color:#FFFFFF}.discipline-page .home-paper.is-dark .hero-line{color:#FFFFFF!important}.discipline-page .viewport.is-dark .product-orientation{color:#aaa69d}.discipline-page .viewport.is-dark .product-orientation:before{background:#504D57}.discipline-page .viewport.is-dark .discipline-register,.discipline-page .viewport.is-dark .discipline-list,.discipline-page .viewport.is-dark .discipline-cols>div{border-top-color:#504D57}.discipline-page .viewport.is-dark .discipline-row,.discipline-page .viewport.is-dark .discipline-list li{border-bottom-color:#3E3B45}.discipline-page .viewport.is-dark .discipline-row span:last-child,.discipline-page .viewport.is-dark .discipline-cols p{color:#b9b6ae}.discipline-page .viewport.is-dark .discipline-statement{border-top-color:#504D57;border-bottom-color:#504D57}
+.discipline-page .viewport.is-dark{background:#24222B;color:#FFFFFF}.discipline-page .home-paper.is-dark .hero-line{color:#FFFFFF!important}.discipline-page .viewport.is-dark .product-orientation{color:#aaa69d}.discipline-page .viewport.is-dark .product-orientation:before{background:#504D57}.discipline-page .viewport.is-dark .discipline-register,.discipline-page .viewport.is-dark .discipline-cols>div{border-top-color:#504D57}.discipline-page .viewport.is-dark .discipline-row{border-bottom-color:#3E3B45}.discipline-page .viewport.is-dark .discipline-row span:last-child,.discipline-page .viewport.is-dark .discipline-cols p{color:#b9b6ae}.discipline-page .viewport.is-dark .discipline-statement{border-top-color:#504D57;border-bottom-color:#504D57}
 </style>
 </head><body class="v5-home discipline-page">
 <header class="masthead" id="masthead"><div class="masthead-top"><div class="masthead-date" id="masthead-date"></div><div class="masthead-wordmark"><a href="/">KILL DULL<span class="terminal"></span><span class="tm">™</span></a></div><div class="masthead-designation"><span>THE</span> DENSE IDEA COMPANY<span class="tm">™</span></div></div><div class="masthead-tagline">Here to Compound.</div><div class="masthead-bulletin"><span class="bulletin-text">First Readings in production.</span></div><div class="masthead-rule"></div></header>
@@ -31,8 +31,9 @@
 <div class="discipline-register verdicts"><div class="discipline-row"><strong>AAH.</strong><span>The commitment deserves to be made.</span></div><div class="discipline-row"><strong>HMM.</strong><span>Not enough to responsibly say AAH or DULL.</span></div><div class="discipline-row"><strong>DULL.</strong><span>The commitment does not deserve to be made in its present form.</span></div></div>
 <p class="discipline-statement">SIMPLE QUESTION. SERIOUS SCRUTINY.</p>
 </div>
-<a class="discipline-deeper" href="#under-scrutiny">GO DEEPER <span aria-hidden="true">↓</span></a>
+<button class="discipline-deeper" type="button" id="deeper-toggle" aria-expanded="false" aria-controls="deeper"><span class="discipline-deeper-label">GO DEEPER</span><span class="discipline-deeper-mark" aria-hidden="true">↓</span></button>
 </section>
+<div id="deeper" hidden>
 <section class="viewport home-paper is-dark" id="under-scrutiny">
 <div class="product-orientation"><span></span><span>UNDER SCRUTINY</span></div>
 <h2 class="discipline-headline">BEFORE WE JUDGE ANYTHING, WE ESTABLISH WHAT IS TRUE.</h2>
@@ -90,22 +91,16 @@
 <div class="product-orientation"><span></span><span>RECOMMENDATION</span></div>
 <h2 class="discipline-headline">EVENTUALLY, SOMEONE HAS TO TAKE A POSITION.</h2>
 <div class="discipline-copy">
-<p>Evidence can inform judgment.</p>
-<p>AI can challenge it.</p>
-<p>Neither gets to hide behind complexity.</p>
-<p>Once the record is assembled, AI interrogates it: evidence against assumption, argument against contradiction, confidence against what is still unknown.</p>
-<p>Then a human reviews the record and the interrogation.</p>
-<p>Material disagreement has to be answered.</p>
-<p>Material uncertainty has to remain visible.</p>
-<p>And somebody has to be responsible for the recommendation.</p>
-<p>That’s the human part.</p>
+<p>Evidence informs the judgment.</p>
+<p>AI interrogates the case.</p>
+<p>A human takes responsibility for the recommendation.</p>
 <div class="discipline-register verdicts"><div class="discipline-row"><strong>AAH.</strong><span>The commitment deserves to be made.</span></div><div class="discipline-row"><strong>HMM.</strong><span>The evidence or judgment is insufficient to responsibly recommend for or against the commitment in its present state.</span></div><div class="discipline-row"><strong>DULL.</strong><span>The commitment does not deserve to be made in its present form.</span></div></div>
-<p>AI doesn’t get the last word.</p>
-<p>Neither does consensus.</p>
+<p class="discipline-statement">AI DOESN’T GET THE LAST WORD.</p>
+<p class="discipline-statement">NEITHER DOES CONSENSUS.</p>
 <p class="discipline-statement">THE DISCIPLINE RECOMMENDS.<br>THE CLIENT DECIDES.</p>
 </div></section>
-<section class="viewport home-paper is-dark" id="the-record">
-<div class="product-orientation"><span></span><span>THE RECORD</span></div>
+<section class="viewport home-paper is-dark" id="on-record">
+<div class="product-orientation"><span></span><span>ON RECORD</span></div>
 <h2 class="discipline-headline">IF WE’RE PREPARED TO SAY IT, WE’RE PREPARED TO PUT IT ON RECORD.</h2>
 <div class="discipline-copy">
 <p>The Reading is the finished expression of the Discipline.</p>
@@ -115,20 +110,31 @@
 <p>The recommendation comes first.</p>
 <p>Then the evidence.</p>
 <p>Then the material tensions, uncertainties and conditions that could change it.</p>
-<p>Behind that sits the record:</p>
-<ul class="discipline-list"><li>READING ID</li><li>DATE</li><li>COMMITMENT</li><li>EVIDENCE CUTOFF</li><li>DISCIPLINE VERSION</li><li>AI MODEL RECORD</li><li>AI INTERROGATION</li><li>HUMAN RESPONSIBLE</li><li>FINAL RECOMMENDATION</li><li>MATERIAL TENSIONS</li><li>WHAT WOULD CHANGE THE RECOMMENDATION</li><li>READING VERSION</li></ul>
 <p>Because judgment without accountability is just an opinion.</p>
 <p class="discipline-statement">CONSIDERED. CONCLUDED. ON RECORD.</p>
-<div class="discipline-subhead">PRIVATE READING</div>
-<p>Commissioned before commitment.</p>
-<p>Confidential by design.</p>
-<p>The recommendation, reasoning and evidence return to the client as a durable digital record and physical book.</p>
-<p class="discipline-statement">PRIVATE. CONFIDENTIAL. YOURS.</p>
-<div class="discipline-subhead">PUBLISHED READING</div>
-<p>Initiated by Kill Dull after a commitment is already in the world.</p>
-<p>Built from public evidence.</p>
-<p>Nobody can commission one. Nobody can buy their way out of one.</p>
-<p class="discipline-statement">THE RECORD BELONGS TO KILL DULL.<br>THE DECISION BELONGS TO HISTORY.</p>
 </div></section>
+</div>
 </main>
-<footer class="footer" role="contentinfo"><div class="footer-inner"><div class="footer-bureau">THE BUREAU.</div><div class="footer-index"><div class="footer-section"><div class="footer-section-label">DISCIPLINE</div><nav aria-label="Discipline"><a href="/discipline">The Dense Idea Discipline</a></nav></div><div class="footer-section"><div class="footer-section-label">BENCH</div><nav aria-label="Bench"><a href="/bench">How the Bench Works</a><a href="/readings">Private Readings</a><a href="/readings#record">Published Readings</a></nav></div><div class="footer-section"><div class="footer-section-label">KILL DULL</div><nav aria-label="Kill Dull"><a href="/bureau">Department of Hard Evidence</a><a href="/faq">FAQ</a><a href="/accessibility" aria-label="Accessibility statement">Accessibility</a><a href="/privacy" aria-label="Privacy policy">Privacy</a><a href="/terms" aria-label="Terms of use">Terms</a></nav></div></div><div class="footer-colophon"><span>&#169; 2026 Kill Dull. All rights reserved.</span></div></div></footer><script src="/assets/kd.js"></script></body></html>
+<footer class="footer" role="contentinfo"><div class="footer-inner"><div class="footer-bureau">THE BUREAU.</div><div class="footer-index"><div class="footer-section"><div class="footer-section-label">DISCIPLINE</div><nav aria-label="Discipline"><a href="/discipline">The Dense Idea Discipline</a></nav></div><div class="footer-section"><div class="footer-section-label">BENCH</div><nav aria-label="Bench"><a href="/bench">How the Bench Works</a><a href="/readings">Private Readings</a><a href="/readings#record">Published Readings</a></nav></div><div class="footer-section"><div class="footer-section-label">KILL DULL</div><nav aria-label="Kill Dull"><a href="/bureau">Department of Hard Evidence</a><a href="/faq">FAQ</a><a href="/accessibility" aria-label="Accessibility statement">Accessibility</a><a href="/privacy" aria-label="Privacy policy">Privacy</a><a href="/terms" aria-label="Terms of use">Terms</a></nav></div></div><div class="footer-colophon"><span>&#169; 2026 Kill Dull. All rights reserved.</span></div></div></footer><script src="/assets/kd.js"></script>
+<script>
+// GO DEEPER is a disclosure, not navigation. Layer 2 carries the hidden
+// attribute in the markup rather than being hidden from here, so it is never
+// painted and then taken away. Focus stays on the control: it is still in
+// place after the toggle, now reading the other way, and the revealed
+// sections follow it in the DOM, so the next Tab walks straight into them.
+(function(){
+  var btn=document.getElementById('deeper-toggle'),
+      panel=document.getElementById('deeper');
+  if(!btn||!panel)return;
+  var label=btn.querySelector('.discipline-deeper-label'),
+      mark=btn.querySelector('.discipline-deeper-mark');
+  btn.addEventListener('click',function(){
+    var open=btn.getAttribute('aria-expanded')==='true';
+    btn.setAttribute('aria-expanded',open?'false':'true');
+    panel.hidden=open;
+    label.textContent=open?'GO DEEPER':'ENOUGH';
+    mark.textContent=open?'\u2193':'\u2191';
+  });
+})();
+</script>
+</body></html>
