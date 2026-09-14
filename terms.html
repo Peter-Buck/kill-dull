@@ -713,11 +713,85 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
   line-height: 1.5;
 }
 
-/* FOOTER */
+/* CONTACT — mirrors the shared .kd-talk section injected by kd.js */
+.kd-talk {
+  background: #FFFFFF;
+  color: #24222B;
+  min-height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 72px 120px 112px;
+}
+
+.kd-talk .hero-line-wrap {
+  display: block;
+  width: 100%;
+}
+
+.kd-talk .hero-line {
+  margin: 0;
+  white-space: normal;
+  animation: none;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+  font-size: clamp(54px, 5.15vw, 84px);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  color: #24222B;
+}
+
+.kd-cta-unified {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  border: 0.5px solid currentColor;
+  padding: 10px 14px;
+  background: transparent;
+  color: inherit;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  transition: border-color 0.18s ease;
+}
+
+.kd-cta-unified::after {
+  content: "\2197";
+  display: inline-block;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0;
+  margin-left: auto;
+  transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.kd-cta-unified:hover,
+.kd-cta-unified:focus-visible {
+  border-color: var(--yellow);
+}
+
+.kd-cta-unified:hover::after,
+.kd-cta-unified:focus-visible::after {
+  transform: translate(2px, -2px);
+}
+
+.kd-talk-cta {
+  margin-top: 36px;
+  width: max-content;
+}
+
+/* FOOTER — matches the shared footer on the main site */
 .footer {
-  background: var(--paper);
-  color: var(--ink);
-  border-top: 1px solid #2a2925;
+  background: #FFFFFF;
+  color: #24222B;
+  border-top: 0;
 }
 
 .footer-inner {
@@ -730,9 +804,9 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
   font-size: clamp(40px, 6vw, 80px);
   letter-spacing: -0.04em;
   line-height: 0.9;
-  color: var(--ink);
+  color: #24222B;
   margin-bottom: 64px;
-  border-top: 2px solid var(--ink);
+  border-top: 2px solid #24222B;
   padding-top: 32px;
 }
 
@@ -748,16 +822,17 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
   display: grid;
   grid-template-columns: 200px 1fr;
   gap: 0;
-  padding: 24px 0;
+  padding: 28px 0;
   border-bottom: 1px solid #2a2925;
   align-items: baseline;
 }
 
 .footer-section-label {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.16em;
+  line-height: 1.4;
   color: #6f6d66;
   text-transform: uppercase;
   padding-right: 40px;
@@ -765,17 +840,19 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
 
 .footer-section nav {
   display: flex;
-  flex-wrap: wrap;
-  gap: 4px 32px;
+  flex-direction: column;
+  gap: 12px;
+  flex-wrap: nowrap;
 }
 
 .footer-section nav a {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 400;
-  color: var(--ink);
+  color: #24222B;
   text-decoration: none;
-  line-height: 1.6;
+  line-height: 1.55;
+  display: block;
 }
 
 .footer-section nav a:hover {
@@ -784,7 +861,7 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
 
 .footer-section nav a:focus-visible {
   outline: 2px solid var(--yellow);
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
 .footer-colophon {
@@ -792,7 +869,7 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
   justify-content: space-between;
   align-items: baseline;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.08em;
   color: #6f6d66;
 }
@@ -838,6 +915,7 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
 }
 
 @media (max-width: 1279px) {
+  .kd-talk { padding: 72px 64px 112px; }
   .footer-inner { padding: 64px; }
 }
 
@@ -862,6 +940,8 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
 }
 
 @media (max-width: 767px) {
+  .kd-talk { padding: 54px 24px 80px; }
+  .kd-talk .hero-line { font-size: clamp(38px, 10.5vw, 54px); }
   .footer-inner { padding: 48px 24px; }
   .footer-section { grid-template-columns: 1fr; gap: 12px; }
   .footer-section-label { padding-right: 0; }
@@ -869,7 +949,7 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
 }
 </style>
 </head>
-<body><a class="kd-skip" href="#main">Skip to content</a><style>.kd-skip{position:absolute;left:-9999px;top:0;z-index:10001;display:inline-block;padding:12px 18px;background:#24222B;color:#FFFFFF;font-family:"IBM Plex Mono",monospace;font-size:15px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}.kd-skip:focus{left:12px;top:12px;outline:2px solid #FFFF00;outline-offset:2px}main:focus{outline:none}:focus-visible{outline:2px solid #FFFF00;outline-offset:2px;box-shadow:0 0 0 4px #24222B}.footer-section-label,.footer-colophon span{color:#65625B!important}.inst-subhead{font-family:"IBM Plex Mono",monospace;font-size:var(--type-label);font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--text-secondary);margin:48px 0 18px}.inst-body>p:first-child+.inst-subhead,.inst-body>.inst-subhead:first-child{margin-top:0}.inst-stamp{font-family:"IBM Plex Mono",monospace;font-size:var(--type-label);letter-spacing:.16em;text-transform:uppercase;color:var(--text-secondary);margin-top:48px!important}.inst-cta-wrap{margin-top:36px!important}.inst-cta{box-sizing:border-box;display:inline-flex;align-items:center;gap:9px;border:.5px solid currentColor;padding:10px 14px;color:inherit;text-decoration:none;font-family:"IBM Plex Mono",monospace;font-size:15px;letter-spacing:.04em;text-transform:uppercase;transition:border-color .18s ease}.inst-cta:hover,.inst-cta:focus-visible{border-color:#FFFF00}</style>
+<body><a class="kd-skip" href="#main">Skip to content</a><style>.kd-skip{position:absolute;left:-9999px;top:0;z-index:10001;display:inline-block;padding:12px 18px;background:#24222B;color:#FFFFFF;font-family:"IBM Plex Mono",monospace;font-size:15px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}.kd-skip:focus{left:12px;top:12px;outline:2px solid #FFFF00;outline-offset:2px}main:focus{outline:none}:focus-visible{outline:2px solid #FFFF00;outline-offset:2px;box-shadow:0 0 0 4px #24222B}.inst-subhead{font-family:"IBM Plex Mono",monospace;font-size:var(--type-label);font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--text-secondary);margin:48px 0 18px}.inst-body>p:first-child+.inst-subhead,.inst-body>.inst-subhead:first-child{margin-top:0}.inst-stamp{font-family:"IBM Plex Mono",monospace;font-size:var(--type-label);letter-spacing:.16em;text-transform:uppercase;color:var(--text-secondary);margin-top:48px!important}.inst-cta-wrap{margin-top:36px!important}.inst-cta{box-sizing:border-box;display:inline-flex;align-items:center;gap:9px;border:.5px solid currentColor;padding:10px 14px;color:inherit;text-decoration:none;font-family:"IBM Plex Mono",monospace;font-size:15px;letter-spacing:.04em;text-transform:uppercase;transition:border-color .18s ease}.inst-cta:hover,.inst-cta:focus-visible{border-color:#FFFF00}</style>
 
 <header class="masthead" id="masthead">
 
@@ -959,6 +1039,7 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
 </main>
 
 <!-- FOOTER -->
+<section class="viewport home-paper kd-talk" aria-label="Contact Kill Dull"><span class="hero-line-wrap"><h2 class="hero-line">BRING WHAT’S BUGGING YOU.</h2></span><a class="kd-cta-unified kd-talk-cta" href="mailto:human@killdull.com">REALHUMAN@KILLDULL.COM</a></section>
 <footer class="footer" role="contentinfo">
   <div class="footer-inner">
     <div class="footer-bureau">THE BUREAU.</div>
