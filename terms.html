@@ -1081,47 +1081,6 @@ main {
   </div>
 </footer>
 
-<script>
-
-(function() {
-  function getOffset() {
-    var mh = document.getElementById('masthead');
-    var reg = document.getElementById('registrar');
-    return (mh ? mh.offsetHeight : 0) + (reg ? reg.offsetHeight : 0);
-  }
-
-  function positionRegistrar() {
-    var mh = document.getElementById('masthead');
-    var reg = document.getElementById('registrar');
-    if (reg) reg.style.top = (mh ? mh.offsetHeight : 0) + 'px';
-  }
-
-  function setBodyOffset() {
-    var main = document.querySelector('main');
-    if (main) main.style.paddingTop = getOffset() + 'px';
-  }
-
-  var mobileBtn = document.getElementById('reg-mobile-btn');
-  var mobileDropdown = document.getElementById('reg-mobile-dropdown');
-  if (mobileBtn && mobileDropdown) {
-    mobileBtn.addEventListener('click', function() {
-      if (mobileDropdown.hasAttribute('hidden')) mobileDropdown.removeAttribute('hidden');
-      else mobileDropdown.setAttribute('hidden', '');
-    });
-    mobileDropdown.querySelectorAll('a').forEach(function(a) {
-      a.addEventListener('click', function() { mobileDropdown.setAttribute('hidden', ''); });
-    });
-  }
-
-  positionRegistrar();
-  setBodyOffset();
-
-  window.addEventListener('resize', function() {
-    positionRegistrar();
-    setBodyOffset();
-  });
-})();
-</script>
 <script src="/assets/kd.js"></script>
 
 </body>
