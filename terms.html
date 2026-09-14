@@ -833,6 +833,29 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
   align-items: baseline;
 }
 
+/* The shared shell publishes the site's current palette on :root with
+   !important, so the header renders exactly as it does everywhere else. This
+   page's body copy was set against the palette above and loses contrast on the
+   newer ground (--text-secondary falls to 4.41:1, under AA), so main keeps the
+   values this page already declares. Same tokens, narrower scope - the header
+   is not touched. */
+main {
+  --ink:            #0D0D0C;
+  --paper:          #EFEDE4;
+  --border:         #2a2925;
+  --border-inner:   #1c1b18;
+  background:       #0D0D0C;
+  color:            var(--paper);
+}
+
+/* These pages do not load v5.css, so the footer rules it supplies on every
+   other page are carried here verbatim. Without them the shell script's own
+   footer scale wins and this footer stops matching the rest of the site. */
+.footer, .v5-home .footer { border-top: 0 !important; box-shadow: none !important; }
+.footer .footer-section nav a { font-size: 18px !important; line-height: 1.55 !important; }
+.footer .footer-section-label { font-size: 12px !important; line-height: 1.4 !important; }
+.footer .footer-colophon { font-size: 12px !important; }
+
 .footer-section-label {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 12px;
@@ -1059,14 +1082,6 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
 </footer>
 
 <script>
-// Dynamic masthead date
-(function() {
-  var months = ['JANUARY','FEBRUARY','MARCH','APRIL','MAY','JUNE',
-                'JULY','AUGUST','SEPTEMBER','OCTOBER','NOVEMBER','DECEMBER'];
-  var now = new Date();
-  var el = document.getElementById('masthead-date');
-  if (el) el.textContent = now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
-})();
 
 (function() {
   function getOffset() {
@@ -1107,6 +1122,7 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
   });
 })();
 </script>
+<script src="/assets/kd.js"></script>
 
 </body>
 </html>
