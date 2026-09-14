@@ -4,8 +4,11 @@
 /*
 
 !assets/
-!faq/
 !vercel.json
+!robots.txt
+!favicon.ico
+!sitemap.xml
+!404.html
 
 !index.html
 !discipline.html

@@ -1,3 +1,7 @@
-# Kill Dull — V1 preview. Not for indexing.
+# Kill Dull — The Dense Idea Company
+# Public site. Crawling and indexing are permitted.
+
 User-agent: *
-Disallow: /
+Allow: /
+
+Sitemap: https://killdull.com/sitemap.xml

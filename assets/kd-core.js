@@ -28,7 +28,6 @@
 
   function fitToWidth(el, horizontalPad) {
     if (!el) return;
-    el.style.whiteSpace = 'nowrap';
     el.style.fontSize = '500px';
     var ratio = (window.innerWidth - horizontalPad) / el.scrollWidth;
     el.style.fontSize = Math.max(10, Math.floor(ratio * 500)) + 'px';
@@ -212,7 +211,9 @@
       '.cost-home .source-links a{color:var(--paper)}' +
       '@media(max-width:767px){.product-orientation{margin-bottom:30px}.home-copy,.source-links{max-width:100%}}' +
       '@media(prefers-reduced-motion:reduce){#masthead,#registrar{transition:none}}';
-    document.head.appendChild(style);
+    // buildHomepage can run more than once; without this the same sheet is
+    // injected again and the document ends up with two #kd-home-argument
+    if (!document.getElementById('kd-home-argument')) document.head.appendChild(style);
   }
 
   var deskItems = document.querySelectorAll('#registrar-desktop .reg-item[data-chapter]');

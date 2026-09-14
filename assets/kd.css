@@ -368,7 +368,7 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
   font-weight: 700;
   letter-spacing: -0.05em;
   line-height: 0.88;
-  white-space: nowrap;
+  white-space: normal;
   color: var(--paper);
   display: block;
   animation: kd-reveal 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -844,6 +844,18 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
 }
 
 /* MOBILE */
+/* Below 1000px the three-column masthead cannot fit its own content: the
+   date and the designation are nowrap and the wordmark is fixed, so the row
+   pushes past the viewport and the whole page scrolls sideways. Stack it,
+   the way the phone layout already does. The desktop CTA has no room beside
+   the chapters at these widths either; the Bench stays reachable from the
+   nav itself. */
+@media (max-width: 1000px) {
+  .masthead-top { grid-template-columns: 1fr; text-align: center; gap: 8px; }
+  .masthead-date, .masthead-designation { text-align: center; }
+  .unified-nav-products { display: none; }
+}
+
 @media (max-width: 767px) {
   :root { --section-pad-v: 48px; --section-pad-h: 24px; }
   .masthead-top {

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex, nofollow">
-<title>Terms &#x2014; Kill Dull&#x2122;</title>
+
+<title>Terms &#x2014; Kill Dull&#x2122;</title><link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png"><link rel="apple-touch-icon" href="/assets/favicon-180.png"><meta name="description" content="The terms that govern use of the public Kill Dull website."><link rel="canonical" href="https://killdull.com/terms"><meta property="og:type" content="website"><meta property="og:site_name" content="Kill Dull"><meta property="og:title" content="Terms — Kill Dull™"><meta property="og:description" content="The terms that govern use of the public Kill Dull website."><meta property="og:url" content="https://killdull.com/terms"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Terms — Kill Dull™"><meta name="twitter:description" content="The terms that govern use of the public Kill Dull website.">
 <link rel="stylesheet" href="/assets/fonts.css">
 <style>
 :root {
@@ -288,6 +288,12 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
 .product-cta:hover { color: var(--paper); }
 
 .registrar-mobile { display: none; }
+
+/* The right-hand CTA has no room beside the chapters below this width.
+   Mirrors the 1000px rule in assets/kd.css. */
+@media (max-width: 1000px) {
+  .unified-nav-products { display: none; }
+}
 
 @media (max-width: 767px) {
   .unified-nav-chapters { display: none; }
@@ -987,8 +993,8 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
   <!-- Product navigation — right -->
   <div class="unified-nav-products">
     <a class="product-cta" href="/bench#discuss">
-      <span class="enter-text">DISCUSS A DECISION</span>
-      <span class="enter-arrow">&#x2192;</span>
+      <span class="enter-text">COMMITMENT COMING UP?</span>
+      <span class="enter-arrow">&#x2197;</span>
     </a>
   </div>
 
@@ -1046,7 +1052,7 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
     <div class="footer-index">
       <div class="footer-section"><div class="footer-section-label">DISCIPLINE</div><nav aria-label="Discipline"><a href="/discipline">The Dense Idea Discipline</a></nav></div>
       <div class="footer-section"><div class="footer-section-label">BENCH</div><nav aria-label="Bench"><a href="/bench">How the Bench Works</a><a href="/readings">Private Readings</a><a href="/readings#record">Published Readings</a></nav></div>
-      <div class="footer-section"><div class="footer-section-label">KILL DULL</div><nav aria-label="Kill Dull"><a href="/bureau">Department of Hard Evidence</a><a href="/faq">FAQ</a><a href="/accessibility" aria-label="Accessibility statement">Accessibility</a><a href="/privacy" aria-label="Privacy policy">Privacy</a><a href="/terms" aria-label="Terms of use">Terms</a></nav></div>
+      <div class="footer-section"><div class="footer-section-label">KILL DULL</div><nav aria-label="Kill Dull"><a href="/bureau">Department of Hard Evidence</a><a href="/accessibility" aria-label="Accessibility statement">Accessibility</a><a href="/privacy" aria-label="Privacy policy">Privacy</a><a href="/terms" aria-label="Terms of use">Terms</a></nav></div>
     </div>
     <div class="footer-colophon"><span>&#169; 2026 Kill Dull. All rights reserved.</span></div>
   </div>
