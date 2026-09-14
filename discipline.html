@@ -10,7 +10,7 @@
 .discipline-copy{width:100%;font-size:17px;line-height:1.8;margin-top:36px}.discipline-copy>p{max-width:58%}.discipline-copy>.discipline-statement{max-width:none}.discipline-copy>.discipline-question{max-width:80%}.discipline-copy p{margin:0}.discipline-register+p,.discipline-cols+p{margin-top:40px!important}.discipline-copy p+p{margin-top:18px}
 .discipline-register{border-top:1px solid #24222B;margin-top:48px}.discipline-row{display:grid;grid-template-columns:72px 240px 1fr;gap:20px;align-items:baseline;padding:16px 0;border-bottom:1px solid #b9b6ae}.discipline-row strong{font-weight:700}.discipline-row span:last-child{color:#55524c}.discipline-register .discipline-row{grid-template-columns:240px 1fr}.discipline-register.standards .discipline-row{grid-template-columns:48px 210px 1fr}.discipline-register.verdicts .discipline-row{grid-template-columns:90px 1fr}.discipline-register.verdicts strong{font-size:26px}
 .discipline-page .hero-line{white-space:normal!important}.discipline-headline{margin:0;font-family:'Space Grotesk',sans-serif;font-size:var(--kd-major-headline-size);font-weight:500;line-height:.98;letter-spacing:-.04em}.discipline-question{font-size:clamp(32px,3.8vw,54px);font-weight:700;line-height:1.02;letter-spacing:-.04em;margin:46px 0}/* a table that closes straight into a statement shares one rule rather than stacking the register's last border under the statement's own */.discipline-register+.discipline-statement,.discipline-statement+.discipline-statement{border-top:0;margin-top:0!important}.discipline-statement{display:block;font-size:26px;font-weight:700;line-height:1.15;letter-spacing:-.02em;border-top:1px solid #24222B;border-bottom:1px solid #24222B;padding:26px 0;margin:56px 0 0!important}.discipline-subhead{font-family:"IBM Plex Mono",monospace;font-size:15px;letter-spacing:.14em;margin:46px 0 14px}.discipline-cols{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-top:28px}.discipline-cols>div{border-top:1px solid #24222B;padding-top:14px}.discipline-cols p{font-size:15px;line-height:1.6;color:#55524c}
-.discipline-deeper{align-self:flex-start;display:inline-flex;align-items:center;gap:10px;margin-top:64px;appearance:none;-webkit-appearance:none;border:0;background:none;padding:0;font-family:"IBM Plex Mono",monospace;font-size:15px;font-weight:400;letter-spacing:.14em;line-height:1;color:inherit;text-align:left;cursor:pointer}.discipline-deeper-mark{display:inline-block;color:#FFFF00;transition:transform .22s cubic-bezier(.2,.8,.2,1)}.discipline-deeper:hover .discipline-deeper-mark{transform:translateY(3px)}[aria-expanded="true"].discipline-deeper:hover .discipline-deeper-mark{transform:translateY(-3px)}.discipline-deeper:focus-visible{outline:2px solid #FFFF00;outline-offset:6px}@media(prefers-reduced-motion:reduce){.discipline-deeper-mark{transition:none}}#deeper[hidden]{display:none}.discipline-page #deeper>.viewport:first-child{padding-top:104px!important}.discipline-page .footer{border-top:1px solid #24222B!important}.discipline-page .footer-bureau{border-top:0!important;padding-top:0!important}
+.discipline-deeper-band{cursor:pointer}.discipline-deeper{align-self:flex-start;display:inline-flex;align-items:center;gap:10px;appearance:none;-webkit-appearance:none;border:0;background:none;padding:0;font-family:"IBM Plex Mono",monospace;font-size:15px;font-weight:400;letter-spacing:.14em;line-height:1;color:inherit;text-align:left;cursor:pointer}.discipline-deeper-mark{display:inline-block;color:#FFFF00;transition:transform .22s cubic-bezier(.2,.8,.2,1)}.discipline-deeper-band:hover .discipline-deeper-mark{transform:translateY(3px)}.discipline-deeper-band:hover [aria-expanded="true"] .discipline-deeper-mark{transform:translateY(-3px)}@media(prefers-reduced-motion:reduce){.discipline-deeper-mark{transition:none}}#deeper[hidden]{display:none}.discipline-page #deeper>.viewport:first-child{padding-top:104px!important}.discipline-page .footer{border-top:1px solid #24222B!important}.discipline-page .footer-bureau{border-top:0!important;padding-top:0!important}
 @media(max-width:767px){.discipline-copy>p,.discipline-copy>.discipline-question{max-width:100%}.discipline-register .discipline-row,.discipline-register.standards .discipline-row,.discipline-register.verdicts .discipline-row{grid-template-columns:1fr;gap:4px}.discipline-cols{grid-template-columns:1fr}.discipline-question{font-size:34px}}
 
 .discipline-page .viewport.is-dark{background:#24222B;color:#FFFFFF}.discipline-page .home-paper.is-dark .hero-line{color:#FFFFFF!important}.discipline-page .viewport.is-dark .product-orientation{color:#aaa69d}.discipline-page .viewport.is-dark .product-orientation:before{background:#504D57}.discipline-page .viewport.is-dark .discipline-register,.discipline-page .viewport.is-dark .discipline-cols>div{border-top-color:#504D57}.discipline-page .viewport.is-dark .discipline-row{border-bottom-color:#3E3B45}.discipline-page .viewport.is-dark .discipline-row span:last-child,.discipline-page .viewport.is-dark .discipline-cols p{color:#b9b6ae}.discipline-page .viewport.is-dark .discipline-statement{border-top-color:#504D57;border-bottom-color:#504D57}
@@ -31,8 +31,8 @@
 <div class="discipline-register verdicts"><div class="discipline-row"><strong>AAH.</strong><span>The commitment deserves to be made.</span></div><div class="discipline-row"><strong>HMM.</strong><span>Not enough to responsibly say AAH or DULL.</span></div><div class="discipline-row"><strong>DULL.</strong><span>The commitment does not deserve to be made in its present form.</span></div></div>
 <p class="discipline-statement">SIMPLE QUESTION. SERIOUS SCRUTINY.</p>
 </div>
-<button class="discipline-deeper" type="button" id="deeper-toggle" aria-expanded="false" aria-controls="deeper"><span class="discipline-deeper-label">GO DEEPER</span><span class="discipline-deeper-mark" aria-hidden="true">↓</span></button>
 </section>
+<section class="viewport home-paper discipline-deeper-band"><button class="discipline-deeper" type="button" id="deeper-toggle" aria-expanded="false" aria-controls="deeper"><span class="discipline-deeper-label">GO DEEPER</span><span class="discipline-deeper-mark" aria-hidden="true">↓</span></button></section>
 <div id="deeper" hidden>
 <section class="viewport home-paper is-dark" id="under-scrutiny">
 <div class="product-orientation"><span></span><span>UNDER SCRUTINY</span></div>
@@ -126,9 +126,15 @@
   var btn=document.getElementById('deeper-toggle'),
       panel=document.getElementById('deeper');
   if(!btn||!panel)return;
-  var label=btn.querySelector('.discipline-deeper-label'),
+  var band=btn.closest?btn.closest('.discipline-deeper-band'):null,
+      label=btn.querySelector('.discipline-deeper-label'),
       mark=btn.querySelector('.discipline-deeper-mark');
-  btn.addEventListener('click',function(){
+  // The listener sits on the band, so a click anywhere in the section
+  // toggles - and a click on the button, or the click Enter/Space
+  // synthesises on it, bubbles up to exactly the same handler once.
+  // The band itself is not focusable: focus stays on the button, which
+  // is why the site's global focus ring frames the label alone.
+  (band||btn).addEventListener('click',function(){
     var open=btn.getAttribute('aria-expanded')==='true';
     btn.setAttribute('aria-expanded',open?'false':'true');
     panel.hidden=open;
