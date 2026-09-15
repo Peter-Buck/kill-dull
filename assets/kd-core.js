@@ -251,11 +251,13 @@
     var dropdown = document.getElementById('reg-mobile-dropdown');
     if (!btn || !dropdown) return;
     btn.addEventListener('click', function () {
-      if (dropdown.hasAttribute('hidden')) dropdown.removeAttribute('hidden');
+      var open = dropdown.hasAttribute('hidden');
+      if (open) dropdown.removeAttribute('hidden');
       else dropdown.setAttribute('hidden', '');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
     var links = dropdown.querySelectorAll('a');
-    for (var i = 0; i < links.length; i++) links[i].addEventListener('click', function () { dropdown.setAttribute('hidden', ''); });
+    for (var i = 0; i < links.length; i++) links[i].addEventListener('click', function () { dropdown.setAttribute('hidden', ''); btn.setAttribute('aria-expanded', 'false'); });
   }
 
   function wireChapterScroll() {

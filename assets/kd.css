@@ -301,6 +301,12 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
   }
   .reg-mobile-arrow { color: var(--yellow); }
   .reg-mobile-dropdown {
+    /* No position was ever set, so the panel laid out as a flex sibling
+       beside the button instead of dropping below the nav. */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
     background: var(--ink);
     border-top: 1px solid var(--border);
   }
