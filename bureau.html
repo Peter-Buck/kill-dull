@@ -14,16 +14,20 @@
 .dept-image{display:block;width:calc(100% + var(--section-pad-h) * 2);max-width:none;height:auto;margin:72px calc(var(--section-pad-h) * -1) 0}.bureau-page .viewport.dept-open{padding-bottom:0}.dept-section{padding:120px;color:#EFEDE4;background:#24222B}.dept-section.is-light{background:var(--paper);color:var(--ink)}.dept-section .product-orientation{color:#EFEDE4!important}.dept-section .product-orientation:before{background:#504D57!important}.dept-section.is-light .product-orientation{color:var(--text-secondary)!important}.dept-section.is-light .product-orientation:before{background:var(--border)!important}.dept-headline{margin:0;font-family:"Space Grotesk",sans-serif;font-size:clamp(46px,6.4vw,90px);font-weight:500;line-height:.95;letter-spacing:-.045em;color:#fff;text-transform:uppercase}.dept-section.is-light .dept-headline{color:var(--ink)}.dept-copy{width:100%;max-width:50%;margin-top:36px;font-size:17px;line-height:1.8}.dept-copy p{margin:0}.dept-copy p+p{margin-top:18px}.dept-register{margin-top:72px;border-top:1px solid #504D57}.dept-section.is-light .dept-register{border-top-color:var(--border)}.dept-entry{display:grid;grid-template-columns:200px 1fr;gap:0;padding:36px 0;border-bottom:1px solid #504D57}.dept-section.is-light .dept-entry{border-bottom-color:var(--border)}.dept-entry-subject{font-family:"IBM Plex Mono",monospace;font-size:15px;font-weight:400;line-height:1.4;letter-spacing:.12em;text-transform:uppercase;color:#aaa69d}.dept-section.is-light .dept-entry-subject{color:#736F65}.dept-entry-claim{margin:0;font-family:"Space Grotesk",sans-serif;font-size:22px;font-weight:500;line-height:1.35;letter-spacing:-.02em;color:#fff}.dept-section.is-light .dept-entry-claim{color:var(--ink)}.dept-entry-note{margin:14px 0 0;font-size:17px;line-height:1.8;max-width:640px}.dept-meta{margin:20px 0 0;font-family:"IBM Plex Mono",monospace;font-size:13px;line-height:1.9;letter-spacing:.04em}.dept-meta div{display:grid;grid-template-columns:120px 1fr;gap:0}.dept-meta dt{color:#aaa69d}.dept-section.is-light .dept-meta dt{color:#736F65}.dept-meta dd{margin:0}.dept-entry-cta{margin-top:22px}.dept-note{margin:36px 0 0;font-family:"IBM Plex Mono",monospace;font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:#aaa69d}.dept-section.is-light .dept-note{color:#736F65}.dept-stamp{margin:36px 0 0;font-family:"IBM Plex Mono",monospace;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#736F65}.dept-close{padding:120px;background:#24222B}.dept-close h2{margin:0;font-family:"Space Grotesk",sans-serif;font-size:clamp(46px,6.4vw,90px);font-weight:500;line-height:.95;letter-spacing:-.045em;color:#fff;text-transform:uppercase}@media(max-width:1000px){.dept-section,.dept-close{padding:64px}}@media(max-width:767px){.dept-section,.dept-close{padding:24px}.dept-copy{max-width:100%}.dept-entry{grid-template-columns:1fr;gap:14px}.dept-meta div{grid-template-columns:1fr}}
 .dept-subhead{margin:72px 0 0;font-family:"Space Grotesk",sans-serif;font-size:clamp(28px,3.4vw,46px);font-weight:500;line-height:1;letter-spacing:-.04em;color:#fff;text-transform:uppercase}.dept-section.is-light .dept-subhead{color:var(--ink)}.dept-subhead+.dept-copy{margin-top:28px}
 
-/* Bureau only: the hairline immediately above THE BUREAU. stays at its own vertical
-   position and is drawn full-bleed. .footer-bureau's own inset border is removed and
-   replaced by a pseudo-element whose containing block is .footer (made position:relative),
-   which is already full viewport width -- so left:0/right:0 spans the viewport without
-   assuming the footer gutter value at any breakpoint. top:auto keeps the pseudo at
-   .footer-bureau's static position; margin-top:-32px cancels its padding-top so the line
-   lands exactly on the old border edge. Nothing in flow moves. */
+/* Bureau only: the hairline immediately above THE BUREAU., full-bleed.
+   .footer-bureau's own inset border is removed; the line is painted by .footer::before,
+   absolutely positioned inside .footer (position:relative). top, left and right are ALL
+   specified, so CSS 2.1 10.3.7 and 10.6.4 fully determine the box -- no static position is
+   consulted and nothing is implementation-defined. .footer has no padding, so its padding
+   box is the viewport width and left:0/right:0 spans it exactly (no 100vw, so a classic
+   scrollbar cannot push it into overflow). top equals .footer-inner's own padding-top at
+   each of the site's three breakpoints (assets/kd.js), which is exactly .footer-bureau's
+   top edge. Out of flow: nothing moves. */
 .v5-home.bureau-page .footer{position:relative}
-.v5-home.bureau-page .footer-bureau{border-top:0!important;position:static}
-.v5-home.bureau-page .footer-bureau::before{content:"";position:absolute;left:0;right:0;margin-top:-32px;height:1px;background:#504D57;pointer-events:none}
+.v5-home.bureau-page .footer-bureau{border-top:0!important}
+.v5-home.bureau-page .footer::before{content:"";position:absolute;top:80px;left:0;right:0;height:1px;background:#504D57;z-index:1;pointer-events:none}
+@media(max-width:1279px){.v5-home.bureau-page .footer::before{top:64px}}
+@media(max-width:767px){.v5-home.bureau-page .footer::before{top:48px}}
 </style>
 </head>
 <body class="v5-home bureau-page notranslate">
