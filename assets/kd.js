@@ -76,7 +76,10 @@
     '.kd-skip{position:absolute!important;left:-9999px!important;top:0;z-index:10001;display:inline-block;padding:12px 18px;background:var(--ink,#24222B);color:var(--paper,#FFFFFF)!important;font-family:"IBM Plex Mono",monospace;font-size:15px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}.kd-skip:focus{left:12px!important;top:12px!important;outline:2px solid #FFFF00;outline-offset:2px}main:focus{outline:none}:focus-visible{outline:2px solid #FFFF00!important;outline-offset:2px!important;box-shadow:0 0 0 4px #24222B!important}.product-orientation>span:last-child{color:#736F65!important}.viewport.is-dark .product-orientation>span:last-child,.bench-process .product-orientation>span:last-child,#discuss .product-orientation>span:last-child,.record-intro .product-orientation>span:last-child,.dept-section:not(.is-light) .product-orientation>span:last-child{color:#A5A299!important}.reg-item{color:#A09D94!important}.reg-item.is-current,.reg-item.is-active{color:#FFFFFF!important}'+
     '.kd-talk{background:var(--paper)!important;color:var(--ink)!important}'+
     '.kd-talk .hero-line{color:var(--ink)!important;white-space:normal!important}'+
-    '.kd-talk-cta{margin-top:36px;width:max-content}';
+    '.kd-talk-cta{margin-top:36px;width:max-content}'+
+    '.bureau-full-divider{width:100%;height:1px;background:#504D57}'+
+    '.kd-full-divider .footer-bureau{border-top:0!important}'+
+    '.kd-full-divider .footer{border-top:0!important}';
   document.head.appendChild(style);
 
   function routeKey(pathname){
@@ -131,11 +134,18 @@
         '<a class="kd-cta-unified kd-talk-cta" href="mailto:human@killdull.com">REALHUMAN@KILLDULL.COM</a>';
       footEl.parentNode.insertBefore(contact,footEl);
     }
-    // /bureau only: one full-width divider between the CTA and the footer.
-    if(footEl&&footEl.parentNode&&document.body.classList.contains('bureau-page')&&!document.querySelector('.bureau-full-divider')){
-      var bureauRule=document.createElement('div');
-      bureauRule.className='bureau-full-divider';bureauRule.setAttribute('aria-hidden','true');
-      footEl.parentNode.insertBefore(bureauRule,footEl);
+    // One full-width divider between the CTA and the footer, on every page whose
+    // contact section is light. Where that section is dark its own edge already
+    // divides it from the footer, so the rule would only double it.
+    var talkEl=document.querySelector('.kd-talk');
+    if(footEl&&footEl.parentNode&&talkEl&&!document.querySelector('.bureau-full-divider')){
+      var rgb=(getComputedStyle(talkEl).backgroundColor.match(/\d+/g)||['255','255','255']).map(Number);
+      if(rgb[0]*0.2126+rgb[1]*0.7152+rgb[2]*0.0722>128){
+        var bureauRule=document.createElement('div');
+        bureauRule.className='bureau-full-divider';bureauRule.setAttribute('aria-hidden','true');
+        footEl.parentNode.insertBefore(bureauRule,footEl);
+        document.body.classList.add('kd-full-divider');
+      }
     }
     var footer=document.querySelector('.footer');
     if(footer) footer.innerHTML='<div class="footer-inner"><div class="footer-bureau">THE BUREAU.</div><div class="footer-index"><div class="footer-section"><div class="footer-section-label">DISCIPLINE</div><nav aria-label="Discipline"><a href="/discipline">The Dense Idea Discipline</a></nav></div><div class="footer-section"><div class="footer-section-label">BENCH</div><nav aria-label="Bench"><a href="/bench">How the Bench Works</a><a href="/readings">Private Readings</a><a href="/readings#record">Published Readings</a></nav></div><div class="footer-section"><div class="footer-section-label">KILL DULL</div><nav aria-label="Kill Dull"><a href="/bureau">Department of Hard Evidence</a><a href="/accessibility" aria-label="Accessibility statement">Accessibility</a><a href="/privacy" aria-label="Privacy policy">Privacy</a><a href="/terms" aria-label="Terms of use">Terms</a></nav></div></div><div class="footer-colophon"><span>© 2026 Kill Dull. All rights reserved.</span></div></div>';
