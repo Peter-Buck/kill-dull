@@ -37,8 +37,12 @@
     '.readings-page .reading-container{overflow:hidden!important;transition:border-color .18s ease!important}'+
     '.readings-page .reading-container h2{margin:auto 0 0!important;transition:transform .5s cubic-bezier(.2,.8,.2,1)!important}'+
     '.readings-page .reading-container .container-copy{max-height:0!important;margin-top:0!important;padding-top:0!important;opacity:0!important;transform:translateY(10px)!important;overflow:hidden!important;transition:max-height .6s cubic-bezier(.2,.8,.2,1),opacity .4s ease,transform .5s cubic-bezier(.2,.8,.2,1),margin-top .5s ease,padding-top .5s ease!important}'+
-    '.readings-page .reading-container:hover .container-copy,.readings-page .reading-container:focus-visible .container-copy{max-height:420px!important;margin-top:24px!important;padding-top:0!important;opacity:1!important;transform:translateY(0)!important}'+
-    '.readings-page .reading-container:hover h2,.readings-page .reading-container:focus-visible h2{transform:translateY(-4px)!important}'+
+    '.readings-page .reading-container.is-active .container-copy,.readings-page .reading-container:focus-visible .container-copy{max-height:420px!important;margin-top:24px!important;padding-top:0!important;opacity:1!important;transform:translateY(0)!important}'+
+    '.readings-page .reading-container.is-active h2,.readings-page .reading-container:focus-visible h2{transform:translateY(-4px)!important}'+
+    '@media(hover:hover){'+
+      '.readings-page .reading-container:hover .container-copy{max-height:420px!important;margin-top:24px!important;padding-top:0!important;opacity:1!important;transform:translateY(0)!important}'+
+      '.readings-page .reading-container:hover h2{transform:translateY(-4px)!important}'+
+    '}'+
     '.readings-page .record-logo{transform-origin:left center!important}'+
     '.readings-page .record-row:nth-child(1) .record-logo{transform:scale(.748)!important}'+
     '.readings-page .record-row:nth-child(2) .record-logo{transform:scale(1.3175)!important}'+
@@ -64,7 +68,7 @@
     '.v5-home #home-close .close-options a.kd-cta-unified:hover,.v5-home #home-close .close-options a.kd-cta-unified:focus-visible{background:transparent!important;border-color:var(--yellow)!important;color:inherit!important}'+
     '@media(max-width:1279px){.masthead-top{padding-left:64px!important;padding-right:64px!important}.masthead-designation{padding-left:64px!important;padding-right:64px!important}.masthead-rule{margin:0 64px!important}.footer-inner{padding:64px!important}}'+
     '@media(max-width:1000px){.masthead-top{gap:8px!important}.masthead-date,.masthead-wordmark,.masthead-designation{text-align:center!important}}'+
-    '@media(max-width:767px){.masthead-top{padding:30px 24px 24px!important}.masthead-wordmark{font-size:34px!important}.masthead-date,.masthead-designation{font-size:9px!important;letter-spacing:.08em!important}.masthead-designation{padding:12px 24px!important}.masthead-rule{margin:0 24px!important}.unified-nav{grid-template-columns:1fr auto!important}.registrar-mobile{grid-column:1!important}.unified-nav-products{display:flex!important;grid-column:2!important;justify-self:end!important;padding-right:24px!important}.footer-inner{padding:48px 24px!important}.footer-section{grid-template-columns:1fr!important;gap:12px!important}.readings-page .reading-container .container-copy{max-height:none!important;margin-top:24px!important;opacity:1!important;transform:none!important}}'+
+    '@media(max-width:767px){.masthead-top{padding:30px 24px 24px!important}.masthead-wordmark{font-size:34px!important}.masthead-date,.masthead-designation{font-size:9px!important;letter-spacing:.08em!important}.masthead-designation{padding:12px 24px!important}.masthead-rule{margin:0 24px!important}.unified-nav{grid-template-columns:1fr auto!important}.registrar-mobile{grid-column:1!important}.unified-nav-products{display:flex!important;grid-column:2!important;justify-self:end!important;padding-right:24px!important}.footer-inner{padding:48px 24px!important}.footer-section{grid-template-columns:1fr!important;gap:12px!important}}'+
     /* Cards that open, on a phone.
        A card is a fixed 2:3 frame with a glass panel sized by its copy, and on
        a narrow screen those two move in opposite directions: the card gets
@@ -213,7 +217,7 @@
     function dropEarlyCover(){document.documentElement.removeAttribute('data-kd-arriving');var s=document.getElementById('kd-route-arriving');if(s&&s.parentNode)s.parentNode.removeChild(s);}
     function arrive(){var pending=null;try{pending=JSON.parse(sessionStorage.getItem(STORE)||'null');sessionStorage.removeItem(STORE);}catch(err){pending=null;}if(pending&&pending.to===currentKey()&&(Date.now()-pending.t)<MAX_HOLD_MS&&!reducedMotion()){phase='cover';mount('is-covered');requestAnimationFrame(function(){timers.push(setTimeout(reveal,SETTLE_MS));});}dropEarlyCover();}
     if(document.prerendering){if(!reducedMotion())mount('is-covered');document.addEventListener('prerenderingchange',function(){if(panel)unmount();arrive();},{once:true});}else arrive();
-    document.addEventListener('click',function(e){if(phase!=='idle')return;if(e.defaultPrevented||e.button!==0)return;if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var anchor=e.target&&e.target.closest?e.target.closest('a'):null;if(!anchor||anchor.hasAttribute('download'))return;if(anchor.target&&anchor.target!=='_self')return;var url;try{url=new URL(anchor.href,window.location.href);}catch(err){return;}if(url.origin!==window.location.origin)return;var from=currentKey(),to=routeKey(url.pathname);if(!from||!to||from===to)return;if(reducedMotion())return;e.preventDefault();var href=url.pathname+url.search+url.hash;phase='cover';mount('is-cover');try{sessionStorage.setItem(STORE,JSON.stringify({to:to,t:Date.now()}));}catch(err){}timers.push(setTimeout(function(){window.location.assign(href);},SWEEP_MS));timers.push(setTimeout(reveal,MAX_HOLD_MS));},true);
+    document.addEventListener('click',function(e){if(phase!=='idle')return;if(e.defaultPrevented||e.button!==0)return;if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;if(cardClaimsClick(e))return;var anchor=e.target&&e.target.closest?e.target.closest('a'):null;if(!anchor||anchor.hasAttribute('download'))return;if(anchor.target&&anchor.target!=='_self')return;var url;try{url=new URL(anchor.href,window.location.href);}catch(err){return;}if(url.origin!==window.location.origin)return;var from=currentKey(),to=routeKey(url.pathname);if(!from||!to||from===to)return;if(reducedMotion())return;e.preventDefault();var href=url.pathname+url.search+url.hash;phase='cover';mount('is-cover');try{sessionStorage.setItem(STORE,JSON.stringify({to:to,t:Date.now()}));}catch(err){}timers.push(setTimeout(function(){window.location.assign(href);},SWEEP_MS));timers.push(setTimeout(reveal,MAX_HOLD_MS));},true);
     function prepareRoutes(){var seen={},urls=[],links=document.querySelectorAll('a[href]');for(var i=0;i<links.length;i++){var u;try{u=new URL(links[i].href,window.location.href);}catch(err){continue;}var k=routeKey(u.pathname);if(u.origin!==window.location.origin||!k||k===currentKey()||seen[u.pathname])continue;seen[u.pathname]=1;urls.push(u.pathname);}if(!urls.length)return;if(!reducedMotion()&&window.HTMLScriptElement&&HTMLScriptElement.supports&&HTMLScriptElement.supports('speculationrules')){var rules=document.createElement('script');rules.type='speculationrules';rules.textContent=JSON.stringify({prerender:[{where:{or:urls.map(function(p){return {href_matches:p};})},eagerness:'moderate'}]});document.head.appendChild(rules);}else{for(var j=0;j<urls.length;j++){var l=document.createElement('link');l.rel='prefetch';l.href=urls[j];document.head.appendChild(l);}}}
     if(document.readyState==='complete')setTimeout(prepareRoutes,0);else window.addEventListener('load',function(){setTimeout(prepareRoutes,0);});
     window.addEventListener('pageshow',function(ev){if(ev.persisted){unmount();dropEarlyCover();try{sessionStorage.removeItem(STORE);}catch(err){}}});
@@ -575,7 +579,32 @@
      tap is now deliberate and says what it did - one card open at a time, tap
      an open card to close it - and the hover preview is left to pointers that
      actually hover. Enter and Space arrive here as clicks. */
-  var KD_CARDS='.kd-review-card,.bench-card,.record-card';
+  var KD_CARDS='.kd-review-card,.bench-card,.record-card,.reading-container';
+
+  // Two of these cards ARE links: the Private and Published Reading panels.
+  // They keep the link's job and the link's role; only the way a finger opens
+  // them differs, below.
+  function cardIsLink(card){
+    return card.tagName==='A'||card.tagName==='BUTTON';
+  }
+
+  function cardHovers(){
+    return !!(window.matchMedia&&window.matchMedia('(hover: hover)').matches);
+  }
+
+  // The route sweep takes every same-origin link click in the capture phase and
+  // drives the navigation itself. That is why a tap on a Reading panel left the
+  // page before anything could open it: the sweep had already claimed the click
+  // before the card ever saw it. It asks this first now, and stands aside for
+  // the one tap that belongs to the card.
+  function cardClaimsClick(e){
+    var t=e.target;
+    if(!t||!t.closest)return false;
+    var card=t.closest(KD_CARDS);
+    if(!card||!cardIsLink(card))return false;
+    if(cardHovers())return false;
+    return !t.closest('.container-action');
+  }
 
   function cardsAnnounce(){
     var cards=document.querySelectorAll(KD_CARDS);
@@ -584,9 +613,12 @@
       if(card.getAttribute('data-kd-card')!==null)continue;
       card.setAttribute('data-kd-card','');
       // A card holding its own link keeps that link's job intact; giving the
-      // card a button role as well would nest one control inside another.
-      if(!card.querySelector('a,button'))card.setAttribute('role','button');
-      if(!card.hasAttribute('tabindex'))card.setAttribute('tabindex','0');
+      // card a button role as well would nest one control inside another. A
+      // card that IS a link keeps the role and the focus it already has.
+      if(!cardIsLink(card)){
+        if(!card.querySelector('a,button'))card.setAttribute('role','button');
+        if(!card.hasAttribute('tabindex'))card.setAttribute('tabindex','0');
+      }
       cardAria(card);
     }
   }
@@ -617,6 +649,19 @@
       if(!t||!t.closest)return;
       var card=t.closest(KD_CARDS);
       if(!card)return;
+      if(cardIsLink(card)){
+        // Two of these cards are links. Where there is a real pointer, hover
+        // already shows what is inside and a click goes where the link says.
+        // Where there is not, one tap cannot both open the card and leave it,
+        // so the card takes the tap and the row that names the destination
+        // keeps it - and that row is only reachable once the card is open,
+        // which is the only moment the destination has been explained.
+        if(cardHovers())return;
+        if(t.closest('.container-action'))return;
+        e.preventDefault();
+        cardToggle(card);
+        return;
+      }
       if(t.closest('a,button'))return;   // a control inside the card wins
       cardToggle(card);
     });
@@ -624,6 +669,7 @@
       if(e.key!=='Enter'&&e.key!==' '&&e.key!=='Spacebar')return;
       var t=e.target;
       if(!t||!t.closest||t!==t.closest(KD_CARDS))return;
+      if(cardIsLink(t))return;           // Enter on a link still follows it
       e.preventDefault();
       cardToggle(t);
     });
