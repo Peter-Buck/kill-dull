@@ -68,7 +68,7 @@
     '.v5-home #home-close .close-options a.kd-cta-unified:hover,.v5-home #home-close .close-options a.kd-cta-unified:focus-visible{background:transparent!important;border-color:var(--yellow)!important;color:inherit!important}'+
     '@media(max-width:1279px){.masthead-top{padding-left:64px!important;padding-right:64px!important}.masthead-designation{padding-left:64px!important;padding-right:64px!important}.masthead-rule{margin:0 64px!important}.footer-inner{padding:64px!important}}'+
     '@media(max-width:1000px){.masthead-top{gap:8px!important}.masthead-date,.masthead-wordmark,.masthead-designation{text-align:center!important}}'+
-    '@media(max-width:767px){.masthead-top{padding:30px 24px 24px!important}.masthead-wordmark{font-size:34px!important}.masthead-date,.masthead-designation{font-size:9px!important;letter-spacing:.08em!important}.masthead-designation{padding:12px 24px!important}.masthead-rule{margin:0 24px!important}.unified-nav{grid-template-columns:1fr auto!important}.registrar-mobile{grid-column:1!important}.unified-nav-products{display:flex!important;grid-column:2!important;justify-self:end!important;padding-right:24px!important}.footer-inner{padding:48px 24px!important}.footer-section{grid-template-columns:1fr!important;gap:12px!important}}'+
+    '@media(max-width:767px){.masthead-top{padding:30px 24px 24px!important}.masthead-wordmark{font-size:34px!important}.masthead-date{font-size:9px!important;letter-spacing:.08em!important}.masthead-designation{font-size:clamp(11px,3.2vw,13px)!important;letter-spacing:.08em!important}.masthead-designation{padding:12px 24px!important}.masthead-rule{margin:0 24px!important}.unified-nav{grid-template-columns:1fr auto!important}.registrar-mobile{grid-column:1!important}.unified-nav-products{display:flex!important;grid-column:2!important;justify-self:end!important;padding-right:24px!important}.footer-inner{padding:48px 24px!important}.footer-section{grid-template-columns:1fr!important;gap:12px!important}}'+
     /* Cards that open, on a phone.
        A card is a fixed 2:3 frame with a glass panel sized by its copy, and on
        a narrow screen those two move in opposite directions: the card gets
@@ -83,9 +83,9 @@
       '.record-card.is-active{aspect-ratio:auto!important;min-height:calc(min(100vw - 48px,510px) * 1.5)!important}'+
       '.kd-review-card.is-active .kd-review-panel,.bench-card.is-active .bench-card-panel,.record-card.is-active .record-panel{'+
         'position:relative!important;left:auto!important;right:auto!important;bottom:auto!important;'+
-        'margin:56px 18px 18px!important;min-height:0!important;overflow:visible!important;transition:none!important}'+
+        'margin:56px 18px 18px!important;min-height:0!important;overflow:hidden!important}'+
       '.kd-review-card.is-active .kd-review-copy,.bench-card.is-active .bench-card-copy,.record-card.is-active .record-reveal{'+
-        'max-height:none!important;margin-top:18px!important;opacity:1!important;transform:none!important;transition:none!important}'+
+        'max-height:none!important;margin-top:18px!important;opacity:1!important;transform:none!important}'+
     '}'+
     '@media(prefers-reduced-motion:reduce){.readings-page .reading-container h2,.readings-page .reading-container .container-copy{transition:none!important}.kd-cta-unified::after{transition:none!important}}'+
     '.kd-skip{position:absolute!important;left:-9999px!important;top:0;z-index:10001;display:inline-block;padding:12px 18px;background:var(--ink,#24222B);color:var(--paper,#FFFFFF)!important;font-family:"IBM Plex Mono",monospace;font-size:15px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}.kd-skip:focus{left:12px!important;top:12px!important;outline:2px solid #FFFF00;outline-offset:2px}main:focus{outline:none}:focus-visible{outline:2px solid #FFFF00!important;outline-offset:2px!important;box-shadow:0 0 0 4px #24222B!important}.product-orientation>span:last-child{color:#736F65!important}.viewport.is-dark .product-orientation>span:last-child,.bench-process .product-orientation>span:last-child,#discuss .product-orientation>span:last-child,.record-intro .product-orientation>span:last-child,.dept-section:not(.is-light) .product-orientation>span:last-child{color:#A5A299!important}.reg-item{color:#A09D94!important}.reg-item.is-current,.reg-item.is-active{color:#FFFFFF!important}'+
@@ -592,6 +592,59 @@
     return !!(window.matchMedia&&window.matchMedia('(hover: hover)').matches);
   }
 
+  function cardNarrow(){
+    return !!(window.matchMedia&&window.matchMedia('(max-width: 767px)').matches);
+  }
+
+  function cardReduced(){
+    return !!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  }
+
+  /* Opening a card on a phone arrived in a single frame, and it had to.
+     On a desk one property moves: the panel's min-height, on a 650ms curve,
+     and the copy fades up behind it. On a phone the whole layout changes -
+     the panel leaves absolute positioning, the card lets go of its 2:3 ratio
+     and grows to hold what is inside. Position and ratio cannot be
+     transitioned at all, so there was nothing for the browser to animate and
+     the card simply appeared.
+     So the new layout is applied first and then played back from where the old
+     one was: the panel travels and resizes from the rect it occupied to the
+     one it now occupies, the card's height from its old to its new, both on
+     the same curve and duration the desktop panel has always used. Nothing
+     about the resting state changes - this only fills in the gap between two
+     of them. */
+  var CARD_PANEL='.kd-review-panel,.bench-card-panel,.record-panel';
+  var CARD_EASE='cubic-bezier(.2,.8,.2,1)';
+  var CARD_MS=650;
+
+  function cardFlip(moving,apply){
+    if(!cardNarrow()||cardReduced()||!document.body||!document.body.animate){apply();return;}
+    var before=[],i,card,panel,cr,pr;
+    for(i=0;i<moving.length;i++){
+      card=moving[i];panel=card.querySelector(CARD_PANEL);
+      if(!panel){before.push(null);continue;}
+      cr=card.getBoundingClientRect();pr=panel.getBoundingClientRect();
+      before.push({panel:panel,h:cr.height,top:pr.top-cr.top,ph:pr.height});
+    }
+    apply();
+    for(i=0;i<moving.length;i++){
+      var was=before[i];
+      if(!was)continue;
+      card=moving[i];
+      cr=card.getBoundingClientRect();pr=was.panel.getBoundingClientRect();
+      var h=cr.height,top=pr.top-cr.top,ph=pr.height;
+      if(Math.abs(h-was.h)<1&&Math.abs(ph-was.ph)<1&&Math.abs(top-was.top)<1)continue;
+      if(Math.abs(h-was.h)>=1){
+        card.animate([{height:was.h+'px'},{height:h+'px'}],
+          {duration:CARD_MS,easing:CARD_EASE});
+      }
+      was.panel.animate([
+        {height:was.ph+'px',transform:'translateY('+(was.top-top)+'px)'},
+        {height:ph+'px',transform:'translateY(0)'}
+      ],{duration:CARD_MS,easing:CARD_EASE});
+    }
+  }
+
   // The route sweep takes every same-origin link click in the capture phase and
   // drives the navigation itself. That is why a tap on a Reading panel left the
   // page before anything could open it: the sweep had already claimed the click
@@ -634,9 +687,15 @@
 
   function cardToggle(card){
     var wasOpen=card.classList.contains('is-active');
-    var cards=document.querySelectorAll(KD_CARDS);
-    for(var i=0;i<cards.length;i++)cards[i].classList.remove('is-active');
-    if(!wasOpen)card.classList.add('is-active');
+    var cards=document.querySelectorAll(KD_CARDS),moving=[card],i;
+    // the one being asked for, and whichever one is giving way to it
+    for(i=0;i<cards.length;i++){
+      if(cards[i]!==card&&cards[i].classList.contains('is-active'))moving.push(cards[i]);
+    }
+    cardFlip(moving,function(){
+      for(var j=0;j<cards.length;j++)cards[j].classList.remove('is-active');
+      if(!wasOpen)card.classList.add('is-active');
+    });
     for(i=0;i<cards.length;i++)cardAria(cards[i]);
   }
 

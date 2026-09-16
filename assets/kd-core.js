@@ -74,27 +74,8 @@
     if (reg) reg.style.transform = hidden ? 'translateY(-' + ((mh ? mh.offsetHeight : 0) + reg.offsetHeight) + 'px)' : 'translateY(0)';
   }
 
-  // On a phone the homepage opens with a full screen of statement that sits in
-  // the flow above the masthead. While the visitor is still inside it there is
-  // no site to put a header on, so the header waits below the fold and arrives
-  // as they scroll out of it. Everywhere else this returns 0 and the rule below
-  // is exactly the rule it has always been.
-  function openerCover() {
-    var o = document.getElementById('kd-opener');
-    return (o && !o.hidden && o.classList.contains('is-static')) ? o.offsetHeight : 0;
-  }
-
-  var leftOpener = false;
-
   function updateHeaderVisibility() {
     var y = window.scrollY || 0;
-    var base = openerCover();
-    if (base) {
-      // Inside the opening screen there is no site to put a header on.
-      if (y < base - 8) { setHeaderHidden(true); leftOpener = false; lastScrollY = y; return; }
-      // Leaving it, the header arrives once - however fast that scroll was.
-      if (!leftOpener) { leftOpener = true; setHeaderHidden(false); lastScrollY = y; return; }
-    }
     if (y <= 8) setHeaderHidden(false);
     else if (y > lastScrollY + 2) setHeaderHidden(true);
     else if (y < lastScrollY - 2) setHeaderHidden(false);

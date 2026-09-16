@@ -45,16 +45,14 @@
 #kd-opener-caret{display:inline-block;width:.06em;margin-left:.04em;background:var(--paper,#FFFFFF);animation:kdOpenerCaret .7s step-end infinite}
 #kd-opener.is-fading #kd-opener-caret{display:none}
 @keyframes kdOpenerCaret{0%,45%{opacity:1}55%,100%{opacity:0}}
-/* On a phone the opening is not an interstitial to be waited out. It is the
-   first screen of the page: one screen of statement, in the flow above the
-   masthead, that the visitor scrolls past the way they scroll past anything
-   else. No animation, no timer, nothing to dismiss, and no question about
-   whether they had time to read it. The header waits below it and arrives as
-   they leave (kd-core.js, openerCover). */
+/* On a phone the statement arrives already settled and is held for a beat,
+   then cleared by the same fade the desktop opening ends on. The page and its
+   header are underneath it from the first frame, so nothing has to be scrolled
+   past and nothing has to be dismissed. */
 @media(max-width:767px){
-#kd-opener.is-static{position:static;z-index:auto;min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-content:flex-start;padding:0 24px;box-sizing:border-box;opacity:1;transition:none}
-#kd-opener.is-static h1{white-space:pre-wrap;font-size:clamp(30px,8.6vw,44px);width:100%!important;height:auto!important;text-align:left}
-#kd-opener.is-static #kd-opener-caret{display:none}
+#kd-opener.is-hold{justify-content:flex-start;padding:0 24px;box-sizing:border-box}
+#kd-opener.is-hold h1{white-space:pre-wrap;font-size:clamp(30px,8.6vw,44px);width:100%!important;height:auto!important;text-align:left}
+#kd-opener.is-hold #kd-opener-caret{display:none}
 }
 </style>
 <div id="kd-opener" role="region" aria-labelledby="kd-opener-h" aria-hidden="true" hidden><h1 id="kd-opener-h"><span id="kd-opener-pre"></span><span id="kd-opener-word"></span><span id="kd-opener-suf"></span><span id="kd-opener-caret">&nbsp;</span></h1></div>
@@ -66,19 +64,21 @@ var PREFIX='MARKETING COMES WITH FOUR Ps.\nCOMMITMENTS COME WITH ',WRONG='FOUR',
 var FINAL=PREFIX+RIGHT+SUFFIX;
 var timers=[];function schedule(fn,d){timers.push(setTimeout(fn,d));}
 function setStyle(s){word.className=s==='selected'?'is-selected':s==='right'?'is-right':'';}
-// A phone gets the settled sentence and nothing else: page content, shown
-// every time, sized by the site's own mobile headline scale rather than by the
-// fitter, which squeezed a two-line pre-wrapped string down to 18px. Nothing
-// below this line runs there - no fitter, no session gate, no timers.
-if(window.matchMedia&&window.matchMedia('(max-width: 767px)').matches){
-  el.classList.add('is-static');
-  el.removeAttribute('aria-hidden');
-  pre.textContent=PREFIX;setStyle('right');word.textContent=RIGHT;suf.textContent=SUFFIX;
-  el.hidden=false;
-  return;
-}
 var seen=false;try{seen=sessionStorage.getItem(KEY)==='1';}catch(e){}
 if(seen)return;
+// A phone gets the sentence already settled - no typing, no deleting, nothing
+// to wait out twice - held for two seconds and then cleared by the same fade
+// the desktop opening ends on. The page and its header are already underneath;
+// nothing has to be scrolled past. Sized by the site's own mobile headline
+// scale rather than by the fitter, which squeezed a two-line pre-wrapped
+// string down to 18px. Nothing below this line runs there.
+if(window.matchMedia&&window.matchMedia('(max-width: 767px)').matches){
+  el.classList.add('is-hold');
+  pre.textContent=PREFIX;setStyle('right');word.textContent=RIGHT;suf.textContent=SUFFIX;
+  el.hidden=false;
+  schedule(finish,2000);
+  return;
+}
 function fit(){var pad=window.innerWidth<768?48:window.innerWidth<1280?128:240;var p=pre.textContent,w=word.textContent,s=suf.textContent;pre.textContent=FINAL;word.textContent='';suf.textContent='';h1.style.width='auto';h1.style.height='auto';h1.style.fontSize='500px';var r=(window.innerWidth-pad)/h1.scrollWidth;h1.style.fontSize=Math.max(10,Math.floor(r*500))+'px';h1.style.width=Math.ceil(h1.scrollWidth)+'px';h1.style.height=Math.ceil(h1.getBoundingClientRect().height)+'px';pre.textContent=p;word.textContent=w;suf.textContent=s;}
 fit();el.hidden=false;
 window.addEventListener('resize',fit);
