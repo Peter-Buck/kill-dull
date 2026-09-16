@@ -39,8 +39,6 @@
     '.footer-section-label{font-size:15px!important}'+
     '.footer-section nav a{font-size:18px!important}'+
     '.footer-colophon{font-size:13px!important}'+
-    '.readings-page .accumulate{max-width:none!important;width:100%!important;text-transform:uppercase!important}'+
-    '.readings-page .accumulate .hero-line-wrap{display:block!important;width:100%!important}'+
     '.readings-page .reading-container{overflow:hidden!important;transition:border-color .18s ease!important}'+
     '.readings-page .reading-container h2{margin:auto 0 0!important;transition:transform .5s cubic-bezier(.2,.8,.2,1)!important}'+
     '.readings-page .reading-container .container-copy{max-height:0!important;margin-top:0!important;padding-top:0!important;opacity:0!important;transform:translateY(10px)!important;overflow:hidden!important;transition:max-height .6s cubic-bezier(.2,.8,.2,1),opacity .4s ease,transform .5s cubic-bezier(.2,.8,.2,1),margin-top .5s ease,padding-top .5s ease!important}'+
@@ -117,8 +115,6 @@
     if(burberry){burberry.src='/assets/burberry-logo.svg';burberry.classList.add('native-cream');}
     var starbucks=document.querySelector('.readings-page img[alt="Starbucks"]');
     if(starbucks){starbucks.src='/assets/starbucks-logo.svg';starbucks.classList.add('native-cream');}
-    var accumulate=document.querySelector('.readings-page .accumulate');
-    if(accumulate) accumulate.innerHTML='<span class="hero-line-wrap"><span class="hero-line js-fit">A BODY OF EVIDENCE ABOUT WHAT</span></span><span class="hero-line-wrap"><span class="hero-line js-fit">COMPOUNDS — AND WHAT DOESN’T.</span></span>';
     var mainTarget=document.querySelector('main');
     if(mainTarget&&!mainTarget.id){mainTarget.id='main';mainTarget.setAttribute('tabindex','-1');}
     if(mainTarget&&!document.querySelector('.kd-skip')){
