@@ -64,7 +64,6 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
   margin-left: 0.08em;
   vertical-align: baseline;
   flex-shrink: 0;
-  animation: kd-terminal-rotate 7s ease-in-out infinite;
 }
 
 .footer .terminal {

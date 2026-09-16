@@ -1,6 +1,6 @@
 /* V5 — EDIT THE ORIGINAL. DO NOT REDESIGN IT. */
 @keyframes kd-terminal-compound{0%{transform:scale(1)}50%{transform:scale(1.175)}100%{transform:scale(1)}}
-.terminal{transform-origin:center;animation:kd-terminal-compound 5.06s linear infinite}
+.terminal{transform-origin:center}
 .footer .terminal{animation-delay:2.53s}
 .masthead-wordmark a,.masthead-wordmark a:hover,.masthead-wordmark a:focus,.masthead-wordmark a:active,.masthead-wordmark a:visited{color:var(--paper)!important}
 .masthead-wordmark .tm{display:inline-block;font-size:.44em;vertical-align:baseline;line-height:1;margin-left:6px;position:relative;top:-.90em;letter-spacing:0}

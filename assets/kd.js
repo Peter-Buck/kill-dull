@@ -10,28 +10,23 @@
   var style=document.createElement('style');
   style.id='kd-shell-override';
   style.textContent='@keyframes kd-terminal-compound{0%{transform:scale(1)}50%{transform:scale(1.175)}100%{transform:scale(1)}}'+
-    '.masthead{background:var(--ink)!important;color:#fff!important}'+
-    '.masthead-top{display:grid!important;grid-template-columns:1fr auto 1fr!important;align-items:center!important;gap:24px!important;padding:52px 120px 38px!important;background:var(--ink)!important;color:#fff!important}'+
+    '.masthead{background:var(--ink)!important;color:#fff!important;border-bottom:0!important}'+
+    '.masthead-rule{margin:0 120px!important}'+
+    '.masthead-top{display:flex!important;flex-direction:column!important;align-items:center!important;gap:16px!important;padding:32px 120px 24px!important;background:var(--ink)!important;color:#fff!important}'+
     '.masthead-wordmark{justify-self:center!important;font-family:"Space Grotesk",sans-serif!important;font-weight:700!important;font-size:54px!important;letter-spacing:-.03em!important;line-height:1!important;color:#fff!important;text-align:center!important;white-space:nowrap!important}'+
     '.masthead-wordmark a{display:inline-flex!important;align-items:baseline!important;white-space:nowrap!important;font-family:"Space Grotesk",sans-serif!important;font-weight:700!important;font-size:inherit!important;letter-spacing:inherit!important;line-height:1!important;color:#fff!important}'+
-    '.masthead-wordmark .terminal{order:1!important;animation:kd-terminal-compound 5.06s linear infinite!important;transform-origin:center!important}'+
-    '.masthead-wordmark .tm{order:2!important;display:inline-block!important;font-size:.44em!important;vertical-align:baseline!important;line-height:1!important;margin-left:6px!important;position:relative!important;top:-.895em!important;letter-spacing:0!important;color:#fff!important}'+
+    '.masthead-wordmark a{position:relative!important}.masthead-wordmark .kd-wordmark-glyphs{display:inline-flex!important;align-items:baseline!important;white-space:nowrap!important}.masthead-wordmark .terminal{animation:none!important;transform:none!important}'+
+    '.masthead-wordmark .tm{order:2!important;display:inline-block!important;font-size:.44em!important;vertical-align:baseline!important;line-height:1!important;margin-left:0!important;position:relative!important;top:-.895em!important;letter-spacing:0!important;color:#fff!important;width:0!important;overflow:visible!important;text-indent:6px!important;white-space:nowrap!important}'+
     '.masthead-date,.masthead-designation{font-family:"Space Grotesk",sans-serif!important;font-size:15px!important;font-weight:700!important;letter-spacing:.10em!important;line-height:1!important;color:#fff!important;opacity:1!important;text-transform:uppercase!important;white-space:nowrap!important}'+
-    '.masthead-date{text-align:left!important;justify-self:start!important}'+
-    '.masthead-designation{text-align:right!important;justify-self:end!important}'+
+    '.masthead-date{text-align:center!important;align-self:center!important}'+
+    '.masthead-designation{text-align:center!important;padding:16px 120px!important;background:var(--ink)!important}'+
     '.masthead-date .tm,.masthead-designation .tm{color:#fff!important}'+
     '.reg-item,.product-link,.product-cta{font-size:15px!important}'+
     '.product-orientation{font-size:15px!important}'+
     '.masthead-tagline,.bulletin-text{font-size:16px!important}'+
     '.masthead-tagline{display:none!important}'+
-    '.masthead-bulletin .bulletin-label{display:none!important}'+
-    '.masthead-bulletin{min-height:70px!important;box-sizing:border-box!important;position:relative!important;padding:0 120px!important;text-align:left!important;display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;gap:2px!important}'+
-    '.masthead-bulletin .bulletin-mission{display:block!important;font-family:"Space Grotesk",sans-serif!important;font-size:16px!important;line-height:1.2!important;color:inherit!important;margin:0!important}'+
-    '.masthead-bulletin .bulletin-text{position:static!important;transform:none!important;display:inline-flex!important;align-items:center!important;gap:8px!important;width:auto!important;text-align:left!important;color:inherit!important;text-decoration:none!important;margin:0!important}'+
-    '.masthead-bulletin .bulletin-arrow{display:inline-block!important;color:var(--yellow)!important;transition:transform .22s cubic-bezier(.2,.8,.2,1)}'+
-    '.masthead-bulletin .bulletin-text:hover .bulletin-arrow{transform:translate(2px,-2px)}'+
     '.bulletin-arrow,.enter-arrow:before,.bench-arrow:before,.text-link span:before,.close-options b:before,.bench-action span:before{font-family:"Space Grotesk",sans-serif!important;font-size:16px!important;font-weight:400!important;line-height:1!important}'+
-    '.unified-nav{min-height:44px!important;height:44px!important}'+
+    '.unified-nav{min-height:44px!important;height:44px!important;display:grid!important;grid-template-columns:1fr auto 1fr!important;align-items:center!important}.unified-nav-chapters{grid-column:2!important;grid-row:1!important;justify-self:center!important}.unified-nav-products{grid-column:3!important;grid-row:1!important;justify-self:end!important;border-left:0!important}.reg-item{border-right:0!important}.unified-nav-products .product-cta::after{content:none!important}.unified-nav-products .product-cta{gap:0!important}.registrar-mobile{grid-column:1/-1!important;grid-row:1!important}'+
     '.footer-inner{padding:80px 120px!important}'+
     '.footer-bureau{font-size:clamp(40px,6vw,80px)!important;margin-bottom:64px!important;padding-top:32px!important}'+
     '.footer-index{margin-bottom:80px!important}'+
@@ -67,9 +62,9 @@
     '.readings-page .container-action.kd-cta-unified:hover,.readings-page .container-action.kd-cta-unified:focus-visible{border-color:var(--yellow)!important}'+
     '.kd-call.kd-cta-unified,.kd-call-secondary.kd-cta-unified,.discipline-cta.kd-cta-unified{margin-top:28px!important}'+
     '.v5-home #home-close .close-options a.kd-cta-unified:hover,.v5-home #home-close .close-options a.kd-cta-unified:focus-visible{background:transparent!important;border-color:var(--yellow)!important;color:inherit!important}'+
-    '@media(max-width:1279px){.masthead-top{padding-left:64px!important;padding-right:64px!important}.footer-inner{padding:64px!important}.masthead-bulletin{padding-left:64px!important;padding-right:64px!important}}'+
-    '@media(max-width:1000px){.masthead-top{grid-template-columns:1fr!important;text-align:center!important;gap:8px!important}.masthead-date,.masthead-wordmark,.masthead-designation{justify-self:center!important;text-align:center!important}}'+
-    '@media(max-width:767px){.masthead-top{padding:30px 24px 24px!important}.masthead-wordmark{font-size:34px!important}.masthead-date,.masthead-designation{font-size:9px!important;letter-spacing:.08em!important}.masthead-bulletin{padding-left:24px!important;padding-right:24px!important}.footer-inner{padding:48px 24px!important}.footer-section{grid-template-columns:1fr!important;gap:12px!important}.readings-page .reading-container .container-copy{max-height:none!important;margin-top:24px!important;opacity:1!important;transform:none!important}}'+
+    '@media(max-width:1279px){.masthead-top{padding-left:64px!important;padding-right:64px!important}.masthead-designation{padding-left:64px!important;padding-right:64px!important}.masthead-rule{margin:0 64px!important}.footer-inner{padding:64px!important}}'+
+    '@media(max-width:1000px){.masthead-top{gap:8px!important}.masthead-date,.masthead-wordmark,.masthead-designation{text-align:center!important}}'+
+    '@media(max-width:767px){.masthead-top{padding:30px 24px 24px!important}.masthead-wordmark{font-size:34px!important}.masthead-date,.masthead-designation{font-size:9px!important;letter-spacing:.08em!important}.masthead-designation{padding:12px 24px!important}.masthead-rule{margin:0 24px!important}.unified-nav{grid-template-columns:1fr auto!important}.registrar-mobile{grid-column:1!important}.unified-nav-products{display:flex!important;grid-column:2!important;justify-self:end!important;padding-right:24px!important}.footer-inner{padding:48px 24px!important}.footer-section{grid-template-columns:1fr!important;gap:12px!important}.readings-page .reading-container .container-copy{max-height:none!important;margin-top:24px!important;opacity:1!important;transform:none!important}}'+
     '@media(prefers-reduced-motion:reduce){.readings-page .reading-container h2,.readings-page .reading-container .container-copy{transition:none!important}.kd-cta-unified::after{transition:none!important}}'+
     '.kd-skip{position:absolute!important;left:-9999px!important;top:0;z-index:10001;display:inline-block;padding:12px 18px;background:var(--ink,#24222B);color:var(--paper,#FFFFFF)!important;font-family:"IBM Plex Mono",monospace;font-size:15px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}.kd-skip:focus{left:12px!important;top:12px!important;outline:2px solid #FFFF00;outline-offset:2px}main:focus{outline:none}:focus-visible{outline:2px solid #FFFF00!important;outline-offset:2px!important;box-shadow:0 0 0 4px #24222B!important}.product-orientation>span:last-child{color:#736F65!important}.viewport.is-dark .product-orientation>span:last-child,.bench-process .product-orientation>span:last-child,#discuss .product-orientation>span:last-child,.record-intro .product-orientation>span:last-child,.dept-section:not(.is-light) .product-orientation>span:last-child{color:#A5A299!important}.reg-item{color:#A09D94!important}.reg-item.is-current,.reg-item.is-active{color:#FFFFFF!important}'+
     '.kd-talk{background:var(--paper)!important;color:var(--ink)!important}'+
@@ -95,20 +90,18 @@
   function normalizeShell(){
     var key=currentKey();
     var wm=document.querySelector('.masthead-wordmark a');
-    if(wm) wm.innerHTML='KILL DULL<span class="terminal"></span><span class="tm">™</span>';
+    if(wm) wm.innerHTML='<span class="kd-wordmark-glyphs">KILL DULL<span class="terminal"></span></span><span class="tm">™</span>';
     var date=document.querySelector('.masthead-date');
     if(date) date.textContent='THE DENSE IDEA COMPANY™';
     var designation=document.querySelector('.masthead-designation');
-    if(designation) designation.textContent='INDEPENDENT MARKETING JUDGMENT';
+    if(designation) designation.textContent='PROVIDING INDEPENDENT MARKETING JUDGMENT';
     var tagline=document.querySelector('.masthead-tagline');
     if(tagline) tagline.textContent='';
-    var bulletin=document.querySelector('.masthead-bulletin');
-    if(bulletin) bulletin.innerHTML='<a class="bulletin-text" href="/readings">Here to compound. Readings in production.<span class="bulletin-arrow">↗</span></a>';
     var desktop=document.getElementById('registrar-desktop');
     var deskHtml='<a class="reg-item'+(key==='home'?' is-current':'')+'" href="/">WHY</a><a class="reg-item'+(key==='discipline'?' is-current':'')+'" href="/discipline">HOW</a><a class="reg-item'+(key==='bench'?' is-current':'')+'" href="/bench">THE BENCH</a><a class="reg-item'+(key==='readings'?' is-current':'')+'" href="/readings">READINGS</a>';
     if(desktop&&desktop.getAttribute('data-kd-nav')!==key){desktop.innerHTML=deskHtml;desktop.setAttribute('data-kd-nav',key);}
     var products=document.querySelector('.unified-nav-products');
-    if(products) products.innerHTML='<a class="product-cta" href="/bench#discuss"><span class="enter-text">COMMITMENT COMING UP?</span><span class="enter-arrow">↗</span></a>';
+    if(products) products.innerHTML='<a class="product-cta" href="/bench#discuss"><span class="enter-text">CONTACT</span></a>';
     var mobile=document.querySelector('.registrar-mobile');
     if(mobile){var label=key==='discipline'?'HOW':key==='bench'?'THE BENCH':key==='readings'?'READINGS':key==='bureau'?'THE BUREAU':'WHY';var mobHtml='<button class="reg-mobile-current" id="reg-mobile-btn" aria-expanded="false" aria-controls="reg-mobile-dropdown"><span id="reg-mobile-label">'+label+'</span><span class="reg-mobile-arrow">▾</span></button><div class="reg-mobile-dropdown" id="reg-mobile-dropdown" hidden><a class="reg-item" href="/">WHY</a><a class="reg-item" href="/discipline">HOW</a><a class="reg-item" href="/bench">THE BENCH</a><a class="reg-item" href="/readings">READINGS</a></div>';if(mobile.getAttribute('data-kd-nav')!==label){mobile.innerHTML=mobHtml;mobile.setAttribute('data-kd-nav',label);}}
     var burberry=document.querySelector('.readings-page img[alt="Burberry"]');
