@@ -74,8 +74,27 @@
     if (reg) reg.style.transform = hidden ? 'translateY(-' + ((mh ? mh.offsetHeight : 0) + reg.offsetHeight) + 'px)' : 'translateY(0)';
   }
 
+  // On a phone the homepage opens with a full screen of statement that sits in
+  // the flow above the masthead. While the visitor is still inside it there is
+  // no site to put a header on, so the header waits below the fold and arrives
+  // as they scroll out of it. Everywhere else this returns 0 and the rule below
+  // is exactly the rule it has always been.
+  function openerCover() {
+    var o = document.getElementById('kd-opener');
+    return (o && !o.hidden && o.classList.contains('is-static')) ? o.offsetHeight : 0;
+  }
+
+  var leftOpener = false;
+
   function updateHeaderVisibility() {
     var y = window.scrollY || 0;
+    var base = openerCover();
+    if (base) {
+      // Inside the opening screen there is no site to put a header on.
+      if (y < base - 8) { setHeaderHidden(true); leftOpener = false; lastScrollY = y; return; }
+      // Leaving it, the header arrives once - however fast that scroll was.
+      if (!leftOpener) { leftOpener = true; setHeaderHidden(false); lastScrollY = y; return; }
+    }
     if (y <= 8) setHeaderHidden(false);
     else if (y > lastScrollY + 2) setHeaderHidden(true);
     else if (y < lastScrollY - 2) setHeaderHidden(false);
@@ -87,8 +106,14 @@
     if (!observation || document.getElementById('cost-home')) return;
 
     observation.innerHTML =
-      '<span class="hero-line-wrap"><h1 class="hero-line js-fit">ABOUT TO MAKE A BIG</h1></span>' +
-      '<span class="hero-line-wrap"><h1 class="hero-line js-fit">MARKETING DECISION?</h1></span>' +
+      // One headline, two compositions. Wide, it is the written pair of lines.
+      // Below 600px neither line fits: the first is the longer of the two and
+      // caps at about 36px, so holding it whole would mean shrinking a major
+      // headline by a fifth. Instead the break moves - ABOUT TO MAKE / A BIG
+      // MARKETING / DECISION? - and the type stays exactly the size it is.
+      // The words and their order never change; only which line they sit on.
+      '<span class="hero-line-wrap"><h1 class="hero-line js-fit">ABOUT TO MAKE<span class="kd-hl-wide"> A BIG</span></h1></span>' +
+      '<span class="hero-line-wrap"><h1 class="hero-line js-fit"><span class="kd-hl-narrow">A BIG </span>MARKETING<br class="kd-hl-br"> DECISION?</h1></span>' +
       '<div class="home-copy premise-lead">' +
         '<p>Before you commit, find out what else you might be committing to.</p>' +
         '<p>Inside most companies, the fundamentals of marketing — the four Ps: <strong>Product. Price. Place. Promotion.</strong> — don\'t live in the same room.</p>' +

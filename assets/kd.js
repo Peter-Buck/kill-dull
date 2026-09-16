@@ -49,10 +49,10 @@
     '.readings-page .record-row:nth-child(7) .record-logo{transform:scale(.92)!important}'+
     '.readings-page .record-row:nth-child(8) .record-logo{transform:scale(.92)!important}'+
     '.readings-page .record-row:nth-child(9) .record-logo{transform:scale(1.2)!important}'+
-    '.kd-cta-unified{box-sizing:border-box!important;display:inline-flex!important;align-items:center!important;gap:9px!important;border:.5px solid currentColor!important;padding:10px 14px!important;background:transparent!important;color:inherit!important;text-decoration:none!important;text-transform:uppercase!important;font-family:"IBM Plex Mono",monospace!important;font-size:15px!important;font-weight:400!important;line-height:1.2!important;letter-spacing:.04em!important;transition:border-color .18s ease!important}'+
+    '.kd-cta-unified{box-sizing:border-box!important;display:inline-flex!important;align-items:center!important;gap:9px!important;border:1px solid currentColor!important;padding:10px 14px!important;background:transparent!important;color:inherit!important;text-decoration:none!important;text-transform:uppercase!important;font-family:"IBM Plex Mono",monospace!important;font-size:15px!important;font-weight:400!important;line-height:1.2!important;letter-spacing:.04em!important;transition:border-color .18s ease!important}'+
     '.kd-cta-unified *{font-family:inherit!important;font-size:inherit!important;font-weight:400!important;letter-spacing:inherit!important}'+
     '.kd-cta-unified:hover,.kd-cta-unified:focus-visible{background:transparent!important;color:inherit!important;border-color:var(--yellow)!important}'+
-    '.kd-cta-unified::after{content:"↗";display:inline-block!important;font-family:"Space Grotesk",sans-serif!important;font-size:16px!important;font-weight:400!important;line-height:1!important;letter-spacing:0!important;margin-left:auto!important;transform:none!important;transition:transform .22s cubic-bezier(.2,.8,.2,1)!important}'+
+    '.kd-cta-unified::after{content:""!important;display:block!important;flex:0 0 11px!important;width:11px!important;height:11px!important;margin-left:auto!important;background-color:currentColor!important;-webkit-mask:var(--kd-arrow-ne) center/contain no-repeat!important;mask:var(--kd-arrow-ne) center/contain no-repeat!important;transform:none!important;transition:transform .22s cubic-bezier(.2,.8,.2,1)!important}'+
     '.kd-cta-unified:hover::after,.kd-cta-unified:focus-visible::after{transform:translate(2px,-2px)!important}'+
     '.kd-cta-unified .kd-native-arrow{display:none!important}'+
     '.kd-case-action.kd-cta-unified,.kd-review-cta.kd-cta-unified,.readings-page .container-action.kd-cta-unified{width:100%!important}'+
@@ -65,6 +65,24 @@
     '@media(max-width:1279px){.masthead-top{padding-left:64px!important;padding-right:64px!important}.masthead-designation{padding-left:64px!important;padding-right:64px!important}.masthead-rule{margin:0 64px!important}.footer-inner{padding:64px!important}}'+
     '@media(max-width:1000px){.masthead-top{gap:8px!important}.masthead-date,.masthead-wordmark,.masthead-designation{text-align:center!important}}'+
     '@media(max-width:767px){.masthead-top{padding:30px 24px 24px!important}.masthead-wordmark{font-size:34px!important}.masthead-date,.masthead-designation{font-size:9px!important;letter-spacing:.08em!important}.masthead-designation{padding:12px 24px!important}.masthead-rule{margin:0 24px!important}.unified-nav{grid-template-columns:1fr auto!important}.registrar-mobile{grid-column:1!important}.unified-nav-products{display:flex!important;grid-column:2!important;justify-self:end!important;padding-right:24px!important}.footer-inner{padding:48px 24px!important}.footer-section{grid-template-columns:1fr!important;gap:12px!important}.readings-page .reading-container .container-copy{max-height:none!important;margin-top:24px!important;opacity:1!important;transform:none!important}}'+
+    /* Cards that open, on a phone.
+       A card is a fixed 2:3 frame with a glass panel sized by its copy, and on
+       a narrow screen those two move in opposite directions: the card gets
+       shorter as the viewport narrows, while the copy gets longer. Past a
+       point the panel outgrew the frame and was cut off at the top, taking the
+       headline with it, or climbed over the yellow label.
+       So when a card is open on a phone the frame stops dictating height: the
+       panel returns to normal flow and the card grows to hold it, never below
+       the 2:3 it started at. Nothing scrolls inside anything. */
+    '@media(max-width:767px){'+
+      '.kd-review-card.is-active,.bench-card.is-active{aspect-ratio:auto!important;min-height:calc((100vw - 48px) * 1.5)!important}'+
+      '.record-card.is-active{aspect-ratio:auto!important;min-height:calc(min(100vw - 48px,510px) * 1.5)!important}'+
+      '.kd-review-card.is-active .kd-review-panel,.bench-card.is-active .bench-card-panel,.record-card.is-active .record-panel{'+
+        'position:relative!important;left:auto!important;right:auto!important;bottom:auto!important;'+
+        'margin:56px 18px 18px!important;min-height:0!important;overflow:visible!important;transition:none!important}'+
+      '.kd-review-card.is-active .kd-review-copy,.bench-card.is-active .bench-card-copy,.record-card.is-active .record-reveal{'+
+        'max-height:none!important;margin-top:18px!important;opacity:1!important;transform:none!important;transition:none!important}'+
+    '}'+
     '@media(prefers-reduced-motion:reduce){.readings-page .reading-container h2,.readings-page .reading-container .container-copy{transition:none!important}.kd-cta-unified::after{transition:none!important}}'+
     '.kd-skip{position:absolute!important;left:-9999px!important;top:0;z-index:10001;display:inline-block;padding:12px 18px;background:var(--ink,#24222B);color:var(--paper,#FFFFFF)!important;font-family:"IBM Plex Mono",monospace;font-size:15px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}.kd-skip:focus{left:12px!important;top:12px!important;outline:2px solid #FFFF00;outline-offset:2px}main:focus{outline:none}:focus-visible{outline:2px solid #FFFF00!important;outline-offset:2px!important;box-shadow:0 0 0 4px #24222B!important}.product-orientation>span:last-child{color:#736F65!important}.viewport.is-dark .product-orientation>span:last-child,.bench-process .product-orientation>span:last-child,#discuss .product-orientation>span:last-child,.record-intro .product-orientation>span:last-child,.dept-section:not(.is-light) .product-orientation>span:last-child{color:#A5A299!important}.reg-item{color:#A09D94!important}.reg-item.is-current,.reg-item.is-active{color:#FFFFFF!important}'+
     '.kd-talk{background:var(--paper)!important;color:var(--ink)!important}'+
@@ -104,7 +122,7 @@
     var products=document.querySelector('.unified-nav-products');
     if(products) products.innerHTML='<a class="product-cta" href="/contact"><span class="enter-text">CONTACT</span></a>';
     var mobile=document.querySelector('.registrar-mobile');
-    if(mobile){var label=key==='discipline'?'HOW':key==='bench'?'THE BENCH':key==='readings'?'READINGS':key==='bureau'?'THE BUREAU':key==='contact'?'MENU':'WHY';var mobHtml='<button class="reg-mobile-current" id="reg-mobile-btn" aria-expanded="false" aria-controls="reg-mobile-dropdown"><span id="reg-mobile-label">'+label+'</span><span class="reg-mobile-arrow">▾</span></button><div class="reg-mobile-dropdown" id="reg-mobile-dropdown" hidden><a class="reg-item" href="/">WHY</a><a class="reg-item" href="/discipline">HOW</a><a class="reg-item" href="/bench">THE BENCH</a><a class="reg-item" href="/readings">READINGS</a></div>';if(mobile.getAttribute('data-kd-nav')!==label){mobile.innerHTML=mobHtml;mobile.setAttribute('data-kd-nav',label);}}
+    if(mobile){var label=key==='discipline'?'HOW':key==='bench'?'THE BENCH':key==='readings'?'READINGS':key==='bureau'?'THE BUREAU':key==='contact'?'MENU':'WHY';var mobHtml='<button class="reg-mobile-current" id="reg-mobile-btn" aria-expanded="false" aria-controls="reg-mobile-dropdown"><span id="reg-mobile-label">'+label+'</span><span class="reg-mobile-arrow" aria-hidden="true"></span></button><div class="reg-mobile-dropdown" id="reg-mobile-dropdown" hidden><a class="reg-item" href="/">WHY</a><a class="reg-item" href="/discipline">HOW</a><a class="reg-item" href="/bench">THE BENCH</a><a class="reg-item" href="/readings">READINGS</a></div>';if(mobile.getAttribute('data-kd-nav')!==label){mobile.innerHTML=mobHtml;mobile.setAttribute('data-kd-nav',label);}}
     var burberry=document.querySelector('.readings-page img[alt="Burberry"]');
     if(burberry){burberry.src='/assets/burberry-logo.svg';burberry.classList.add('native-cream');}
     var starbucks=document.querySelector('.readings-page img[alt="Starbucks"]');
@@ -248,17 +266,28 @@
   function psEsc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
   function psSrc(i){return '/assets/ps-f'+(i<10?'0':'')+i+'.webp';}
 
-  // Phones get the settled composition as one flat image and nothing else: no
-  // runway, no sticky stage, no frame sequence, no substitute animation. The
-  // section is ordinary document flow - rule, headline, copy, image, copy - and
-  // the image is only ever written into the page below 900px, so wider
-  // viewports never request it.
-  function psStillMarkup(d){
-    var s=d.still||{w:1280,h:516},k,alt=[];
-    for(k=0;k<4;k++)alt.push(d.masses[k].name+' - '+d.masses[k].copy);
-    return '<img class="ps-still" src="/assets/ps-still.webp" width="'+s.w+
-           '" height="'+s.h+'" decoding="async" alt="'+
-           psEsc('The four Ps as four masses in a cream room. '+alt.join(' '))+'">';
+  // Phones get the four masses one at a time.
+  //
+  // The whole composition shrunk to a phone put a 1280px room into 390px: the
+  // names came out around 6px and the sentences around 4px, against 29px and
+  // 15px on a desktop. The room is the same room - each plate is a crop of the
+  // settled frame, same light, same floor, same shadow - and the type is the
+  // same live type the stage uses, at a size you can actually read. No runway,
+  // no sticky stage, no frame sequence, no substitute animation, and the
+  // plates are only ever written into the page below 900px, so wider viewports
+  // never request them.
+  var PS_PLATES=['product','price','place','promotion'];
+
+  function psPlatesMarkup(d){
+    var h='',k;
+    for(k=0;k<4;k++){
+      h+='<figure class="ps-plate-m">'+
+           '<img src="/assets/ps-'+PS_PLATES[k]+'.webp" width="520" height="470" decoding="async" alt="">'+
+           '<figcaption class="ps-label-m"><h2>'+psEsc(d.masses[k].name)+'</h2>'+
+           '<p>'+psEsc(d.masses[k].copy)+'</p></figcaption>'+
+         '</figure>';
+    }
+    return h;
   }
 
   function psStageMarkup(d){
@@ -460,7 +489,7 @@
     // Below 900px the stage is never built, so not one frame is requested -
     // and above it the still is never written, so that is not requested either.
     // display:none would have fetched both in most browsers.
-    psRunway.innerHTML=psSmall()?psStillMarkup(d):psStageMarkup(d);
+    psRunway.innerHTML=psSmall()?psPlatesMarkup(d):psStageMarkup(d);
     psPlate=psRunway.querySelector('.ps-plate');
     psIA=psIB=-1;
     psCopies=[];psLabels=[];psFrames=[];
@@ -539,5 +568,75 @@
     setTimeout(psBuild,300);setTimeout(psBuild,1200);setTimeout(psBuild,2500);
   }
 
-  normalizeShell();normalizeCtas();wireRouteTransition();wireReadingFit();var core=document.createElement('script');core.src='/assets/kd-core.js';core.onload=function(){normalizeShell();normalizeCtas();document.head.appendChild(style);wireRouteTransition();wireFourPs();normalizeCtas();};document.head.appendChild(core);
+  /* Opening a card on a touch screen.
+     These cards only ever opened on :hover and :focus-visible. A phone has
+     neither: iOS fakes a hover on the first tap, so a card opened by accident,
+     stayed open until you tapped somewhere else, and announced nothing. The
+     tap is now deliberate and says what it did - one card open at a time, tap
+     an open card to close it - and the hover preview is left to pointers that
+     actually hover. Enter and Space arrive here as clicks. */
+  var KD_CARDS='.kd-review-card,.bench-card,.record-card';
+
+  function cardsAnnounce(){
+    var cards=document.querySelectorAll(KD_CARDS);
+    for(var i=0;i<cards.length;i++){
+      var card=cards[i];
+      if(card.getAttribute('data-kd-card')!==null)continue;
+      card.setAttribute('data-kd-card','');
+      // A card holding its own link keeps that link's job intact; giving the
+      // card a button role as well would nest one control inside another.
+      if(!card.querySelector('a,button'))card.setAttribute('role','button');
+      if(!card.hasAttribute('tabindex'))card.setAttribute('tabindex','0');
+      cardAria(card);
+    }
+  }
+
+  // A card is open if it was tapped open, or if a keyboard has landed on it -
+  // :focus-visible has always opened these. Reading both means aria-expanded
+  // says what the card actually looks like rather than what was last clicked.
+  function cardAria(card){
+    var open=card.classList.contains('is-active');
+    if(!open){try{open=card.matches(':focus-visible');}catch(e){}}
+    card.setAttribute('aria-expanded',open?'true':'false');
+  }
+
+  function cardToggle(card){
+    var wasOpen=card.classList.contains('is-active');
+    var cards=document.querySelectorAll(KD_CARDS);
+    for(var i=0;i<cards.length;i++)cards[i].classList.remove('is-active');
+    if(!wasOpen)card.classList.add('is-active');
+    for(i=0;i<cards.length;i++)cardAria(cards[i]);
+  }
+
+  function wireCards(){
+    cardsAnnounce();
+    if(wireCards.bound)return;
+    wireCards.bound=true;
+    document.addEventListener('click',function(e){
+      var t=e.target;
+      if(!t||!t.closest)return;
+      var card=t.closest(KD_CARDS);
+      if(!card)return;
+      if(t.closest('a,button'))return;   // a control inside the card wins
+      cardToggle(card);
+    });
+    document.addEventListener('keydown',function(e){
+      if(e.key!=='Enter'&&e.key!==' '&&e.key!=='Spacebar')return;
+      var t=e.target;
+      if(!t||!t.closest||t!==t.closest(KD_CARDS))return;
+      e.preventDefault();
+      cardToggle(t);
+    });
+    // Focus opens these too, so the announced state has to follow focus.
+    document.addEventListener('focusin',function(e){
+      var t=e.target;if(!t||!t.closest)return;
+      var card=t.closest(KD_CARDS);if(card)cardAria(card);
+    });
+    document.addEventListener('focusout',function(e){
+      var t=e.target;if(!t||!t.closest)return;
+      var card=t.closest(KD_CARDS);if(card)setTimeout(function(){cardAria(card);},0);
+    });
+  }
+
+  normalizeShell();normalizeCtas();wireCards();wireRouteTransition();wireReadingFit();var core=document.createElement('script');core.src='/assets/kd-core.js';core.onload=function(){normalizeShell();normalizeCtas();wireCards();document.head.appendChild(style);wireRouteTransition();wireFourPs();normalizeCtas();};document.head.appendChild(core);
 })();
