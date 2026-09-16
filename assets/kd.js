@@ -82,6 +82,7 @@
     if(p==='/readings'||p==='/readings.html')return 'readings';
     if(p==='/discipline'||p==='/discipline.html'||p==='/go-deeper'||p==='/go-deeper.html')return 'discipline';
     if(p==='/bureau'||p==='/bureau.html')return 'bureau';
+    if(p==='/contact'||p==='/contact.html')return 'contact';
     return '';
   }
 
@@ -101,9 +102,9 @@
     var deskHtml='<a class="reg-item'+(key==='home'?' is-current':'')+'" href="/">WHY</a><a class="reg-item'+(key==='discipline'?' is-current':'')+'" href="/discipline">HOW</a><a class="reg-item'+(key==='bench'?' is-current':'')+'" href="/bench">THE BENCH</a><a class="reg-item'+(key==='readings'?' is-current':'')+'" href="/readings">READINGS</a>';
     if(desktop&&desktop.getAttribute('data-kd-nav')!==key){desktop.innerHTML=deskHtml;desktop.setAttribute('data-kd-nav',key);}
     var products=document.querySelector('.unified-nav-products');
-    if(products) products.innerHTML='<a class="product-cta" href="/bench#discuss"><span class="enter-text">CONTACT</span></a>';
+    if(products) products.innerHTML='<a class="product-cta" href="/contact"><span class="enter-text">CONTACT</span></a>';
     var mobile=document.querySelector('.registrar-mobile');
-    if(mobile){var label=key==='discipline'?'HOW':key==='bench'?'THE BENCH':key==='readings'?'READINGS':key==='bureau'?'THE BUREAU':'WHY';var mobHtml='<button class="reg-mobile-current" id="reg-mobile-btn" aria-expanded="false" aria-controls="reg-mobile-dropdown"><span id="reg-mobile-label">'+label+'</span><span class="reg-mobile-arrow">▾</span></button><div class="reg-mobile-dropdown" id="reg-mobile-dropdown" hidden><a class="reg-item" href="/">WHY</a><a class="reg-item" href="/discipline">HOW</a><a class="reg-item" href="/bench">THE BENCH</a><a class="reg-item" href="/readings">READINGS</a></div>';if(mobile.getAttribute('data-kd-nav')!==label){mobile.innerHTML=mobHtml;mobile.setAttribute('data-kd-nav',label);}}
+    if(mobile){var label=key==='discipline'?'HOW':key==='bench'?'THE BENCH':key==='readings'?'READINGS':key==='bureau'?'THE BUREAU':key==='contact'?'MENU':'WHY';var mobHtml='<button class="reg-mobile-current" id="reg-mobile-btn" aria-expanded="false" aria-controls="reg-mobile-dropdown"><span id="reg-mobile-label">'+label+'</span><span class="reg-mobile-arrow">▾</span></button><div class="reg-mobile-dropdown" id="reg-mobile-dropdown" hidden><a class="reg-item" href="/">WHY</a><a class="reg-item" href="/discipline">HOW</a><a class="reg-item" href="/bench">THE BENCH</a><a class="reg-item" href="/readings">READINGS</a></div>';if(mobile.getAttribute('data-kd-nav')!==label){mobile.innerHTML=mobHtml;mobile.setAttribute('data-kd-nav',label);}}
     var burberry=document.querySelector('.readings-page img[alt="Burberry"]');
     if(burberry){burberry.src='/assets/burberry-logo.svg';burberry.classList.add('native-cream');}
     var starbucks=document.querySelector('.readings-page img[alt="Starbucks"]');

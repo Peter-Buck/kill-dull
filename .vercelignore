@@ -4,6 +4,7 @@
 /*
 
 !assets/
+!api/
 !vercel.json
 !robots.txt
 !favicon.ico
@@ -18,3 +19,4 @@
 !accessibility.html
 !privacy.html
 !terms.html
+!contact.html
