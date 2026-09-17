@@ -36,6 +36,14 @@
 /* CASE CONCLUSION - intentional responsive line-break states */.kd-cc-br{display:none}.kd-cc-br-lg,.kd-cc-br-md{display:inline}@media(min-width:1800px){.kd-cc-br-md{display:none}}@media(max-width:859px){.kd-cc-br-lg{display:none}.kd-cc-br-sm{display:inline}}@media(max-width:767px){#kd-review-grid .kd-case-conclusion{font-size:clamp(30px,9.9vw,54px)!important}}
 
 /* PRACTICE - first movement on ink; second movement stays paper */#practice .kd-practice-movement{display:flex;flex-direction:column;position:relative;z-index:0}#practice .kd-practice-movement::before{content:"";position:absolute;z-index:-1;left:calc(-1*var(--section-pad-h));right:calc(-1*var(--section-pad-h));top:-120px;bottom:-58px;background:var(--ink)}#practice .kd-practice-movement .kd-practice-marker{color:#FFFFFF}#practice .kd-practice-movement .hero-line{color:var(--paper)!important}#practice .kd-practice-movement .home-copy{color:var(--text-body)}#practice .kd-practice-movement .home-copy strong{color:var(--paper)}@media(max-width:1023px){#practice .kd-practice-movement::before{top:-96px;bottom:-46px}}@media(max-width:767px){#practice .kd-practice-movement::before{top:-72px;bottom:-36px}}
+/* RECEPTION - the photograph that closes the homepage, set the way the entrance
+   photograph is set on Contact: the full width of the page, its own proportion,
+   and nothing around it. On a phone the whole 2.5:1 frame would put the sign at
+   six pixels, so the frame is cropped rather than the type shrunk, and held on
+   the stretch of counter the bell and the sign share. */
+.home-bell{display:block;width:100%;line-height:0}
+.home-bell img{display:block;width:100%;height:auto}
+@media(max-width:767px){.home-bell img{aspect-ratio:7/5;height:auto;max-height:320px;object-fit:cover;object-position:83% center}}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://killdull.com/#organization","name":"Kill Dull","alternateName":"The Dense Idea Company","url":"https://killdull.com/","description":"Kill Dull is the Dense Idea Company. Independent marketing judgment for consequential commitments.","email":"human@killdull.com"},{"@type":"WebSite","@id":"https://killdull.com/#website","url":"https://killdull.com/","name":"Kill Dull","publisher":{"@id":"https://killdull.com/#organization"}}]}</script>
 </head><body class="v5-home notranslate">
@@ -125,4 +133,27 @@ schedule(runNext,steps.length?steps[0].at:0);
    fired on the same tap that opened one and closed it again. kd.js now owns
    opening and closing, and guarantees one open card at a time. */
 window.addEventListener('resize',place);setTimeout(place,250);setTimeout(place,1000);})();</script>
+<script>(function(){
+/* The contact section is built by kd.js and inserted before the footer, so the
+   photograph cannot simply be written into the markup here - it would land above
+   that section rather than under it. It waits for the section and follows it.
+   Homepage only: this file is the only one that carries it. */
+var IMG='<img src="/assets/kill-dull-bell.webp" width="1983" height="793" loading="lazy" decoding="async" alt="A black reception bell on the Kill Dull front desk, beside a sign reading &#8220;Ring if it&#8217;s getting dull.&#8221;">';
+var bell=null;
+function place(){
+  var talk=document.querySelector('.kd-talk');
+  if(!talk)return;
+  /* A section rather than a div, and labelled, for the same reason the contact
+     section is one: it lands after <main>, and content outside every landmark
+     is content a screen reader has no route to. */
+  if(!bell){bell=document.createElement('section');bell.className='home-bell';
+    bell.setAttribute('aria-label','The Kill Dull reception desk');bell.innerHTML=IMG;}
+  if(talk.nextElementSibling!==bell)talk.insertAdjacentElement('afterend',bell);
+}
+place();
+document.addEventListener('DOMContentLoaded',place);
+window.addEventListener('load',place);
+try{new MutationObserver(place).observe(document.body,{childList:true});}catch(e){}
+setTimeout(place,300);setTimeout(place,1200);
+})();</script>
 </body></html>
