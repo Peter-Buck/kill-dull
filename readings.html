@@ -32,6 +32,14 @@
 @media(max-width:1000px){.reading-container{padding:14px}.reading-container-panel{padding:14px}}@media(max-width:767px){.reading-copy{max-width:100%}.reading-containers{grid-template-columns:1fr}.reading-container{min-height:420px}.record-intro{padding-bottom:24px!important}.record-runway{height:auto!important}.record-sticky{position:static;height:auto;min-height:0;overflow:visible;display:block;padding-top:0}.record-track{display:grid;width:auto;transform:none!important;padding:0 24px 72px;gap:14px}.record-card{width:100%;aspect-ratio:2/3}.record-end{padding:0 24px 72px;display:block}.accumulate{max-width:none}}
 @media(max-width:383px){.reading-container h2{font-size:min(44px,10.4vw)}}@media(min-width:768px) and (max-width:809px){.reading-container h2{font-size:min(44px,5.1vw)}}
 @media(prefers-reduced-motion:reduce){.record-runway{height:auto!important}.record-sticky{position:static;display:block;height:auto;min-height:0;overflow:visible;padding-top:0}.record-track{display:grid;width:auto;transform:none!important;padding-bottom:72px}.record-card{width:100%;max-width:510px}.record-card .record-panel{min-height:58%}.record-card .record-reveal{max-height:520px;margin-top:18px;opacity:1;transform:none;transition:none}}
+/* THE STAMP - the photograph that closes this page, set the way the reception
+   desk is set on the homepage: the full width of the page, its own proportion,
+   and nothing around it. This frame is 2.33:1 rather than 2.5:1, so the same
+   mobile ratio leaves a little more of it showing; the crop is held on the
+   stamp and the word on its face. */
+.readings-stamp{display:block;width:100%;line-height:0}
+.readings-stamp img{display:block;width:100%;height:auto}
+@media(max-width:767px){.readings-stamp img{aspect-ratio:7/5;height:auto;max-height:320px;object-fit:cover;object-position:95% center}}
 </style>
 </head><body class="v5-home readings-page notranslate">
 <header class="masthead" id="masthead"><div class="masthead-top"><div class="masthead-wordmark"><a href="/"><span class="kd-wordmark-glyphs">KILL DULL<span class="terminal"></span></span><span class="tm">™</span></a></div><div class="masthead-date" id="masthead-date">THE DENSE IDEA COMPANY™</div></div><div class="masthead-tagline"></div><div class="masthead-rule"></div><div class="masthead-designation">PROVIDING INDEPENDENT MARKETING JUDGMENT</div></header>
@@ -55,4 +63,27 @@
 <footer class="footer" role="contentinfo"><div class="footer-inner"><div class="footer-bureau">THE BUREAU.</div><div class="footer-index"><div class="footer-section"><div class="footer-section-label">DISCIPLINE</div><nav aria-label="Discipline"><a href="/discipline">The Dense Idea Discipline</a></nav></div><div class="footer-section"><div class="footer-section-label">BENCH</div><nav aria-label="Bench"><a href="/bench">How the Bench Works</a><a href="/readings">Private Readings</a><a href="/readings#record">Published Readings</a></nav></div><div class="footer-section"><div class="footer-section-label">KILL DULL</div><nav aria-label="Kill Dull"><a href="/bureau">Department of Hard Evidence</a><a href="/accessibility" aria-label="Accessibility statement">Accessibility</a><a href="/privacy" aria-label="Privacy policy">Privacy</a><a href="/terms" aria-label="Terms of use">Terms</a><a href="/contact">Contact</a></nav></div></div><div class="footer-colophon"><span>&#169; 2026 Kill Dull. All rights reserved.</span></div></div></footer>
 <script src="/assets/kd.js"></script>
 <script>(function(){var runway=document.getElementById('record-runway'),track=document.getElementById('record-track');if(!runway||!track)return;var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;function measure(){if(window.innerWidth<768||reduced){runway.style.height='auto';track.style.removeProperty('--record-x');return;}var mast=document.getElementById('masthead'),nav=document.getElementById('registrar');var top=(mast?mast.offsetHeight:0)+(nav?nav.offsetHeight:0);document.documentElement.style.setProperty('--record-sticky-top',top+'px');var maxX=Math.max(0,track.scrollWidth-window.innerWidth);runway.style.height=(Math.max(620,window.innerHeight-top)+maxX)+'px';update();}function update(){if(window.innerWidth<768||reduced)return;var r=runway.getBoundingClientRect(),maxX=Math.max(0,track.scrollWidth-window.innerWidth);var top=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--record-sticky-top')||0)||0;var usable=Math.max(1,runway.offsetHeight-(window.innerHeight-top));var p=Math.max(0,Math.min(1,(top-r.top)/usable));track.style.setProperty('--record-x',(-maxX*p)+'px');}var ticking=false;function request(){if(ticking)return;ticking=true;requestAnimationFrame(function(){ticking=false;update();});}window.addEventListener('scroll',request,{passive:true});window.addEventListener('resize',measure);window.addEventListener('load',measure);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(measure);measure();})();</script>
+<script>(function(){
+/* The contact section is built by kd.js and inserted before the footer, so the
+   photograph cannot simply be written into the markup here - it would land above
+   that section rather than under it. It waits for the section and follows it.
+   This page only: this file is the only one that carries it. */
+var IMG='<img src="/assets/kill-dull-stamp.webp" width="1916" height="821" loading="lazy" decoding="async" alt="A rubber stamp resting on a desk beside its open ink pad, the word &#8220;Dull&#8221; raised on its inked face.">';
+var shot=null;
+function place(){
+  var talk=document.querySelector('.kd-talk');
+  if(!talk)return;
+  /* A section rather than a div, and labelled, for the same reason the contact
+     section is one: it lands after <main>, and content outside every landmark
+     is content a screen reader has no route to. */
+  if(!shot){shot=document.createElement('section');shot.className='readings-stamp';
+    shot.setAttribute('aria-label','The Kill Dull dull stamp');shot.innerHTML=IMG;}
+  if(talk.nextElementSibling!==shot)talk.insertAdjacentElement('afterend',shot);
+}
+place();
+document.addEventListener('DOMContentLoaded',place);
+window.addEventListener('load',place);
+try{new MutationObserver(place).observe(document.body,{childList:true});}catch(e){}
+setTimeout(place,300);setTimeout(place,1200);
+})();</script>
 </body></html>
