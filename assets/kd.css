@@ -138,10 +138,12 @@ a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
 }
 
 .masthead-designation {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
+  /* The descriptor is a navigation-register label, not a wordmark: it takes
+     .reg-item's type treatment (kd.css:221) rather than the wordmark's. */
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500;
   font-size: 15px;
-  letter-spacing: 0.10em;
+  letter-spacing: 0.16em;
   color: var(--paper);
   text-align: right;
   text-transform: uppercase;
