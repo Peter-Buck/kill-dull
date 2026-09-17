@@ -272,10 +272,10 @@
   //
   // What is left is the four names and what each one means.
   window.KD_PS={"masses":[
-    {"name":"PRODUCT","copy":"What you make."},
-    {"name":"PRICE","copy":"What you ask."},
-    {"name":"PLACE","copy":"Where it reaches people."},
-    {"name":"PROMOTION","copy":"What you say and signal."}]};
+    {"name":"PRODUCT","copy":"What you make.","img":"product"},
+    {"name":"PRICE","copy":"What you ask.","img":"price"},
+    {"name":"PLACE","copy":"Where it reaches people.","img":"place"},
+    {"name":"PROMOTION","copy":"What you say and signal.","img":"promotion"}]};
 
   // kd-core rebuilds #observation on both DOMContentLoaded and window.load, so
   // a later rebuild can replace the runway with a fresh empty one. This stays
@@ -288,7 +288,9 @@
   function psMassesMarkup(d){
     var h='',k;
     for(k=0;k<d.masses.length;k++){
-      h+='<li class="ps-mass"><h2>'+psEsc(d.masses[k].name)+'</h2>'+
+      h+='<li class="ps-mass">'+
+         (d.masses[k].img?'<img class="ps-mass-image" src="/assets/fourps-'+psEsc(d.masses[k].img)+'.webp" alt="" loading="lazy" decoding="async">':'')+
+         '<h2>'+psEsc(d.masses[k].name)+'</h2>'+
          '<p>'+psEsc(d.masses[k].copy)+'</p></li>';
     }
     return '<ul class="ps-masses">'+h+'</ul>';
