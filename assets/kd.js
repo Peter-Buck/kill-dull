@@ -273,7 +273,7 @@
   window.KD_PS={"masses":[
     {"name":"PRODUCT","copy":"What you make."},
     {"name":"PRICE","copy":"What you ask."},
-    {"name":"PLACE","copy":"Where and how it reaches people."},
+    {"name":"PLACE","copy":"Where it reaches people."},
     {"name":"PROMOTION","copy":"What you say and signal."}]};
 
   // kd-core rebuilds #observation on both DOMContentLoaded and window.load, so
