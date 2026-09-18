@@ -30,7 +30,16 @@
 .legal-page .legal-copy strong { font-weight: 700; }
 .legal-page .legal-subhead { max-width: 58%; margin: 46px 0 14px; font-family: "IBM Plex Mono", monospace; font-size: 15px; font-weight: 400; line-height: 1.4; letter-spacing: .14em; text-transform: uppercase; }
 .legal-page .legal-stamp { margin-top: 46px; font-family: "IBM Plex Mono", monospace; font-size: 15px; line-height: 1; letter-spacing: .12em; color: #736F65; }
+
+/* THE LEGAL PHOTOGRAPHS - one per page, set the way the closing photographs are
+   set elsewhere: the full width of the page, its own proportion, and nothing
+   around it. These sit inside the copy rather than after it, so they break out
+   of the section padding the way the Company photograph does. On a phone the
+   frame is cropped rather than the whole picture shrunk, on a ratio rather than
+   a fixed height, and each crop is held on its own subject. */
+.legal-page .legal-image { display: block; width: calc(100% + var(--section-pad-h) * 2); max-width: none; height: auto; margin: 46px calc(var(--section-pad-h) * -1); }
 @media (max-width: 767px) {
+.legal-page .legal-image { aspect-ratio: 7/5; max-height: 320px; object-fit: cover; object-position: 34% center; }
   .legal-page .legal-copy > p,
   .legal-page .legal-subhead { max-width: 100%; }
 }
@@ -46,6 +55,7 @@
 <section class="viewport home-paper"><span class="hero-line-wrap"><h1 class="hero-line">Terms of Use.</h1></span><div class="legal-copy">
 <p><strong>The short version: use your judgment.</strong></p>
 <p>These terms govern use of the public Kill Dull website. They do not govern private engagements with the Bench. Those are subject to separate terms agreed with the client.</p>
+<img class="legal-image" src="/assets/kill-dull-small-print.webp" width="1983" height="793" decoding="async" alt="An open document with the words &#8220;NO HIDDEN SMALL PRINT.&#8221; highlighted in yellow.">
 <h2 class="legal-subhead">The site</h2>
 <p>Kill Dull publishes information, ideas, research, opinions and judgments about marketing and related subjects. We try to get things right. We can still be wrong.</p>
 <p>Nothing on this public site should be treated as legal, financial or other professional advice, or as a substitute for your own judgment.</p>
