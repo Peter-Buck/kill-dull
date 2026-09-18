@@ -157,7 +157,7 @@
     var products=document.querySelector('.unified-nav-products');
     if(products) products.innerHTML='<a class="product-cta" href="/contact"><span class="enter-text">CONTACT</span></a>';
     var mobile=document.querySelector('.registrar-mobile');
-    if(mobile){var label=key==='discipline'?'HOW':key==='bench'?'BENCH':key==='readings'?'READINGS':key==='bureau'?'THE COMPANY':key==='contact'?'MENU':'WHY';var mobHtml='<button class="reg-mobile-current" id="reg-mobile-btn" aria-expanded="false" aria-controls="reg-mobile-dropdown"><span id="reg-mobile-label">'+label+'</span><span class="reg-mobile-arrow" aria-hidden="true"></span></button><div class="reg-mobile-dropdown" id="reg-mobile-dropdown" hidden><a class="reg-item" href="/">WHY</a><a class="reg-item" href="/discipline">HOW</a><a class="reg-item" href="/bench">BENCH</a><a class="reg-item" href="/readings">READINGS</a></div>';if(mobile.getAttribute('data-kd-nav')!==label){mobile.innerHTML=mobHtml;mobile.setAttribute('data-kd-nav',label);}}
+    if(mobile){var label=key==='discipline'?'HOW':key==='bench'?'BENCH':key==='readings'?'READINGS':key==='bureau'?'THE COMPANY':key==='contact'?'MENU':key==='home'?'WHY':'MENU';var mobHtml='<button class="reg-mobile-current" id="reg-mobile-btn" aria-expanded="false" aria-controls="reg-mobile-dropdown"><span id="reg-mobile-label">'+label+'</span><span class="reg-mobile-arrow" aria-hidden="true"></span></button><div class="reg-mobile-dropdown" id="reg-mobile-dropdown" hidden><a class="reg-item" href="/">WHY</a><a class="reg-item" href="/discipline">HOW</a><a class="reg-item" href="/bench">BENCH</a><a class="reg-item" href="/readings">READINGS</a></div>';if(mobile.getAttribute('data-kd-nav')!==label){mobile.innerHTML=mobHtml;mobile.setAttribute('data-kd-nav',label);}}
     var burberry=document.querySelector('.readings-page img[alt="Burberry"]');
     if(burberry){burberry.src='/assets/burberry-logo.svg';burberry.classList.add('native-cream');}
     var starbucks=document.querySelector('.readings-page img[alt="Starbucks"]');
@@ -174,7 +174,7 @@
       var contact=document.createElement('section');
       contact.className='viewport home-paper kd-talk';contact.setAttribute('aria-label','Contact Kill Dull');
       contact.innerHTML='<span class="hero-line-wrap"><h2 class="hero-line js-fit">BRING WHAT’S BUGGING YOU.</h2></span>'+
-        '<a class="kd-cta-unified kd-talk-cta" href="mailto:human@killdull.com">REALHUMAN@KILLDULL.COM</a>';
+        '<a class="kd-cta-unified kd-talk-cta" href="mailto:human@killdull.com">HUMAN@KILLDULL.COM</a>';
       footEl.parentNode.insertBefore(contact,footEl);
     }
     // One full-width divider between the CTA and the footer, on every page whose
