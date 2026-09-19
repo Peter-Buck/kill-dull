@@ -5,6 +5,10 @@
 
 !assets/
 !api/
+# The collection modules the functions import. Tests live in test/, which
+# is deliberately NOT re-included: anything under a deployed directory is
+# served as a file, and test sources are not public documents.
+!lib/
 !vercel.json
 !robots.txt
 !favicon.ico
