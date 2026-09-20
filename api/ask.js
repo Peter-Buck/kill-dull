@@ -71,16 +71,44 @@ function readMessages(body) {
   return messages;
 }
 
-/* TEMPORARY verification hook — removed once the endpoint is confirmed.
-   A GET with the token runs one fixed question through the identical path a
-   real question takes. Never active in production. */
+/* TEMPORARY verification hooks — removed once the endpoint is confirmed.
+   Neither is ever active in production.
+
+   ?selftest=<token> runs one fixed question through the identical path a
+   real question takes.
+
+   ?credshape=<token> answers the one question a 401 cannot: is the stored
+   credential the wrong shape, or simply the wrong key? It returns yes/no
+   answers and one length — never any part of the value itself. */
 var SELFTEST_TOKEN = 'd47fae528d6474bcf924c2d9';
 
+function credShape(raw) {
+  if (typeof raw !== 'string' || raw === '') return { present: false };
+  var trimmed = raw.trim();
+  return {
+    present: true,
+    length: raw.length,
+    lengthAfterTrim: trimmed.length,
+    surroundedByWhitespace: raw.length !== trimmed.length,
+    containsLineBreak: /[\r\n]/.test(raw),
+    wrappedInQuotes: /^["']|["']$/.test(trimmed),
+    looksLikeApiKey: /^sk-ant-api\d\d-[A-Za-z0-9_-]+$/.test(trimmed),
+    looksLikeOAuthToken: /^sk-ant-(oat|ort)\d\d-/.test(trimmed),
+    looksLikeAdminKey: /^sk-ant-admin/.test(trimmed)
+  };
+}
+
 module.exports = async function handler(req, res) {
+  var notProduction = process.env.VERCEL_ENV !== 'production';
+
   var selftest =
-    req.method === 'GET' &&
-    process.env.VERCEL_ENV !== 'production' &&
+    req.method === 'GET' && notProduction &&
     req.query && req.query.selftest === SELFTEST_TOKEN;
+
+  if (req.method === 'GET' && notProduction &&
+      req.query && req.query.credshape === SELFTEST_TOKEN) {
+    return res.status(200).json(credShape(process.env.ANTHROPIC_API_KEY));
+  }
 
   if (selftest) {
     req.body = { messages: [{ role: 'user', content: 'Who owns Kill Dull?' }] };
@@ -89,7 +117,9 @@ module.exports = async function handler(req, res) {
     return send(res, 405, K.FALLBACK_TEXT);
   }
 
-  var apiKey = process.env.ANTHROPIC_API_KEY;
+  // A value stored with a stray line break or wrapping quotes is
+  // indistinguishable from a wrong one at the 401. Trim before use.
+  var apiKey = (process.env.ANTHROPIC_API_KEY || '').trim();
   if (!apiKey) return send(res, 503, 'ASK KILL DULL is not available right now.');
 
   var origin = req.headers.origin;
