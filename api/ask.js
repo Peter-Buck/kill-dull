@@ -125,8 +125,20 @@ module.exports = async function handler(req, res) {
     });
 
     if (!upstream.ok) {
-      // Never log message content. Status only.
-      console.error('ask: upstream ' + upstream.status);
+      // Status and Anthropic's error.type only. error.type is a fixed enum
+      // ("authentication_error", "not_found_error", ...), so it carries no
+      // message text, no request body and nothing from the question. It is
+      // still shape-checked before being logged, so an unexpected value can
+      // never become the log line.
+      var kind = 'none';
+      try {
+        var errBody = await upstream.json();
+        var t = errBody && errBody.error && errBody.error.type;
+        kind = (typeof t === 'string' && /^[a-z_]{1,40}$/.test(t)) ? t : 'unrecognized';
+      } catch (e) {
+        kind = 'unparseable';
+      }
+      console.error('ask: upstream ' + upstream.status + ' ' + kind);
       if (upstream.status === 429) {
         return send(res, 429, 'Too many questions at once. Give it a moment.');
       }
