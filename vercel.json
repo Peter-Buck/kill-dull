@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "api/ask.js": {
-      "maxDuration": 60
-    }
-  },
   "redirects": [
     {
       "source": "/go-deeper",

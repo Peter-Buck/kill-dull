@@ -156,16 +156,6 @@
   color: var(--ink);
 }
 
-.ask-kd-label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ask-quiet);
-  margin-bottom: 12px;
-}
-
 /* --------------------------------------------------------------------------
    STARTERS — ruled rows. An index, the way the footer is an index.
    -------------------------------------------------------------------------- */
@@ -209,108 +199,29 @@
 .ask-kd-starter:focus-visible .ask-kd-starter__mark { background: var(--yellow); }
 
 /* --------------------------------------------------------------------------
-   TRANSCRIPT — a record with labelled turns, divided by rules. Not a chat.
+   ANSWER — folded under its question, inside the same ruled row.
    -------------------------------------------------------------------------- */
 
-.ask-kd-turn { border-top: 1px solid var(--ask-rule); padding: 18px 0 4px; }
-.ask-kd-turn:first-child { border-top: none; padding-top: 0; }
-.ask-kd-turn--answer { padding-bottom: 18px; }
-
-.ask-kd-turn__label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ask-quiet);
-  margin-bottom: 9px;
+.ask-kd-answer {
+  border-bottom: 1px solid var(--ask-rule);
+  padding: 2px 0 20px;
 }
 
-.ask-kd-turn__body {
+.ask-kd-answer[hidden] { display: none; }
+
+.ask-kd-answer__body {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 17px;
+  font-size: 16px;
   line-height: 1.55;
   color: var(--ink);
   white-space: pre-wrap;
 }
 
-.ask-kd-turn--question .ask-kd-turn__body { font-weight: 500; }
-
-/* Working. One element moves, on a step — the site processes, it does not fidget. */
-.ask-kd-working {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ask-quiet);
-}
-
-.ask-kd-working__mark {
-  width: 8px;
-  height: 8px;
-  background: var(--yellow);
-  animation: ask-kd-examine 1.4s steps(1, end) infinite;
-}
-
-@keyframes ask-kd-examine {
-  0%, 50%   { opacity: 1; }
-  51%, 100% { opacity: 0.15; }
-}
-
-.ask-kd-more { margin-top: 22px; }
-
-/* --------------------------------------------------------------------------
-   ASK BAR — ink, because it is operated.
-   -------------------------------------------------------------------------- */
-
-.ask-kd-ask {
-  display: flex;
-  align-items: stretch;
-  flex-shrink: 0;
-  background: var(--ink);
-}
-
-.ask-kd-ask__field {
-  flex: 1 1 auto;
-  min-width: 0;
-  background: none;
-  border: none;
-  color: #FFFFFF;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 13px;
-  letter-spacing: 0.08em;
-  padding: 13px 20px;
-}
-
-.ask-kd-ask__field::placeholder {
-  color: #6f6d66;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-}
-
-.ask-kd-ask__field:focus { outline: none; }
-.ask-kd-ask__field:focus::placeholder { color: #8a8880; }
-
-/* The one decisive action in the panel. */
-.ask-kd-ask__send {
-  flex-shrink: 0;
-  background: var(--yellow);
-  color: var(--ink);
-  border: none;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  padding: 13px 20px;
-  cursor: pointer;
-}
-
-.ask-kd-ask__send:disabled { background: var(--border); color: #6f6d66; cursor: default; }
-.ask-kd-ask__send:not(:disabled):hover { background: #FFFFFF; }
+/* An open question keeps the shift and the mark it had on hover, so the row
+   you are reading stays legible as the pointer moves away. The question also
+   loses its own rule: question and answer read as one block. */
+.ask-kd-starter.is-open { padding-left: 8px; border-bottom-color: transparent; }
+.ask-kd-starter.is-open .ask-kd-starter__mark { background: var(--yellow); }
 
 .ask-kd-boundary {
   flex-shrink: 0;
@@ -349,7 +260,6 @@
   .ask-kd-read { padding: 22px 24px 20px; }
   .ask-kd-title { font-size: 28px; }
   .ask-kd-record { padding-left: 24px; padding-right: 24px; }
-  .ask-kd-ask__field { padding-left: 24px; }
   .ask-kd-boundary { padding-left: 24px; padding-right: 24px; }
 }
 
@@ -357,5 +267,4 @@
   #registrar .ask-kd-trigger svg,
   .ask-kd-starter,
   .ask-kd-starter__mark { transition: none; }
-  .ask-kd-working__mark { animation: none; opacity: 1; }
 }

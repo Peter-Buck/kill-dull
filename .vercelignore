@@ -5,6 +5,13 @@
 
 !assets/
 !api/
+
+# ASK KILL DULL asks the model nothing while the free-text field is out, so
+# the endpoint it would call is not built. Both files stay in the repository,
+# reviewed and ready; deleting these two lines and restoring the maxDuration
+# entry in vercel.json puts the endpoint back.
+api/ask.js
+api/_lib/
 # The collection modules the functions import. Tests live in test/, which
 # is deliberately NOT re-included: anything under a deployed directory is
 # served as a file, and test sources are not public documents.

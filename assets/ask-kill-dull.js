@@ -10,27 +10,24 @@
  * .unified-nav-products and .registrar-mobile on every load. A direct child of
  * #registrar is outside all three, so it survives, whichever script runs first.
  *
- * THE STANDING RULE, which governs the copy in this file as much as the model:
+ * THE STANDING RULE, which governs the copy in this file:
  *   ASK KILL DULL may explain approved Kill Dull doctrine.
  *   It may not create Kill Dull doctrine.
- * Every authored answer below is drawn from a live killdull.com page. The
- * model's half of the boundary is api/_lib/knowledge.js. The two must agree.
+ * Every authored answer below is drawn from a live killdull.com page.
+ *
+ * Ten questions, ten authored answers, and nothing else. The panel asks the
+ * model nothing: there is no free-text field, so every word a visitor can
+ * read here is a word Kill Dull wrote. The model's half of the boundary
+ * (api/_lib/knowledge.js, /api/ask) is held in the repository, unbuilt, for
+ * whenever the field comes back.
  */
 (function () {
   'use strict';
 
-  var ENDPOINT = '/api/ask';
   var TITLE = 'ASK KILL DULL';
-  var PLACEHOLDER = 'Ask Kill Dull';
   var BOUNDARY = 'Public material only.';
-  var FALLBACK = 'That did not go through. Try again, or use /contact.';
 
   /*
-    Starter questions, each with an authored answer returned locally — no model
-    call, no latency, and Kill Dull's own words on the questions that matter
-    most. Question and answer both enter the history, so follow-ups keep
-    context.
-
     Sources, in order: /bureau, /bureau, / and /bench, /bench, /,
     /discipline, /bench, /bench and /discipline, / , / and /bureau.
   */
@@ -105,18 +102,16 @@
 
   /* ---------------------------------------------------------------------- */
 
+
   var nav = document.getElementById('registrar');
   if (!nav) return;
 
   var trigger = null;
   var panel = null;
-  var readEl = null;
-  var fieldEl = null;
-  var sendEl = null;
+  var readEl = null;   // the scrolling reading surface
+  var listEl = null;   // the ruled list of questions inside it
   var open = false;
-  var loading = false;
-  var history = [];
-  var asked = [];
+  var openRow = null;
 
   function el(tag, cls, text) {
     var n = document.createElement(tag);
@@ -141,6 +136,58 @@
     trigger.addEventListener('click', function () { setOpen(!open); });
   }
 
+  /* -- the index ---------------------------------------------------------
+     Ten questions, each with its answer folded underneath it. One answer is
+     open at a time: opening the next closes the last, so the list never grows
+     past the height of the panel and the question you came for stays in view.
+     The same rule kd.js applies to the Bench cards.
+     -------------------------------------------------------------------- */
+
+  function buildRow(item, index) {
+    var id = 'ask-kd-a' + index;
+
+    var question = el('button', 'ask-kd-starter');
+    question.type = 'button';
+    question.setAttribute('aria-expanded', 'false');
+    question.setAttribute('aria-controls', id);
+    question.appendChild(el('span', null, item.q));
+    question.appendChild(el('span', 'ask-kd-starter__mark'));
+
+    var answer = el('div', 'ask-kd-answer');
+    answer.id = id;
+    answer.hidden = true;
+    answer.appendChild(el('div', 'ask-kd-answer__body', item.a));
+
+    var row = { question: question, answer: answer };
+    question.addEventListener('click', function () { toggle(row); });
+
+    listEl.appendChild(question);
+    listEl.appendChild(answer);
+  }
+
+  function shut(row) {
+    row.answer.hidden = true;
+    row.question.setAttribute('aria-expanded', 'false');
+    row.question.classList.remove('is-open');
+  }
+
+  function toggle(row) {
+    if (openRow === row) {
+      shut(row);
+      openRow = null;
+      return;
+    }
+    if (openRow) shut(openRow);
+
+    row.answer.hidden = false;
+    row.question.setAttribute('aria-expanded', 'true');
+    row.question.classList.add('is-open');
+    openRow = row;
+
+    // Land on the question, not below it.
+    readEl.scrollTop = row.question.offsetTop - readEl.offsetTop;
+  }
+
   function buildPanel() {
     panel = el('div', 'ask-kd-panel');
     panel.id = 'ask-kill-dull-panel';
@@ -159,156 +206,18 @@
     panel.appendChild(record);
 
     readEl = el('div', 'ask-kd-read');
-    readEl.setAttribute('role', 'log');
-    readEl.setAttribute('aria-live', 'polite');
     panel.appendChild(readEl);
 
-    var ask = el('form', 'ask-kd-ask');
-    fieldEl = el('input', 'ask-kd-ask__field');
-    fieldEl.type = 'text';
-    fieldEl.autocomplete = 'off';
-    fieldEl.placeholder = PLACEHOLDER;
-    fieldEl.setAttribute('aria-label', 'Ask Kill Dull a question');
-    fieldEl.addEventListener('input', syncSend);
-
-    sendEl = el('button', 'ask-kd-ask__send', 'Ask');
-    sendEl.type = 'submit';
-    sendEl.disabled = true;
-
-    ask.addEventListener('submit', function (e) {
-      e.preventDefault();
-      send(fieldEl.value);
-    });
-    ask.appendChild(fieldEl);
-    ask.appendChild(sendEl);
-    panel.appendChild(ask);
+    // The title is the whole opening. Nothing explains the questions.
+    readEl.appendChild(el('h2', 'ask-kd-title', TITLE));
+    listEl = el('div', 'ask-kd-starters');
+    readEl.appendChild(listEl);
+    STARTERS.forEach(buildRow);
 
     panel.appendChild(el('div', 'ask-kd-boundary', BOUNDARY));
     panel.addEventListener('keydown', onPanelKeyDown);
 
     document.body.appendChild(panel);
-    render();
-  }
-
-  function syncSend() {
-    if (sendEl) sendEl.disabled = loading || !fieldEl.value.trim();
-  }
-
-  /* -- rendering --------------------------------------------------------- */
-
-  function remaining() {
-    return STARTERS.filter(function (s) { return asked.indexOf(s.q) === -1; });
-  }
-
-  function starterList(label) {
-    var wrap = el('div');
-    if (label) wrap.appendChild(el('div', 'ask-kd-label', label));
-    var list = el('div', 'ask-kd-starters');
-    remaining().forEach(function (s) {
-      var btn = el('button', 'ask-kd-starter');
-      btn.type = 'button';
-      btn.appendChild(el('span', null, s.q));
-      btn.appendChild(el('span', 'ask-kd-starter__mark'));
-      btn.addEventListener('click', function () { send(s.q); });
-      list.appendChild(btn);
-    });
-    wrap.appendChild(list);
-    return wrap;
-  }
-
-  function turn(label, body, kind) {
-    var t = el('div', 'ask-kd-turn ask-kd-turn--' + kind);
-    t.appendChild(el('div', 'ask-kd-turn__label', label));
-    t.appendChild(el('div', 'ask-kd-turn__body', body));
-    return t;
-  }
-
-  function render() {
-    readEl.textContent = '';
-
-    // The opening is the title and the questions. Nothing explains them.
-    if (history.length === 0) {
-      readEl.appendChild(el('h2', 'ask-kd-title', TITLE));
-      readEl.appendChild(starterList(null));
-      return;
-    }
-
-    history.forEach(function (m) {
-      readEl.appendChild(
-        m.role === 'user'
-          ? turn('Question', m.content, 'question')
-          : turn('Kill Dull', m.content, 'answer')
-      );
-    });
-
-    if (loading) {
-      var w = el('div', 'ask-kd-turn ask-kd-turn--answer');
-      w.appendChild(el('div', 'ask-kd-turn__label', 'Kill Dull'));
-      var working = el('div', 'ask-kd-working');
-      working.appendChild(el('span', 'ask-kd-working__mark'));
-      working.appendChild(el('span', null, 'Examining'));
-      w.appendChild(working);
-      readEl.appendChild(w);
-    } else if (remaining().length) {
-      var more = starterList('Also ask');
-      more.className = 'ask-kd-more';
-      readEl.appendChild(more);
-    }
-
-    // Land on the exchange just added, not below it.
-    var questions = readEl.querySelectorAll('.ask-kd-turn--question');
-    var last = questions[questions.length - 1];
-    readEl.scrollTop = last ? last.offsetTop - readEl.offsetTop : readEl.scrollHeight;
-  }
-
-  /* -- conversation ------------------------------------------------------ */
-
-  function authored(question) {
-    for (var i = 0; i < STARTERS.length; i++) {
-      if (STARTERS[i].q === question) return STARTERS[i].a;
-    }
-    return null;
-  }
-
-  function send(text) {
-    var question = (text || '').trim();
-    if (!question || loading) return;
-
-    fieldEl.value = '';
-    var local = authored(question);
-    if (local && asked.indexOf(question) === -1) asked.push(question);
-
-    history.push({ role: 'user', content: question });
-
-    if (local) {
-      history.push({ role: 'assistant', content: local });
-      render();
-      syncSend();
-      return;
-    }
-
-    loading = true;
-    syncSend();
-    render();
-
-    fetch(ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: history })
-    })
-      .then(function (res) { return res.json()['catch'](function () { return {}; }); })
-      .then(function (data) {
-        history.push({ role: 'assistant', content: (data && data.text) || FALLBACK });
-      })
-      ['catch'](function () {
-        history.push({ role: 'assistant', content: FALLBACK });
-      })
-      .then(function () {
-        loading = false;
-        render();
-        syncSend();
-        fieldEl.focus();
-      });
   }
 
   /* -- open / close / position ------------------------------------------- */
@@ -332,7 +241,7 @@
     }
     if (e.key !== 'Tab') return;
 
-    var focusable = panel.querySelectorAll('button:not([disabled]), input:not([disabled])');
+    var focusable = panel.querySelectorAll('button:not([disabled])');
     if (focusable.length < 2) return;
     var first = focusable[0];
     var last = focusable[focusable.length - 1];
@@ -347,8 +256,6 @@
 
   function onDocumentClick(e) {
     if (!open) return;
-    // Answering a starter re-renders the surface, so the clicked button is
-    // already detached by the time this runs. The dispatch path still has it.
     var path = typeof e.composedPath === 'function' ? e.composedPath() : [];
     if (path.indexOf(panel) !== -1 || path.indexOf(trigger) !== -1) return;
     if (panel.contains(e.target) || trigger.contains(e.target)) return;
@@ -366,11 +273,13 @@
       window.addEventListener('resize', position);
       window.addEventListener('scroll', position, { passive: true });
       document.addEventListener('click', onDocumentClick);
-      fieldEl.focus();
     } else {
       window.removeEventListener('resize', position);
       window.removeEventListener('scroll', position);
       document.removeEventListener('click', onDocumentClick);
+      // Next opening starts from the index, not from where you left off.
+      if (openRow) { shut(openRow); openRow = null; }
+      if (readEl) readEl.scrollTop = 0;
     }
   }
 
