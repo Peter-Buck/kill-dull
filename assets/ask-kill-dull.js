@@ -20,7 +20,6 @@
   'use strict';
 
   var ENDPOINT = '/api/ask';
-  var RECORD_ID = 'KD · ASK — 001';
   var TITLE = 'ASK KILL DULL.';
   var PLACEHOLDER = 'Ask Kill Dull';
   var BOUNDARY = 'Public material only.';
@@ -150,7 +149,6 @@
     panel.setAttribute('aria-label', 'Ask Kill Dull');
 
     var record = el('div', 'ask-kd-record');
-    record.appendChild(el('span', null, RECORD_ID));
     var close = el('button', 'ask-kd-record__close', 'Close');
     close.type = 'button';
     close.addEventListener('click', function () {

@@ -105,7 +105,8 @@
 .ask-kd-record {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* Close is the only thing in this bar, and it stays on the right. */
+  justify-content: flex-end;
   gap: 16px;
   flex-shrink: 0;
   background: var(--ink);
