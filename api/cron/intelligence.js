@@ -12,6 +12,8 @@
 
 'use strict';
 
+var timingSafeEqual = require('node:crypto').timingSafeEqual;
+
 var TARGET_HOUR = 8;            // 08:00 America/Los_Angeles
 var GUARD_TTL_SECONDS = 20 * 60 * 60;
 
@@ -49,11 +51,27 @@ function json(res, status, payload) {
   res.end(JSON.stringify(payload));
 }
 
+/** Constant-time string comparison. Length alone is not a secret. */
+function same(a, b) {
+  if (!a || !b) return false;
+  var A = Buffer.from(String(a), 'utf8');
+  var B = Buffer.from(String(b), 'utf8');
+  if (A.length !== B.length) return false;
+  return timingSafeEqual(A, B);
+}
+
 /**
- * Two ways in, both authenticated. Vercel's scheduler presents CRON_SECRET as a
- * bearer token; a deliberate run by hand presents the Intelligence secret. If
- * neither variable is configured the job refuses to run rather than exposing a
- * mailer to the internet.
+ * Authenticated three ways, by two credentials.
+ *
+ * Vercel's scheduler presents CRON_SECRET as a bearer token. A deliberate run
+ * by hand presents either secret as ?k= — the scheduler's own credential,
+ * because an operator triggering this job is standing in for the scheduler, or
+ * the Intelligence secret, because whoever can read the briefing can ask for
+ * it to be sent. Both are high-entropy server-side values, both are compared in
+ * constant time, and neither is ever echoed back.
+ *
+ * If neither variable is configured the job refuses to run rather than leaving
+ * a mailer open to the internet.
  */
 function authorised(req, url) {
   var cronSecret = process.env.CRON_SECRET;
@@ -61,10 +79,10 @@ function authorised(req, url) {
   if (!cronSecret && !dash) return { ok: false, status: 503, reason: 'not_configured' };
 
   var auth = req.headers['authorization'] || '';
-  if (cronSecret && auth === 'Bearer ' + cronSecret) return { ok: true, by: 'schedule' };
+  if (cronSecret && same(auth, 'Bearer ' + cronSecret)) return { ok: true, by: 'schedule' };
 
   var k = url.searchParams.get('k');
-  if (dash && k && k.length === dash.length && k === dash) return { ok: true, by: 'manual' };
+  if (same(k, cronSecret) || same(k, dash)) return { ok: true, by: 'manual' };
 
   return { ok: false, status: 401, reason: 'unauthorized' };
 }
