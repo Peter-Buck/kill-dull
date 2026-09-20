@@ -71,8 +71,26 @@ function readMessages(body) {
   return messages;
 }
 
+/*
+  TEMPORARY verification hook. Remove before production.
+
+  Lets a GET run one fixed question through the exact same code path a real
+  question takes, so the endpoint can be verified without a browser. It reads
+  no environment variable itself and returns only what a visitor would get.
+  Never active in production, and gated on a token besides.
+*/
+var SELFTEST_TOKEN = 'd47fae528d6474bcf924c2d9';
+var SELFTEST_QUESTION = 'Who owns Kill Dull?';
+
 module.exports = async function handler(req, res) {
-  if (req.method !== 'POST') {
+  var selftest =
+    req.method === 'GET' &&
+    process.env.VERCEL_ENV !== 'production' &&
+    req.query && req.query.selftest === SELFTEST_TOKEN;
+
+  if (selftest) {
+    req.body = { messages: [{ role: 'user', content: SELFTEST_QUESTION }] };
+  } else if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return send(res, 405, K.FALLBACK_TEXT);
   }
