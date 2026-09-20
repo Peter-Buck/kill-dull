@@ -102,6 +102,20 @@ async function claimDay(cache, day) {
   return { claimed: out[0] === 'OK', guarded: true };
 }
 
+/**
+ * Give the day back when nothing was sent.
+ *
+ * The claim is taken before the briefing is built, because that is the only
+ * order in which it prevents two overlapping runs from both sending. The cost
+ * is that a run which then fails would hold the day against a retry — turning
+ * one bad minute at PostHog or Google into a silent missing day. Releasing it
+ * on every failure path costs one Redis call and removes that.
+ */
+async function releaseDay(cache, day, claim) {
+  if (!claim || !claim.guarded || !cache || typeof cache.pipeline !== 'function') return;
+  await cache.pipeline([['DEL', 'kd:intel:sent:' + day]]);
+}
+
 module.exports = async function handler(req, res) {
   var mods = await modules();
   var url = new URL(req.url, 'https://' + (req.headers['host'] || 'killdull.com'));
@@ -135,6 +149,12 @@ module.exports = async function handler(req, res) {
   if (!result.ok) {
     // A failed read is itself worth knowing about, but it is not a briefing and
     // must never be dressed up as one. Report the fault; send nothing.
+    //
+    // The log line matters more than the status code: when the briefing cannot
+    // be sent, the log is the only channel left that Peter can be pointed at.
+    // It carries the reason and the day, and never a credential.
+    console.error('intelligence: build failed', result.reason, day);
+    await releaseDay(mods.cache, day, claim);
     return json(res, 503, { ok: false, error: result.reason, day: day, la_hour: hour });
   }
 
@@ -158,7 +178,11 @@ module.exports = async function handler(req, res) {
     text: mods.briefingText(model, meta)
   });
 
-  if (!sent.ok) return json(res, 502, { ok: false, error: sent.reason, day: day });
+  if (!sent.ok) {
+    console.error('intelligence: send failed', sent.reason, day);
+    await releaseDay(mods.cache, day, claim);
+    return json(res, 502, { ok: false, error: sent.reason, day: day });
+  }
 
   return json(res, 200, {
     ok: true,
