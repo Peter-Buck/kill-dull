@@ -20,7 +20,7 @@
   'use strict';
 
   var ENDPOINT = '/api/ask';
-  var TITLE = 'ASK KILL DULL.';
+  var TITLE = 'ASK KILL DULL';
   var PLACEHOLDER = 'Ask Kill Dull';
   var BOUNDARY = 'Public material only.';
   var FALLBACK = 'That did not go through. Try again, or use /contact.';

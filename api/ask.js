@@ -119,9 +119,11 @@ module.exports = async function handler(req, res) {
       signal: controller.signal,
       headers: {
         'content-type': 'application/json',
-        // Current docs make Authorization: Bearer the primary scheme for an
-        // API key; x-api-key is the documented legacy fallback.
-        'authorization': 'Bearer ' + apiKey,
+        // An Anthropic API key authenticates on x-api-key. Authorization:
+        // Bearer is the OAuth scheme and rejects an API key outright, which
+        // is what 401 authentication_error was telling us. This is the header
+        // the SDK sends on peter-buck.com, where the same call works.
+        'x-api-key': apiKey,
         'anthropic-version': ANTHROPIC_VERSION
       },
       body: JSON.stringify({
