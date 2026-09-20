@@ -94,7 +94,12 @@ function credShape(raw) {
     wrappedInQuotes: /^["']|["']$/.test(trimmed),
     looksLikeApiKey: /^sk-ant-api\d\d-[A-Za-z0-9_-]+$/.test(trimmed),
     looksLikeOAuthToken: /^sk-ant-(oat|ort)\d\d-/.test(trimmed),
-    looksLikeAdminKey: /^sk-ant-admin/.test(trimmed)
+    looksLikeAdminKey: /^sk-ant-admin/.test(trimmed),
+    // Which half is wrong: the prefix, or the body?
+    startsWithSk: /^sk-/.test(trimmed),
+    startsWithSkAnt: /^sk-ant-/.test(trimmed),
+    startsWithSkAntApi: /^sk-ant-api\d\d-/.test(trimmed),
+    charsOutsideKeyAlphabet: (trimmed.match(/[^A-Za-z0-9_-]/g) || []).length
   };
 }
 
