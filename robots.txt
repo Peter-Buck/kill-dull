@@ -4,4 +4,10 @@
 User-agent: *
 Allow: /
 
+# The Intelligence briefing is private. It is already behind a shared secret
+# and served with X-Robots-Tag: noindex, so this is the third lock rather than
+# the first — but a private surface should not be discoverable from here either.
+Disallow: /intelligence
+Disallow: /api/
+
 Sitemap: https://killdull.com/sitemap.xml

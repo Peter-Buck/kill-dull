@@ -132,6 +132,20 @@
     {
       "source": "/contact",
       "destination": "/contact.html"
+    },
+    {
+      "source": "/intelligence",
+      "destination": "/api/intelligence"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron/intelligence",
+      "schedule": "0 15 * * *"
+    },
+    {
+      "path": "/api/cron/intelligence",
+      "schedule": "0 16 * * *"
     }
   ]
 }
