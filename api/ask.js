@@ -71,8 +71,20 @@ function readMessages(body) {
   return messages;
 }
 
+/* TEMPORARY verification hook — removed once the endpoint is confirmed.
+   A GET with the token runs one fixed question through the identical path a
+   real question takes. Never active in production. */
+var SELFTEST_TOKEN = 'd47fae528d6474bcf924c2d9';
+
 module.exports = async function handler(req, res) {
-  if (req.method !== 'POST') {
+  var selftest =
+    req.method === 'GET' &&
+    process.env.VERCEL_ENV !== 'production' &&
+    req.query && req.query.selftest === SELFTEST_TOKEN;
+
+  if (selftest) {
+    req.body = { messages: [{ role: 'user', content: 'Who owns Kill Dull?' }] };
+  } else if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return send(res, 405, K.FALLBACK_TEXT);
   }
@@ -107,7 +119,9 @@ module.exports = async function handler(req, res) {
       signal: controller.signal,
       headers: {
         'content-type': 'application/json',
-        'x-api-key': apiKey,
+        // Current docs make Authorization: Bearer the primary scheme for an
+        // API key; x-api-key is the documented legacy fallback.
+        'authorization': 'Bearer ' + apiKey,
         'anthropic-version': ANTHROPIC_VERSION
       },
       body: JSON.stringify({
