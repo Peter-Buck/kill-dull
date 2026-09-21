@@ -23,11 +23,11 @@ var MAX_BODY_BYTES = 16 * 1024;
 // Server-side allow-list. The select is a fixed instrument, so anything that
 // is not one of these five was not sent by the form.
 var ABOUT_OPTIONS = [
-  'Putting a marketing commitment on The Bench',
-  'Published Readings',
-  'Press',
-  'Investors',
-  'Something else'
+  'KILL DULL',
+  'THE BENCH',
+  'A MARKETING DECISION',
+  'PUBLISHED READINGS',
+  'SOMETHING ELSE'
 ];
 
 var LIMITS = {
@@ -220,11 +220,10 @@ module.exports = async function handler(req, res) {
 
   var name = [first, last].filter(Boolean).join(' ');
   var text =
-    field('WHAT’S THIS ABOUT?', about) + '\n' +
+    field('WHAT WOULD YOU LIKE TO TALK ABOUT?', about) + '\n' +
     field('FROM', name) + '\n' +
     field('COMPANY', company) + '\n' +
     field('EMAIL', email) + '\n' +
-    field('MARKETING COMMITMENT', subject) + '\n' +
     field('MESSAGE', message);
 
   var token;
