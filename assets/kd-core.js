@@ -41,7 +41,7 @@
 
   function setDate() {
     var el = document.getElementById('masthead-date');
-    if (el) el.textContent = 'THE DENSE IDEA COMPANY™';
+    if (el) el.textContent = '';
   }
 
   function getOffset() {

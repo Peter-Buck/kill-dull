@@ -146,9 +146,9 @@
     var wm=document.querySelector('.masthead-wordmark a');
     if(wm) wm.innerHTML='<span class="kd-wordmark-glyphs">KILL DULL<span class="terminal"></span></span><span class="tm">™</span>';
     var date=document.querySelector('.masthead-date');
-    if(date) date.textContent='THE DENSE IDEA COMPANY™';
+    if(date) date.textContent='';
     var designation=document.querySelector('.masthead-designation');
-    if(designation) designation.textContent='PROVIDING INDEPENDENT MARKETING JUDGMENT';
+    if(designation) designation.textContent='PROVIDING INDEPENDENT MARKETING JUDGMENT FOR BRANDS';
     var tagline=document.querySelector('.masthead-tagline');
     if(tagline) tagline.textContent='';
     var desktop=document.getElementById('registrar-desktop');
@@ -191,7 +191,7 @@
       }
     }
     var footer=document.querySelector('.footer');
-    if(footer) footer.innerHTML='<div class="footer-inner"><div class="footer-bureau">THE COMPANY.</div><div class="footer-index"><div class="footer-section"><div class="footer-section-label">DISCIPLINE</div><nav aria-label="Discipline"><a href="/discipline">Dense Ideas</a></nav></div><div class="footer-section"><div class="footer-section-label">BENCH</div><nav aria-label="Bench"><a href="/bench">How the Bench works</a><a href="/readings">Private Readings</a><a href="/readings#record">Published Readings</a></nav></div><div class="footer-section"><div class="footer-section-label">KILL DULL</div><nav aria-label="Kill Dull"><a href="/bureau">Department of Hard Evidence</a><a href="/accessibility" aria-label="Accessibility statement">Accessibility</a><a href="/privacy" aria-label="Privacy policy">Privacy</a><a href="/terms" aria-label="Terms of use">Terms</a><a href="/contact">Contact</a></nav></div></div><div class="footer-colophon"><span>© 2026 Kill Dull. All rights reserved.</span><button type="button" class="kd-consent-settings">Cookie settings</button></div></div>';
+    if(footer) footer.innerHTML='<div class="footer-inner"><div class="footer-bureau">THE DENSE IDEA COMPANY™.</div><div class="footer-index"><div class="footer-section"><div class="footer-section-label">DISCIPLINE</div><nav aria-label="Discipline"><a href="/discipline">Dense Ideas</a></nav></div><div class="footer-section"><div class="footer-section-label">BENCH</div><nav aria-label="Bench"><a href="/bench">How the Bench works</a><a href="/readings">Private Readings</a><a href="/readings#record">Published Readings</a></nav></div><div class="footer-section"><div class="footer-section-label">KILL DULL</div><nav aria-label="Kill Dull"><a href="/bureau">Department of Hard Evidence</a><a href="/accessibility" aria-label="Accessibility statement">Accessibility</a><a href="/privacy" aria-label="Privacy policy">Privacy</a><a href="/terms" aria-label="Terms of use">Terms</a><a href="/contact">Contact</a></nav></div></div><div class="footer-colophon"><span>© 2026 Kill Dull. All rights reserved.</span><button type="button" class="kd-consent-settings">Cookie settings</button></div></div>';
   }
 
   function normalizeCtas(){
