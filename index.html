@@ -44,6 +44,18 @@
 .home-bell{display:block;width:100%;line-height:0}
 .home-bell img{display:block;width:100%;height:auto}
 @media(max-width:767px){.home-bell img{aspect-ratio:7/5;height:auto;max-height:320px;object-fit:cover;object-position:83% center}}
+
+/* A card that opens says so. The mark sits in the corner of the panel, drawn
+   rather than typed so a screen reader has nothing to read out - the card
+   already announces itself as a button and reports whether it is open. It
+   turns into a cross while the card is open. Hover kept it a secret on a
+   phone; this does not. */
+.kd-review-panel{--kd-open-mark:14px}
+.kd-review-panel::after{content:"";position:absolute;top:18px;right:18px;z-index:5;width:var(--kd-open-mark);height:var(--kd-open-mark);opacity:.75;background:linear-gradient(currentColor,currentColor) center/var(--kd-open-mark) 1.5px no-repeat,linear-gradient(currentColor,currentColor) center/1.5px var(--kd-open-mark) no-repeat;transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .3s ease}
+.kd-review-card h2{padding-right:32px}
+.kd-review-card.is-active .kd-review-panel::after,.kd-review-card:focus-visible .kd-review-panel::after{transform:rotate(45deg);opacity:1}
+@media(hover:hover){.kd-review-card:hover .kd-review-panel::after{transform:rotate(45deg);opacity:1}}
+@media(prefers-reduced-motion:reduce){.kd-review-panel::after{transition:none}}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://killdull.com/#organization","name":"Kill Dull","alternateName":"The Dense Idea Company","url":"https://killdull.com/","description":"Kill Dull is the Dense Idea Company. Independent marketing judgment for consequential commitments.","email":"human@killdull.com"},{"@type":"WebSite","@id":"https://killdull.com/#website","url":"https://killdull.com/","name":"Kill Dull","publisher":{"@id":"https://killdull.com/#organization"}}]}</script>
 </head><body class="v5-home notranslate">
