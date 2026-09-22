@@ -78,7 +78,7 @@
     banner.setAttribute('role', 'region');
     banner.setAttribute('aria-label', 'Cookie consent');
     banner.innerHTML =
-      '<p class="kd-consent-copy">This site uses cookies for analytics, to understand how it&#8217;s used. ' +
+      '<p class="kd-consent-copy">This site uses optional analytics cookies to understand how it&#8217;s used. ' +
       'Analytics stay off unless you accept. ' +
       '<a class="kd-consent-link" href="' + POLICY_HREF + '">Privacy &amp; Cookie Policy</a>.</p>' +
       '<div class="kd-consent-buttons">' +

@@ -35,33 +35,33 @@
     {
       q: 'What exactly does Kill Dull do?',
       a: 'Kill Dull brings independent scrutiny to consequential marketing commitments before they are made.\n\n' +
-         'At its heart is the Bench. One commitment comes in. Evidence and assumptions are interrogated. The consequences across Product, Price, Place and Promotion are considered together. A judgment comes back — AAH. HMM. or DULL. — with the reasoning behind it.\n\n' +
-         'What the company does with it remains the company’s decision. That’s the point.'
+         'One commitment goes before the Bench. Evidence and assumptions are interrogated across Product, Price, Place and Promotion. A judgment comes back — AAH. HMM. or DULL. — with the reasoning behind it.\n\n' +
+         'You decide what happens next.'
     },
     {
       q: 'Why does Kill Dull exist?',
-      a: 'Because companies have specialists for every part of marketing except the part where the decision gets made.\n\n' +
-         'Research, strategy, agencies, analytics, effectiveness, finance. What they don’t always have is an independent place to put the whole decision under scrutiny before they commit.\n\n' +
-         'Kill Dull came from that gap.'
+      a: 'Companies have plenty of marketing expertise. What they don’t always have is an independent place to scrutinize the whole decision before they commit.\n\n' +
+         'Kill Dull exists to provide it.'
     },
     {
       q: 'What makes Kill Dull different?',
-      a: 'It is outside the outcome.\n\n' +
-         'Kill Dull doesn’t execute the decision, doesn’t produce the work and doesn’t profit from what comes next. An AAH is as successful for us as a DULL, which means there is nothing to sell you by saying either one.\n\n' +
-         'A company cannot buy an AAH. It cannot negotiate away a DULL. Published Readings cannot be commissioned, suppressed or changed by the companies they examine.\n\n' +
+      a: 'Kill Dull is independent of the outcome.\n\n' +
+         'An AAH is as successful for us as a DULL.\n\n' +
+         'A company cannot buy an AAH or negotiate away a DULL. Published Readings cannot be commissioned, suppressed or changed by the companies they examine.\n\n' +
          'Private Readings are paid for. The judgment isn’t.'
     },
     {
       q: 'What is The Bench?',
-      a: 'Where a consequential commitment goes to be judged before it is made. Three parts.\n\n' +
-         'You bring the proposed commitment, why you believe in it, and the evidence that matters. Then you leave. No workshop, no steering committee, no weekly PowerPoint tennis.\n\n' +
-         'Independent scrutiny begins. If something material is missing, we ask.\n\n' +
-         'Then a Private Reading lands on the table: the recommendation and the reasoning behind it. The Bench does not approve the decision and does not make it for you. You decide.'
+      a: 'The Bench is where a consequential marketing commitment goes for independent scrutiny before it is made.\n\n' +
+         'You make the case. Then you leave.\n\n' +
+         'We interrogate the evidence, assumptions and consequences.\n\n' +
+         'What comes back is a Private Reading: our recommendation and the reasoning behind it.\n\n' +
+         'You decide.'
     },
     {
       q: 'What is a Dense Idea?',
       a: 'An idea that keeps a company recognizably itself while everything around it changes.\n\n' +
-         'It isn’t a tagline, a campaign or a set of guidelines. Dense Ideas don’t just last. They compound.\n\n' +
+         'Dense Ideas don’t just last. They compound.\n\n' +
          'Consistency repeats. Coherence connects. Density generates. Compounding endures.'
     },
     {
@@ -69,34 +69,33 @@
       a: 'The three judgments.\n\n' +
          'AAH. The commitment deserves to be made.\n\n' +
          'HMM. Not enough to responsibly say AAH or DULL.\n\n' +
-         'DULL. The commitment does not deserve to be made in its present form.\n\n' +
-         'What comes back is the judgment plus the reasoning and evidence behind it, so you and your board can make the decision. Not us.'
+         'DULL. The commitment does not deserve to be made in its present form.'
     },
     {
       q: 'What kind of decisions do you examine?',
-      a: 'Ones big enough to matter and early enough to stop.\n\n' +
-         'A product launch. A market entry. A repositioning. A brand architecture decision. A name. A partnership. A customer-experience change. A major AI commitment. A distribution change.\n\n' +
-         'The subject can change. The condition doesn’t: not an idea you might explore, a commitment you are actually considering.'
+      a: 'Big enough to matter. Early enough to stop.\n\n' +
+         'A product launch. Market entry. Repositioning. Brand architecture. Naming. Partnership. Customer-experience change. Major AI commitment. Distribution change.\n\n' +
+         'A commitment you’re actually considering.'
     },
     {
       q: 'Why should this happen before commitment?',
-      a: 'Because afterwards the argument is about defending the decision rather than improving it.\n\n' +
-         'Some commitments are too consequential to be judged only by the people trying to move them forward. Independent scrutiny is worth most while the thing is still cheap to stop.\n\n' +
-         'And it isn’t only the commitment that gets judged. We also ask what happens if you don’t do it, because doing nothing is still a decision — and sometimes the safest-looking option carries the larger risk.'
+      a: 'Because scrutiny is worth more while the decision is still cheap to change.\n\n' +
+         'Once a commitment is made, the pressure shifts from questioning it to defending it.\n\n' +
+         'We also ask what happens if you don’t proceed. Doing nothing is still a decision.'
     },
     {
-      q: 'What does Kill Dull believe that others don’t?',
-      a: 'That evidence and instinct are both evidence.\n\n' +
-         'Data without judgment is analysis. Gut without evidence is opinion. Good decisions need both. When Big Data and Gut Data agree, that matters. When they disagree, that matters more — and the contradiction doesn’t get averaged away.\n\n' +
-         'And that companies rarely drift because of one bad decision. Every decision leaves a precedent, and precedent changes what feels reasonable next time. Every yes trains the next yes.\n\n' +
+      q: 'How does Kill Dull think about judgment?',
+      a: 'Evidence and instinct both matter.\n\n' +
+         'Data without judgment is analysis. Gut without evidence is opinion. Good decisions need both.\n\n' +
+         'Decisions accumulate. Every decision leaves a precedent. Precedent changes what feels reasonable next time.\n\n' +
+         'EVERY YES TRAINS THE NEXT YES.\n\n' +
          'A company can make a long series of perfectly reasonable decisions and become less itself.'
     },
     {
       q: 'Why would a company pay for this?',
-      a: 'Because dull is expensive, and it is expensive quietly.\n\n' +
-         'System1 and eatbigfish put a number on one part of it: US advertisers would need $189B in additional media investment for dull advertising to perform as well as non-dull advertising. McKinsey puts better marketing analytics at 15–20% of marketing spending freed.\n\n' +
-         'Different research, different definitions, different parts of marketing. And only part of the bill.\n\n' +
-         'The cost of scrutinizing a commitment before it is made is small against the cost of discovering the problem afterwards.'
+      a: 'Because the cost of scrutiny is small compared with the cost of getting a consequential commitment wrong.\n\n' +
+         'System1 and eatbigfish estimate dull US advertising would require $189B in additional media investment to match the predicted results of non-dull advertising. McKinsey estimates better marketing analytics can free 15–20% of marketing spending.\n\n' +
+         'Different research, different definitions, different parts of marketing. And only part of the bill.'
     }
   ];
 

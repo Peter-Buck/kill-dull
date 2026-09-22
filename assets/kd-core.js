@@ -97,7 +97,7 @@
       '<span class="hero-line-wrap"><h1 class="hero-line js-fit"><span class="kd-hl-narrow">A BIG </span>MARKETING<br class="kd-hl-br"> DECISION?</h1></span>' +
       '<div class="home-copy premise-lead">' +
         '<p>Before you commit, find out what else you might be committing to.</p>' +
-        '<p>Inside most companies, the fundamentals of marketing — the four Ps: <strong>Product. Price. Place. Promotion.</strong> — don\'t live in the same room.</p>' +
+        '<p>Inside most companies, <strong>Product, Price, Place and Promotion</strong> don\'t live in the same room.</p>' +
       '</div>' +
       '<div class="ps-runway"></div>';
 
