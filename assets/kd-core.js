@@ -98,12 +98,14 @@
         '<p>Bring us the decision, the thinking behind it and the evidence. We put it under pressure and give you our judgment before you commit.</p>' +
       '</div>' +
       '<a class="kd-cta-unified kd-lead-cta" href="/contact">Talk to us about your marketing commitment</a>' +
-      '<div class="kd-chapter-marker kd-premise-marker kd-4p-marker"><span>THE 4P DILEMMA</span></div>' +
+      '<div class="kd-4p-movement">' +
+        '<div class="kd-chapter-marker kd-premise-marker kd-4p-marker"><span>THE 4P DILEMMA</span></div>' +
       '<span class="hero-line-wrap"><h2 class="hero-line">MARKETING DECISIONS<br>DON\u2019T STAY IN ONE P.</h2></span>' +
       '<div class="home-copy premise-lead">' +
         '<p>Inside most companies, Product, Price, Place and Promotion don\u2019t live in the same room. But a decision in one can change the others.</p>' +
       '</div>' +
-      '<div class="ps-runway"></div>';
+      '<div class="ps-runway"></div>' +
+      '</div>';
 
     var cost = document.createElement('section');
     cost.className = 'viewport compact-section cost-home';
