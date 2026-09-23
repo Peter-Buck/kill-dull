@@ -87,17 +87,20 @@
     if (!observation || document.getElementById('cost-home')) return;
 
     observation.innerHTML =
-      // One headline, two compositions. Wide, it is the written pair of lines.
-      // Below 600px neither line fits: the first is the longer of the two and
-      // caps at about 36px, so holding it whole would mean shrinking a major
-      // headline by a fifth. Instead the break moves - ABOUT TO MAKE / A BIG
-      // MARKETING / DECISION? - and the type stays exactly the size it is.
-      // The words and their order never change; only which line they sit on.
-      '<span class="hero-line-wrap"><h1 class="hero-line js-fit">ABOUT TO MAKE<span class="kd-hl-wide"> A BIG</span></h1></span>' +
-      '<span class="hero-line-wrap"><h1 class="hero-line js-fit"><span class="kd-hl-narrow">A BIG </span>MARKETING<br class="kd-hl-br"> DECISION?</h1></span>' +
+      // What Kill Dull does, said before anything else: the promise, how it
+      // works, and the one way in. Then the dilemma the four Ps describe.
+      '<div class="kd-chapter-marker kd-premise-marker"><span>WHAT KILL DULL DOES</span></div>' +
+      '<span class="hero-line-wrap"><h1 class="hero-line js-fit">BEFORE YOU MAKE A BIG MARKETING DECISION,</h1></span>' +
+      '<span class="hero-line-wrap"><h1 class="hero-line js-fit">GET AN INDEPENDENT JUDGMENT.</h1></span>' +
       '<div class="home-copy premise-lead">' +
-        '<p>Before you commit, find out what else you might be committing to.</p>' +
-        '<p>Inside most companies, <strong>Product, Price, Place and Promotion</strong> don\'t live in the same room.</p>' +
+        '<p><strong>KILL DULL</strong> independently scrutinizes consequential marketing commitments across Product, Price, Place and Promotion before you make them.</p>' +
+        '<p>Bring us the decision, the thinking behind it and the evidence. We put it under pressure and give you our judgment before you commit.</p>' +
+      '</div>' +
+      '<a class="kd-cta-unified kd-lead-cta" href="/contact">Talk to us about your marketing commitment</a>' +
+      '<div class="kd-chapter-marker kd-premise-marker kd-4p-marker"><span>THE 4P DILEMMA</span></div>' +
+      '<span class="hero-line-wrap"><h2 class="hero-line js-fit">MARKETING DECISIONS DON\u2019T STAY IN ONE P.</h2></span>' +
+      '<div class="home-copy premise-lead">' +
+        '<p>Inside most companies, <strong>Product, Price, Place and Promotion</strong> don\u2019t live in the same room. But a decision in one can change the others.</p>' +
       '</div>' +
       '<div class="ps-runway"></div>';
 
