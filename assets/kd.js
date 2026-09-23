@@ -73,6 +73,7 @@
    distance below the top of the band, and the last line sits the same
    distance above its foot. A band that ends on a photograph or a runway of
    cards ends on that instead, and keeps its own edge. */':root{--kd-band-top:82px;--kd-band-bottom:112px}'+
+    /* A headline can open on a setup line, set smaller than the line it hands to. */'.hero-setup{display:block;font-size:.6em;line-height:1.05}'+
     '@media(max-width:767px){:root{--kd-band-top:64px;--kd-band-bottom:80px}}'+
     '.viewport{padding-top:calc(var(--kd-band-top) - 9px)!important;padding-bottom:var(--kd-band-bottom)!important}'+
     '.bench-process,.kd-review-grid{padding-top:calc(var(--kd-band-top) - 9px)!important;padding-bottom:var(--kd-band-bottom)!important}'+

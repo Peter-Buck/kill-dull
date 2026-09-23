@@ -91,8 +91,7 @@
       // headlines are composed rather than left to wrap: the break falls where
       // the sentence pauses, so no line is left holding two words.
       '<div class="kd-chapter-marker kd-premise-marker"><span>WHAT KILL DULL DOES</span></div>' +
-      '<span class="hero-line-wrap"><h1 class="hero-line">BEFORE YOU MAKE<br>A BIG MARKETING DECISION,</h1></span>' +
-      '<span class="hero-line-wrap"><h1 class="hero-line">GET AN INDEPENDENT JUDGMENT.</h1></span>' +
+      '<span class="hero-line-wrap"><h1 class="hero-line"><span class="hero-setup">YOU\u2019RE ABOUT TO MAKE A BIG MARKETING DECISION.</span>GET AN INDEPENDENT JUDGMENT FIRST.</h1></span>' +
       '<div class="home-copy premise-lead">' +
         '<p>Kill Dull independently scrutinizes consequential marketing commitments across Product, Price, Place and Promotion before you make them.</p>' +
         '<p>Bring us the decision, the thinking behind it and the evidence. We put it under pressure and give you our judgment before you commit.</p>' +
