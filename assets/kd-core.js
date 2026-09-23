@@ -87,20 +87,21 @@
     if (!observation || document.getElementById('cost-home')) return;
 
     observation.innerHTML =
-      // What Kill Dull does, said before anything else: the promise, how it
-      // works, and the one way in. Then the dilemma the four Ps describe.
+      // What Kill Dull does, then the dilemma the four Ps describe. Both
+      // headlines are composed rather than left to wrap: the break falls where
+      // the sentence pauses, so no line is left holding two words.
       '<div class="kd-chapter-marker kd-premise-marker"><span>WHAT KILL DULL DOES</span></div>' +
-      '<span class="hero-line-wrap"><h1 class="hero-line js-fit">BEFORE YOU MAKE A BIG MARKETING DECISION,</h1></span>' +
-      '<span class="hero-line-wrap"><h1 class="hero-line js-fit">GET AN INDEPENDENT JUDGMENT.</h1></span>' +
+      '<span class="hero-line-wrap"><h1 class="hero-line">BEFORE YOU MAKE<br>A BIG MARKETING DECISION,</h1></span>' +
+      '<span class="hero-line-wrap"><h1 class="hero-line">GET AN INDEPENDENT JUDGMENT.</h1></span>' +
       '<div class="home-copy premise-lead">' +
-        '<p><strong>KILL DULL</strong> independently scrutinizes consequential marketing commitments across Product, Price, Place and Promotion before you make them.</p>' +
+        '<p>Kill Dull independently scrutinizes consequential marketing commitments across Product, Price, Place and Promotion before you make them.</p>' +
         '<p>Bring us the decision, the thinking behind it and the evidence. We put it under pressure and give you our judgment before you commit.</p>' +
       '</div>' +
       '<a class="kd-cta-unified kd-lead-cta" href="/contact">Talk to us about your marketing commitment</a>' +
       '<div class="kd-chapter-marker kd-premise-marker kd-4p-marker"><span>THE 4P DILEMMA</span></div>' +
-      '<span class="hero-line-wrap"><h2 class="hero-line js-fit">MARKETING DECISIONS DON\u2019T STAY IN ONE P.</h2></span>' +
+      '<span class="hero-line-wrap"><h2 class="hero-line">MARKETING DECISIONS<br>DON\u2019T STAY IN ONE P.</h2></span>' +
       '<div class="home-copy premise-lead">' +
-        '<p>Inside most companies, <strong>Product, Price, Place and Promotion</strong> don\u2019t live in the same room. But a decision in one can change the others.</p>' +
+        '<p>Inside most companies, Product, Price, Place and Promotion don\u2019t live in the same room. But a decision in one can change the others.</p>' +
       '</div>' +
       '<div class="ps-runway"></div>';
 
