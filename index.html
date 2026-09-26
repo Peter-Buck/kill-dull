@@ -97,9 +97,10 @@ body.v5-home .kd-talk .kd-talk-cta{color:var(--paper)!important}
 #kd-opener.is-fading{opacity:0;pointer-events:none}
 #kd-opener.is-yellow{background-color:#FDFD00}
 #kd-opener video,#kd-opener img{position:absolute;top:0;left:0;width:100%;height:100%;max-width:none;object-fit:contain;object-position:center;display:block;border:0;background:transparent}
+#kd-opener canvas{position:absolute;top:0;left:0;width:100%;height:100%;display:block}
 #kd-opener [hidden]{display:none}
 </style>
-<div id="kd-opener" role="region" aria-label="Kill Dull" aria-hidden="true" hidden><video id="kd-opener-video" muted playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video><img id="kd-opener-still" alt="" decoding="async" hidden></div>
+<div id="kd-opener" role="region" aria-label="Kill Dull" aria-hidden="true" hidden><video id="kd-opener-video" muted playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video><canvas id="kd-opener-canvas" aria-hidden="true" hidden></canvas><img id="kd-opener-still" alt="" decoding="async" hidden></div>
 <script>(function(){
 var KEY='kd_home_opener_v1';
 var el=document.getElementById('kd-opener');if(!el)return;
@@ -135,7 +136,7 @@ function finish(){
 function showStill(why,hold){
   if(done||mode==='still')return;mode='still';log('still: '+why);
   try{video.pause();}catch(e){}
-  video.hidden=true;el.classList.add('is-yellow');
+  video.hidden=true;var cv=document.getElementById('kd-opener-canvas');if(cv)cv.hidden=true;el.classList.add('is-yellow');
   // The hold is counted from the moment the frame is on screen, not from
   // when it was asked for - on a phone the image can take a second to arrive.
   var counting=false;
@@ -186,7 +187,28 @@ var IPHONE=/iPhone|iPod/.test(navigator.userAgent||'')||(navigator.platform==='M
 if(IPHONE&&!DEBUG){showStill('iPhone',3000);return;}
 if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){showStill('reduced motion',3000);return;}
 video.muted=true;video.defaultMuted=true;video.playsInline=true;
-function tick(){if(done||mode!=='film')return;el.classList.toggle('is-yellow',video.currentTime>=cut.yellowAt);requestAnimationFrame(tick);}
+// The film fills the screen without being cropped: it is drawn whole, and
+// the space a screen of another proportion leaves around it is filled with
+// the film's own edge - its outer column stretched sideways, its corner
+// colour above and below - so the frame runs edge to edge in exactly the
+// film's colours, the yellow drop included. Where a canvas cannot be drawn
+// the plain video underneath shows instead.
+var canvas=document.getElementById('kd-opener-canvas'),paintCtx=null;
+try{paintCtx=canvas.getContext('2d',{alpha:false});}catch(e){paintCtx=null;}
+function paint(){
+  if(!paintCtx||mode!=='film'||!video.videoWidth||video.readyState<2)return;
+  var dpr=Math.min(window.devicePixelRatio||1,2),W=Math.round(el.clientWidth*dpr),H=Math.round(el.clientHeight*dpr);
+  if(!W||!H)return;
+  if(canvas.width!==W||canvas.height!==H){canvas.width=W;canvas.height=H;}
+  var vw=video.videoWidth,vh=video.videoHeight,sc=Math.min(W/vw,H/vh),dw=vw*sc,dh=vh*sc,x0=(W-dw)/2,y0=(H-dh)/2;
+  try{
+    if(x0>0.5){paintCtx.drawImage(video,0,0,1,vh,0,y0,Math.ceil(x0)+1,dh);paintCtx.drawImage(video,vw-1,0,1,vh,Math.floor(x0+dw)-1,y0,W-Math.floor(x0+dw)+1,dh);}
+    if(y0>0.5){paintCtx.drawImage(video,2,2,1,1,0,0,W,Math.ceil(y0)+1);paintCtx.drawImage(video,2,vh-3,1,1,0,Math.floor(y0+dh)-1,W,H-Math.floor(y0+dh)+1);}
+    paintCtx.drawImage(video,x0,y0,dw,dh);
+    if(canvas.hidden){canvas.hidden=false;log('drawing full-screen');}
+  }catch(e){log('canvas off: '+e.name);paintCtx=null;canvas.hidden=true;}
+}
+function tick(){if(done||mode!=='film')return;el.classList.toggle('is-yellow',video.currentTime>=cut.yellowAt);paint();requestAnimationFrame(tick);}
 video.addEventListener('ended',finish);
 video.addEventListener('error',function(){var e=video.error;if(mode==='film')showStill('media error '+(e?e.code+' '+(e.message||''):''),3000);});
 var loaded=load(cut);
