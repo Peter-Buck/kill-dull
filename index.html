@@ -87,72 +87,87 @@ body.v5-home .kd-talk .kd-talk-cta{color:var(--paper)!important}
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://killdull.com/#organization","name":"Kill Dull","alternateName":"The Dense Idea Company","url":"https://killdull.com/","description":"Kill Dull is the Dense Idea Company. Independent marketing judgment for consequential commitments.","email":"human@killdull.com"},{"@type":"WebSite","@id":"https://killdull.com/#website","url":"https://killdull.com/","name":"Kill Dull","publisher":{"@id":"https://killdull.com/#organization"}}]}</script>
 </head><body class="v5-home notranslate">
 <style id="kd-opener-style">
-#kd-opener{position:fixed;inset:0;z-index:9999;background:var(--ink,#24222B);display:flex;align-items:center;justify-content:center;opacity:1;transition:opacity 400ms ease;pointer-events:auto}
+/* The opening is the DROP film. Two cuts of it: the wide one for landscape
+   screens, the tall one for portrait. Neither is cropped - the film is fitted
+   whole - and where a screen's proportion differs from the film's, the bars
+   carry the film's own background: ink until the drop fills the frame with
+   yellow, then yellow. It still ends on the same 400ms fade into the page. */
+#kd-opener{position:fixed;inset:0;z-index:9999;background:var(--ink,#24222B);opacity:1;transition:opacity 400ms ease,background-color 160ms linear;pointer-events:auto;overflow:hidden}
 #kd-opener[hidden]{display:none}
 #kd-opener.is-fading{opacity:0;pointer-events:none}
-#kd-opener h1{margin:0;font-family:"Space Grotesk",sans-serif;font-weight:700;letter-spacing:-.03em;line-height:1.06;color:var(--paper,#FFFFFF);white-space:pre;font-size:40px}
-#kd-opener-word.is-selected{background:var(--paper,#FFFFFF);color:var(--ink,#24222B);padding:0 .06em}
-#kd-opener-word.is-right{color:var(--yellow,#FFFF00)}
-#kd-opener-caret{display:inline-block;width:.06em;margin-left:.04em;background:var(--paper,#FFFFFF);animation:kdOpenerCaret .7s step-end infinite}
-#kd-opener.is-fading #kd-opener-caret{display:none}
-@keyframes kdOpenerCaret{0%,45%{opacity:1}55%,100%{opacity:0}}
-/* On a phone the statement arrives already settled and is held for a beat,
-   then cleared by the same fade the desktop opening ends on. The page and its
-   header are underneath it from the first frame, so nothing has to be scrolled
-   past and nothing has to be dismissed. */
-@media(max-width:767px){
-#kd-opener.is-hold{justify-content:flex-start;padding:0 24px;box-sizing:border-box}
-#kd-opener.is-hold h1{white-space:pre-wrap;font-size:clamp(30px,8.6vw,44px);width:100%!important;height:auto!important;text-align:left}
-#kd-opener.is-hold #kd-opener-caret{display:none}
-}
+#kd-opener.is-yellow{background-color:#FDFD00}
+#kd-opener video,#kd-opener img{position:absolute;top:0;left:0;width:100%;height:100%;max-width:none;object-fit:contain;object-position:center;display:block;border:0;background:transparent}
+#kd-opener [hidden]{display:none}
 </style>
-<div id="kd-opener" role="region" aria-labelledby="kd-opener-h" aria-hidden="true" hidden><h1 id="kd-opener-h"><span id="kd-opener-pre"></span><span id="kd-opener-word"></span><span id="kd-opener-suf"></span><span id="kd-opener-caret">&nbsp;</span></h1></div>
+<div id="kd-opener" role="region" aria-label="Kill Dull" aria-hidden="true" hidden><video id="kd-opener-video" muted playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video><img id="kd-opener-still" alt="" decoding="async" hidden></div>
 <script>(function(){
 var KEY='kd_home_opener_v1';
 var el=document.getElementById('kd-opener');if(!el)return;
-var h1=el.querySelector('h1'),pre=document.getElementById('kd-opener-pre'),word=document.getElementById('kd-opener-word'),suf=document.getElementById('kd-opener-suf');
-var PREFIX='MARKETING COMES WITH FOUR Ps.\nCOMMITMENTS COME WITH ',WRONG='FOUR',RIGHT='ONE',SUFFIX=' VERDICT.';
-var FINAL=PREFIX+RIGHT+SUFFIX;
-var timers=[];function schedule(fn,d){timers.push(setTimeout(fn,d));}
-function setStyle(s){word.className=s==='selected'?'is-selected':s==='right'?'is-right':'';}
+var video=document.getElementById('kd-opener-video'),still=document.getElementById('kd-opener-still');
+// yellowAt: the moment the drop's yellow reaches the whole frame edge in that
+// cut (the bars change with it). Both cuts run the same 10.4s timeline.
+var CUTS={
+  wide:{src:'/assets/kd-drop-16x9.mp4',end:'/assets/kd-drop-16x9-end.webp',yellowAt:5.93},
+  tall:{src:'/assets/kd-drop-9x16.mp4',end:'/assets/kd-drop-9x16-end.webp',yellowAt:6.2}
+};
 var seen=false;try{seen=sessionStorage.getItem(KEY)==='1';}catch(e){}
 if(seen)return;
-// A phone gets the sentence already settled - no typing, no deleting, nothing
-// to wait out twice - held for two seconds and then cleared by the same fade
-// the desktop opening ends on. The page and its header are already underneath;
-// nothing has to be scrolled past. Sized by the site's own mobile headline
-// scale rather than by the fitter, which squeezed a two-line pre-wrapped
-// string down to 18px. Nothing below this line runs there.
-if(window.matchMedia&&window.matchMedia('(max-width: 767px)').matches){
-  el.classList.add('is-hold');
-  pre.textContent=PREFIX;setStyle('right');word.textContent=RIGHT;suf.textContent=SUFFIX;
-  el.hidden=false;
-  schedule(finish,2000);
-  return;
+var timers=[];function schedule(fn,d){timers.push(setTimeout(fn,d));}
+var portrait=window.matchMedia?window.matchMedia('(orientation: portrait)'):null;
+function pick(){return portrait&&portrait.matches?CUTS.tall:CUTS.wide;}
+var cut=pick(),done=false,mode='film',guard=null;
+function finish(){
+  if(done)return;done=true;
+  for(var i=0;i<timers.length;i++)clearTimeout(timers[i]);timers=[];
+  if(guard)clearInterval(guard);
+  try{sessionStorage.setItem(KEY,'1');}catch(e){}
+  el.classList.add('is-fading');
+  setTimeout(function(){el.hidden=true;try{video.pause();video.removeAttribute('src');video.load();}catch(e){}},420);
 }
-function fit(){var pad=window.innerWidth<768?48:window.innerWidth<1280?128:240;var p=pre.textContent,w=word.textContent,s=suf.textContent;pre.textContent=FINAL;word.textContent='';suf.textContent='';h1.style.width='auto';h1.style.height='auto';h1.style.fontSize='500px';var r=(window.innerWidth-pad)/h1.scrollWidth;h1.style.fontSize=Math.max(10,Math.floor(r*500))+'px';h1.style.width=Math.ceil(h1.scrollWidth)+'px';h1.style.height=Math.ceil(h1.getBoundingClientRect().height)+'px';pre.textContent=p;word.textContent=w;suf.textContent=s;}
-fit();el.hidden=false;
-window.addEventListener('resize',fit);
-if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
-function finish(){try{sessionStorage.setItem(KEY,'1');}catch(e){}el.classList.add('is-fading');schedule(function(){el.hidden=true;},420);}
-if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){pre.textContent=PREFIX;setStyle('right');word.textContent=RIGHT;suf.textContent=SUFFIX;schedule(finish,900);return;}
-var steps=[];function add(at,run){steps.push({at:at,run:run});}
-var CHAR=44,clock=200,i,n;
-for(i=1;i<=PREFIX.length;i++){n=i;(function(n){add(clock,function(){pre.textContent=PREFIX.slice(0,n);});})(n);clock+=CHAR;}
-add(clock,function(){setStyle('plain');});
-for(i=1;i<=WRONG.length;i++){n=i;(function(n){add(clock,function(){word.textContent=WRONG.slice(0,n);});})(n);clock+=CHAR;}
-clock+=360;
-add(clock,function(){setStyle('selected');});
-clock+=620;
-for(i=WRONG.length-1;i>=0;i--){n=i;(function(n){add(clock,function(){word.textContent=WRONG.slice(0,n);});})(n);clock+=(n===0?220:150);}
-add(clock,function(){setStyle('right');});
-for(i=1;i<=RIGHT.length;i++){n=i;(function(n){add(clock,function(){word.textContent=RIGHT.slice(0,n);});})(n);clock+=95;}
-clock+=280;
-for(i=1;i<=SUFFIX.length;i++){n=i;(function(n){add(clock,function(){suf.textContent=SUFFIX.slice(0,n);});})(n);clock+=CHAR;}
-add(clock+620,finish);
-steps.sort(function(a,b){return a.at-b.at;});
-var idx=0;function runNext(){var cur=steps[idx];cur.run();var next=steps[idx+1];idx+=1;if(next)schedule(runNext,Math.max(0,next.at-cur.at));}
-schedule(runNext,steps.length?steps[0].at:0);
+// The settled frame, held for the same beat the old settled statement was:
+// used for reduced motion, and wherever the browser will not play the film.
+function showStill(){
+  if(done||mode==='still')return;mode='still';
+  try{video.pause();}catch(e){}
+  video.hidden=true;still.src=cut.end;still.hidden=false;el.classList.add('is-yellow');
+  schedule(finish,900);
+}
+function swap(){
+  var next=pick();if(next===cut||done)return;cut=next;
+  if(mode==='still'){still.src=cut.end;return;}
+  var t=video.currentTime||0;
+  var resume=function(){video.removeEventListener('loadedmetadata',resume);try{video.currentTime=Math.min(t,Math.max(0,(video.duration||t)-0.05));}catch(e){}var p=video.play();if(p&&p.catch)p.catch(function(){});};
+  video.addEventListener('loadedmetadata',resume);
+  video.src=cut.src;video.load();
+}
+if(portrait){if(portrait.addEventListener)portrait.addEventListener('change',swap);else if(portrait.addListener)portrait.addListener(swap);}
+el.hidden=false;
+if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){showStill();return;}
+video.muted=true;video.defaultMuted=true;video.playsInline=true;
+video.src=cut.src;
+function tick(){if(done||mode!=='film')return;el.classList.toggle('is-yellow',video.currentTime>=cut.yellowAt);requestAnimationFrame(tick);}
+video.addEventListener('ended',finish);
+video.addEventListener('error',function(){if(mode==='film')showStill();});
+var started=false;
+function start(){
+  if(started||done)return;
+  if(document.hidden){document.addEventListener('visibilitychange',start);return;}
+  document.removeEventListener('visibilitychange',start);
+  started=true;
+  var p;try{p=video.play();}catch(e){showStill();return;}
+  if(p&&p.catch)p.catch(function(err){if(err&&err.name==='AbortError')return;showStill();});
+  requestAnimationFrame(tick);
+  // Never hold the page behind a film that is not moving: if playback has not
+  // advanced for four seconds (a slow or failed load), let the page through.
+  var last=-1,still_ms=0;
+  guard=setInterval(function(){
+    if(done||mode!=='film'||document.hidden)return;
+    var now=video.currentTime;
+    if(now===last){still_ms+=500;if(still_ms>=4000)finish();}else{still_ms=0;last=now;}
+  },500);
+}
+if(document.prerendering)document.addEventListener('prerenderingchange',start,{once:true});else start();
+window.addEventListener('pageshow',function(ev){if(ev.persisted&&!done)finish();});
 })();</script>
 <header class="masthead" id="masthead"><div class="masthead-top"><div class="masthead-wordmark"><a href="/"><span class="kd-wordmark-glyphs">KILL DULL<span class="terminal"></span></span><span class="tm">™</span></a></div><div class="masthead-date" id="masthead-date"></div></div><div class="masthead-tagline"></div><div class="masthead-designation">PROVIDING INDEPENDENT MARKETING JUDGMENT FOR BRANDS</div><div class="masthead-rule"></div></header>
 <div class="unified-nav v5-global-nav" id="registrar" role="navigation" aria-label="Primary"><div class="unified-nav-chapters" id="registrar-desktop"><a class="reg-item is-current" href="/">WHAT</a><a class="reg-item" href="/discipline">HOW</a><a class="reg-item" href="/bench">BENCH</a><a class="reg-item" href="/readings">READINGS</a></div><div class="unified-nav-products"><a class="product-cta" href="/contact"><span class="enter-text">CONTACT</span></a></div><div class="registrar-mobile"><button class="reg-mobile-current" id="reg-mobile-btn" aria-expanded="false" aria-controls="reg-mobile-dropdown"><span id="reg-mobile-label">WHAT</span><span class="reg-mobile-arrow">▾</span></button><div class="reg-mobile-dropdown" id="reg-mobile-dropdown" hidden><a class="reg-item" href="/">WHAT</a><a class="reg-item" href="/discipline">HOW</a><a class="reg-item" href="/bench">BENCH</a><a class="reg-item" href="/readings">READINGS</a></div></div></div>
