@@ -110,61 +110,92 @@ var CUTS={
   wide:{src:'/assets/kd-drop-16x9.mp4',end:'/assets/kd-drop-16x9-end.webp',yellowAt:5.93},
   tall:{src:'/assets/kd-drop-9x16.mp4',end:'/assets/kd-drop-9x16-end.webp',yellowAt:6.2}
 };
+// ?kd-opener=debug replays the opener on every load and prints why it did
+// what it did, so it can be checked on a real phone.
+var DEBUG=/[?&]kd-opener=debug\b/.test(location.search),dbg=null;
+function log(msg){if(!DEBUG)return;if(!dbg){dbg=document.createElement('div');dbg.style.cssText='position:absolute;left:8px;right:8px;bottom:8px;z-index:2;font:12px/1.4 monospace;color:#fff;background:rgba(0,0,0,.75);padding:8px;white-space:pre-wrap;pointer-events:none';el.appendChild(dbg);}dbg.textContent+=(Math.round(performance.now())+'ms '+msg+'\n');}
 var seen=false;try{seen=sessionStorage.getItem(KEY)==='1';}catch(e){}
-if(seen)return;
+if(seen&&!DEBUG)return;
 var timers=[];function schedule(fn,d){timers.push(setTimeout(fn,d));}
 var portrait=window.matchMedia?window.matchMedia('(orientation: portrait)'):null;
 function pick(){return portrait&&portrait.matches?CUTS.tall:CUTS.wide;}
-var cut=pick(),done=false,mode='film',guard=null;
+var cut=pick(),done=false,mode='film',guard=null,blobs=[];
 function finish(){
-  if(done)return;done=true;
+  if(done)return;done=true;log('finish');
   for(var i=0;i<timers.length;i++)clearTimeout(timers[i]);timers=[];
   if(guard)clearInterval(guard);
   try{sessionStorage.setItem(KEY,'1');}catch(e){}
-  el.classList.add('is-fading');
-  setTimeout(function(){el.hidden=true;try{video.pause();video.removeAttribute('src');video.load();}catch(e){}},420);
+  setTimeout(function(){
+    el.classList.add('is-fading');
+    setTimeout(function(){el.hidden=true;try{video.pause();video.removeAttribute('src');video.load();}catch(e){}for(var j=0;j<blobs.length;j++){try{URL.revokeObjectURL(blobs[j]);}catch(e){}}},420);
+  },DEBUG?8000:0);
 }
 // The settled frame, held for the same beat the old settled statement was:
 // used for reduced motion, and wherever the browser will not play the film.
-function showStill(){
-  if(done||mode==='still')return;mode='still';
+function showStill(why){
+  if(done||mode==='still')return;mode='still';log('still: '+why);
   try{video.pause();}catch(e){}
   video.hidden=true;still.src=cut.end;still.hidden=false;el.classList.add('is-yellow');
   schedule(finish,900);
 }
+// The film is fetched as an ordinary request and played from memory. Safari
+// loads media through a separate loader that can miss the page's cookies (a
+// protected preview then hands it a login redirect instead of the film); a
+// fetch never does. If the fetch itself fails, the browser is given the file
+// directly as a last try.
+var loads={};
+function load(c){
+  if(loads[c.src])return loads[c.src];
+  var p;
+  if(!window.fetch||!window.URL||!URL.createObjectURL||!window.Blob){p=Promise.resolve(c.src);}
+  else{p=fetch(c.src,{credentials:'same-origin'}).then(function(r){
+    var ct=r.headers.get('content-type')||'';
+    if(!r.ok||ct.indexOf('video')<0)throw new Error('HTTP '+r.status+' '+ct);
+    return r.blob();
+  }).then(function(b){var u=URL.createObjectURL(new Blob([b],{type:'video/mp4'}));blobs.push(u);log('fetched '+c.src+' '+b.size+'B');return u;},function(err){log('fetch failed: '+err.message+' - direct');return c.src;});}
+  loads[c.src]=p;return p;
+}
 function swap(){
-  var next=pick();if(next===cut||done)return;cut=next;
+  var next=pick();if(next===cut||done)return;cut=next;log('orientation -> '+cut.src);
   if(mode==='still'){still.src=cut.end;return;}
-  var t=video.currentTime||0;
-  var resume=function(){video.removeEventListener('loadedmetadata',resume);try{video.currentTime=Math.min(t,Math.max(0,(video.duration||t)-0.05));}catch(e){}var p=video.play();if(p&&p.catch)p.catch(function(){});};
-  video.addEventListener('loadedmetadata',resume);
-  video.src=cut.src;video.load();
+  var t=video.currentTime||0,want=cut;
+  load(cut).then(function(u){
+    if(done||mode!=='film'||want!==cut)return;
+    var resume=function(){video.removeEventListener('loadedmetadata',resume);try{video.currentTime=Math.min(t,Math.max(0,(video.duration||t)-0.05));}catch(e){}var p=video.play();if(p&&p.catch)p.catch(function(){});};
+    video.addEventListener('loadedmetadata',resume);
+    video.src=u;video.load();
+  });
 }
 if(portrait){if(portrait.addEventListener)portrait.addEventListener('change',swap);else if(portrait.addListener)portrait.addListener(swap);}
-el.hidden=false;
-if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){showStill();return;}
+el.hidden=false;log('cut '+cut.src+' ('+innerWidth+'x'+innerHeight+')');
+if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){showStill('reduced motion');return;}
 video.muted=true;video.defaultMuted=true;video.playsInline=true;
-video.src=cut.src;
 function tick(){if(done||mode!=='film')return;el.classList.toggle('is-yellow',video.currentTime>=cut.yellowAt);requestAnimationFrame(tick);}
 video.addEventListener('ended',finish);
-video.addEventListener('error',function(){if(mode==='film')showStill();});
+video.addEventListener('error',function(){var e=video.error;if(mode==='film')showStill('media error '+(e?e.code+' '+(e.message||''):''));});
+var loaded=load(cut);
 var started=false;
 function start(){
   if(started||done)return;
   if(document.hidden){document.addEventListener('visibilitychange',start);return;}
   document.removeEventListener('visibilitychange',start);
   started=true;
-  var p;try{p=video.play();}catch(e){showStill();return;}
-  if(p&&p.catch)p.catch(function(err){if(err&&err.name==='AbortError')return;showStill();});
-  requestAnimationFrame(tick);
-  // Never hold the page behind a film that is not moving: if playback has not
-  // advanced for four seconds (a slow or failed load), let the page through.
-  var last=-1,still_ms=0;
-  guard=setInterval(function(){
-    if(done||mode!=='film'||document.hidden)return;
-    var now=video.currentTime;
-    if(now===last){still_ms+=500;if(still_ms>=4000)finish();}else{still_ms=0;last=now;}
-  },500);
+  // Never hold the page behind a film that is not moving: if it has not
+  // started within six seconds, or stops advancing for four, let the page through.
+  schedule(function(){if(mode==='film'&&!(video.currentTime>0)){log('not started in 6s');finish();}},6000);
+  loaded.then(function(u){
+    if(done||mode!=='film')return;
+    video.src=u;
+    var p;try{p=video.play();}catch(e){showStill('play threw '+e.name);return;}
+    if(p&&p.then)p.then(function(){log('playing');},function(err){if(err&&err.name==='AbortError')return;showStill('play rejected '+(err&&err.name));});
+    requestAnimationFrame(tick);
+    var last=-1,still_ms=0;
+    guard=setInterval(function(){
+      if(done||mode!=='film'||document.hidden)return;
+      var now=video.currentTime;
+      if(now>0&&now===last){still_ms+=500;if(still_ms>=4000){log('stalled');finish();}}else{still_ms=0;last=now;}
+    },500);
+  });
 }
 if(document.prerendering)document.addEventListener('prerenderingchange',start,{once:true});else start();
 window.addEventListener('pageshow',function(ev){if(ev.persisted&&!done)finish();});
