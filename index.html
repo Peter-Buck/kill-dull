@@ -135,8 +135,17 @@ function finish(){
 function showStill(why,hold){
   if(done||mode==='still')return;mode='still';log('still: '+why);
   try{video.pause();}catch(e){}
-  video.hidden=true;still.src=cut.end;still.hidden=false;el.classList.add('is-yellow');
-  schedule(finish,hold||900);
+  video.hidden=true;el.classList.add('is-yellow');
+  // The hold is counted from the moment the frame is on screen, not from
+  // when it was asked for - on a phone the image can take a second to arrive.
+  var counting=false;
+  function shown(){if(counting||done)return;counting=true;log('still on screen');requestAnimationFrame(function(){requestAnimationFrame(function(){schedule(finish,hold||900);});});}
+  still.onload=shown;
+  still.onerror=function(){log('still failed to load');finish();};
+  still.src=cut.end;still.hidden=false;
+  if(still.complete&&still.naturalWidth)shown();
+  // Never wait on the image for more than five seconds.
+  schedule(function(){if(!counting){log('still slow');finish();}},5000);
 }
 // The film is fetched as an ordinary request and played from memory. Safari
 // loads media through a separate loader that can miss the page's cookies (a
