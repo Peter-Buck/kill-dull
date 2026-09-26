@@ -116,6 +116,9 @@ var DEBUG=/[?&]kd-opener=debug\b/.test(location.search),dbg=null;
 function log(msg){if(!DEBUG)return;if(!dbg){dbg=document.createElement('div');dbg.style.cssText='position:absolute;left:8px;right:8px;bottom:8px;z-index:2;font:12px/1.4 monospace;color:#fff;background:rgba(0,0,0,.75);padding:8px;white-space:pre-wrap;pointer-events:none';el.appendChild(dbg);}dbg.textContent+=(Math.round(performance.now())+'ms '+msg+'\n');}
 var seen=false;try{seen=sessionStorage.getItem(KEY)==='1';}catch(e){}
 if(seen&&!DEBUG)return;
+// No opener on iPhone: visitors there go straight to the page. (The debug
+// switch above still runs it, for diagnosis only.)
+if(/iPhone|iPod/.test(navigator.userAgent||'')&&!DEBUG)return;
 var timers=[];function schedule(fn,d){timers.push(setTimeout(fn,d));}
 var portrait=window.matchMedia?window.matchMedia('(orientation: portrait)'):null;
 function pick(){return portrait&&portrait.matches?CUTS.tall:CUTS.wide;}
