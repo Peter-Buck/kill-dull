@@ -177,14 +177,18 @@ function swap(){
 }
 if(portrait){if(portrait.addEventListener)portrait.addEventListener('change',swap);else if(portrait.addListener)portrait.addListener(swap);}
 el.hidden=false;log('cut '+cut.src+' ('+innerWidth+'x'+innerHeight+')');
-if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){showStill('reduced motion');return;}
 // iPhone gets no film: the closing line, held three seconds to be read, then
-// the same fade into the page. (?kd-opener=debug still plays it there.)
-if(/iPhone|iPod/.test(navigator.userAgent||'')&&!DEBUG){showStill('iPhone',3000);return;}
+// the same fade into the page. Checked before reduced motion so it always
+// wins. An iPhone asking for the desktop site reports itself as a Mac, so a
+// touch Mac with a phone-sized screen counts too. (?kd-opener=debug still
+// plays the film there.)
+var IPHONE=/iPhone|iPod/.test(navigator.userAgent||'')||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1&&Math.min(screen.width,screen.height)<600);
+if(IPHONE&&!DEBUG){showStill('iPhone',3000);return;}
+if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){showStill('reduced motion',3000);return;}
 video.muted=true;video.defaultMuted=true;video.playsInline=true;
 function tick(){if(done||mode!=='film')return;el.classList.toggle('is-yellow',video.currentTime>=cut.yellowAt);requestAnimationFrame(tick);}
 video.addEventListener('ended',finish);
-video.addEventListener('error',function(){var e=video.error;if(mode==='film')showStill('media error '+(e?e.code+' '+(e.message||''):''));});
+video.addEventListener('error',function(){var e=video.error;if(mode==='film')showStill('media error '+(e?e.code+' '+(e.message||''):''),3000);});
 var loaded=load(cut);
 var started=false;
 function start(){
@@ -198,8 +202,8 @@ function start(){
   loaded.then(function(u){
     if(done||mode!=='film')return;
     video.src=u;
-    var p;try{p=video.play();}catch(e){showStill('play threw '+e.name);return;}
-    if(p&&p.then)p.then(function(){log('playing');},function(err){if(err&&err.name==='AbortError')return;showStill('play rejected '+(err&&err.name));});
+    var p;try{p=video.play();}catch(e){showStill('play threw '+e.name,3000);return;}
+    if(p&&p.then)p.then(function(){log('playing');},function(err){if(err&&err.name==='AbortError')return;showStill('play rejected '+(err&&err.name),3000);});
     requestAnimationFrame(tick);
     var last=-1,still_ms=0;
     guard=setInterval(function(){
