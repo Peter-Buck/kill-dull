@@ -133,8 +133,19 @@
 /* ── the issued Reading ────────────────────────────────────────────────────── */
 /* The document is the product. These are the controls that hand it over, and
    they sit outside it — on the site, never on the page. */
+/* The controls sit on ink, the same surface the Test itself runs on: the
+   document is the paper, and what hands it over is not. */
+.kda-issue{padding-top:56px;background:#24222B;color:#fff}
 .kda-issue .kda-actions{margin-top:0}
-.kda-issue{padding-top:56px}
+.kda-issue .kda-note{color:#A5A299}
+.kda-issue .kda-cta.is-quiet{color:#A5A299}
+.kda-issue .kda-cta.is-quiet:hover,.kda-issue .kda-cta.is-quiet:focus-visible{color:#fff}
+.kda-issue .kda-email{border-top-color:#504D57}
+.kda-issue .kda-email label{color:#A5A299}
+.kda-issue .kda-email input{border-color:#A5A299;color:#fff}
+.kda-issue .kda-email input::placeholder{color:#736F65}
+.kda-issue .kda-email-note{color:#A5A299}
+.kda-issue .kda-aftermath{border-top-color:#504D57}
 @media print{
   /* Only the document prints: no shell, no controls, no browser furniture. */
   body>*{display:none!important}

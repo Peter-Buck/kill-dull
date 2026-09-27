@@ -1328,7 +1328,7 @@
   }
 
   function actionsHtml() {
-    return '<section class="viewport home-paper kda-issue" aria-label="Your Reading">' +
+    return '<section class="viewport is-dark kda-issue" aria-label="Your Reading">' +
       '<div class="kda-actions">' +
       '<button type="button" class="kda-cta is-down" id="kda-download">Download Reading</button>' +
       '<button type="button" class="kda-cta" id="kda-email-open" aria-expanded="false" aria-controls="kda-email">Email my Reading</button>' +
