@@ -38,6 +38,23 @@
 .kda-start{display:flex;flex-wrap:wrap;align-items:center;gap:18px 22px;margin-top:56px}
 .kda-note{margin:26px 0 0;max-width:640px;font-size:15px;line-height:1.7;color:#55524c}
 
+/* ── the threshold ─────────────────────────────────────────────────────────── */
+/* Reading ends and taking begins. The surface carries the change: the same ink
+   the Assessment itself runs on, so crossing into it is already the first step. */
+.kda-entry-start{background:#24222B;color:#fff;min-height:64vh;justify-content:center}
+/* The last instruction is set as a statement, at the same weight the Reading
+   closes on, so the threshold has something to say and not only a button. */
+.kda-charge{margin:0;max-width:820px;font-family:"Space Grotesk",sans-serif;font-size:clamp(21px,2.1vw,27px);font-weight:500;line-height:1.35;letter-spacing:-.02em;color:#fff}
+.kda-charge strong{font-weight:700}
+.kda-entry-start .kda-start{margin-top:40px}
+.kda-entry-start .kda-cta{min-width:320px;padding:16px 18px}
+.kda-fine{margin-top:48px;padding-top:26px;border-top:1px solid #504D57;max-width:640px}
+.kda-fine .kda-note{margin-top:0;color:#A5A299}
+.kda-fine .kda-note+.kda-note{margin-top:16px}
+.kda-fine .kda-note a{color:#fff;text-decoration:underline;text-underline-offset:2px}
+.kda-entry-start .kda-cta.is-quiet{color:#A5A299;padding:16px 0}
+.kda-entry-start .kda-cta.is-quiet:hover,.kda-entry-start .kda-cta.is-quiet:focus-visible{color:#fff}
+
 /* ── the canonical CTA, restated locally because the shared class forces "↗" ── */
 .kda-cta{box-sizing:border-box;display:inline-flex;align-items:center;gap:9px;min-width:266px;border:.5px solid currentColor;padding:10px 14px;background:transparent;color:inherit;text-decoration:none;text-transform:uppercase;font-family:"IBM Plex Mono",monospace;font-size:15px;font-weight:400;line-height:1.2;letter-spacing:.04em;cursor:pointer;transition:border-color .18s ease}
 .kda-cta:hover,.kda-cta:focus-visible{border-color:var(--yellow)}
@@ -86,6 +103,20 @@
 .kda-run .kda-cta.is-back:hover,.kda-run .kda-cta.is-back:focus-visible{color:#fff}
 .kda-hint{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.24em;color:#A5A299;text-transform:uppercase}
 
+/* Every question arrives as a new page, not as changed text. The block clears
+   upward, the screen is briefly empty, and the next one rises into place — the
+   register leading, the question a beat behind it. Typography and one movement:
+   no new colour, no progress theatre. */
+.kda-run .kda-progress,.kda-run .kda-q,.kda-run .kda-run-foot{
+  transition:opacity .30s ease,transform .30s cubic-bezier(.2,.8,.2,1)}
+.kda-run .kda-q{transition-delay:.07s}
+.kda-run .kda-run-foot{transition-delay:.12s}
+.kda-run.is-leaving .kda-progress,.kda-run.is-leaving .kda-q,.kda-run.is-leaving .kda-run-foot{
+  opacity:0;transform:translateY(-14px);transition-duration:.14s;transition-delay:0s}
+.kda-run.is-leaving{pointer-events:none}
+.kda-run.is-entering .kda-progress,.kda-run.is-entering .kda-q,.kda-run.is-entering .kda-run-foot{
+  opacity:0;transform:translateY(20px);transition:none}
+
 /* ── the Reading ───────────────────────────────────────────────────────────── */
 .kda-reading-meta{display:flex;flex-wrap:wrap;gap:8px 24px;font-family:"IBM Plex Mono",monospace;font-size:15px;letter-spacing:.12em;color:#736F65;text-transform:uppercase}
 .kda-verdict{margin:28px 0 0;font-family:"Space Grotesk",sans-serif;font-size:clamp(82px,15vw,210px);font-weight:700;line-height:.86;letter-spacing:-.055em;color:var(--ink)}
@@ -131,6 +162,7 @@
 }
 @media(max-width:767px){
   .kda-copy{max-width:100%}
+  .kda-entry-start .kda-cta{min-width:0;width:100%}
   .kda-scope{grid-template-columns:1fr;gap:48px}
   .kda-responses{grid-template-columns:1fr;gap:8px}
   .kda-option span.kda-option-face{min-height:0;flex-direction:row;flex-wrap:wrap;align-items:baseline;gap:6px 12px}
@@ -145,6 +177,7 @@
 }
 @media(prefers-reduced-motion:reduce){
   .kda-progress-bar i,.kda-cta:after,.kda-cta.is-back:before,.kda-option span.kda-option-face{transition:none}
+  .kda-run .kda-progress,.kda-run .kda-q,.kda-run .kda-run-foot{transition:none;transform:none;opacity:1}
 }
 </style>
 </head><body class="v5-home assessment-page notranslate">
@@ -153,7 +186,8 @@
 <main>
 <p class="kda-live" id="kda-live" role="status" aria-live="polite"></p>
 
-<section class="viewport home-paper" id="kda-entry">
+<div id="kda-entry">
+<section class="viewport home-paper kda-entry-read">
 <div class="product-orientation"><span></span><span>ASSESSMENT</span></div>
 <span class="hero-line-wrap"><h1 class="hero-line js-fit">HOW WELL DO YOU JUDGE</h1></span>
 <span class="hero-line-wrap"><h1 class="hero-line js-fit">BEFORE YOU COMMIT?</h1></span>
@@ -191,15 +225,20 @@
 </div>
 </div>
 </div>
+</section>
+<section class="viewport is-dark kda-entry-start" aria-label="Begin the Assessment">
+<p class="kda-charge">Answer for how the organization actually behaves, not how it is supposed to. <strong>DON’T KNOW</strong> is a legitimate answer and is treated as one.</p>
 <div class="kda-start">
 <button type="button" class="kda-cta" id="kda-begin">Begin the Assessment</button>
 <button type="button" class="kda-cta is-quiet" id="kda-resume" hidden>Open your last Reading</button>
 </div>
-<p class="kda-note">Answer for how the organization actually behaves, not how it is supposed to. <strong>DON’T KNOW</strong> is a legitimate answer and is treated as one.</p>
+<div class="kda-fine">
 <p class="kda-note">Your answers and your Reading are stored on this device and are not transmitted to Kill Dull. No account is created, and no email address is required to complete the Assessment or to see your Reading.</p>
 <p class="kda-note">If you have accepted analytics on this site, four things are recorded: that the Assessment was begun, that it was completed, and that a Reading was downloaded or emailed. Your answers and your Reading are never sent. See the <a href="/privacy">privacy policy</a>.</p>
 <noscript><p class="kda-note"><strong>The Assessment needs JavaScript.</strong> It runs entirely in your browser — that is why your answers never leave this device. If you would rather talk to a person, use the <a href="/contact">contact page</a>.</p></noscript>
+</div>
 </section>
+</div>
 
 <section class="viewport kda-run" id="kda-run" hidden aria-label="Assessment"></section>
 

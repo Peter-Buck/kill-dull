@@ -818,7 +818,7 @@
     return '';
   }
 
-  function renderRun() {
+  function paint() {
     var Q = A.QUESTIONS[state.at];
     var total = A.QUESTIONS.length;
     var pct = Math.round((state.at / total) * 100);
@@ -856,9 +856,59 @@
       '<span class="kda-hint">Press 1–4 to answer</span></div>';
 
     run.innerHTML = html;
+  }
+
+  /* One advance at a time. During the hand-over the old inputs are still in the
+     document, so a fast second key or click would otherwise answer a question
+     that is already on its way out. */
+  var busy = false;
+  var LEAVE_MS = 140;
+
+  /* Every new question starts at the top of the run and takes focus, so the
+     change is never something you have to notice in your peripheral vision.
+     This is what carries the transition when motion is switched off. */
+  function settle() {
+    var nav = document.querySelector('.unified-nav');
+    var top = run.getBoundingClientRect().top + (window.pageYOffset || 0);
+    var offset = nav && getComputedStyle(nav).position === 'fixed' ? nav.offsetHeight : 0;
+    try { window.scrollTo(0, Math.max(0, Math.round(top - offset))); }
+    catch (e) { window.scrollTo(0, 0); }
     var head = document.getElementById('kda-qhead');
     if (head) head.focus();
-    say('Question ' + (state.at + 1) + ' of ' + total + '.');
+    say('Question ' + (state.at + 1) + ' of ' + A.QUESTIONS.length + '.');
+  }
+
+  /* Change the question behind a clear break: out, empty, in. */
+  function step(mutate) {
+    if (busy) return;
+    if (reduced()) { mutate(); paint(); settle(); return; }
+    busy = true;
+    run.classList.add('is-leaving');
+    window.setTimeout(function () {
+      mutate();
+      run.classList.remove('is-leaving');
+      run.classList.add('is-entering');
+      paint();
+      settle();
+      window.requestAnimationFrame(function () {
+        window.requestAnimationFrame(function () {
+          run.classList.remove('is-entering');
+          busy = false;
+        });
+      });
+    }, LEAVE_MS);
+  }
+
+  /* Opening the run for the first time, or after Take it again, arrives the same
+     way a later question does. */
+  function renderRun() {
+    paint();
+    settle();
+    if (reduced()) return;
+    run.classList.add('is-entering');
+    window.requestAnimationFrame(function () {
+      window.requestAnimationFrame(function () { run.classList.remove('is-entering'); });
+    });
   }
 
   function answered(Q) {
@@ -868,11 +918,12 @@
   }
 
   function advance() {
-    if (state.at + 1 < A.QUESTIONS.length) { state.at++; saveProgress(); renderRun(); }
-    else { finish(); }
+    if (state.at + 1 >= A.QUESTIONS.length) { finish(); return; }
+    step(function () { state.at++; saveProgress(); });
   }
 
   function record(inputId, value) {
+    if (busy) return;
     state.answers[inputId] = value;
     saveProgress();
     var Q = A.QUESTIONS[state.at];
@@ -891,13 +942,13 @@
     var back = e.target && e.target.closest ? e.target.closest('#kda-back') : null;
     if (!back) return;
     if (state.at === 0) { show('entry'); say('Assessment closed.'); window.scrollTo(0, 0); return; }
-    state.at--; saveProgress(); renderRun();
+    step(function () { state.at--; saveProgress(); });
   });
 
   /* 1–4 answers the question in front of you. In a pair screen the keys act on
      whichever half the cursor is in, and otherwise on the first unanswered half. */
   document.addEventListener('keydown', function (e) {
-    if (state.view !== 'run') return;
+    if (state.view !== 'run' || busy) return;
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     var n = e.key && e.key.length === 1 ? '1234'.indexOf(e.key) : -1;
     if (n < 0) return;
