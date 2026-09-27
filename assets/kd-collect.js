@@ -7,8 +7,13 @@
 
    What it does NOT do is the point of it. There is no third-party script, no
    autocapture, no session replay, no heatmap and no form listener. It never
-   reads the value of an input. It sends nine named events and nothing else,
-   and it is completely silent until someone has pressed Accept.
+   reads the value of an input. It sends thirteen named events and nothing
+   else, and it is completely silent until someone has pressed Accept.
+
+   The four Assessment events are a funnel and only a funnel: that someone
+   began, finished, downloaded or emailed. No answer, no verdict and no
+   Reading is ever sent. Those stay in the respondent's browser, which is
+   what the Assessment tells them and what the privacy policy says.
 
    Everything here is gated on kd-cookie-consent === 'granted'. Before that,
    this file adds listeners and sends nothing. There is no cookie, no id and no
@@ -112,6 +117,7 @@
     if (p.indexOf('/readings') === 0) return 'READINGS';
     if (p.indexOf('/bureau') === 0) return 'COMPANY';
     if (p.indexOf('/contact') === 0) return 'CONTACT';
+    if (p.indexOf('/assessment') === 0) return 'ASSESSMENT';
     if (p.indexOf('/privacy') === 0 || p.indexOf('/terms') === 0 || p.indexOf('/accessibility') === 0) return 'LEGAL';
     return 'OTHER';
   }
@@ -233,6 +239,43 @@
     });
   }
 
+  /* The Assessment funnel. Four moments, watched from the outside the way the
+     Readings are: the Assessment itself knows nothing about analytics and sends
+     nothing of its own. Completion is only counted when this page also saw the
+     start, so re-opening a stored Reading is not a second completion — and is
+     not recorded at all. */
+  function watchAssessment() {
+    var run = document.getElementById('kda-run');
+    var reading = document.getElementById('kda-reading');
+    if (!run || !reading || !window.MutationObserver) return;
+    var startedHere = false, completedHere = false;
+
+    var observer = new MutationObserver(function () {
+      if (!run.hidden && !startedHere) {
+        startedHere = true;
+        track('assessment_started', {});
+      }
+      if (!reading.hidden && startedHere && !completedHere) {
+        completedHere = true;
+        track('assessment_completed', {});
+      }
+    });
+    observer.observe(run, { attributes: true, attributeFilter: ['hidden'] });
+    observer.observe(reading, { attributes: true, attributeFilter: ['hidden'] });
+
+    /* Delegated, because the Reading and its controls are built after this runs. */
+    document.addEventListener('click', function (e) {
+      if (e.target && e.target.closest && e.target.closest('#kda-download')) {
+        track('assessment_reading_downloaded', {});
+      }
+    }, true);
+    document.addEventListener('submit', function (e) {
+      if (e.target && e.target.id === 'kda-email') {
+        track('assessment_reading_emailed', {});
+      }
+    }, true);
+  }
+
   function emitNotFound() {
     // The 404 page is served for an unmatched path; record that it happened,
     // and the path that produced it, which is the only way to find broken links.
@@ -265,6 +308,7 @@
     emitView();
     watchReadings();
     watchContactForm();
+    watchAssessment();
     if (/(^|\/)404(\.html)?$/.test(location.pathname)) emitNotFound();
   }
 
