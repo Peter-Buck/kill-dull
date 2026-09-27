@@ -130,6 +130,13 @@
 }
 .kdr-reading { margin: 20pt 0 0; font-size: 17pt; line-height: 1.38; letter-spacing: -.01em; max-width: 28em; text-wrap: pretty; }
 .kdr-close { margin: 16pt 0 0; font-size: 15pt; line-height: 1.3; font-weight: 700; letter-spacing: -.01em; max-width: 30em; text-wrap: pretty; }
+/* A gated verdict is never left unexplained. The note is subordinate to the
+   closing line it follows — the scale's own body size, set in the secondary
+   grey — and exists only when a rule actually held the arithmetic back. */
+.kdr-note {
+  margin: 14pt 0 18pt; font-size: 12pt; line-height: 1.35; letter-spacing: -.005em;
+  max-width: 34em; color: var(--slate); text-wrap: pretty;
+}
 .kdr-scale { margin-top: auto; border-top: 1pt solid var(--ink); display: flex; flex-direction: column; }
 .kdr-scale-head {
   display: flex; justify-content: space-between; gap: 12pt; padding: 7pt 0 4pt;

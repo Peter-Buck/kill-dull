@@ -649,9 +649,14 @@
     top = PAGE_H - 0.95 * IN;
     y = opener(doc, top, '01', 'The verdict.');
 
+    /* The master gives this badge 4in x 2in, but it is a flex child of the text
+       column and the column shrinks it: what the design actually renders is
+       4in x 106.3pt. The document follows what the master does, not what it
+       declares, so page and file agree. */
     y -= 0.7 * IN;
-    drawBadge(doc, r.verdict, M, y - 2 * IN, 4 * IN, 2 * IN, 80);
-    y -= 2 * IN;
+    var XL_H = 106.3;
+    drawBadge(doc, r.verdict, M, y - XL_H, 4 * IN, XL_H, 80);
+    y -= XL_H;
 
     y -= 0.45 * IN;
     var hl = wrap(doc.fonts.sg700, 32, em(14, 32, W), r.verdictHead.toUpperCase());
@@ -661,10 +666,25 @@
     y -= doc.block(r.verdictBody, M, y, em(28, 17, W), 'sg500', 17, 17 * 1.38, C.ink, 0);
     y -= 16;
     y -= doc.block(r.verdictTail, M, y, em(30, 15, W), 'sg700', 15, 15 * 1.3, C.ink, 0);
+    var noteText = r.gateNote;
 
     /* The scale sits on the foot of the text block, as in the master. */
+    /* The scale block is 125.7pt tall as the master renders it: a 19pt head and
+       three 34pt rows. Reserving less was what pushed the note into its rule. */
+    var SCALE_ROW = 34, SCALE_HEAD = 19;
     var scaleBottom = PAGE_H - 11 * IN + 0.95 * IN;
-    var scaleTop = scaleBottom + 3 * 26 + 18;
+    var scaleTop = scaleBottom + 3 * SCALE_ROW + SCALE_HEAD;
+
+    /* The same note the page carries, in the same place, on the same condition:
+       after the closing line, and never closer than 18pt to the scale above
+       which it sits. The scale itself does not move. */
+    if (noteText) {
+      var noteW = em(34, 12, W), noteH = doc.blockHeight(noteText, noteW, 'sg500', 12, 12 * 1.35);
+      /* Higher y is higher on the page: when the natural position would sit
+         too low, the note is raised, not lowered. */
+      var noteTop = Math.max(y - 20, scaleTop + 18 + noteH);
+      doc.block(noteText, M, noteTop, noteW, 'sg500', 12, 12 * 1.35, C.slate, 0);
+    }
     doc.hline(M, scaleTop, W, C.ink, 1);
     doc.text('THE SCALE', M, scaleTop - 7 - 8, 'mono400', 8, C.slate, 8 * 0.14);
     var rt = 'EVERY CONDITION AND EVERY P IS READ ON IT';
@@ -673,11 +693,11 @@
     var scale = [['AAH', 'The condition reliably protects consequential decisions.'],
                  ['HMM', 'The condition exists but does not reliably protect them.'],
                  ['DULL', 'The condition is absent, or overridden by conviction.']];
-    y = scaleTop - 18;
+    y = scaleTop - SCALE_HEAD;
     for (i = 0; i < scale.length; i++) {
-      y -= 26;
-      drawBadge(doc, scale[i][0], M, y + 1, 0.95 * IN, 24, 12);
-      doc.text(scale[i][1], M + 0.95 * IN + 14, y + 8, 'sg500', 12, C.ink, 0);
+      y -= SCALE_ROW;
+      drawBadge(doc, scale[i][0], M, y + (SCALE_ROW - 24) / 2, 0.95 * IN, 24, 12);
+      doc.text(scale[i][1], M + 0.95 * IN + 14, y + SCALE_ROW / 2 - 4, 'sg500', 12, C.ink, 0);
       if (i < scale.length - 1) doc.hline(M, y, W, C.hair, 0.5);
     }
     folio(doc, 2);
@@ -1252,6 +1272,9 @@
           '<h3 class="kdr-headline">' + esc(r.verdictHead) + '</h3>' +
           '<p class="kdr-reading">' + esc(r.verdictBody) + '</p>' +
           '<p class="kdr-close">' + esc(r.verdictTail) + '</p>' +
+          /* Only when a rule overrode the arithmetic. No gate, no element,
+             and the page keeps the spacing the master gives it. */
+          (r.gateNote ? '<p class="kdr-note">' + esc(r.gateNote) + '</p>' : '') +
           '<div class="kdr-scale">' +
             '<div class="kdr-scale-head"><span>The scale</span><span>Every condition and every P is read on it</span></div>' +
             '<div class="kdr-scale-row">' + badge('AAH', 'kdr-badge-sm') + '<span>The condition reliably protects consequential decisions.</span></div>' +
