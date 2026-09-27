@@ -1,0 +1,215 @@
+/* KILL DULL — Marketing Judgment Reading.
+   The four-page US Letter document, transcribed from the approved master.
+   Values are the master's own: page geometry in inches, type in points, the
+   Dark Grey / Off-White / Neon Yellow system and nothing outside it.
+
+   This sheet styles the document only. The page that issues it is styled by
+   assessment.html; the two never share a rule. */
+
+@page { size: letter; margin: 0; }
+
+.kdr {
+  --ink:      #24222B;   /* Dark Grey   */
+  --paper:    #FFFFFF;   /* Off-White   */
+  --yellow:   #FFFF00;   /* Neon Yellow */
+  --stone:    #A09D94;   /* desk, and the cover's quiet labels */
+  --slate:    #5D5B54;   /* running heads, secondary labels     */
+  --hair:     #C3BFB1;   /* hairline on light                   */
+  --hairdark: #34313B;   /* hairline on dark                    */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3in;
+  padding: 0.4in 0;
+  background: var(--stone);
+  font-family: 'Space Grotesk', sans-serif;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.kdr-page {
+  width: 8.5in;
+  height: 11in;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, .2);
+}
+
+/* ── 01 Cover ──────────────────────────────────────────────────────────── */
+.kdr-cover {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.8in 0.75in 0.75in;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.kdr-cover-mark { width: 3.3in; height: auto; display: block; }
+.kdr-cover-eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9pt; font-weight: 500; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--yellow);
+}
+.kdr-cover h1 {
+  font-size: 60pt; line-height: .92; letter-spacing: -.04em;
+  text-transform: uppercase; margin: 14pt 0 18pt; font-weight: 700;
+  text-wrap: balance;
+}
+.kdr-cover-sub { margin: 0; font-size: 14pt; line-height: 1.45; max-width: 28em; text-wrap: pretty; }
+.kdr-colophon { border-top: .5pt solid var(--slate); display: flex; flex-direction: column; }
+.kdr-colophon-row {
+  display: grid; grid-template-columns: 1.3in minmax(0, 1fr); gap: 12pt;
+  padding: 7pt 0; border-bottom: .5pt solid var(--hairdark); align-items: baseline;
+}
+.kdr-colophon-row:last-child { border-bottom: 0; align-items: center; min-height: 30pt; }
+.kdr-colophon-key {
+  font-family: 'IBM Plex Mono', monospace; font-size: 9pt;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--stone);
+}
+.kdr-colophon-id { font-family: 'IBM Plex Mono', monospace; font-size: 11pt; letter-spacing: .06em; }
+.kdr-colophon-val { font-size: 12pt; }
+
+/* ── running head, folio ───────────────────────────────────────────────── */
+.kdr-head {
+  position: absolute; top: .45in; left: .75in; right: .75in;
+  display: flex; justify-content: space-between; gap: 12pt;
+  padding-bottom: 6pt; border-bottom: .5pt solid var(--hair);
+  font-family: 'IBM Plex Mono', monospace; font-size: 8pt; line-height: 1.3;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--slate);
+}
+.kdr-body {
+  position: absolute; top: .95in; left: .75in; right: .75in; bottom: .95in;
+  display: flex; flex-direction: column;
+}
+.kdr-folio {
+  position: absolute; left: .75in; right: .75in; bottom: .42in; height: 14pt;
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: 'IBM Plex Mono', monospace; font-size: 9pt; line-height: 1;
+}
+.kdr-folio img { height: 9pt; width: auto; display: block; }
+.kdr-folio-bar {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 20pt; padding: 0 .75in;
+  background: var(--ink); color: var(--paper);
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: 'IBM Plex Mono', monospace; font-size: 9pt; line-height: 1;
+}
+.kdr-folio-bar img { height: 9pt; width: auto; display: block; }
+
+/* ── section openers ───────────────────────────────────────────────────── */
+.kdr-open { border-top: 1.5pt solid var(--ink); padding-top: 8pt; display: flex; flex-direction: column; gap: 5pt; }
+.kdr-open-n {
+  font-family: 'IBM Plex Mono', monospace; font-size: 9pt; font-weight: 500;
+  letter-spacing: .12em; color: var(--slate); line-height: 1;
+}
+.kdr-open h2 { font-size: 20pt; line-height: 1.05; letter-spacing: -.02em; text-transform: uppercase; margin: 0; font-weight: 700; }
+.kdr-open-split { display: flex; justify-content: space-between; align-items: baseline; gap: 12pt; flex-wrap: wrap; }
+.kdr-open-note {
+  font-family: 'IBM Plex Mono', monospace; font-size: 8pt; font-weight: 500;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--slate);
+}
+
+/* ── the verdict badge, at three sizes ─────────────────────────────────── */
+.kdr-badge { box-sizing: border-box; display: flex; align-items: center; justify-content: center; font-weight: 700; letter-spacing: -.02em; }
+.kdr-badge.is-aah  { background: var(--yellow); color: var(--ink); }
+.kdr-badge.is-hmm  { background: var(--paper);  color: var(--ink); border: 1.5pt solid var(--ink); }
+.kdr-badge.is-dull { background: var(--ink);    color: var(--paper); }
+.kdr-badge-sm { width: .95in; height: 24pt; font-size: 12pt; }
+.kdr-badge-row { height: 34pt; font-size: 14pt; }
+.kdr-badge-xl { margin-top: .7in; width: 4in; height: 2in; font-size: 80pt; letter-spacing: -.035em; line-height: 1; }
+/* On the cover the DULL badge sits on ink, so it is outlined rather than filled. */
+.kdr-cover .kdr-badge.is-dull { border: 1.5pt solid var(--stone); }
+.kdr-cover .kdr-badge.is-hmm  { border: 0; }
+
+/* ── 02 Verdict ────────────────────────────────────────────────────────── */
+.kdr-headline {
+  margin: .45in 0 0; font-size: 32pt; line-height: .98; letter-spacing: -.03em;
+  text-transform: uppercase; font-weight: 700; max-width: 14em; text-wrap: balance;
+}
+.kdr-reading { margin: 20pt 0 0; font-size: 17pt; line-height: 1.38; letter-spacing: -.01em; max-width: 28em; text-wrap: pretty; }
+.kdr-close { margin: 16pt 0 0; font-size: 15pt; line-height: 1.3; font-weight: 700; letter-spacing: -.01em; max-width: 30em; text-wrap: pretty; }
+.kdr-scale { margin-top: auto; border-top: 1pt solid var(--ink); display: flex; flex-direction: column; }
+.kdr-scale-head {
+  display: flex; justify-content: space-between; gap: 12pt; padding: 7pt 0 4pt;
+  font-family: 'IBM Plex Mono', monospace; font-size: 8pt; font-weight: 500;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--slate);
+}
+.kdr-scale-row {
+  display: grid; grid-template-columns: .95in minmax(0, 1fr); gap: 14pt;
+  align-items: center; padding: 5pt 0; border-bottom: .5pt solid var(--hair);
+}
+.kdr-scale-row:last-child { border-bottom: 0; }
+.kdr-scale-row span:last-child { font-size: 12pt; line-height: 1.35; }
+
+/* ── 03 Diagnosis: the register ────────────────────────────────────────── */
+.kdr-register { margin-top: 12pt; display: flex; flex-direction: column; }
+/* The master's register is sized for its own example texts, which run to about
+   seventy characters. Real Reading texts run to a hundred and ten, and at the
+   master's 12pt they take a third line and push page three past its own edge
+   on almost every Reading. Two adjustments keep the grid exactly as designed
+   and the copy exactly as written: the name column is cut to what its longest
+   label actually needs (1.54in rather than 1.70in), and the row text is set a
+   point smaller. The 42pt row, the three columns and every other size are the
+   master's. min-height rather than height is the safety net: a freak line
+   grows the row instead of being clipped. */
+.kdr-reg-row { display: grid; grid-template-columns: .95in 1.54in minmax(0, 1fr); min-height: 42pt; }
+.kdr-reg-badge { display: flex; flex-direction: column; justify-content: center; }
+.kdr-badge-row { flex: 0 0 34pt; }
+.kdr-reg-name {
+  display: flex; align-items: center; padding-left: 14pt; padding-top: 4pt; padding-bottom: 4pt; border-bottom: .5pt solid var(--hair);
+  font-family: 'IBM Plex Mono', monospace; font-size: 9pt; font-weight: 500;
+  letter-spacing: .12em; text-transform: uppercase;
+}
+.kdr-reg-text {
+  display: flex; padding-left: 12pt; padding-top: 4pt; padding-bottom: 4pt; align-items: center; border-bottom: .5pt solid var(--hair);
+  font-size: 11pt; line-height: 1.3; text-wrap: pretty;
+}
+.kdr-open.is-second { margin-top: 30pt; }
+
+/* ── 04 Focus ──────────────────────────────────────────────────────────── */
+.kdr-focus { margin-top: 14pt; display: flex; flex-direction: column; }
+.kdr-focus-row { display: grid; grid-template-columns: .95in minmax(0, 1fr); padding: 14pt 0; border-bottom: .5pt solid var(--hair); }
+.kdr-focus-n { font-size: 32pt; font-weight: 700; letter-spacing: -.03em; line-height: .9; }
+.kdr-focus-body { display: flex; flex-direction: column; gap: 6pt; padding-left: 14pt; }
+.kdr-focus-name { font-family: 'IBM Plex Mono', monospace; font-size: 9pt; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; }
+.kdr-focus-text { margin: 0; font-size: 15pt; line-height: 1.38; letter-spacing: -.01em; max-width: 28em; text-wrap: pretty; }
+.kdr-boundary {
+  margin: 22pt 0 0; font-size: 18pt; font-weight: 700; text-transform: uppercase;
+  letter-spacing: -.02em; line-height: 1.1; max-width: 24em; text-wrap: balance;
+}
+.kdr-foot { margin-top: auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24pt; border-top: 1pt solid var(--ink); padding-top: 10pt; }
+.kdr-foot-col { display: flex; flex-direction: column; gap: 6pt; }
+.kdr-foot-label { font-family: 'IBM Plex Mono', monospace; font-size: 8pt; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--slate); }
+.kdr-foot-col p { margin: 0; font-size: 10pt; line-height: 1.45; text-wrap: pretty; }
+.kdr-foot-url { font-size: 15pt; font-weight: 700; letter-spacing: -.01em; }
+.kdr-stamp {
+  margin-top: 14pt; display: grid;
+  grid-template-columns: 1in minmax(0, 1.4fr) .8in minmax(0, 1fr);
+  column-gap: 12pt; border-top: .5pt solid var(--hair);
+  font-family: 'IBM Plex Mono', monospace; font-size: 9pt; letter-spacing: .06em; text-transform: uppercase;
+}
+.kdr-stamp span { padding: 5pt 0; }
+.kdr-stamp span:nth-child(-n+4) { border-bottom: .5pt solid var(--hair); }
+.kdr-stamp .is-key { color: var(--slate); }
+
+/* ── viewing a Letter page on a smaller screen ─────────────────────────── */
+/* The document is 8.5in wide and stays 8.5in wide. Below that, the desk is
+   zoomed rather than the design changed: every proportion, measure and type
+   size is the master's, just seen smaller. Print never sees this. */
+/* The ratio itself cannot be expressed in CSS — it is a length divided by a
+   length — so the page sets --kdr-zoom and the media query decides whether to
+   use it. Print does not match this query, so the document always prints at
+   full size however small the screen that issued it. */
+@media screen and (max-width: 900px) {
+  .kdr { zoom: var(--kdr-zoom, 1); }
+}
+
+/* ── print: the desk falls away and each page is a page ────────────────── */
+@media print {
+  html, body { background: none; margin: 0; }
+  .kdr { padding: 0 !important; gap: 0 !important; background: none; }
+  .kdr-page { box-shadow: none !important; break-after: page; page-break-after: always; }
+  .kdr-page:last-child { break-after: auto; page-break-after: auto; }
+}

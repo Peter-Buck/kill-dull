@@ -364,7 +364,16 @@
     return out;
   }
 
+  /* The Reading's closing instruction, one per verdict. Taken from the approved
+     Marketing Judgment Reading master, which is the only place this line lives. */
+  var NEXT_STEP = {
+    AAH:  'When a commitment is too consequential for your own system alone, Kill Dull can read it independently.',
+    HMM:  'Bring Kill Dull the commitment you are least sure would be examined properly.',
+    DULL: 'Put your next consequential commitment in front of Kill Dull before it is made.'
+  };
+
   A.VERDICT = VERDICT;
+  A.NEXT_STEP = NEXT_STEP;
   A.GATE_NOTE = GATE_NOTE;
   A.conditionLine = conditionLine;
   A.fourLine = fourLine;
@@ -382,7 +391,7 @@
   var INK = [0.141, 0.133, 0.169];      /* #24222B */
   var GREY = [0.314, 0.302, 0.341];     /* #504D57 */
   var YELLOW = [1, 1, 0];               /* #FFFF00 */
-  var PAGE_W = 595.28, PAGE_H = 841.89, M = 56;
+  var PAGE_W = 612, PAGE_H = 792, M = 54;   /* US Letter, 0.75in margins */
 
   /* WinAnsi: the handful of non-ASCII characters this document can contain. */
   var WINANSI = { '‘': 0x91, '’': 0x92, '“': 0x93, '”': 0x94,
@@ -470,95 +479,279 @@
 
   /* ------------------------------------------------------------- the document */
 
-  function layout(doc, reading) {
-    var W = PAGE_W - M * 2, F = doc.fonts, i;
+  /* ---------------------------------------------------------- the document
 
-    /* Masthead */
-    doc.y -= 26;
-    doc.text('KILL DULL', M, doc.y, 'sg700', 26, INK, -0.6);
-    doc.rect(M + width(F.sg700, 26, 'KILL DULL') + 8, doc.y - 1, 19, 19, YELLOW);
-    doc.text('THE DENSE IDEA COMPANY™', PAGE_W - M - width(F.mono400, 8, 'THE DENSE IDEA COMPANY™'),
-             doc.y + 4, 'mono400', 8, GREY, 0.7);
-    doc.y -= 16; doc.rule(M, W, INK);
+     The same four pages the browser shows, drawn directly into a PDF so the
+     download is a file rather than a print dialog: no browser headers, no
+     footers, no fifth page, and the page boxes are Letter by construction.
 
-    doc.y -= 26;
-    doc.text('MARKETING JUDGMENT READING', M, doc.y, 'mono400', 10, INK, 1.1);
-    doc.y -= 15;
-    doc.text(reading.dateLong + '   ·   READING ' + reading.id, M, doc.y, 'mono400', 9, GREY, 0.7);
+     Everything is placed absolutely from the master's own measurements. One
+     inch is 72 points; the master's inches and points are used as written. */
 
-    /* Verdict */
-    doc.y -= 74;
-    doc.text(reading.verdict + '.', M, doc.y, 'sg700', 68, INK, -2.4);
-    doc.y -= 30;
-    doc.para(reading.verdictHead, M, W, 'sg500', 17, 22, INK, -0.3);
-    doc.y -= 6;
-    doc.para(reading.verdictBody, M, W * 0.86, 'sg500', 10.5, 16, GREY);
-    if (reading.verdictTail) { doc.y -= 4; doc.para(reading.verdictTail, M, W * 0.86, 'sg500', 10.5, 16, GREY); }
-    if (reading.gateNote) { doc.y -= 4; doc.para(reading.gateNote, M, W * 0.86, 'sg500', 10.5, 16, GREY); }
+  var IN = 72;
+  var C = {
+    ink:      [0.141, 0.133, 0.169],   /* #24222B Dark Grey   */
+    paper:    [1, 1, 1],               /* #FFFFFF Off-White   */
+    yellow:   [1, 1, 0],               /* #FFFF00 Neon Yellow */
+    stone:    [0.627, 0.616, 0.580],   /* #A09D94 */
+    slate:    [0.365, 0.357, 0.329],   /* #5D5B54 */
+    hair:     [0.765, 0.749, 0.694],   /* #C3BFB1 */
+    hairdark: [0.204, 0.192, 0.231]    /* #34313B */
+  };
 
-    /* A verdict register: label | verdict | interpretation */
-    function register(title, rows, big) {
-      doc.y -= 34;
-      /* Four-P view carries the argument; never let it break across pages. */
-      var est = 44, li;
-      for (li = 0; li < rows.length; li++) {
-        est += (big ? 34 : 28) +
-               (wrap(F.sg500, big ? 10.5 : 9.5, W - 166, rows[li].text).length - 1) * 13;
-      }
-      if (big && doc.y - est < M + 28) doc.newPage();
-      else doc.need(60);
-      doc.text(title, M, doc.y, 'mono400', 10, INK, 1.1);
-      doc.y -= 10; doc.rule(M, W, INK);
-      var labelW = 108, vW = 58, textX = M + labelW + vW, textW = W - labelW - vW;
-      for (i = 0; i < rows.length; i++) {
-        var lines = wrap(F.sg500, big ? 10.5 : 9.5, textW, rows[i].text);
-        doc.need(lines.length * 14 + 22);
-        doc.y -= (big ? 20 : 17);
-        doc.text(rows[i].name, M, doc.y, 'mono400', big ? 9.5 : 8.5, GREY, 0.8);
-        doc.text(rows[i].verdict + '.', M + labelW, doc.y, 'sg700', big ? 13 : 11.5, INK, -0.3);
-        for (var j = 0; j < lines.length; j++) {
-          doc.text(lines[j], textX, doc.y - j * 13, 'sg500', big ? 10.5 : 9.5, GREY);
-        }
-        doc.y -= (lines.length - 1) * 13 + (big ? 14 : 11);
-        doc.rule(M, W, [0.80, 0.79, 0.82]);
-      }
+  Doc.prototype.strokeRect = function (x, y, w, h, colour, lw) {
+    this.ops.push(this.rgb(colour) + ' RG ' + (lw || 1).toFixed(2) + ' w ' +
+      x.toFixed(2) + ' ' + y.toFixed(2) + ' ' + w.toFixed(2) + ' ' + h.toFixed(2) + ' re S');
+  };
+  Doc.prototype.hline = function (x, y, w, colour, lw) {
+    this.rect(x, y, w, lw || 0.5, colour);
+  };
+  /* Absolute paragraph: draws from a top edge and reports the height used. */
+  Doc.prototype.block = function (str, x, top, maxW, fontKey, size, leading, colour, tracking) {
+    var lines = wrap(this.fonts[fontKey], size, maxW, str), i, y = top;
+    for (i = 0; i < lines.length; i++) {
+      y -= leading;
+      this.text(lines[i], x, y + leading * 0.24, fontKey, size, colour, tracking);
     }
+    return lines.length * leading;
+  };
+  Doc.prototype.blockHeight = function (str, maxW, fontKey, size, leading) {
+    return wrap(this.fonts[fontKey], size, maxW, str).length * leading;
+  };
+  Doc.prototype.centre = function (str, cx, y, fontKey, size, colour, tracking) {
+    var w = width(this.fonts[fontKey], size, str) + (tracking || 0) * (str.length - 1);
+    this.text(str, cx - w / 2, y, fontKey, size, colour, tracking);
+  };
 
-    register('HOW YOU JUDGE', reading.conditions, false);
-    register('WHERE YOU’RE EXPOSED', reading.fours, true);
-
-    /* Findings */
-    doc.y -= 34; doc.need(80);
-    doc.text('WHAT WE’D PAY ATTENTION TO', M, doc.y, 'mono400', 10, INK, 1.1);
-    doc.y -= 10; doc.rule(M, W, INK);
-    for (i = 0; i < reading.findings.length; i++) {
-      var f = reading.findings[i];
-      doc.need(58);
-      doc.y -= 22;
-      doc.text(f.n + '  —  ' + f.label, M, doc.y, 'mono400', 9, INK, 0.8);
-      doc.y -= 4;
-      doc.para(f.text, M, W * 0.9, 'sg500', 10.5, 15, GREY);
-      doc.y -= 6;
+  /* AAH. fills, HMM. outlines, DULL. reverses — the master's one badge. */
+  function drawBadge(doc, verdict, x, y, w, h, size, onInk) {
+    var label = verdict + '.';
+    if (verdict === 'AAH') {
+      doc.rect(x, y, w, h, C.yellow);
+      doc.centre(label, x + w / 2, y + (h - size * 0.7) / 2, 'sg700', size, C.ink, -0.02 * size);
+    } else if (verdict === 'HMM') {
+      if (!onInk) {
+        doc.rect(x, y, w, h, C.paper);
+        doc.strokeRect(x + 0.75, y + 0.75, w - 1.5, h - 1.5, C.ink, 1.5);
+      }
+      doc.centre(label, x + w / 2, y + (h - size * 0.7) / 2, 'sg700', size,
+        onInk ? C.ink : C.ink, -0.02 * size);
+      if (onInk) { doc.rect(x, y, w, h, C.paper); doc.centre(label, x + w / 2, y + (h - size * 0.7) / 2, 'sg700', size, C.ink, -0.02 * size); }
+    } else {
+      if (onInk) { doc.strokeRect(x + 0.75, y + 0.75, w - 1.5, h - 1.5, C.stone, 1.5); doc.centre(label, x + w / 2, y + (h - size * 0.7) / 2, 'sg700', size, C.paper, -0.02 * size); }
+      else { doc.rect(x, y, w, h, C.ink); doc.centre(label, x + w / 2, y + (h - size * 0.7) / 2, 'sg700', size, C.paper, -0.02 * size); }
     }
-    doc.y -= 10;
-    doc.para('These are not recommendations. They are signals worth examining before your next consequential marketing commitment.',
-             M, W * 0.9, 'sg500', 10.5, 15, INK);
-
-    /* Colophon */
-    doc.y -= 34; doc.need(76);
-    doc.rule(M, W, INK);
-    doc.y -= 20;
-    doc.text('ABOUT THIS ASSESSMENT', M, doc.y, 'mono400', 8.5, GREY, 0.8);
-    doc.y -= 2;
-    doc.para('The Kill Dull Assessment examines the conditions under which consequential marketing decisions are made across Product, Price, Place and Promotion. It does not evaluate marketing performance and does not replace a Kill Dull Reading of a specific commitment.',
-             M, W * 0.86, 'sg500', 9, 13, GREY);
-    doc.y -= 18;
-    doc.text('TALK TO US', M, doc.y, 'mono400', 8.5, GREY, 0.8);
-    doc.y -= 14;
-    doc.text('killdull.com', M, doc.y, 'sg700', 12, INK, -0.2);
   }
 
-  /* --------------------------------------------------------------- assembly */
+  /* The KD mark: the letterforms and the square, drawn in the document's own face. */
+  function drawMark(doc, x, y, h, light) {
+    var size = h / 0.7;
+    doc.text('KD', x, y, 'sg700', size, light ? C.paper : C.ink, -0.02 * size);
+    var w = width(doc.fonts.sg700, size, 'KD') - 0.02 * size;
+    doc.rect(x + w + size * 0.12, y - h * 0.02, h, h, C.yellow);
+    return w + size * 0.12 + h;
+  }
+
+  function runningHead(doc, top, id, label) {
+    var y = PAGE_H - top;
+    doc.text('MARKETING JUDGMENT READING · ' + id, M, y, 'mono400', 8, C.slate, 8 * 0.12);
+    var t = label.toUpperCase();
+    doc.text(t, PAGE_W - M - width(doc.fonts.mono400, 8, t) - 8 * 0.12 * (t.length - 1),
+      y, 'mono400', 8, C.slate, 8 * 0.12);
+    doc.hline(M, y - 6, PAGE_W - M * 2, C.hair, 0.5);
+  }
+
+  function folio(doc, n, light) {
+    var y = PAGE_H - 11 * IN + 0.42 * IN;
+    doc.text(n + ' / 4', M, y, 'mono400', 9, light ? C.paper : C.ink, 0);
+    drawMark(doc, PAGE_W - M - 26, y, 9, light);
+  }
+
+  function opener(doc, top, n, title, note) {
+    doc.hline(M, top, PAGE_W - M * 2, C.ink, 1.5);
+    doc.text(n, M, top - 8 - 9, 'mono400', 9, C.slate, 9 * 0.12);
+    var h2y = top - 8 - 9 - 5 - 20 * 0.82;
+    doc.text(title.toUpperCase(), M, h2y, 'sg700', 20, C.ink, -0.02 * 20);
+    if (note) {
+      var t = note.toUpperCase();
+      doc.text(t, PAGE_W - M - width(doc.fonts.mono400, 8, t) - 8 * 0.14 * (t.length - 1),
+        h2y + 1, 'mono400', 8, C.slate, 8 * 0.14);
+    }
+    return top - (8 + 9 + 5 + 20 * 1.05);      /* bottom edge of the opener */
+  }
+
+  /* One register row: badge, name, text — the master's three columns. */
+  function regRow(doc, top, row) {
+    var badgeW = 0.95 * IN, nameW = 1.54 * IN, gap = 14, textX = M + badgeW + nameW + 12;
+    var textW = PAGE_W - M - textX;
+    var lines = doc.blockHeight(row.text, textW, 'sg500', 11, 11 * 1.3);
+    var h = Math.max(42, lines + 8);
+    drawBadge(doc, row.verdict, M, top - (h + 34) / 2, badgeW, 34, 14);
+    doc.text(row.name.toUpperCase(), M + badgeW + gap, top - h / 2 - 3,
+      'mono400', 9, C.ink, 9 * 0.12);
+    doc.block(row.text, textX, top - (h - lines) / 2, textW, 'sg500', 11, 11 * 1.3, C.ink, 0);
+    doc.hline(M + badgeW, top - h, PAGE_W - M - M - badgeW, C.hair, 0.5);
+    return h;
+  }
+
+  /* The master states its measures in em. One em is the font size, and no
+     measure may exceed the text column. */
+  function em(n, size, maxW) { return Math.min(n * size, maxW); }
+
+  function layout(doc, r) {
+    var W = PAGE_W - M * 2, top, y, i;
+
+    /* ── 01 Cover ─────────────────────────────────────────────────────── */
+    doc.rect(0, 0, PAGE_W, PAGE_H, C.ink);
+    var cpad = 0.75 * IN;
+    /* The wordmark, set rather than traced: the same face the artwork is cut from. */
+    var wmY = PAGE_H - 0.8 * IN - 34;
+    doc.text('KILL DULL', cpad, wmY, 'sg700', 46, C.paper, -0.03 * 46);
+    var wmW = width(doc.fonts.sg700, 46, 'KILL DULL') - 0.03 * 46 * 8;
+    doc.rect(cpad + wmW + 8, wmY - 2, 34, 34, C.yellow);
+    doc.text('™', cpad + wmW + 8 + 36, wmY + 22, 'sg500', 9, C.paper, 0);
+    doc.text('THE DENSE IDEA COMPANY™', cpad, wmY - 20, 'mono400', 9.5, C.paper, 9.5 * 0.16);
+
+    /* The colophon is anchored to the foot; the title block sits above it. */
+    var colTop = 0.75 * IN + 4 * 24 + 6;
+    var subTop = colTop + 54;
+    var CW = PAGE_W - M * 2;
+    var subH = doc.blockHeight(
+      'How your organization makes consequential marketing decisions, read against seven conditions of judgment and across Product, Price, Place and Promotion.',
+      em(28, 14, CW), 'sg500', 14, 14 * 1.45);
+    var h1 = wrap(doc.fonts.sg700, 60, W, 'THE STATE OF YOUR MARKETING JUDGMENT.');
+    var h1H = h1.length * 60 * 0.92;
+    var blockTop = subTop + subH + 18 + h1H + 14 + 11;
+
+    doc.text('MARKETING JUDGMENT READING · ' + r.dateLong.toUpperCase(),
+      cpad, blockTop, 'mono400', 9, C.yellow, 9 * 0.16);
+    y = blockTop - 14;
+    for (i = 0; i < h1.length; i++) { y -= 60 * 0.92; doc.text(h1[i], cpad, y, 'sg700', 60, C.paper, -0.04 * 60); }
+    doc.block('How your organization makes consequential marketing decisions, read against seven conditions of judgment and across Product, Price, Place and Promotion.',
+      cpad, y - 18, em(28, 14, CW), 'sg500', 14, 14 * 1.45, C.paper, 0);
+
+    doc.hline(cpad, colTop, W, C.slate, 0.5);
+    var rows = [['Reading ID', r.id, 'mono'], ['Issued', r.dateLong, ''],
+                ['Method', 'Kill Dull Marketing Judgment Test', ''], ['Verdict', 'Page 02.', '']];
+    y = colTop;
+    for (i = 0; i < rows.length; i++) {
+      y -= 24;
+      doc.text(rows[i][0].toUpperCase(), cpad, y + 7, 'mono400', 9, C.stone, 9 * 0.12);
+      if (rows[i][2] === 'mono') doc.text(rows[i][1], cpad + 1.3 * IN, y + 7, 'mono400', 11, C.paper, 11 * 0.06);
+      else doc.text(rows[i][1], cpad + 1.3 * IN, y + 7, 'sg500', 12, C.paper, 0);
+      if (i < rows.length - 1) doc.hline(cpad, y, W, C.hairdark, 0.5);
+    }
+
+    /* ── 02 Verdict ───────────────────────────────────────────────────── */
+    doc.newPage();
+    doc.rect(0, 0, PAGE_W, PAGE_H, C.paper);
+    runningHead(doc, 0.45 * IN, r.id, 'The verdict');
+    top = PAGE_H - 0.95 * IN;
+    y = opener(doc, top, '01', 'The verdict.');
+
+    y -= 0.7 * IN;
+    drawBadge(doc, r.verdict, M, y - 2 * IN, 4 * IN, 2 * IN, 80);
+    y -= 2 * IN;
+
+    y -= 0.45 * IN;
+    var hl = wrap(doc.fonts.sg700, 32, em(14, 32, W), r.verdictHead.toUpperCase());
+    for (i = 0; i < hl.length; i++) { y -= 32 * 0.98; doc.text(hl[i], M, y, 'sg700', 32, C.ink, -0.03 * 32); }
+
+    y -= 20;
+    y -= doc.block(r.verdictBody, M, y, em(28, 17, W), 'sg500', 17, 17 * 1.38, C.ink, 0);
+    y -= 16;
+    y -= doc.block(r.verdictTail, M, y, em(30, 15, W), 'sg700', 15, 15 * 1.3, C.ink, 0);
+
+    /* The scale sits on the foot of the text block, as in the master. */
+    var scaleBottom = PAGE_H - 11 * IN + 0.95 * IN;
+    var scaleTop = scaleBottom + 3 * 26 + 18;
+    doc.hline(M, scaleTop, W, C.ink, 1);
+    doc.text('THE SCALE', M, scaleTop - 7 - 8, 'mono400', 8, C.slate, 8 * 0.14);
+    var rt = 'EVERY CONDITION AND EVERY P IS READ ON IT';
+    doc.text(rt, PAGE_W - M - width(doc.fonts.mono400, 8, rt) - 8 * 0.14 * (rt.length - 1),
+      scaleTop - 7 - 8, 'mono400', 8, C.slate, 8 * 0.14);
+    var scale = [['AAH', 'The condition reliably protects consequential decisions.'],
+                 ['HMM', 'The condition exists but does not reliably protect them.'],
+                 ['DULL', 'The condition is absent, or overridden by conviction.']];
+    y = scaleTop - 18;
+    for (i = 0; i < scale.length; i++) {
+      y -= 26;
+      drawBadge(doc, scale[i][0], M, y + 1, 0.95 * IN, 24, 12);
+      doc.text(scale[i][1], M + 0.95 * IN + 14, y + 8, 'sg500', 12, C.ink, 0);
+      if (i < scale.length - 1) doc.hline(M, y, W, C.hair, 0.5);
+    }
+    folio(doc, 2);
+
+    /* ── 03 Diagnosis ─────────────────────────────────────────────────── */
+    doc.newPage();
+    doc.rect(0, 0, PAGE_W, PAGE_H, C.paper);
+    runningHead(doc, 0.45 * IN, r.id, 'The diagnosis');
+    top = PAGE_H - 0.95 * IN;
+    y = opener(doc, top, '02', 'How you judge.', 'Seven conditions of judgment') - 12;
+    for (i = 0; i < r.conditions.length; i++) y -= regRow(doc, y, r.conditions[i]);
+    y -= 30;
+    y = opener(doc, y, '03', 'Where you’re exposed.', 'Product · Price · Place · Promotion') - 12;
+    for (i = 0; i < r.fours.length; i++) y -= regRow(doc, y, r.fours[i]);
+    folio(doc, 3);
+
+    /* ── 04 Focus ─────────────────────────────────────────────────────── */
+    doc.newPage();
+    doc.rect(0, 0, PAGE_W, PAGE_H, C.paper);
+    runningHead(doc, 0.45 * IN, r.id, 'The focus');
+    top = PAGE_H - 0.95 * IN;
+    y = opener(doc, top, '04', 'What we’d pay attention to.') - 14;
+    for (i = 0; i < r.findings.length; i++) {
+      var f = r.findings[i];
+      var tw = W - 0.95 * IN - 14;
+      var fh = doc.blockHeight(f.text, Math.min(tw, em(28, 15, W)), 'sg500', 15, 15 * 1.38);
+      var rowH = 14 + 9 + 6 + fh + 14;
+      doc.text(f.n, M, y - 14 - 32 * 0.9, 'sg700', 32, C.ink, -0.03 * 32);
+      doc.text(f.label.toUpperCase(), M + 0.95 * IN + 14, y - 14 - 9, 'mono400', 9, C.ink, 9 * 0.12);
+      doc.block(f.text, M + 0.95 * IN + 14, y - 14 - 9 - 6, Math.min(tw, em(28, 15, W)),
+        'sg500', 15, 15 * 1.38, C.ink, 0);
+      doc.hline(M, y - rowH, W, C.hair, 0.5);
+      y -= rowH;
+    }
+    y -= 22;
+    var bl = wrap(doc.fonts.sg700, 18, em(24, 18, W),
+      'THESE ARE NOT RECOMMENDATIONS. THEY ARE SIGNALS WORTH EXAMINING BEFORE YOUR NEXT CONSEQUENTIAL MARKETING COMMITMENT.');
+    for (i = 0; i < bl.length; i++) { y -= 18 * 1.1; doc.text(bl[i], M, y, 'sg700', 18, C.ink, -0.02 * 18); }
+
+    /* The colophon block and the stamp are anchored to the foot of the page. */
+    var stampTop = PAGE_H - 11 * IN + 0.95 * IN + 2 * 19;
+    var about = 'The Marketing Judgment Test examines the conditions under which consequential marketing decisions are made. It does not evaluate marketing performance, and it does not replace a Kill Dull Reading of a specific commitment.';
+    var colW = (W - 24) / 2;
+    var aboutH = doc.blockHeight(about, colW, 'sg500', 10, 10 * 1.45);
+    var nextH = doc.blockHeight(r.nextStep, colW, 'sg500', 10, 10 * 1.45);
+    var footTop = stampTop + 14 + Math.max(aboutH, nextH + 8 + 15) + 8 + 6 + 10;
+    doc.hline(M, footTop, W, C.ink, 1);
+    doc.text('ABOUT THIS READING', M, footTop - 10 - 8, 'mono400', 8, C.slate, 8 * 0.14);
+    doc.block(about, M, footTop - 10 - 8 - 6, colW, 'sg500', 10, 10 * 1.45, C.ink, 0);
+    doc.text('THE NEXT STEP', M + colW + 24, footTop - 10 - 8, 'mono400', 8, C.slate, 8 * 0.14);
+    var nb = doc.block(r.nextStep, M + colW + 24, footTop - 10 - 8 - 6, colW, 'sg500', 10, 10 * 1.45, C.ink, 0);
+    doc.text('killdull.com', M + colW + 24, footTop - 10 - 8 - 6 - nb - 6 - 15 * 0.72, 'sg700', 15, C.ink, -0.01 * 15);
+
+    doc.hline(M, stampTop, W, C.hair, 0.5);
+    var cols = [1 * IN, 1.4 * (W - 1 * IN - 0.8 * IN - 36) / 2.4, 0.8 * IN, 0];
+    cols[3] = W - cols[0] - cols[1] - cols[2] - 36;
+    var xs = [M, M + cols[0] + 12, M + cols[0] + 12 + cols[1] + 12, M + cols[0] + 12 + cols[1] + 12 + cols[2] + 12];
+    var stamp = [['READING ID', r.id, 'ISSUED', r.dateLong.toUpperCase()],
+                 ['DOCUMENT', 'MARKETING JUDGMENT READING', 'PAGES', '4']];
+    y = stampTop;
+    for (i = 0; i < stamp.length; i++) {
+      y -= 19;
+      doc.text(stamp[i][0], xs[0], y + 6, 'mono400', 9, C.slate, 9 * 0.06);
+      doc.text(stamp[i][1], xs[1], y + 6, 'mono400', 9, C.ink, 9 * 0.06);
+      doc.text(stamp[i][2], xs[2], y + 6, 'mono400', 9, C.slate, 9 * 0.06);
+      doc.text(stamp[i][3], xs[3], y + 6, 'mono400', 9, C.ink, 9 * 0.06);
+      if (i === 0) doc.hline(M, y, W, C.hair, 0.5);
+    }
+
+    /* The foot of the last page is the only reversed bar in the document. */
+    doc.rect(0, 0, PAGE_W, 20, C.ink);
+    doc.text('4 / 4', M, 6, 'mono400', 9, C.paper, 0);
+    drawMark(doc, PAGE_W - M - 26, 6, 9, true);
+  }
 
   function build(reading, files) {
     var F = window.KD_PDF_FONTS;
@@ -668,6 +861,7 @@
       verdictBody: V.body,
       verdictTail: V.tail,
       gateNote: res.gates.length ? A.GATE_NOTE[res.gates[0]] : '',
+      nextStep: A.NEXT_STEP[res.overall],
       gates: res.gates,
       conditions: conditions,
       fours: fours,
@@ -719,8 +913,8 @@
     L.push('');
     L.push('These are not recommendations. They are signals worth examining before your next consequential marketing commitment.');
     L.push('');
-    L.push('ABOUT THIS ASSESSMENT');
-    L.push('The Kill Dull Assessment examines the conditions under which consequential marketing decisions are made across Product, Price, Place and Promotion. It does not evaluate marketing performance and does not replace a Kill Dull Reading of a specific commitment.');
+    L.push('ABOUT THIS READING');
+    L.push('The Marketing Judgment Test examines the conditions under which consequential marketing decisions are made across Product, Price, Place and Promotion. It does not evaluate marketing performance and does not replace a Kill Dull Reading of a specific commitment.');
     L.push('');
     L.push('killdull.com');
     return L.join('\n');
@@ -972,29 +1166,147 @@
 
   /* --------------------------------------------------------------- the Reading */
 
-  function rowsHtml(list) {
+  /* ------------------------------------------------- the Reading, as a document
+
+     The Marketing Judgment Reading is a four-page US Letter document: Cover,
+     Verdict, Diagnosis, Focus. Its design is fixed; everything variable in it
+     comes from the Reading this browser just produced. The page that issues it
+     is the Marketing Judgment Test — the two are never called the same thing. */
+
+  var MARK_LIGHT = '/assets/reading/kd-mark-light.svg';
+  var MARK_DARK = '/assets/reading/kd-mark-dark.svg';
+
+  /* AAH. fills, HMM. outlines, DULL. reverses. One badge, three sizes. */
+  function badge(verdict, size) {
+    var k = verdict === 'AAH' ? 'is-aah' : verdict === 'HMM' ? 'is-hmm' : 'is-dull';
+    return '<span class="kdr-badge ' + k + ' ' + size + '">' + esc(verdict) + '.</span>';
+  }
+
+  function head(id, label) {
+    return '<div class="kdr-head"><span>Marketing Judgment Reading · ' + esc(id) + '</span>' +
+           '<span>' + esc(label) + '</span></div>';
+  }
+  function folio(n) {
+    return '<div class="kdr-folio"><span>' + n + ' / 4</span>' +
+           '<img src="' + MARK_DARK + '" alt="KD"></div>';
+  }
+  function opener(n, title, note, second) {
+    return '<div class="kdr-open' + (second ? ' is-second' : '') + '">' +
+      '<span class="kdr-open-n">' + n + '</span>' +
+      (note
+        ? '<div class="kdr-open-split"><h2>' + esc(title) + '</h2><span class="kdr-open-note">' + esc(note) + '</span></div>'
+        : '<h2>' + esc(title) + '</h2>') +
+      '</div>';
+  }
+
+  /* The seven conditions and the four Ps share one register. */
+  function registerHtml(rows) {
     var out = '', i;
-    for (i = 0; i < list.length; i++) {
-      out += '<li class="kda-row">' +
-        '<span class="kda-row-name">' + esc(list[i].name) + '</span>' +
-        '<span class="kda-row-verdict">' + esc(list[i].verdict) + '.</span>' +
-        '<p class="kda-row-text">' + esc(list[i].text) + '</p></li>';
+    for (i = 0; i < rows.length; i++) {
+      out += '<div class="kdr-reg-row">' +
+        '<div class="kdr-reg-badge">' + badge(rows[i].verdict, 'kdr-badge-row') + '</div>' +
+        '<span class="kdr-reg-name">' + esc(rows[i].name) + '</span>' +
+        '<span class="kdr-reg-text">' + esc(rows[i].text) + '</span></div>';
     }
     return out;
   }
 
-  function findingsHtml(list) {
+  function focusHtml(list) {
     var out = '', i;
     for (i = 0; i < list.length; i++) {
-      out += '<div class="kda-finding">' +
-        '<p class="kda-finding-label"><span>' + esc(list[i].n) + '</span><span>' + esc(list[i].label) + '</span></p>' +
-        '<p class="kda-finding-text">' + esc(list[i].text) + '</p></div>';
+      out += '<div class="kdr-focus-row">' +
+        '<span class="kdr-focus-n">' + esc(list[i].n) + '</span>' +
+        '<div class="kdr-focus-body">' +
+          '<span class="kdr-focus-name">' + esc(list[i].label) + '</span>' +
+          '<p class="kdr-focus-text">' + esc(list[i].text) + '</p>' +
+        '</div></div>';
     }
     return out;
+  }
+
+  function documentHtml(r) {
+    return '<div class="kdr" id="kdr">' +
+
+      /* 01 Cover */
+      '<section class="kdr-page kdr-cover" aria-label="Cover">' +
+        '<img class="kdr-cover-mark" src="/assets/reading/kd-wordmark.svg" alt="Kill Dull — The Dense Idea Company">' +
+        '<div>' +
+          '<span class="kdr-cover-eyebrow">Marketing Judgment Reading · ' + esc(r.dateLong) + '</span>' +
+          '<h1>The state of your marketing judgment.</h1>' +
+          '<p class="kdr-cover-sub">How your organization makes consequential marketing decisions, read against seven conditions of judgment and across Product, Price, Place and Promotion.</p>' +
+        '</div>' +
+        '<div class="kdr-colophon">' +
+          '<div class="kdr-colophon-row"><span class="kdr-colophon-key">Reading ID</span><span class="kdr-colophon-id">' + esc(r.id) + '</span></div>' +
+          '<div class="kdr-colophon-row"><span class="kdr-colophon-key">Issued</span><span class="kdr-colophon-val">' + esc(r.dateLong) + '</span></div>' +
+          '<div class="kdr-colophon-row"><span class="kdr-colophon-key">Method</span><span class="kdr-colophon-val">Kill Dull Marketing Judgment Test</span></div>' +
+          '<div class="kdr-colophon-row"><span class="kdr-colophon-key">Verdict</span><span class="kdr-colophon-val">Page 02.</span></div>' +
+        '</div>' +
+      '</section>' +
+
+      /* 02 Verdict */
+      '<section class="kdr-page" aria-label="The verdict">' +
+        head(r.id, 'The verdict') +
+        '<div class="kdr-body">' +
+          opener('01', 'The verdict.') +
+          badge(r.verdict, 'kdr-badge-xl') +
+          '<h3 class="kdr-headline">' + esc(r.verdictHead) + '</h3>' +
+          '<p class="kdr-reading">' + esc(r.verdictBody) + '</p>' +
+          '<p class="kdr-close">' + esc(r.verdictTail) + '</p>' +
+          '<div class="kdr-scale">' +
+            '<div class="kdr-scale-head"><span>The scale</span><span>Every condition and every P is read on it</span></div>' +
+            '<div class="kdr-scale-row">' + badge('AAH', 'kdr-badge-sm') + '<span>The condition reliably protects consequential decisions.</span></div>' +
+            '<div class="kdr-scale-row">' + badge('HMM', 'kdr-badge-sm') + '<span>The condition exists but does not reliably protect them.</span></div>' +
+            '<div class="kdr-scale-row">' + badge('DULL', 'kdr-badge-sm') + '<span>The condition is absent, or overridden by conviction.</span></div>' +
+          '</div>' +
+        '</div>' +
+        folio(2) +
+      '</section>' +
+
+      /* 03 Diagnosis */
+      '<section class="kdr-page" aria-label="The diagnosis">' +
+        head(r.id, 'The diagnosis') +
+        '<div class="kdr-body">' +
+          opener('02', 'How you judge.', 'Seven conditions of judgment') +
+          '<div class="kdr-register">' + registerHtml(r.conditions) + '</div>' +
+          opener('03', 'Where you’re exposed.', 'Product · Price · Place · Promotion', true) +
+          '<div class="kdr-register">' + registerHtml(r.fours) + '</div>' +
+        '</div>' +
+        folio(3) +
+      '</section>' +
+
+      /* 04 Focus */
+      '<section class="kdr-page" aria-label="The focus">' +
+        head(r.id, 'The focus') +
+        '<div class="kdr-body">' +
+          opener('04', 'What we’d pay attention to.') +
+          '<div class="kdr-focus">' + focusHtml(r.findings) + '</div>' +
+          '<p class="kdr-boundary">These are not recommendations. They are signals worth examining before your next consequential marketing commitment.</p>' +
+          '<div class="kdr-foot">' +
+            '<div class="kdr-foot-col">' +
+              '<span class="kdr-foot-label">About this Reading</span>' +
+              '<p>The Marketing Judgment Test examines the conditions under which consequential marketing decisions are made. It does not evaluate marketing performance, and it does not replace a Kill Dull Reading of a specific commitment.</p>' +
+            '</div>' +
+            '<div class="kdr-foot-col">' +
+              '<span class="kdr-foot-label">The next step</span>' +
+              '<p>' + esc(r.nextStep) + '</p>' +
+              '<span class="kdr-foot-url">killdull.com</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="kdr-stamp">' +
+            '<span class="is-key">Reading ID</span><span>' + esc(r.id) + '</span>' +
+            '<span class="is-key">Issued</span><span>' + esc(r.dateLong) + '</span>' +
+            '<span class="is-key">Document</span><span>Marketing Judgment Reading</span>' +
+            '<span class="is-key">Pages</span><span>4</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="kdr-folio-bar"><span>4 / 4</span><img src="' + MARK_LIGHT + '" alt="KD"></div>' +
+      '</section>' +
+    '</div>';
   }
 
   function actionsHtml() {
-    return '<div class="kda-actions">' +
+    return '<section class="viewport home-paper kda-issue" aria-label="Your Reading">' +
+      '<div class="kda-actions">' +
       '<button type="button" class="kda-cta is-down" id="kda-download">Download Reading</button>' +
       '<button type="button" class="kda-cta" id="kda-email-open" aria-expanded="false" aria-controls="kda-email">Email my Reading</button>' +
       '<a class="kda-cta" id="kda-talk" href="mailto:human@killdull.com">Talk to us</a>' +
@@ -1010,38 +1322,30 @@
       '<div class="kda-aftermath">' +
         '<button type="button" class="kda-cta is-quiet" id="kda-retake">Take the Assessment again</button>' +
         '<button type="button" class="kda-cta is-quiet" id="kda-forget">Forget this Reading</button>' +
-      '</div>';
+      '</div></section>';
   }
 
-  function renderReading(r) {
-    readingHost.innerHTML =
-      '<section class="viewport home-paper">' +
-        '<div class="product-orientation"><span></span><span>YOUR READING</span></div>' +
-        '<p class="kda-reading-meta"><span>' + esc(r.dateLong) + '</span><span>Reading ' + esc(r.id) + '</span></p>' +
-        '<p class="kda-verdict" id="kda-verdict" tabindex="-1">' + esc(r.verdict) + '.</p>' +
-        '<h1 class="kda-verdict-head">' + esc(r.verdictHead) + '</h1>' +
-        '<div class="kda-copy"><p>' + esc(r.verdictBody) + '</p><p>' + esc(r.verdictTail) + '</p></div>' +
-        (r.gateNote
-          ? '<div class="kda-gate"><p class="kda-gate-label">Why this reading</p><p>' + esc(r.gateNote) + '</p></div>'
-          : '') +
-        '<h2 class="kda-section-head">How you judge</h2>' +
-        '<ul class="kda-register">' + rowsHtml(r.conditions) + '</ul>' +
-      '</section>' +
-      '<section class="viewport is-dark kda-exposed">' +
-        '<div class="product-orientation"><span></span><span>WHERE YOU’RE EXPOSED</span></div>' +
-        '<h2 class="kda-verdict-head">MARKETING IS FOUR DECISIONS.</h2>' +
-        '<p class="kda-copy">Judgment is not evenly distributed across them. This is how yours reads.</p>' +
-        '<ul class="kda-register kda-register-p">' + rowsHtml(r.fours) + '</ul>' +
-      '</section>' +
-      '<section class="viewport home-paper">' +
-        '<div class="product-orientation"><span></span><span>WHAT WE’D PAY ATTENTION TO</span></div>' +
-        findingsHtml(r.findings) +
-        '<p class="kda-boundary">These are not recommendations. They are signals worth examining before your next consequential marketing commitment.</p>' +
-        actionsHtml() +
-      '</section>';
+  /* The document builder is part of the Reading's public surface: given a
+     Reading it returns the four pages, with no dependence on this page. */
+  A.documentHtml = documentHtml;
 
-    var v = document.getElementById('kda-verdict');
-    if (v) v.focus();
+  /* A Letter page is 816px wide and stays that wide. On a narrower screen the
+     desk is zoomed to fit, which changes nothing about the document itself —
+     the stylesheet applies this only to screens, never to print. */
+  var PAGE_PX = 816;
+  function fitDocument() {
+    var el = document.querySelector('.kdr');
+    if (!el) return;
+    var room = document.documentElement.clientWidth - 24;
+    el.style.setProperty('--kdr-zoom', room < PAGE_PX ? (room / PAGE_PX).toFixed(4) : '1');
+  }
+  window.addEventListener('resize', fitDocument);
+
+  function renderReading(r) {
+    readingHost.innerHTML = documentHtml(r) + actionsHtml();
+    fitDocument();
+    var first = document.querySelector('.kdr-cover');
+    if (first) { first.setAttribute('tabindex', '-1'); first.focus(); }
     say('Your Reading is ready. ' + r.verdict + '. ' + r.verdictHead);
     wireActions(r);
   }
