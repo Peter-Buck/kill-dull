@@ -166,7 +166,7 @@
     var deskHtml='<a class="reg-item'+(key==='home'?' is-current':'')+'" href="/">WHAT</a><a class="reg-item'+(key==='discipline'?' is-current':'')+'" href="/discipline">HOW</a><a class="reg-item'+(key==='bench'?' is-current':'')+'" href="/bench">BENCH</a><a class="reg-item'+(key==='readings'?' is-current':'')+'" href="/readings">READINGS</a>';
     if(desktop&&desktop.getAttribute('data-kd-nav')!==key){desktop.innerHTML=deskHtml;desktop.setAttribute('data-kd-nav',key);}
     var products=document.querySelector('.unified-nav-products');
-    if(products) products.innerHTML='<a class="product-cta" href="/contact"><span class="enter-text">CONTACT</span></a>';
+    if(products) products.innerHTML='<a class="product-cta" href="/contact"><span class="enter-text" data-kd-keep-arrow>EARLY ACCESS →</span></a>';
     var mobile=document.querySelector('.registrar-mobile');
     if(mobile){var label=key==='discipline'?'HOW':key==='bench'?'BENCH':key==='readings'?'READINGS':key==='bureau'?'DENSE IDEA COMPANY™':key==='contact'?'MENU':key==='home'?'WHAT':'MENU';var mobHtml='<button class="reg-mobile-current" id="reg-mobile-btn" aria-expanded="false" aria-controls="reg-mobile-dropdown"><span id="reg-mobile-label"'+(key==='bureau'?' class="is-long"':'')+'>'+label+'</span><span class="reg-mobile-arrow" aria-hidden="true"></span></button><div class="reg-mobile-dropdown" id="reg-mobile-dropdown" hidden><a class="reg-item" href="/">WHAT</a><a class="reg-item" href="/discipline">HOW</a><a class="reg-item" href="/bench">BENCH</a><a class="reg-item" href="/readings">READINGS</a></div>';if(mobile.getAttribute('data-kd-nav')!==label){mobile.innerHTML=mobHtml;mobile.setAttribute('data-kd-nav',label);}}
     var burberry=document.querySelector('.readings-page img[alt="Burberry"]');
@@ -223,7 +223,7 @@
       while(walker.nextNode())textNodes.push(walker.currentNode);
       for(var n=0;n<textNodes.length;n++){
         var node=textNodes[n];
-        if(node.parentElement&&node.parentElement.classList.contains('kd-native-arrow'))continue;
+        if(node.parentElement&&(node.parentElement.classList.contains('kd-native-arrow')||node.parentElement.hasAttribute('data-kd-keep-arrow')))continue;
         node.nodeValue=node.nodeValue.replace(/\s*[↗→↓]\s*$/,'');
       }
     }
