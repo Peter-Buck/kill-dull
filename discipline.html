@@ -27,18 +27,54 @@
 .how-jar img{display:block;width:100%;height:auto}
 @media(max-width:767px){.how-jar img{aspect-ratio:7/5;height:auto;max-height:320px;object-fit:cover;object-position:85% center}}
 
-/* THE PROCESS - four steps read left to right along one rule, the way the
-   registers below read down theirs: a numeral, a title, a sentence or two.
-   On a phone the steps stack, numeral beside the text. */
-.process-steps{list-style:none;margin:56px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid #24222B}
-.process-step{position:relative;padding:22px 36px 0 0}
-.process-num{display:block;font-family:"Space Grotesk",sans-serif;font-size:clamp(48px,4.6vw,72px);font-weight:500;line-height:1;letter-spacing:-.04em}
-.process-step:not(:last-child) .process-num:after{content:"\2192";position:absolute;right:36px;top:22px;font-size:.5em;line-height:2;letter-spacing:0;color:#aaa69d}
-.process-title{margin:28px 0 0;font-family:"Space Grotesk",sans-serif;font-size:22px;font-weight:700;line-height:1.15;letter-spacing:-.02em;text-transform:uppercase}
-.process-step p{margin:14px 0 0;font-size:17px;line-height:1.6;color:#55524c}
-.process-step p strong{color:#24222B;font-weight:700}
-@media(max-width:1000px){.process-steps{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:48px}.process-step:nth-child(2) .process-num:after{content:none}.process-step:nth-child(3){border-top:1px solid #24222B}.process-step:nth-child(4){border-top:1px solid #24222B}}
-@media(max-width:767px){.process-steps{grid-template-columns:1fr;row-gap:0;margin-top:40px}.process-step,.process-step:nth-child(3),.process-step:nth-child(4){display:grid;grid-template-columns:64px 1fr;column-gap:12px;padding:22px 0;border-top:0;border-bottom:1px solid #b9b6ae}.process-num{grid-row:1/3;font-size:40px}.process-step .process-num:after,.process-step:not(:last-child) .process-num:after{content:none}.process-title{margin:4px 0 0;font-size:19px}.process-step p{margin-top:8px;font-size:16px}}
+/* THE PROCESS — one engagement in four stages, not four boxes. All four stay
+   on the page and a single Dark Grey area travels across them, 01 to 04, so
+   the attention moving through the work is what you see before you read a
+   word. No arrows, no connectors: the engagement is continuous, and it never
+   runs backwards. YOU bring it, WE investigate, WE judge, YOU decide. */
+.how-sub{display:block;font-size:.5em;font-weight:500!important;letter-spacing:-.02em;margin-top:.25em}
+.how-steps{position:relative;margin:48px 0 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+/* The travelling area. It is sized and placed onto the active stage, so the
+   stage it covers reads white on Dark Grey while the other three stay on the
+   paper. Position and size move together over one long, weighted beat. */
+.how-box{position:absolute;left:0;top:0;width:0;height:0;background:#24222B;pointer-events:none;
+  transition:left 1.125s cubic-bezier(.65,0,.35,1),top 1.125s cubic-bezier(.65,0,.35,1),width 1.125s cubic-bezier(.65,0,.35,1),height 1.125s cubic-bezier(.65,0,.35,1)}
+.how-step{position:relative;display:flex;flex-direction:column;padding:32px 24px 40px;color:#24222B;cursor:default;transition:color .56s ease .31s}
+/* The divider between stages is always drawn, including beside the box: the
+   four stages are one engagement, and the rules are what hold them together. */
+.how-step+.how-step{border-left:1px solid rgba(36,34,43,.25)}
+.how-step.is-on{color:#FFFFFF}
+.how-num{display:block;font-family:"Space Grotesk",sans-serif;font-size:clamp(40px,4vw,60px);font-weight:500;line-height:1;letter-spacing:-.04em}
+/* One line each, at one shared size, so the four rules under the titles line
+   up across the row. The size is measured in the browser; see the fit below. */
+.how-title{margin:22px 0 0;padding-bottom:14px;border-bottom:1px solid rgba(36,34,43,.25);
+  font-family:"Space Grotesk",sans-serif;font-size:var(--how-title,14px);font-weight:700;line-height:1.1;letter-spacing:-.01em;
+  text-transform:uppercase;white-space:nowrap;transition:border-color .56s ease .31s}
+.how-steps.is-wrapped .how-title{white-space:normal;font-size:clamp(14px,1.8vw,19px)}
+.how-step p{margin:14px 0 0;font-size:16px;line-height:1.45;color:inherit;text-wrap:pretty}
+/* Product, Price, Place, Promotion: the breadth of the investigation, set at
+   the same weight as the judgment in 03 and the Reading in 04. */
+.how-ps{margin:5px 0 0;padding:0;list-style:none}
+.how-ps li{padding:9px 0;border-bottom:1px solid rgba(36,34,43,.25);
+  font-size:clamp(22px,2.2vw,30px);font-weight:500;line-height:1.05;letter-spacing:-.025em;transition:border-color .56s ease .31s}
+.how-step.is-on .how-title,.how-step.is-on .how-ps li{border-color:rgba(255,255,255,.35)}
+.how-large{margin:14px 0 0;font-size:clamp(22px,2.2vw,30px);font-weight:500;line-height:1.1;letter-spacing:-.025em}
+.how-large span{display:block}
+.how-q span{white-space:nowrap}
+.how-verdicts{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.how-verdicts span{display:inline-flex;align-items:center;height:40px;padding:0 12px;font-size:17px;font-weight:700;letter-spacing:-.01em;color:#24222B}
+.how-verdicts .is-aah{background:#FFFF00;box-shadow:inset 0 0 0 1.5px #24222B}
+.how-verdicts .is-hmm{background:#FFFFFF;box-shadow:inset 0 0 0 1.5px #24222B}
+.how-verdicts .is-dull{background:#24222B;color:#FFFFFF;box-shadow:inset 0 0 0 1.5px #FFFFFF}
+/* The last word of the section sits at the foot of the column it belongs to. */
+.how-step .how-yours{margin-top:auto;padding-top:28px;font-weight:400}
+@media(max-width:900px){
+  .how-steps{grid-template-columns:minmax(0,1fr)}
+  .how-step{padding:28px 20px 32px}
+  .how-step+.how-step{border-left:0;border-top:1px solid rgba(36,34,43,.25)}
+  .how-title{font-size:19px!important;white-space:normal}
+}
+@media(prefers-reduced-motion:reduce){.how-box,.how-step,.how-title,.how-ps li{transition:none}}
 
 /* GO DEEPER and BACK behave like every other call to action on the site: the
    frame turns yellow on hover or keyboard focus, and the arrow nudges. */
@@ -54,8 +90,8 @@
 <main>
 <section class="viewport home-paper" id="process">
 <div class="product-orientation"><span></span><span>THE PROCESS</span></div>
-<span class="hero-line-wrap"><h1 class="hero-line">HOW WE KILL DULL.</h1></span>
-<ol class="process-steps"><li class="process-step"><span class="process-num">01</span><h2 class="process-title">YOU MAKE THE CASE</h2><p>Bring us the commitment, the thinking behind it and the evidence supporting it.</p></li><li class="process-step"><span class="process-num">02</span><h2 class="process-title">WE INTERROGATE IT</h2><p>We challenge the assumptions, examine the evidence and judge what the commitment could strengthen, weaken or erode.</p></li><li class="process-step"><span class="process-num">03</span><h2 class="process-title">YOU RECEIVE THE READING</h2><p><strong>AAH.</strong> <strong>HMM.</strong> or <strong>DULL.</strong> With the reasoning, evidence, risks and implications behind it.</p></li><li class="process-step"><span class="process-num">04</span><h2 class="process-title">YOU DECIDE</h2><p>The decision stays yours.</p></li></ol>
+<span class="hero-line-wrap"><h1 class="hero-line">HOW WE KILL DULL.<span class="how-sub">IN 4 STEPS.</span></h1></span>
+<div class="how-steps" id="how-steps"><span class="how-box" aria-hidden="true"></span><div class="how-step is-on"><span class="how-num" aria-hidden="true">01</span><h2 class="how-title">You bring the decision.</h2><p>The commitment you’re considering, the thinking behind it and the evidence supporting it.</p></div><div class="how-step"><span class="how-num" aria-hidden="true">02</span><h2 class="how-title">We investigate deep.</h2><ul class="how-ps"><li>Product</li><li>Price</li><li>Place</li><li>Promotion</li></ul><p>We use the depth AI provides to interrogate the evidence, challenge assumptions, expose contradictions and test the reasoning.</p></div><div class="how-step"><span class="how-num" aria-hidden="true">03</span><h2 class="how-title">We make the call.</h2><p class="how-large how-q"><span>AI goes deep.</span><span>Humans judge.</span></p><p>Because humans live with the consequences.</p></div><div class="how-step"><span class="how-num" aria-hidden="true">04</span><h2 class="how-title">You get the Reading. You decide.</h2><p class="how-large how-three"><span>Our judgment.</span><span>Our reasoning.</span><span>The evidence<br>behind it.</span></p><div class="how-verdicts"><span class="is-aah">AAH.</span><span class="is-hmm">HMM.</span><span class="is-dull">DULL.</span></div><p class="how-yours">The decision stays yours.</p></div></div>
 </section>
 <section class="viewport home-paper is-dark" id="discipline">
 <div class="product-orientation"><span></span><span>DISCIPLINE</span></div>
@@ -197,5 +233,118 @@ document.addEventListener('DOMContentLoaded',place);
 window.addEventListener('load',place);
 try{new MutationObserver(place).observe(document.body,{childList:true});}catch(e){}
 setTimeout(place,300);setTimeout(place,1200);
+})();</script>
+<script>(function(){
+/* THE PROCESS — the Dark Grey area that travels across the four stages.
+   It is one engagement, so the area moves through it the way attention does:
+   left to right, one stage at a time, and never backwards. On a phone the
+   stages stack and the area follows the reader instead of a clock. */
+var grid=document.getElementById('how-steps');
+if(!grid)return;
+var box=grid.querySelector('.how-box'),steps=[].slice.call(grid.querySelectorAll('.how-step'));
+if(!box||!steps.length)return;
+var titles=[],i;
+for(i=0;i<steps.length;i++)titles.push(steps[i].querySelector('.how-title'));
+
+/* One line each, at one size shared by all four, so the rules under the four
+   titles sit on the same line across the row. The size is found by measuring:
+   the largest that still fits every column. Where even the smallest will not
+   fit, the titles wrap and are given a common height instead. */
+function overflows(){for(var k=0;k<titles.length;k++)if(titles[k].scrollWidth>titles[k].clientWidth+0.5)return true;return false;}
+function fitTitles(){
+  var k;
+  grid.classList.remove('is-wrapped');
+  for(k=0;k<titles.length;k++)titles[k].style.minHeight='';
+  if(window.getComputedStyle(titles[0]).whiteSpace!=='nowrap')return; /* stacked: they wrap */
+  var size=19;
+  grid.style.setProperty('--how-title',size+'px');
+  while(size>12&&overflows()){size-=0.5;grid.style.setProperty('--how-title',size+'px');}
+  if(overflows()){
+    grid.classList.add('is-wrapped');
+    var tall=0;
+    for(k=0;k<titles.length;k++)tall=Math.max(tall,titles[k].offsetHeight);
+    for(k=0;k<titles.length;k++)titles[k].style.minHeight=tall+'px';
+  }
+}
+
+var HOLD=[3250,4500,4500,4750];
+var active=0,timer=null,paused=false,running=false;
+var reduced=window.matchMedia?window.matchMedia('(prefers-reduced-motion: reduce)').matches:false;
+function stacked(){return steps[0].offsetTop!==steps[steps.length-1].offsetTop;}
+function place(){
+  var s=steps[active];
+  box.style.left=s.offsetLeft+'px';box.style.top=s.offsetTop+'px';
+  box.style.width=s.offsetWidth+'px';box.style.height=s.offsetHeight+'px';
+}
+function show(n){
+  active=n;
+  for(var k=0;k<steps.length;k++)steps[k].classList.toggle('is-on',k===active);
+  place();
+}
+/* After 04 the area leaves the way it came in — forward, off the end — and the
+   next pass begins again from nothing at 01. It is never seen travelling back. */
+function restart(){
+  for(var k=0;k<steps.length;k++)steps[k].classList.remove('is-on');
+  if(stacked()){box.style.top=grid.offsetHeight+'px';box.style.height='0px';}
+  else{box.style.left=grid.offsetWidth+'px';box.style.width='0px';}
+  timer=window.setTimeout(function(){
+    var s=steps[0];
+    box.style.transition='none';
+    if(stacked()){box.style.top='0px';box.style.height='0px';box.style.left=s.offsetLeft+'px';box.style.width=s.offsetWidth+'px';}
+    else{box.style.left='0px';box.style.width='0px';box.style.top=s.offsetTop+'px';box.style.height=s.offsetHeight+'px';}
+    box.offsetWidth; /* commit the jump before the transition returns */
+    box.style.transition='';
+    show(0);tick();
+  },1190);
+}
+function tick(){
+  window.clearTimeout(timer);
+  if(paused||!running||reduced)return;
+  timer=window.setTimeout(function(){
+    if(active===steps.length-1)restart();
+    else{show(active+1);tick();}
+  },HOLD[active]);
+}
+
+/* Looking at a stage holds the engagement there. */
+function hold(k){paused=true;window.clearTimeout(timer);show(k);}
+for(i=0;i<steps.length;i++)(function(k){
+  steps[k].addEventListener('mouseenter',function(){hold(k);});
+  steps[k].addEventListener('click',function(){hold(k);});
+})(i);
+grid.addEventListener('mouseleave',function(){
+  paused=false;
+  if(!reduced&&running&&!stacked())tick();
+});
+
+box.style.transition='none';
+fitTitles();show(0);
+window.requestAnimationFrame(function(){box.style.transition='';});
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){fitTitles();place();});
+
+/* A change of width re-measures rather than animates: the area belongs to the
+   stage, not to the journey between two layouts. */
+if(window.ResizeObserver)new ResizeObserver(function(){
+  box.style.transition='none';fitTitles();place();
+  window.requestAnimationFrame(function(){box.style.transition='';});
+}).observe(grid);
+else window.addEventListener('resize',function(){fitTitles();place();});
+
+if(reduced)return; /* the area rests on 01; hover and click still move it */
+
+/* Stacked, the stage crossing the middle of the screen is the one in hand. */
+if(window.IntersectionObserver){
+  var follow=new IntersectionObserver(function(entries){
+    for(var k=0;k<entries.length;k++)
+      if(entries[k].isIntersecting&&stacked())hold(steps.indexOf(entries[k].target));
+  },{rootMargin:'-45% 0px -45% 0px'});
+  for(i=0;i<steps.length;i++)follow.observe(steps[i]);
+
+  /* Side by side, it begins when the engagement is properly on screen. */
+  var begin=new IntersectionObserver(function(entries,obs){
+    if(entries[0].isIntersecting){running=true;if(!stacked())tick();obs.disconnect();}
+  },{threshold:0.5});
+  begin.observe(grid);
+}
 })();</script>
 </body></html>
