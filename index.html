@@ -106,10 +106,11 @@ var KEY='kd_home_opener_v1';
 var el=document.getElementById('kd-opener');if(!el)return;
 var video=document.getElementById('kd-opener-video'),still=document.getElementById('kd-opener-still');
 // yellowAt: the moment the drop's yellow reaches the whole frame edge in that
-// cut (the bars change with it). Both cuts run the same 10.4s timeline.
+// cut (the bars change with it), measured frame by frame from the film itself.
+// Both cuts run the same 7.07s timeline.
 var CUTS={
-  wide:{src:'/assets/kd-drop-16x9.mp4',end:'/assets/kd-drop-16x9-end.webp',yellowAt:5.93},
-  tall:{src:'/assets/kd-drop-9x16.mp4',end:'/assets/kd-drop-9x16-end.webp',yellowAt:6.2}
+  wide:{src:'/assets/kd-drop-16x9-v2.mp4',end:'/assets/kd-drop-16x9-v2-end.webp',yellowAt:3.07},
+  tall:{src:'/assets/kd-drop-9x16-v2.mp4',end:'/assets/kd-drop-9x16-v2-end.webp',yellowAt:3.1}
 };
 // ?kd-opener=debug replays the opener on every load and prints why it did
 // what it did, so it can be checked on a real phone.
