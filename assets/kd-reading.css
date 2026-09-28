@@ -69,7 +69,6 @@
   font-family: 'IBM Plex Mono', monospace; font-size: 9pt;
   letter-spacing: .12em; text-transform: uppercase; color: var(--stone);
 }
-.kdr-colophon-id { font-family: 'IBM Plex Mono', monospace; font-size: 11pt; letter-spacing: .06em; }
 .kdr-colophon-val { font-size: 12pt; }
 
 /* ── running head, folio ───────────────────────────────────────────────── */
@@ -193,12 +192,13 @@
 .kdr-foot-url { font-size: 15pt; font-weight: 700; letter-spacing: -.01em; }
 .kdr-stamp {
   margin-top: 14pt; display: grid;
-  grid-template-columns: 1in minmax(0, 1.4fr) .8in minmax(0, 1fr);
+  /* Document, Issued, Pages — one row of three pairs since the Reading carries
+     no identifier. The register, its rule, type and colour are the master's. */
+  grid-template-columns: repeat(6, max-content); justify-content: space-between;
   column-gap: 12pt; border-top: .5pt solid var(--hair);
   font-family: 'IBM Plex Mono', monospace; font-size: 9pt; letter-spacing: .06em; text-transform: uppercase;
 }
 .kdr-stamp span { padding: 5pt 0; }
-.kdr-stamp span:nth-child(-n+4) { border-bottom: .5pt solid var(--hair); }
 .kdr-stamp .is-key { color: var(--slate); }
 
 /* ── viewing a Letter page on a smaller screen ─────────────────────────── */

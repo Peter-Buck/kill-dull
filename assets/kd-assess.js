@@ -552,9 +552,9 @@
     return w + size * 0.12 + h;
   }
 
-  function runningHead(doc, top, id, label) {
+  function runningHead(doc, top, label) {
     var y = PAGE_H - top;
-    doc.text('MARKETING JUDGMENT READING · ' + id, M, y, 'mono400', 8, C.slate, 8 * 0.12);
+    doc.text('MARKETING JUDGMENT READING', M, y, 'mono400', 8, C.slate, 8 * 0.12);
     var t = label.toUpperCase();
     doc.text(t, PAGE_W - M - width(doc.fonts.mono400, 8, t) - 8 * 0.12 * (t.length - 1),
       y, 'mono400', 8, C.slate, 8 * 0.12);
@@ -631,7 +631,7 @@
       cpad, y - 18, em(28, 14, CW), 'sg500', 14, 14 * 1.45, C.paper, 0);
 
     doc.hline(cpad, colTop, W, C.slate, 0.5);
-    var rows = [['Reading ID', r.id, 'mono'], ['Issued', r.dateLong, ''],
+    var rows = [['Issued', r.dateLong, ''],
                 ['Method', 'Kill Dull Marketing Judgment Test', ''], ['Verdict', 'Page 02.', '']];
     y = colTop;
     for (i = 0; i < rows.length; i++) {
@@ -645,7 +645,7 @@
     /* ── 02 Verdict ───────────────────────────────────────────────────── */
     doc.newPage();
     doc.rect(0, 0, PAGE_W, PAGE_H, C.paper);
-    runningHead(doc, 0.45 * IN, r.id, 'The verdict');
+    runningHead(doc, 0.45 * IN, 'The verdict');
     top = PAGE_H - 0.95 * IN;
     y = opener(doc, top, '01', 'The verdict.');
 
@@ -705,7 +705,7 @@
     /* ── 03 Diagnosis ─────────────────────────────────────────────────── */
     doc.newPage();
     doc.rect(0, 0, PAGE_W, PAGE_H, C.paper);
-    runningHead(doc, 0.45 * IN, r.id, 'The diagnosis');
+    runningHead(doc, 0.45 * IN, 'The diagnosis');
     top = PAGE_H - 0.95 * IN;
     y = opener(doc, top, '02', 'How you judge.', 'Seven conditions of judgment') - 12;
     for (i = 0; i < r.conditions.length; i++) y -= regRow(doc, y, r.conditions[i]);
@@ -717,7 +717,7 @@
     /* ── 04 Focus ─────────────────────────────────────────────────────── */
     doc.newPage();
     doc.rect(0, 0, PAGE_W, PAGE_H, C.paper);
-    runningHead(doc, 0.45 * IN, r.id, 'The focus');
+    runningHead(doc, 0.45 * IN, 'The focus');
     top = PAGE_H - 0.95 * IN;
     y = opener(doc, top, '04', 'What we’d pay attention to.') - 14;
     for (i = 0; i < r.findings.length; i++) {
@@ -738,7 +738,7 @@
     for (i = 0; i < bl.length; i++) { y -= 18 * 1.1; doc.text(bl[i], M, y, 'sg700', 18, C.ink, -0.02 * 18); }
 
     /* The colophon block and the stamp are anchored to the foot of the page. */
-    var stampTop = PAGE_H - 11 * IN + 0.95 * IN + 2 * 19;
+    var stampTop = PAGE_H - 11 * IN + 0.95 * IN + 19;   /* one row now, not two */
     var about = 'The Marketing Judgment Test examines the conditions under which consequential marketing decisions are made. It does not evaluate marketing performance, and it does not replace a Kill Dull Reading of a specific commitment.';
     var colW = (W - 24) / 2;
     var aboutH = doc.blockHeight(about, colW, 'sg500', 10, 10 * 1.45);
@@ -752,19 +752,21 @@
     doc.text('killdull.com', M + colW + 24, footTop - 10 - 8 - 6 - nb - 6 - 15 * 0.72, 'sg700', 15, C.ink, -0.01 * 15);
 
     doc.hline(M, stampTop, W, C.hair, 0.5);
-    var cols = [1 * IN, 1.4 * (W - 1 * IN - 0.8 * IN - 36) / 2.4, 0.8 * IN, 0];
-    cols[3] = W - cols[0] - cols[1] - cols[2] - 36;
-    var xs = [M, M + cols[0] + 12, M + cols[0] + 12 + cols[1] + 12, M + cols[0] + 12 + cols[1] + 12 + cols[2] + 12];
-    var stamp = [['READING ID', r.id, 'ISSUED', r.dateLong.toUpperCase()],
-                 ['DOCUMENT', 'MARKETING JUDGMENT READING', 'PAGES', '4']];
-    y = stampTop;
+    /* Document, Issued, Pages. Each cell is set to the width its own text needs
+       at 9pt, a 12pt gutter holds a key to its value, and what is left over is
+       shared evenly between the three pairs so the row reads across the page. */
+    var stamp = ['DOCUMENT', 'MARKETING JUDGMENT READING', 'ISSUED', r.dateLong.toUpperCase(), 'PAGES', '4'];
+    var cellW = [], textTotal = 0;
     for (i = 0; i < stamp.length; i++) {
-      y -= 19;
-      doc.text(stamp[i][0], xs[0], y + 6, 'mono400', 9, C.slate, 9 * 0.06);
-      doc.text(stamp[i][1], xs[1], y + 6, 'mono400', 9, C.ink, 9 * 0.06);
-      doc.text(stamp[i][2], xs[2], y + 6, 'mono400', 9, C.slate, 9 * 0.06);
-      doc.text(stamp[i][3], xs[3], y + 6, 'mono400', 9, C.ink, 9 * 0.06);
-      if (i === 0) doc.hline(M, y, W, C.hair, 0.5);
+      cellW.push(width(doc.fonts.mono400, 9, stamp[i]) + 9 * 0.06 * (stamp[i].length - 1));
+      textTotal += cellW[i];
+    }
+    var between = Math.max(12, (W - textTotal - 3 * 12) / 2);
+    y = stampTop - 19;
+    var at = M;
+    for (i = 0; i < stamp.length; i++) {
+      doc.text(stamp[i], at, y + 6, 'mono400', 9, i % 2 ? C.ink : C.slate, 9 * 0.06);
+      at += cellW[i] + (i % 2 ? between : 12);
     }
 
     /* The foot of the last page is the only reversed bar in the document. */
@@ -845,7 +847,12 @@
   var A = window.KD_ASSESS;
   var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
-  function readingId(d) {
+  /* A local record key, not a Reading ID. The Marketing Judgment Test runs in
+     the browser and Kill Dull never receives a Reading, so nothing here
+     corresponds to a record Kill Dull could look up. This value exists only to
+     key the anonymised record this device stores for itself, and is never
+     rendered, printed, emailed or put in a filename. */
+  function recordKey(d) {
     var s = '', abc = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789', r, i;
     try { r = new Uint8Array(4); (window.crypto || window.msCrypto).getRandomValues(r); }
     catch (e) { r = [Math.random()*256, Math.random()*256, Math.random()*256, Math.random()*256]; }
@@ -872,7 +879,7 @@
     }
 
     return {
-      id: existing && existing.id ? existing.id : readingId(d),
+      recordId: existing && (existing.recordId || existing.assessmentId) || recordKey(d),
       version: A.VERSION,
       date: d.toISOString(),
       dateLong: d.getDate() + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear(),
@@ -894,7 +901,7 @@
      Written to this browser only. Nothing here identifies anyone, and nothing
      is transmitted: there is no endpoint, by design. */
   function record(reading) {
-    var r = { assessmentId: reading.id, version: reading.version, date: reading.date,
+    var r = { recordId: reading.recordId, version: reading.version, date: reading.date,
               responses: reading.answers, overall: reading.verdict, conditions: {}, fourP: {} }, i;
     for (i = 0; i < reading.conditions.length; i++) r.conditions[reading.conditions[i].key] = reading.conditions[i].verdict;
     for (i = 0; i < reading.fours.length; i++) r.fourP[reading.fours[i].key] = reading.fours[i].verdict;
@@ -913,7 +920,7 @@
   function asText(r) {
     var L = [], i;
     L.push('KILL DULL — MARKETING JUDGMENT READING');
-    L.push(r.dateLong + '  ·  Reading ' + r.id);
+    L.push(r.dateLong);
     L.push('');
     L.push('VERDICT: ' + r.verdict + '.');
     L.push(r.verdictHead);
@@ -1202,8 +1209,8 @@
     return '<span class="kdr-badge ' + k + ' ' + size + '">' + esc(verdict) + '.</span>';
   }
 
-  function head(id, label) {
-    return '<div class="kdr-head"><span>Marketing Judgment Reading · ' + esc(id) + '</span>' +
+  function head(label) {
+    return '<div class="kdr-head"><span>Marketing Judgment Reading</span>' +
            '<span>' + esc(label) + '</span></div>';
   }
   function folio(n) {
@@ -1256,7 +1263,6 @@
           '<p class="kdr-cover-sub">How your organization makes consequential marketing decisions, read against seven conditions of judgment and across Product, Price, Place and Promotion.</p>' +
         '</div>' +
         '<div class="kdr-colophon">' +
-          '<div class="kdr-colophon-row"><span class="kdr-colophon-key">Reading ID</span><span class="kdr-colophon-id">' + esc(r.id) + '</span></div>' +
           '<div class="kdr-colophon-row"><span class="kdr-colophon-key">Issued</span><span class="kdr-colophon-val">' + esc(r.dateLong) + '</span></div>' +
           '<div class="kdr-colophon-row"><span class="kdr-colophon-key">Method</span><span class="kdr-colophon-val">Kill Dull Marketing Judgment Test</span></div>' +
           '<div class="kdr-colophon-row"><span class="kdr-colophon-key">Verdict</span><span class="kdr-colophon-val">Page 02.</span></div>' +
@@ -1265,7 +1271,7 @@
 
       /* 02 Verdict */
       '<section class="kdr-page" aria-label="The verdict">' +
-        head(r.id, 'The verdict') +
+        head('The verdict') +
         '<div class="kdr-body">' +
           opener('01', 'The verdict.') +
           badge(r.verdict, 'kdr-badge-xl') +
@@ -1287,7 +1293,7 @@
 
       /* 03 Diagnosis */
       '<section class="kdr-page" aria-label="The diagnosis">' +
-        head(r.id, 'The diagnosis') +
+        head('The diagnosis') +
         '<div class="kdr-body">' +
           opener('02', 'How you judge.', 'Seven conditions of judgment') +
           '<div class="kdr-register">' + registerHtml(r.conditions) + '</div>' +
@@ -1299,7 +1305,7 @@
 
       /* 04 Focus */
       '<section class="kdr-page" aria-label="The focus">' +
-        head(r.id, 'The focus') +
+        head('The focus') +
         '<div class="kdr-body">' +
           opener('04', 'What we’d pay attention to.') +
           '<div class="kdr-focus">' + focusHtml(r.findings) + '</div>' +
@@ -1316,9 +1322,8 @@
             '</div>' +
           '</div>' +
           '<div class="kdr-stamp">' +
-            '<span class="is-key">Reading ID</span><span>' + esc(r.id) + '</span>' +
-            '<span class="is-key">Issued</span><span>' + esc(r.dateLong) + '</span>' +
             '<span class="is-key">Document</span><span>Marketing Judgment Reading</span>' +
+            '<span class="is-key">Issued</span><span>' + esc(r.dateLong) + '</span>' +
             '<span class="is-key">Pages</span><span>4</span>' +
           '</div>' +
         '</div>' +
@@ -1427,7 +1432,7 @@
       url = URL.createObjectURL(blob);
       a = document.createElement('a');
       a.href = url;
-      a.download = 'Kill-Dull-Reading-' + reading.id + '.pdf';
+      a.download = 'Kill-Dull-Marketing-Judgment-Reading.pdf';
       a.style.display = 'none';
       document.body.appendChild(a);
       a.click();
@@ -1470,7 +1475,7 @@
         if (!input.value || input.value.indexOf('@') < 0) { input.focus(); return; }
         /* The pointer goes first: if a mail client truncates a long body, the
            reader still learns the complete Reading exists as a PDF. */
-        mailto(input.value, 'Your Kill Dull Reading — ' + r.id,
+        mailto(input.value, 'Your Kill Dull Marketing Judgment Reading',
           'Your Kill Dull Reading is below. The complete Reading, typeset, is the PDF you can download at killdull.com/assessment.\n\n' +
           '— — —\n\n' + A.asText(r));
         /* The address was used to address one message and is not kept. */
@@ -1487,7 +1492,7 @@
       talk.setAttribute('href', '/contact');
       talk.addEventListener('click', function () {
         var lines = ['I took the Kill Dull Marketing Judgment Test.', '',
-                     'Reading ' + r.id, 'Overall: ' + r.verdict + '.', '',
+                     'Overall: ' + r.verdict + '.', '',
                      'HOW I JUDGE'], i;
         for (i = 0; i < r.conditions.length; i++) lines.push('  ' + r.conditions[i].name + ': ' + r.conditions[i].verdict + '.');
         lines.push('', 'WHERE I\u2019M EXPOSED');
