@@ -1,4 +1,4 @@
-/* Kill Dull Assessment — a diagnostic instrument, not a quiz.
+/* Kill Dull Marketing Judgment Test — a diagnostic instrument, not a quiz.
    Loaded only by /assessment. Everything below runs client-side; no response,
    email address or Reading ever leaves the browser. */
 (function () {
@@ -165,7 +165,7 @@
   };
 })();
 
-/* Kill Dull Assessment — the written Reading.
+/* Kill Dull Marketing Judgment Test — the written Reading.
    Every line below is selected from the actual responses. Nothing is boilerplate
    applied regardless of answers, and no number is ever shown to the respondent. */
 (function () {
@@ -380,7 +380,7 @@
   A.findings = findings;
 })();
 
-/* Kill Dull Assessment — the Reading as a PDF.
+/* Kill Dull Marketing Judgment Test — the Reading as a PDF.
    Written by hand rather than with a library: it keeps the page dependency-free
    and lets the document embed the real Kill Dull faces. */
 (function () {
@@ -839,7 +839,7 @@
   A.pdf = { build: build, width: width, wrap: wrap };
 })();
 
-/* Kill Dull Assessment — assembling one Reading from one set of answers. */
+/* Kill Dull Marketing Judgment Test — assembling one Reading from one set of answers. */
 (function () {
   'use strict';
   var A = window.KD_ASSESS;
@@ -948,7 +948,7 @@
   A.asText = asText;
 })();
 
-/* Kill Dull Assessment — the experience.
+/* Kill Dull Marketing Judgment Test — the experience.
    Three views on one route: ENTRY, the run, the Reading. Nothing leaves the
    browser at any point; the two storage keys below are this device only. */
 (function () {
@@ -1066,7 +1066,7 @@
 
     html += '</div><div class="kda-run-foot">' +
       '<button type="button" class="kda-cta is-back" id="kda-back">' +
-        (state.at === 0 ? 'Leave the Assessment' : 'Previous question') + '</button>' +
+        (state.at === 0 ? 'Leave the Test' : 'Previous question') + '</button>' +
       '<span class="kda-hint">Press 1–4 to answer</span></div>';
 
     run.innerHTML = html;
@@ -1155,7 +1155,7 @@
   run.addEventListener('click', function (e) {
     var back = e.target && e.target.closest ? e.target.closest('#kda-back') : null;
     if (!back) return;
-    if (state.at === 0) { show('entry'); say('Assessment closed.'); window.scrollTo(0, 0); return; }
+    if (state.at === 0) { show('entry'); say('Test closed.'); window.scrollTo(0, 0); return; }
     step(function () { state.at--; saveProgress(); });
   });
 
@@ -1343,7 +1343,7 @@
       '</form>' +
       '<p class="kda-note">Your Reading is private. It is stored on this device and is not transmitted to Kill Dull. It is not published, not shared and not compared with anyone else’s.</p>' +
       '<div class="kda-aftermath">' +
-        '<button type="button" class="kda-cta is-quiet" id="kda-retake">Take the Assessment again</button>' +
+        '<button type="button" class="kda-cta is-quiet" id="kda-retake">Take the Test again</button>' +
         '<button type="button" class="kda-cta is-quiet" id="kda-forget">Forget this Reading</button>' +
       '</div></section>';
   }
@@ -1482,11 +1482,11 @@
        handed over through sessionStorage rather than the URL, so it never
        appears in an address bar, a referrer or a log — and it is still only a
        draft in a textarea until the person decides to send it. No name, no
-       company, no email address: the Assessment has never had any. */
+       company, no email address: the Test has never had any. */
     if (talk) {
       talk.setAttribute('href', '/contact');
       talk.addEventListener('click', function () {
-        var lines = ['I took the Kill Dull Assessment.', '',
+        var lines = ['I took the Kill Dull Marketing Judgment Test.', '',
                      'Reading ' + r.id, 'Overall: ' + r.verdict + '.', '',
                      'HOW I JUDGE'], i;
         for (i = 0; i < r.conditions.length; i++) lines.push('  ' + r.conditions[i].name + ': ' + r.conditions[i].verdict + '.');
@@ -1526,7 +1526,7 @@
     var progress = loadProgress();
     if (resume) resume.hidden = !(stored && stored.responses && complete(stored.responses));
     if (begin) begin.textContent = (progress && progress.at > 0 && !complete(progress.answers))
-      ? 'Resume the Assessment' : 'Begin the Assessment';
+      ? 'Resume the Test' : 'Begin the Test';
   }
 
   var beginBtn = document.getElementById('kda-begin');
