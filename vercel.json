@@ -94,6 +94,11 @@
       "source": "/contact.html",
       "destination": "/contact",
       "permanent": true
+    },
+    {
+      "source": "/assessment.html",
+      "destination": "/assessment",
+      "permanent": true
     }
   ],
   "rewrites": [
@@ -132,6 +137,10 @@
     {
       "source": "/contact",
       "destination": "/contact.html"
+    },
+    {
+      "source": "/assessment",
+      "destination": "/assessment.html"
     },
     {
       "source": "/intelligence",
