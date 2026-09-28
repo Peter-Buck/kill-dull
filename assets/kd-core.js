@@ -92,10 +92,12 @@
       // the sentence pauses, so no line is left holding two words.
       '<div class="kd-chapter-marker kd-premise-marker"><span>WHAT KILL DULL DOES</span></div>' +
       '<span class="hero-line-wrap"><h1 class="hero-line"><span class="hero-setup">YOU\u2019RE ABOUT TO MAKE A BIG MARKETING DECISION.</span>GET AN INDEPENDENT JUDGMENT FIRST.</h1></span>' +
-      '<div class="home-copy premise-lead">' +
-        '<p>Kill Dull independently scrutinizes consequential marketing commitments across Product, Price, Place and Promotion before you make them.</p>' +
-        '<p>Bring us the decision, the thinking behind it and the evidence. We put it under pressure and give you our judgment before you commit.</p>' +
-      '</div>' +
+      // Approved WHAT section, 28 Sep 2026: three statements side by side over the image.
+      '<div class="kd-what-stage"><div class="kd-what-tri">' +
+        '<div class="kd-what-row"><span class="kd-what-lab">WE ARE</span><h2>Independent marketing judgment.</h2><p>You bring us a consequential decision. We do the work required to make the call.</p></div>' +
+        '<div class="kd-what-row"><span class="kd-what-lab">WE ARE NOT</span><h2>An opinionated prompt box.</h2><p>You don\u2019t feed us a decision and it spits out a judgment five seconds later.</p></div>' +
+        '<div class="kd-what-row"><span class="kd-what-lab">THAT\u2019S WHY</span><h2>You get a Reading, not a response.</h2><p>Our judgment. Our reasoning. The evidence behind it.</p></div>' +
+      '</div></div>' +
       '<a class="kd-cta-unified kd-lead-cta" href="/contact">Talk to us about your marketing commitment</a>' +
       '<div class="kd-4p-movement">' +
         '<div class="kd-chapter-marker kd-premise-marker kd-4p-marker"><span>THE 4P DILEMMA</span></div>' +
@@ -220,6 +222,15 @@
       '.cost-home .home-copy,.drift-home .home-copy,.why-home .home-copy{color:var(--text-body)}' +
       '.cost-home .home-copy strong,.drift-home .home-copy strong,.why-home .home-copy strong{color:var(--paper)}' +
       '.cost-home .source-links a{color:var(--paper)}' +
+      '.kd-what-stage{position:relative;margin-top:44px;padding-top:36px;display:flex;align-items:flex-end;background:#24222B url("/assets/review-06.jpg") 70% 48%/cover no-repeat;color:#FFFFFF}' +
+      '.kd-what-stage:before{content:"";position:absolute;inset:0;background:linear-gradient(to right,rgba(14,22,36,.55) 0%,rgba(14,22,36,0) 45%),linear-gradient(to top,rgba(18,28,44,.72) 0%,rgba(30,48,74,.22) 100%)}' +
+      '.kd-what-tri{position:relative;width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));padding:0 0 32px}' +
+      '.kd-what-row{padding:0 28px}.kd-what-row+.kd-what-row{border-left:1px solid rgba(255,255,255,.55)}' +
+      '.kd-what-lab{display:block;font-family:"IBM Plex Mono",monospace;font-size:13px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px;color:#FFFFFF}' +
+      '#observation .kd-what-row h2{margin:0;font-family:"Space Grotesk",sans-serif;font-size:clamp(22px,2.2vw,30px);font-weight:500;letter-spacing:-.02em;line-height:1.05;text-transform:uppercase;text-wrap:balance;color:#FFFFFF}' +
+      '#observation .kd-what-row p{margin:12px 0 0;font-family:"Space Grotesk",sans-serif;font-size:16px;line-height:1.45;text-wrap:pretty;color:#FFFFFF}' +
+      '#observation .kd-lead-cta{margin-top:36px}' +
+      '@media(max-width:760px){.kd-what-stage{padding-top:28px}.kd-what-tri{grid-template-columns:minmax(0,1fr);gap:28px;padding:0 20px 28px}.kd-what-row{padding:0}.kd-what-row+.kd-what-row{border-left:0;border-top:1px solid rgba(255,255,255,.55);padding-top:24px}}' +
       '@media(max-width:767px){.product-orientation{margin-bottom:30px}.home-copy,.source-links{max-width:100%}}' +
       '@media(prefers-reduced-motion:reduce){#masthead,#registrar{transition:none}}';
     // buildHomepage can run more than once; without this the same sheet is
