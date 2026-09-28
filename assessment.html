@@ -97,7 +97,10 @@
 .kda-option-key{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.24em;color:#A5A299}
 .kda-option input:checked+span.kda-option-face .kda-option-key{color:#FFFF00}
 .kda-option-label{font-family:"IBM Plex Mono",monospace;font-size:15px;letter-spacing:.08em;color:#fff;text-transform:uppercase}
-.kda-option-note{margin-top:auto;font-size:15px;line-height:1.5;color:#A5A299}
+/* Number, label and note flow from the top on one fixed gap. The note used to
+   take the slack, which moved it further from its own label the shorter the
+   copy was; the slack belongs under it. */
+.kda-option-note{font-size:15px;line-height:1.5;color:#A5A299}
 .kda-run-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 24px;margin-top:40px;padding-top:24px;border-top:1px solid #504D57}
 .kda-run .kda-cta.is-back{color:#A5A299}
 .kda-run .kda-cta.is-back:hover,.kda-run .kda-cta.is-back:focus-visible{color:#fff}
