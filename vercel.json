@@ -2,7 +2,7 @@
   "redirects": [
     {
       "source": "/go-deeper",
-      "destination": "/discipline",
+      "destination": "/how",
       "permanent": false
     },
     {
@@ -56,8 +56,18 @@
       "permanent": true
     },
     {
+      "source": "/discipline",
+      "destination": "/how",
+      "permanent": true
+    },
+    {
       "source": "/discipline.html",
-      "destination": "/discipline",
+      "destination": "/how",
+      "permanent": true
+    },
+    {
+      "source": "/how.html",
+      "destination": "/how",
       "permanent": true
     },
     {
@@ -107,8 +117,8 @@
       "destination": "/index.html"
     },
     {
-      "source": "/discipline",
-      "destination": "/discipline.html"
+      "source": "/how",
+      "destination": "/how.html"
     },
     {
       "source": "/bench",

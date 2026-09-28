@@ -144,7 +144,7 @@
     if(p===''||p==='/index.html')return 'home';
     if(p==='/bench'||p==='/bench.html')return 'bench';
     if(p==='/readings'||p==='/readings.html')return 'readings';
-    if(p==='/discipline'||p==='/discipline.html'||p==='/go-deeper'||p==='/go-deeper.html')return 'discipline';
+    if(p==='/how'||p==='/how.html'||p==='/discipline'||p==='/discipline.html'||p==='/go-deeper'||p==='/go-deeper.html')return 'discipline';
     if(p==='/bureau'||p==='/bureau.html')return 'bureau';
     if(p==='/contact'||p==='/contact.html')return 'contact';
     if(p==='/assessment'||p==='/assessment.html')return 'assessment';
@@ -164,12 +164,12 @@
     var tagline=document.querySelector('.masthead-tagline');
     if(tagline) tagline.textContent='';
     var desktop=document.getElementById('registrar-desktop');
-    var deskHtml='<a class="reg-item'+(key==='home'?' is-current':'')+'" href="/">WHAT</a><a class="reg-item'+(key==='discipline'?' is-current':'')+'" href="/discipline">HOW</a><a class="reg-item'+(key==='bench'?' is-current':'')+'" href="/bench">BENCH</a><a class="reg-item'+(key==='readings'?' is-current':'')+'" href="/readings">READINGS</a>';
+    var deskHtml='<a class="reg-item'+(key==='home'?' is-current':'')+'" href="/">WHAT</a><a class="reg-item'+(key==='discipline'?' is-current':'')+'" href="/how">HOW</a><a class="reg-item'+(key==='bench'?' is-current':'')+'" href="/bench">BENCH</a><a class="reg-item'+(key==='readings'?' is-current':'')+'" href="/readings">READINGS</a>';
     if(desktop&&desktop.getAttribute('data-kd-nav')!==key){desktop.innerHTML=deskHtml;desktop.setAttribute('data-kd-nav',key);}
     var products=document.querySelector('.unified-nav-products');
     if(products) products.innerHTML='<a class="product-cta" href="/assessment"><span class="enter-text" data-kd-keep-arrow>MARKETING JUDGMENT TEST →</span></a>';
     var mobile=document.querySelector('.registrar-mobile');
-    if(mobile){var label=key==='discipline'?'HOW':key==='bench'?'BENCH':key==='readings'?'READINGS':key==='bureau'?'DENSE IDEA COMPANY™':key==='contact'||key==='assessment'?'MENU':key==='home'?'WHAT':'MENU';var mobHtml='<button class="reg-mobile-current" id="reg-mobile-btn" aria-expanded="false" aria-controls="reg-mobile-dropdown"><span id="reg-mobile-label"'+(key==='bureau'?' class="is-long"':'')+'>'+label+'</span><span class="reg-mobile-arrow" aria-hidden="true"></span></button><div class="reg-mobile-dropdown" id="reg-mobile-dropdown" hidden><a class="reg-item" href="/">WHAT</a><a class="reg-item" href="/discipline">HOW</a><a class="reg-item" href="/bench">BENCH</a><a class="reg-item" href="/readings">READINGS</a></div>';if(mobile.getAttribute('data-kd-nav')!==label){mobile.innerHTML=mobHtml;mobile.setAttribute('data-kd-nav',label);}}
+    if(mobile){var label=key==='discipline'?'HOW':key==='bench'?'BENCH':key==='readings'?'READINGS':key==='bureau'?'DENSE IDEA COMPANY™':key==='contact'||key==='assessment'?'MENU':key==='home'?'WHAT':'MENU';var mobHtml='<button class="reg-mobile-current" id="reg-mobile-btn" aria-expanded="false" aria-controls="reg-mobile-dropdown"><span id="reg-mobile-label"'+(key==='bureau'?' class="is-long"':'')+'>'+label+'</span><span class="reg-mobile-arrow" aria-hidden="true"></span></button><div class="reg-mobile-dropdown" id="reg-mobile-dropdown" hidden><a class="reg-item" href="/">WHAT</a><a class="reg-item" href="/how">HOW</a><a class="reg-item" href="/bench">BENCH</a><a class="reg-item" href="/readings">READINGS</a></div>';if(mobile.getAttribute('data-kd-nav')!==label){mobile.innerHTML=mobHtml;mobile.setAttribute('data-kd-nav',label);}}
     var burberry=document.querySelector('.readings-page img[alt="Burberry"]');
     if(burberry){burberry.src='/assets/burberry-logo.svg';burberry.classList.add('native-cream');}
     var starbucks=document.querySelector('.readings-page img[alt="Starbucks"]');
@@ -203,7 +203,7 @@
       }
     }
     var footer=document.querySelector('.footer');
-    if(footer) footer.innerHTML='<div class="footer-inner"><div class="footer-bureau">DENSE IDEA COMPANY™.</div><div class="footer-index"><div class="footer-section"><div class="footer-section-label">DISCIPLINE</div><nav aria-label="Discipline"><a href="/discipline">Dense Ideas</a></nav></div><div class="footer-section"><div class="footer-section-label">BENCH</div><nav aria-label="Bench"><a href="/bench">How the Bench works</a><a href="/assessment">The Marketing Judgment Test</a><a href="/readings">Private Readings</a><a href="/readings#record">Published Readings</a></nav></div><div class="footer-section"><div class="footer-section-label">KILL DULL</div><nav aria-label="Kill Dull"><a href="/bureau">Department of Hard Evidence</a><a href="/accessibility" aria-label="Accessibility statement">Accessibility</a><a href="/privacy" aria-label="Privacy policy">Privacy</a><a href="/terms" aria-label="Terms of use">Terms</a><a href="/contact">Contact</a></nav></div></div><div class="footer-colophon"><span>© 2026 Kill Dull. All rights reserved.</span><button type="button" class="kd-consent-settings">Cookie settings</button></div></div>';
+    if(footer) footer.innerHTML='<div class="footer-inner"><div class="footer-bureau">DENSE IDEA COMPANY™.</div><div class="footer-index"><div class="footer-section"><div class="footer-section-label">DISCIPLINE</div><nav aria-label="Discipline"><a href="/how">Dense Ideas</a></nav></div><div class="footer-section"><div class="footer-section-label">BENCH</div><nav aria-label="Bench"><a href="/bench">How the Bench works</a><a href="/assessment">The Marketing Judgment Test</a><a href="/readings">Private Readings</a><a href="/readings#record">Published Readings</a></nav></div><div class="footer-section"><div class="footer-section-label">KILL DULL</div><nav aria-label="Kill Dull"><a href="/bureau">Department of Hard Evidence</a><a href="/accessibility" aria-label="Accessibility statement">Accessibility</a><a href="/privacy" aria-label="Privacy policy">Privacy</a><a href="/terms" aria-label="Terms of use">Terms</a><a href="/contact">Contact</a></nav></div></div><div class="footer-colophon"><span>© 2026 Kill Dull. All rights reserved.</span><button type="button" class="kd-consent-settings">Cookie settings</button></div></div>';
   }
 
   function normalizeCtas(){
