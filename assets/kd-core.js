@@ -93,6 +93,7 @@
       '<div class="kd-chapter-marker kd-premise-marker"><span>WHAT KILL DULL DOES</span></div>' +
       '<span class="hero-line-wrap"><h1 class="hero-line"><span class="hero-setup">YOU\u2019RE ABOUT TO MAKE A BIG MARKETING DECISION.</span>GET AN INDEPENDENT JUDGMENT FIRST.</h1></span>' +
       // Approved WHAT section, 28 Sep 2026: three statements side by side over the image.
+      '<p class="kd-what-lede"><span>Kill Dull is the only Dense Idea Company\u2122 built to scrutinize<br> marketing across all Four Ps before you commit.</span></p>' +
       '<div class="kd-what-stage"><div class="kd-what-tri">' +
         '<div class="kd-what-row"><span class="kd-what-lab">WE ARE</span><h2>Independent marketing judgment.</h2><p>You bring us a consequential decision. We do the work required to make the call.</p></div>' +
         '<div class="kd-what-row"><span class="kd-what-lab">WE ARE NOT</span><h2>An opinionated prompt box.</h2><p>You don\u2019t feed us a decision and it spits out a judgment five seconds later.</p></div>' +
@@ -222,7 +223,13 @@
       '.cost-home .home-copy,.drift-home .home-copy,.why-home .home-copy{color:var(--text-body)}' +
       '.cost-home .home-copy strong,.drift-home .home-copy strong,.why-home .home-copy strong{color:var(--paper)}' +
       '.cost-home .source-links a{color:var(--paper)}' +
-      '.kd-what-stage{position:relative;margin-top:44px;padding-top:36px;display:flex;align-items:flex-end;background:#24222B url("/assets/review-06.jpg") 70% 48%/cover no-repeat;color:#FFFFFF}' +
+      '#observation .kd-what-lede{margin:28px 0 0;max-width:50em;display:flex;gap:.75em;align-items:flex-start;font-family:"Space Grotesk",sans-serif;font-size:clamp(18px,1.6vw,22px);line-height:1.4;text-wrap:pretty;color:#24222B}' +
+      '@media(max-width:760px){#observation .kd-what-lede br{display:none}}' +
+      '#observation .kd-what-lede>span{flex:1 1 0;min-width:0}' +
+      '#observation .kd-what-lede:before{content:"";flex:0 0 auto;width:var(--h,2.8em);height:var(--h,2.8em);background:#FFFF00;animation:kdWhatPulse 1.6s ease-in-out infinite}' +
+      '@keyframes kdWhatPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.55;transform:scale(.9)}}' +
+      '@media (prefers-reduced-motion:reduce){#observation .kd-what-lede:before{animation:none}}' +
+      '.kd-what-stage{position:relative;margin-top:36px;padding-top:36px;display:flex;align-items:flex-end;background:#24222B url("/assets/review-06.jpg") 70% 48%/cover no-repeat;color:#FFFFFF}' +
       '.kd-what-stage:before{content:"";position:absolute;inset:0;background:linear-gradient(to right,rgba(14,22,36,.55) 0%,rgba(14,22,36,0) 45%),linear-gradient(to top,rgba(18,28,44,.72) 0%,rgba(30,48,74,.22) 100%)}' +
       '.kd-what-tri{position:relative;width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));padding:0 0 32px}' +
       '.kd-what-row{padding:0 28px}.kd-what-row+.kd-what-row{border-left:1px solid rgba(255,255,255,.55)}' +
@@ -311,3 +318,5 @@
   window.addEventListener('scroll', function () { updateRegistrar(); updateHeaderVisibility(); });
   window.addEventListener('resize', function () { positionRegistrar(); setBodyOffset(); updateRegistrar(); updateHeaderVisibility(); fitAll(); });
 })();
+// Approved WHAT section: keep the YEAAH square the height of the lede text.
+(function(){var size=function(l){var t=l.querySelector('span');if(!t)return;var W=l.clientWidth;if(!W||W===l._kdw)return;l._kdw=W;var cs=getComputedStyle(l),lh=parseFloat(cs.lineHeight),g=parseFloat(cs.columnGap)||0,s=2*lh;for(var n=2;n<=5;n++){var w=W-n*lh-g;if(w<200)break;t.style.flex='0 0 '+w+'px';if(Math.round(t.getBoundingClientRect().height/lh)===n){s=n*lh;break}}t.style.flex='';l.style.setProperty('--h',s+'px')};var fit=function(l){if(l._kdro)return;l._kdro=new ResizeObserver(function(){size(l)});l._kdro.observe(l);size(l)};var scan=function(){document.querySelectorAll('.kd-what-lede').forEach(fit)};scan();if(document.fonts)document.fonts.ready.then(function(){document.querySelectorAll('.kd-what-lede').forEach(function(l){l._kdw=0;size(l)})});new MutationObserver(scan).observe(document.documentElement,{childList:true,subtree:true})})();
