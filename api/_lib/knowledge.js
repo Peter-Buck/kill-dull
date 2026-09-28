@@ -14,7 +14,7 @@
  * in with something plausible.
  *
  * Sourced from killdull.com at review/full-site @ dbb6f59:
- *   /  /discipline  /bench  /readings  /bureau
+ *   /  /how  /bench  /readings  /bureau
  *
  * NOT IN THIS FILE, AND NOT TO BE ADDED:
  *   internal Bureau material, private Readings, client information,
@@ -35,7 +35,7 @@ var PUBLIC_KNOWLEDGE = [
   'Kill Dull brings independent scrutiny to consequential marketing commitments',
   'before they are made. One consequential commitment at a time to kill dull.',
   '',
-  '[/discipline — AAH. HMM. DULL.]',
+  '[/how — AAH. HMM. DULL.]',
   'The three judgments. This is the published definition and the only one:',
   'AAH. The commitment deserves to be made.',
   'HMM. Not enough to responsibly say AAH or DULL.',
@@ -85,7 +85,7 @@ var PUBLIC_KNOWLEDGE = [
   'a campaign or a set of guidelines.',
   'Consistency repeats. Coherence connects. Density generates. Compounding endures.',
   '',
-  '[/discipline — THE SEVEN STANDARDS]',
+  '[/how — THE SEVEN STANDARDS]',
   'The question every commitment is put to: what will this commitment do to the',
   'company? Every commitment is different. The questions do not change.',
   '01 DISTINCTIVENESS. Does this make the company easier to recognize, or easier to replace?',
@@ -98,7 +98,7 @@ var PUBLIC_KNOWLEDGE = [
   'The Seven Standards are not a scorecard. They carry no fixed weights and are',
   'not averaged into a number. Context determines what is material.',
   '',
-  '[/discipline — DIAGNOSIS]',
+  '[/how — DIAGNOSIS]',
   'Before judging anything, Kill Dull establishes what is true. A commitment',
   'enters a market, a company, a customer relationship, a balance sheet and a',
   'history of previous decisions.',
@@ -112,7 +112,7 @@ var PUBLIC_KNOWLEDGE = [
   'and Promotion?',
   'Enough to decide. Not enough to know everything.',
   '',
-  '[/discipline — EVIDENCE]',
+  '[/how — EVIDENCE]',
   'Every material claim earns a status.',
   'KNOWN: established. INDICATED: supported, but not established.',
   'UNKNOWN: material information is absent or insufficient. Unknown is a finding.',
@@ -120,7 +120,7 @@ var PUBLIC_KNOWLEDGE = [
   'agree, that matters. When they disagree, that matters more. Contradictions',
   'are not averaged away. Tension stays tension until it earns resolution.',
   '',
-  '[/discipline — THE COUNTERFACTUAL AND THE BALANCE SHEET]',
+  '[/how — THE COUNTERFACTUAL AND THE BALANCE SHEET]',
   'Judging the commitment is not enough. Kill Dull also asks: if we do not do',
   'this, what happens instead? Doing nothing is still a decision, and sometimes',
   'the safest-looking option carries the larger risk.',
@@ -130,7 +130,7 @@ var PUBLIC_KNOWLEDGE = [
   'It does not calculate the answer. It makes the cost of the answer harder to',
   'ignore. Judgment is not arithmetic.',
   '',
-  '[/discipline, /bureau — AI AND ACCOUNTABILITY]',
+  '[/how, /bureau — AI AND ACCOUNTABILITY]',
   'Evidence informs the judgment. AI interrogates the case. A human takes',
   'responsibility for the recommendation. AI does not get the last word.',
   'Neither does consensus. Technology assists the interrogation of evidence,',
@@ -209,7 +209,7 @@ var PUBLIC_KNOWLEDGE = [
   'Corrections: Kill Dull can be wrong; corrections are made on the record.',
   '',
   '[SITE]',
-  'Pages: / (why), /discipline (how — the Dense Idea Discipline), /bench,',
+  'Pages: / (why), /how (how — the Dense Idea Discipline), /bench,',
   '/readings, /bureau (Department of Hard Evidence), /contact, and',
   '/accessibility, /privacy, /terms. To start an engagement or reach Kill Dull,',
   'the page is /contact.'

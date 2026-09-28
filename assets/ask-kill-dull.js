@@ -29,7 +29,7 @@
 
   /*
     Sources, in order: /bureau, /bureau, / and /bench, /bench, /,
-    /discipline, /bench, /bench and /discipline, / , / and /bureau.
+    /how, /bench, /bench and /how, / , / and /bureau.
   */
   var STARTERS = [
     {
