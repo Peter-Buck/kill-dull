@@ -1,0 +1,152 @@
+<!-- PRESERVED — GO DEEPER (Layer 2) from the HOW page.
+
+Removed from the public /how page on 2026-09-29 so it no longer ships to the
+browser. Nothing here was rewritten: this is the markup and script exactly as
+they stood at commit d46f6c1, kept so the disclosure can be restored or
+relocated unchanged.
+
+This directory is not deployed. .vercelignore excludes everything at the
+repository root and re-includes the public pages by name, so archive/ is never
+uploaded to Vercel and is never served.
+
+Three parts, in the order they appeared in how.html:
+  1. the GO DEEPER toggle band          (was line 109)
+  2. the #deeper panel, five sections   (was lines 110-169)
+  3. the disclosure script              (was lines 172-213)
+
+The CSS these depend on (.discipline-deeper*, #deeper[hidden], the layer-2
+padding rule) is still present in how.html, so restoring means putting these
+three blocks back where they were.
+-->
+
+<!-- 1. TOGGLE BAND -->
+<section class="viewport home-paper discipline-deeper-band"><button class="discipline-deeper" type="button" id="deeper-toggle" aria-expanded="false" aria-controls="deeper"><span class="discipline-deeper-label">GO DEEPER</span><span class="discipline-deeper-mark" aria-hidden="true">↓</span></button></section>
+
+<!-- 2. PANEL -->
+<div id="deeper" tabindex="-1" hidden>
+<section class="viewport home-paper is-dark" id="under-scrutiny">
+<div class="product-orientation"><span></span><span>UNDER SCRUTINY</span></div>
+<h2 class="discipline-headline">BEFORE WE JUDGE ANYTHING, WE ESTABLISH WHAT IS TRUE.</h2>
+<div class="discipline-copy">
+<p>A commitment enters a market. A company. A customer relationship. A balance sheet. A history of previous decisions.</p>
+<p>Judgment starts with reality.</p>
+<div class="discipline-subhead">Diagnosis</div>
+<div class="discipline-register"><div class="discipline-row"><strong>MARKET ORIENTATION</strong><span>What is true outside the building?</span></div><div class="discipline-row"><strong>MARKET POSITION</strong><span>Where does the company actually stand?</span></div><div class="discipline-row"><strong>BRAND REALITY</strong><span>What, if anything, exists in people’s minds about the company?</span></div><div class="discipline-row"><strong>COMMERCIAL REALITY</strong><span>What resources and constraints sit behind the ambition?</span></div><div class="discipline-row"><strong>DENSE IDEA STATUS</strong><span>What has the company already accumulated that is worth protecting or compounding?</span></div><div class="discipline-row"><strong>MARKETING JOB</strong><span>What actually needs to happen across Product, Price, Place and Promotion?</span></div></div>
+<p>We need to know enough to judge responsibly.</p>
+<p class="discipline-statement">ENOUGH TO DECIDE. NOT ENOUGH TO KNOW EVERYTHING.</p>
+</div></section>
+<section class="viewport home-paper" id="evidence">
+<div class="product-orientation"><span></span><span>EVIDENCE</span></div>
+<h2 class="discipline-headline">WHAT DO WE ACTUALLY KNOW?</h2>
+<div class="discipline-copy">
+<p>Every material claim earns a status.</p>
+<div class="discipline-register"><div class="discipline-row"><strong>KNOWN</strong><span>Established.</span></div><div class="discipline-row"><strong>INDICATED</strong><span>Supported, but not established.</span></div><div class="discipline-row"><strong>UNKNOWN</strong><span>Material information is absent or insufficient.</span></div></div>
+<p class="discipline-statement">UNKNOWN IS A FINDING.</p>
+<p>Evidence comes in more than one form.</p>
+<div class="discipline-cols"><div><strong>BIG DATA</strong><p>Research. Behavior. Performance. Economics. Markets. Measurement.</p></div><div><strong>GUT DATA</strong><p>Experience. Instinct. Pattern recognition. Culture. Tacit knowledge.</p></div></div>
+<p>Neither automatically outranks the other. When they agree, that matters. When they disagree, that matters more.</p>
+<p class="discipline-statement">TENSION STAYS TENSION UNTIL IT EARNS RESOLUTION.</p>
+</div></section>
+<section class="viewport home-paper is-dark" id="judgment">
+<div class="product-orientation"><span></span><span>JUDGMENT</span></div>
+<h2 class="discipline-headline">NOW PUT THE COMMITMENT UNDER PRESSURE.</h2>
+<div class="discipline-copy">
+<p>A pricing decision puts different things at risk than a market entry. A partnership creates different consequences than a product launch. Context determines what matters.</p>
+<p>The question remains:</p>
+<p class="discipline-question">What will this commitment do to the company?</p>
+<p>Not only tomorrow. Over time.</p>
+<div class="discipline-subhead">The Counterfactual</div>
+<p>Judging the commitment isn’t enough. We also ask:</p>
+<p class="discipline-question">If we don’t do this, what happens instead?</p>
+<p>Doing nothing is still a decision. Sometimes the safest-looking option carries the larger risk.</p>
+<div class="discipline-subhead">The Dense Idea Balance Sheet</div>
+<p>Every consequential yes gives something and takes something. We make the trade visible.</p>
+<div class="discipline-register"><div class="discipline-row"><strong>STRENGTHENING</strong><span>WEAKENING</span></div><div class="discipline-row"><strong>DISTINCTIVENESS</strong><span>GENERICITY</span></div><div class="discipline-row"><strong>COHERENCE</strong><span>FRAGMENTATION</span></div><div class="discipline-row"><strong>ACCUMULATION</strong><span>EROSION</span></div><div class="discipline-row"><strong>COMPOUNDING</strong><span>DEPRECIATION</span></div></div>
+<p class="discipline-statement">JUDGMENT IS NOT ARITHMETIC.</p>
+</div></section>
+<section class="viewport home-paper" id="recommendation">
+<div class="product-orientation"><span></span><span>RECOMMENDATION</span></div>
+<h2 class="discipline-headline">EVENTUALLY, SOMEONE HAS TO TAKE A POSITION.</h2>
+<div class="discipline-copy">
+<p>Evidence informs the judgment. AI interrogates the case. A human takes responsibility.</p>
+<div class="discipline-register verdicts"><div class="discipline-row"><strong>AAH.</strong><span>The commitment deserves to be made.</span></div><div class="discipline-row"><strong>HMM.</strong><span>Not enough to responsibly say AAH or DULL.</span></div><div class="discipline-row"><strong>DULL.</strong><span>The commitment does not deserve to be made in its present form.</span></div></div>
+<p class="discipline-statement">AI DOESN’T GET THE LAST WORD.</p>
+<p class="discipline-statement">NEITHER DOES CONSENSUS.</p>
+<p class="discipline-statement">THE DISCIPLINE RECOMMENDS.<br>THE CLIENT DECIDES.</p>
+</div></section>
+<section class="viewport home-paper is-dark" id="on-record">
+<div class="product-orientation"><span></span><span>ON RECORD</span></div>
+<h2 class="discipline-headline">IF WE’RE PREPARED TO SAY IT, WE’RE PREPARED TO PUT IT ON RECORD.</h2>
+<div class="discipline-copy">
+<p>The Reading is the finished judgment: the recommendation, reasoning, evidence and material uncertainties behind it.</p>
+<p class="discipline-statement">CONSIDERED. CONCLUDED. ON RECORD.</p>
+</div></section>
+<section class="viewport home-paper discipline-deeper-band"><button class="discipline-deeper" type="button" id="deeper-close" aria-expanded="false" aria-controls="deeper"><span class="discipline-deeper-label">BACK</span><span class="discipline-deeper-mark" aria-hidden="true">↑</span></button></section>
+</div>
+
+<!-- 3. SCRIPT -->
+<script>
+// GO DEEPER is a disclosure, not navigation. Layer 2 carries the hidden
+// attribute in the markup rather than being hidden from here, so it is never
+// painted and then taken away. The two controls do one job each: GO DEEPER
+// opens and takes the reader into Layer 2, BACK closes it and returns them.
+// Neither ever renames itself.
+(function(){
+  var panel=document.getElementById('deeper'),
+      btn=document.getElementById('deeper-toggle'),
+      foot=document.getElementById('deeper-close');
+  if(!btn||!panel)return;
+  var band=btn.closest?btn.closest('.discipline-deeper-band'):null;
+  // ONE state, whichever control moved it, reported on both controls.
+  function set(open){
+    panel.hidden=!open;
+    btn.setAttribute('aria-expanded',open?'true':'false');
+    if(foot)foot.setAttribute('aria-expanded',open?'true':'false');
+  }
+  // The listener sits on the band, so a click anywhere in the section acts -
+  // and a click on the button, or the click Enter/Space synthesises on it,
+  // bubbles up to exactly the same handler once. The band itself is not
+  // focusable: focus stays on the button, which is why the site's global
+  // focus ring frames the label alone.
+  (band||btn).addEventListener('click',function(){
+    set(true);
+    // Move the reader, not just the scrollbar: the panel takes focus so a
+    // keyboard carries on inside Layer 2 rather than back at the control.
+    panel.focus({preventScroll:true});
+    panel.scrollIntoView({block:'start'});
+  });
+  if(foot){
+    var footBand=foot.closest?foot.closest('.discipline-deeper-band'):null;
+    (footBand||foot).addEventListener('click',function(){
+      set(false);
+      // The reader is at the foot of Layer 2, and everything under them has
+      // just gone. Put them back at the control they opened it with, and
+      // give it the focus so a keyboard carries on from the same place.
+      (band||btn).scrollIntoView({block:'center'});
+      btn.focus({preventScroll:true});
+    });
+  }
+})();</script>
+
+
+<!-- 4. CSS, lifted out of how.html's <style> block on 2026-09-29 so no part of
+     GO DEEPER ships to the browser. Restore these alongside blocks 1-3. -->
+<style>
+.discipline-deeper-band{cursor:pointer}.discipline-deeper{align-self:flex-start;display:inline-flex;align-items:baseline;gap:.22em;appearance:none;-webkit-appearance:none;border:.5px solid currentColor;background:none;padding:18px 20px;color:inherit;text-align:left;cursor:pointer}.discipline-deeper-mark{display:inline-block;transition:transform .22s cubic-bezier(.2,.8,.2,1)}.discipline-deeper-band:hover .discipline-deeper-mark{transform:translateY(3px)}.discipline-deeper-band:hover #deeper-close .discipline-deeper-mark{transform:translateY(-3px)}@media(prefers-reduced-motion:reduce){.discipline-deeper-mark{transition:none}}#deeper[hidden]{display:none}.discipline-page #deeper>.viewport:first-child{padding-top:104px!important}
+/* GO DEEPER and BACK behave like every other call to action on the site: the
+   frame turns yellow on hover or keyboard focus, and the arrow nudges. */
+.discipline-deeper{transition:border-color .18s ease}
+.discipline-deeper-band:hover .discipline-deeper,.discipline-deeper:focus-visible{border-color:#FFFF00}
+/* The opened panel takes focus so a keyboard carries on inside it. It is a
+   destination, not a control, so it carries no focus ring (as main does). */
+#deeper:focus,#deeper:focus-visible{outline:none!important;box-shadow:none!important}
+</style>
+
+<!-- 5. CSS for the removed "THE DENSE IDEA." setup line. how.html no longer
+     uses .hero-setup; the homepage still does, styled globally by kd.js. -->
+<style>
+/* The setup line of the headline sits below the proposition it introduces.
+   Sized as a fraction of the headline so it keeps the family, weight,
+   tracking and responsive clamp the headline already has. */
+.discipline-page .hero-line .hero-setup{font-size:.6em}
+</style>
