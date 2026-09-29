@@ -20,10 +20,15 @@
 .discipline-fold{display:flex;align-items:center;justify-content:space-between;gap:20px;width:100%;box-sizing:border-box;appearance:none;-webkit-appearance:none;background:none;border:0;padding:0;color:inherit;text-align:left;cursor:pointer}
 .discipline-fold-mark{flex:0 0 14px;width:14px;height:14px;opacity:.75;background:linear-gradient(currentColor,currentColor) center/14px 1.5px no-repeat,linear-gradient(currentColor,currentColor) center/1.5px 14px no-repeat;transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .3s ease}
 .discipline-fold[aria-expanded="true"] .discipline-fold-mark{transform:rotate(45deg);opacity:1}
+/* Closed, a heading draws the rule its own register would draw, so a shut
+   group still shows there is a table behind it. The same 1px rule in the
+   same colour, set the 16px off the type that the register puts between a
+   row and its rule. Open, the register draws it, exactly where it did. */
+.discipline-fold[aria-expanded="false"]{padding-bottom:16px;border-bottom:1px solid #24222B}
 @media(prefers-reduced-motion:reduce){.discipline-fold-mark{transition:none}}
 @media(max-width:767px){.discipline-copy>p,.discipline-copy>.discipline-question{max-width:100%}.discipline-register .discipline-row,.discipline-register.standards .discipline-row,.discipline-register.verdicts .discipline-row{grid-template-columns:1fr;gap:4px}.discipline-cols{grid-template-columns:1fr}}
 
-.discipline-page .viewport.is-dark{background:#24222B;color:#FFFFFF}.discipline-page .home-paper.is-dark .hero-line{color:#FFFFFF!important}.discipline-page .viewport.is-dark .product-orientation{color:#aaa69d}.discipline-page .viewport.is-dark .product-orientation:before{background:#504D57}.discipline-page .viewport.is-dark .discipline-register,.discipline-page .viewport.is-dark .discipline-cols>div{border-top-color:#504D57}.discipline-page .viewport.is-dark .discipline-row{border-bottom-color:#3E3B45}.discipline-page .viewport.is-dark .discipline-row span:last-child,.discipline-page .viewport.is-dark .discipline-cols p{color:#b9b6ae}.discipline-page .viewport.is-dark .discipline-statement{border-top-color:#504D57;border-bottom-color:#504D57}
+.discipline-page .viewport.is-dark{background:#24222B;color:#FFFFFF}.discipline-page .home-paper.is-dark .hero-line{color:#FFFFFF!important}.discipline-page .viewport.is-dark .product-orientation{color:#aaa69d}.discipline-page .viewport.is-dark .product-orientation:before{background:#504D57}.discipline-page .viewport.is-dark .discipline-register,.discipline-page .viewport.is-dark .discipline-cols>div{border-top-color:#504D57}.discipline-page .viewport.is-dark .discipline-fold[aria-expanded="false"]{border-bottom-color:#504D57}.discipline-page .viewport.is-dark .discipline-row{border-bottom-color:#3E3B45}.discipline-page .viewport.is-dark .discipline-row span:last-child,.discipline-page .viewport.is-dark .discipline-cols p{color:#b9b6ae}.discipline-page .viewport.is-dark .discipline-statement{border-top-color:#504D57;border-bottom-color:#504D57}
 /* THE JAR - the photograph that closes this page, set the way the reception desk
    is set on the homepage: the full width of the page, its own proportion, and
    nothing around it. On a phone the whole 2.5:1 frame would put the label out of
