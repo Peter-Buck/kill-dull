@@ -11,9 +11,19 @@
 .discipline-register{border-top:1px solid #24222B;margin-top:48px}.discipline-row{display:grid;grid-template-columns:72px 240px 1fr;gap:20px;align-items:baseline;padding:16px 0;border-bottom:1px solid #b9b6ae}.discipline-row strong{font-weight:700}.discipline-row span:last-child{color:#55524c}.discipline-register .discipline-row{grid-template-columns:240px 1fr}.discipline-register.standards .discipline-row{grid-template-columns:48px 210px 1fr}.discipline-register.verdicts .discipline-row{grid-template-columns:90px 1fr}.discipline-register.verdicts strong{font-size:26px}
 .discipline-page .hero-line{white-space:normal!important}.discipline-headline{margin:0;font-family:'Space Grotesk',sans-serif;font-size:var(--kd-major-headline-size);font-weight:500;line-height:.98;letter-spacing:-.04em}.discipline-question{font-size:26px;font-weight:700;line-height:1.15;letter-spacing:-.02em;margin:46px 0}/* a table that closes straight into a statement shares one rule rather than stacking the register's last border under the statement's own */.discipline-register+.discipline-statement,.discipline-statement+.discipline-statement{border-top:0;margin-top:0!important}.discipline-statement{display:block;font-size:26px;font-weight:700;line-height:1.15;letter-spacing:-.02em;border-top:1px solid #24222B;border-bottom:1px solid #24222B;padding:26px 0;margin:56px 0 0!important}.discipline-subhead{font-family:"IBM Plex Mono",monospace;font-size:15px;letter-spacing:.14em;margin:46px 0 14px}.discipline-cols{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-top:28px}.discipline-cols>div{border-top:1px solid #24222B;padding-top:14px}.discipline-cols p{font-size:15px;line-height:1.6;color:#55524c}
 .discipline-page .footer{border-top:1px solid #24222B!important}.discipline-page .footer-bureau{border-top:0!important;padding-top:0!important}
+/* The three groups open one at a time, the way the review cards on the
+   homepage and the questions in Ask Kill Dull already do: a button that
+   reports whether it is open, its group directly beneath it, and the site's
+   own drawn mark turning from a plus into a cross. A closed group carries
+   the hidden attribute in the markup, so it is never painted and then taken
+   away. There is no reveal animation: the mark is the whole of the motion. */
+.discipline-fold{display:flex;align-items:center;justify-content:space-between;gap:20px;width:100%;box-sizing:border-box;appearance:none;-webkit-appearance:none;background:none;border:0;padding:0;color:inherit;text-align:left;cursor:pointer}
+.discipline-fold-mark{flex:0 0 14px;width:14px;height:14px;opacity:.75;background:linear-gradient(currentColor,currentColor) center/14px 1.5px no-repeat,linear-gradient(currentColor,currentColor) center/1.5px 14px no-repeat;transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .3s ease}
+.discipline-fold[aria-expanded="true"] .discipline-fold-mark{transform:rotate(45deg);opacity:1}
+@media(prefers-reduced-motion:reduce){.discipline-fold-mark{transition:none}}
 @media(max-width:767px){.discipline-copy>p,.discipline-copy>.discipline-question{max-width:100%}.discipline-register .discipline-row,.discipline-register.standards .discipline-row,.discipline-register.verdicts .discipline-row{grid-template-columns:1fr;gap:4px}.discipline-cols{grid-template-columns:1fr}}
 
-.discipline-page .kd-talk{background:#24222B!important;color:#FFFFFF!important}.discipline-page .kd-talk .hero-line{color:#FFFFFF!important}.discipline-page .viewport.is-dark{background:#24222B;color:#FFFFFF}.discipline-page .home-paper.is-dark .hero-line{color:#FFFFFF!important}.discipline-page .viewport.is-dark .product-orientation{color:#aaa69d}.discipline-page .viewport.is-dark .product-orientation:before{background:#504D57}.discipline-page .viewport.is-dark .discipline-register,.discipline-page .viewport.is-dark .discipline-cols>div{border-top-color:#504D57}.discipline-page .viewport.is-dark .discipline-row{border-bottom-color:#3E3B45}.discipline-page .viewport.is-dark .discipline-row span:last-child,.discipline-page .viewport.is-dark .discipline-cols p{color:#b9b6ae}.discipline-page .viewport.is-dark .discipline-statement{border-top-color:#504D57;border-bottom-color:#504D57}
+.discipline-page .viewport.is-dark{background:#24222B;color:#FFFFFF}.discipline-page .home-paper.is-dark .hero-line{color:#FFFFFF!important}.discipline-page .viewport.is-dark .product-orientation{color:#aaa69d}.discipline-page .viewport.is-dark .product-orientation:before{background:#504D57}.discipline-page .viewport.is-dark .discipline-register,.discipline-page .viewport.is-dark .discipline-cols>div{border-top-color:#504D57}.discipline-page .viewport.is-dark .discipline-row{border-bottom-color:#3E3B45}.discipline-page .viewport.is-dark .discipline-row span:last-child,.discipline-page .viewport.is-dark .discipline-cols p{color:#b9b6ae}.discipline-page .viewport.is-dark .discipline-statement{border-top-color:#504D57;border-bottom-color:#504D57}
 /* THE JAR - the photograph that closes this page, set the way the reception desk
    is set on the homepage: the full width of the page, its own proportion, and
    nothing around it. On a phone the whole 2.5:1 frame would put the label out of
@@ -85,15 +95,14 @@
 <section class="viewport home-paper is-dark" id="discipline">
 <span class="hero-line-wrap"><h2 class="hero-line">HOW DO YOU JUDGE A MARKETING COMMITMENT?</h2></span>
 <div class="discipline-copy">
-<p>What will this commitment do to the company?</p>
+<p>What will this commitment do for the customer — and to the company?</p>
 <p>Every commitment is different. The questions don’t change.</p>
-<div class="discipline-subhead">The 8 Standards</div>
-<div class="discipline-register standards"><div class="discipline-row"><span>01</span><strong>RELEVANCE</strong><span>Does this solve a real customer problem or meet an expectation that matters?</span></div><div class="discipline-row"><span>02</span><strong>DISTINCTIVENESS</strong><span>Does this make the company easier to recognize — or easier to replace?</span></div><div class="discipline-row"><span>03</span><strong>PREFERENCE</strong><span>Does this create another reason to choose the company?</span></div><div class="discipline-row"><span>04</span><strong>COHERENCE</strong><span>Does this make the company add up better?</span></div><div class="discipline-row"><span>05</span><strong>IMITABILITY</strong><span>If competitors copy this tomorrow, what will still be ours?</span></div><div class="discipline-row"><span>06</span><strong>IDENTITY</strong><span>Does this make the company more itself — or less itself?</span></div><div class="discipline-row"><span>07</span><strong>PRECEDENT</strong><span>What will this yes teach the next yes?</span></div><div class="discipline-row"><span>08</span><strong>COMPOUNDING</strong><span>What happens if this becomes normal?</span></div></div>
-<div class="discipline-subhead">Temperature Checks</div>
-<div class="discipline-register"><div class="discipline-row"><strong>HUMAN</strong><span>What might people do that the evidence says they shouldn’t?</span></div><div class="discipline-row"><strong>CULTURE</strong><span>What does this decision mean in the current and future culture it’s entering?</span></div><div class="discipline-row"><strong>ECONOMICS</strong><span>What changes when customers feel richer — or poorer?</span></div><div class="discipline-row"><strong>POLITICS</strong><span>What could politics or policy change about this decision?</span></div></div>
-<div class="discipline-subhead">Judgment</div>
-<div class="discipline-register verdicts"><div class="discipline-row"><strong>AAH.</strong><span>The commitment deserves to be made.</span></div><div class="discipline-row"><strong>HMM.</strong><span>Not enough to responsibly say AAH or DULL.</span></div><div class="discipline-row"><strong>DULL.</strong><span>The commitment does not deserve to be made in its present form.</span></div></div>
-<p class="discipline-statement">SIMPLE QUESTION. SERIOUS SCRUTINY.</p>
+<button type="button" class="discipline-subhead discipline-fold" aria-expanded="true" aria-controls="fold-standards"><span>The 8 Standards</span><span class="discipline-fold-mark" aria-hidden="true"></span></button>
+<div class="discipline-register standards" id="fold-standards"><div class="discipline-row"><span>01</span><strong>RELEVANCE</strong><span>Does this solve a real customer problem or meet an expectation that matters?</span></div><div class="discipline-row"><span>02</span><strong>DISTINCTIVENESS</strong><span>Does this make the company easier to recognize — or easier to replace?</span></div><div class="discipline-row"><span>03</span><strong>PREFERENCE</strong><span>Does this create another reason to choose the company?</span></div><div class="discipline-row"><span>04</span><strong>COHERENCE</strong><span>Does this make the company add up better?</span></div><div class="discipline-row"><span>05</span><strong>IMITABILITY</strong><span>If competitors copy this tomorrow, what will still be ours?</span></div><div class="discipline-row"><span>06</span><strong>IDENTITY</strong><span>Does this make the company more itself — or less itself?</span></div><div class="discipline-row"><span>07</span><strong>PRECEDENT</strong><span>What will this yes teach the next yes?</span></div><div class="discipline-row"><span>08</span><strong>COMPOUNDING</strong><span>What happens if this becomes normal?</span></div></div>
+<button type="button" class="discipline-subhead discipline-fold" aria-expanded="false" aria-controls="fold-temperature"><span>Temperature Checks</span><span class="discipline-fold-mark" aria-hidden="true"></span></button>
+<div class="discipline-register" id="fold-temperature" hidden><div class="discipline-row"><strong>HUMAN</strong><span>What might people do that the evidence says they shouldn’t?</span></div><div class="discipline-row"><strong>CULTURE</strong><span>What does this decision mean in the current and future culture it’s entering?</span></div><div class="discipline-row"><strong>ECONOMICS</strong><span>What changes when customers feel richer — or poorer?</span></div><div class="discipline-row"><strong>POLITICS</strong><span>What could politics or policy change about this decision?</span></div></div>
+<button type="button" class="discipline-subhead discipline-fold" aria-expanded="false" aria-controls="fold-judgment"><span>Judgment</span><span class="discipline-fold-mark" aria-hidden="true"></span></button>
+<div class="discipline-register verdicts" id="fold-judgment" hidden><div class="discipline-row"><strong>AAH.</strong><span>The commitment deserves to be made.</span></div><div class="discipline-row"><strong>HMM.</strong><span>Not enough to responsibly say AAH or DULL.</span></div><div class="discipline-row"><strong>DULL.</strong><span>The commitment does not deserve to be made in its present form.</span></div></div>
 </div>
 </section>
 </main>
@@ -233,5 +242,24 @@ if(window.IntersectionObserver){
   },{threshold:0.5});
   begin.observe(grid);
 }
+})();</script>
+<script>(function(){
+/* One group open at a time. Clicking the open one closes it; clicking another
+   closes the current one first. Native buttons, so Enter and Space and the
+   site's focus ring come for free, and aria-expanded is the state. */
+var folds=[].slice.call(document.querySelectorAll('.discipline-fold'));
+if(!folds.length)return;
+function set(b,open){
+  b.setAttribute('aria-expanded',open?'true':'false');
+  var panel=document.getElementById(b.getAttribute('aria-controls'));
+  if(panel)panel.hidden=!open;
+}
+folds.forEach(function(b){
+  b.addEventListener('click',function(){
+    var wasOpen=b.getAttribute('aria-expanded')==='true';
+    folds.forEach(function(other){set(other,false);});
+    if(!wasOpen)set(b,true);
+  });
+});
 })();</script>
 </body></html>
