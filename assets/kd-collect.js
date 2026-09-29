@@ -113,6 +113,7 @@
     var p = (path || '/').replace(/\.html$/, '');
     if (p === '/' || p === '') return 'HOME';
     if (p.indexOf('/how') === 0 || p.indexOf('/discipline') === 0) return 'DISCIPLINE';
+    if (p.indexOf('/why') === 0) return 'WHY';
     if (p.indexOf('/bench') === 0) return 'BENCH';
     if (p.indexOf('/readings') === 0) return 'READINGS';
     if (p.indexOf('/bureau') === 0) return 'COMPANY';

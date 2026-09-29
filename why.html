@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+<head>
+<meta charset="UTF-8"><meta name="google" content="notranslate"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WHY — Kill Dull™</title><link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png"><link rel="apple-touch-icon" href="/assets/favicon-180.png"><meta name="description" content="Why Kill Dull calls itself The Dense Idea Company: some ideas keep on giving."><link rel="canonical" href="https://killdull.com/why"><meta property="og:type" content="website"><meta property="og:site_name" content="Kill Dull"><meta property="og:title" content="WHY — Kill Dull™"><meta property="og:description" content="Why Kill Dull calls itself The Dense Idea Company: some ideas keep on giving."><meta property="og:url" content="https://killdull.com/why"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="WHY — Kill Dull™"><meta name="twitter:description" content="Why Kill Dull calls itself The Dense Idea Company: some ideas keep on giving.">
+<link rel="stylesheet" href="/assets/fonts.css"><link rel="stylesheet" href="/assets/kd.css"><link rel="stylesheet" href="/assets/v5.css"><link rel="stylesheet" href="/assets/ask-kill-dull.css">
+<link rel="preload" as="image" href="/assets/why/snap-dark.png"><link rel="preload" as="image" href="/assets/why/face-front.jpg"><link rel="preload" as="image" href="/assets/why/face-back.jpg"><link rel="preload" as="image" href="/assets/why/face-top2.jpg"><link rel="preload" as="image" href="/assets/why/face-bottom.jpg"><link rel="preload" as="image" href="/assets/why/face-end.jpg"><link rel="preload" as="image" href="/assets/why/face-end2.jpg"><link rel="modulepreload" href="/assets/why/three.module.js">
+<style>
+.w{max-width:1214px;margin:0 auto;padding:0 clamp(20px,5vw,40px)}
+.mono{font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.2em}
+/* INTRO — the site's section language: marker, headline + sub-line, lede with the Dense Idea square (as WHAT) */
+.intro{padding:64px 0 40px}
+.kick{display:flex;align-items:center;gap:20px}.kick i{flex:1;height:1px;background:#8A877F}.kick span{font-size:14px}
+.hh{margin:40px 0 0;font-weight:700;text-transform:uppercase;line-height:.95;letter-spacing:-.035em;font-size:clamp(40px,6.2vw,78px)}
+.hh span{display:block;font-weight:500;font-size:.5em;letter-spacing:-.02em;margin-top:.25em}
+.lede{margin:28px 0 0;max-width:50em;display:flex;gap:.75em;align-items:flex-start;font-size:clamp(18px,1.6vw,22px);font-weight:400;line-height:1.4;text-wrap:pretty}
+.lede span{flex:1 1 0;min-width:0}
+.lede2{margin-top:1.4em}
+.bk2{margin-bottom:clamp(8px,1.5vh,16px)}
+.bz{background:#24222B;color:#FFFFFF;margin-top:clamp(56px,9vh,96px);padding:clamp(56px,9vh,96px) 0 clamp(40px,7vh,80px)}
+.bz .kick i{background:rgba(255,255,255,.35)}
+.outro{border-top:0}
+@keyframes kdp{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.55;transform:scale(.9)}}
+/* BRICK — a real three-dimensional brick on a sticky plane; the copy scrolls by beside it */
+.world{position:relative;display:grid;grid-template-columns:55.5% minmax(0,1fr)}
+.plane{grid-column:1;grid-row:1;align-self:start;overflow:visible;position:relative;position:sticky;top:calc(50svh - var(--ph,100svh) / 2);height:var(--ph,100svh);margin-top:var(--mt,0px);pointer-events:none;z-index:1}
+.plane canvas{display:block;width:100%;height:100%}
+.world{color:inherit}
+.copy{grid-column:2;grid-row:1;position:relative;padding:clamp(20px,3vh,36px) 0 var(--pb,46svh) clamp(16px,3vw,48px)}
+.copy .T{margin:0 0 .5em;font-weight:700;text-transform:uppercase;letter-spacing:-.035em;line-height:.95;font-size:clamp(40px,6.2vw,78px)}
+.copy p{margin:0 0 1.1em;font-size:clamp(18px,1.6vw,22px);line-height:1.4;text-wrap:pretty}
+.copy p:last-child{margin-bottom:0}
+.ln{display:block}
+/* OUTRO — same language as the intro */
+.outro{background:#FFFFFF;color:#24222B;padding:clamp(64px,11vh,120px) 0 clamp(64px,11vh,120px)}
+.signoff{background:#24222B;color:#FFFFFF;padding:clamp(64px,11vh,120px) 0}
+.signoff a:not(.btn){color:#FFFFFF}
+.sign{margin:0}
+.sign img{display:block;width:min(100%,460px)}
+.sign p{margin:24px 0 0;font-size:13px;line-height:1.7}
+.btn{display:inline-flex;margin-top:36px;font-size:14px;letter-spacing:.14em;text-decoration:none;border:1px solid #FFFFFF;padding:12px 16px;color:#FFFFFF}
+.btn:hover{background:#FFFF00;color:#24222B;border-color:#FFFF00}
+/* FOOTER — the approved site footer */
+@media (max-width:760px){
+.lede br{display:none}
+.world{grid-template-columns:minmax(0,1fr)}
+.plane{grid-column:1;grid-row:1;height:48svh;top:0;margin:0 calc(-1 * clamp(20px,5vw,40px));z-index:2;background:#24222B}
+.plane:after{content:"";position:absolute;left:0;right:0;top:100%;height:48px;background:linear-gradient(#24222B,rgba(36,34,43,0))}
+.copy{grid-column:1;grid-row:2;padding:6svh 0 24px}
+
+}
+@media (prefers-reduced-motion:reduce){.lede:before{animation:none}}
+/* The sign-off is this page's closing section, so it takes the place of the
+   contact block the shell adds elsewhere. Three classes beat the shell's
+   single-class !important rule, so it keeps the approved Dark Grey. */
+.why-page .signoff.kd-talk{background:#24222B!important;color:#FFFFFF!important;padding:clamp(64px,11vh,120px) 0!important}
+.why-page .signoff.kd-talk .btn{color:#FFFFFF!important}
+
+</style>
+</head><body class="v5-home why-page notranslate">
+<header class="masthead" id="masthead"><div class="masthead-top"><div class="masthead-wordmark"><a href="/"><span class="kd-wordmark-glyphs">KILL DULL<span class="terminal"></span></span><span class="tm">™</span></a></div><div class="masthead-date" id="masthead-date"></div></div><div class="masthead-tagline"></div><div class="masthead-designation">PROVIDING INDEPENDENT MARKETING JUDGMENT FOR BRANDS</div><div class="masthead-rule"></div></header>
+<div class="unified-nav v5-global-nav" id="registrar" role="navigation" aria-label="Primary"><div class="unified-nav-chapters" id="registrar-desktop"><a class="reg-item is-current" href="/why">WHY</a><a class="reg-item" href="/">WHAT</a><a class="reg-item" href="/how">HOW</a><a class="reg-item" href="/bench">OFFER</a><a class="reg-item" href="/readings">OUTCOME</a></div><div class="unified-nav-products"><a class="product-cta" href="/assessment"><span class="enter-text" data-kd-keep-arrow>MARKETING JUDGMENT TEST →</span></a></div><div class="registrar-mobile"><button class="reg-mobile-current" id="reg-mobile-btn" aria-expanded="false" aria-controls="reg-mobile-dropdown"><span id="reg-mobile-label">WHY</span><span class="reg-mobile-arrow">▾</span></button><div class="reg-mobile-dropdown" id="reg-mobile-dropdown" hidden><a class="reg-item" href="/why">WHY</a><a class="reg-item" href="/">WHAT</a><a class="reg-item" href="/how">HOW</a><a class="reg-item" href="/bench">OFFER</a><a class="reg-item" href="/readings">OUTCOME</a></div></div></div>
+<main id="why">
+<section class="intro" id="intro"><div class="w">
+<div class="kick"><i></i><span class="mono">WHAT WE BELIEVE</span></div>
+<h2 class="hh">Some ideas keep on giving.</h2>
+<p class="lede" id="lede"><span>Not because they say more. Because there’s more in them. They solve something people care about. They give a company somewhere to go. Then somewhere else. And somewhere else after that. New products. New experiences. New reasons to choose. New ways to grow. The more you build on them, the more they give back.</span></p>
+<p class="lede lede2">We call them Dense Ideas.</p>
+</div></section>
+<section class="bz"><div class="w"><div class="kick bk2"><i></i><span class="mono">DENSE IDEA</span></div><div class="world" id="world">
+<div class="plane" aria-hidden="true"><canvas id="cv"></canvas></div>
+<div class="copy" id="copy">
+<h2 class="T">A brick.</h2>
+<p><span class="ln">Not much to look at.</span><span class="ln">A lump of earth, really.</span><span class="ln">Made square.</span></p>
+<p>And yet.</p>
+<p><span class="ln">We’ve made houses from them.</span><span class="ln">Places to be born in.</span><span class="ln">Fall in love in.</span><span class="ln">Hide in.</span><span class="ln">Pray in.</span><span class="ln">Make things in.</span><span class="ln">Lock people in.</span></p>
+<p><span class="ln">We’ve built walls to keep people out.</span><span class="ln">And cities to bring people together.</span></p>
+<p><span class="ln">We’ve fought over those cities.</span><span class="ln">Burned them.</span><span class="ln">Bombed them.</span><span class="ln">Built them again.</span></p>
+<p><span class="ln">We built cathedrals to get closer to God.</span><span class="ln">And palaces for people who thought they’d live forever.</span></p>
+<p><span class="ln">They didn’t.</span><span class="ln">The bricks did.</span></p>
+<p><span class="ln">The strange thing is, the brick has never had an opinion.</span><span class="ln">It doesn’t tell you what to build.</span><span class="ln">It just gives you something to build with.</span></p>
+<p><span class="ln">A home.</span><span class="ln">A hospital.</span><span class="ln">A prison.</span><span class="ln">A pub.</span><span class="ln">Your call.</span></p>
+<p>Funny how something so simple just keeps on giving.</p>
+</div>
+</div></div></section>
+<section class="outro" id="outro"><div class="w">
+<div class="kick"><i></i><span class="mono">LONGEVITY OF A DENSE IDEA</span></div>
+<h2 class="hh">Dense Ideas don’t get used up.</h2>
+<p class="lede"><span>They get built on. One decision makes the next possible. One expression strengthens another. What begins as an idea becomes recognition, preference, possibility and growth. But it can go the other way too. A decision can build on what makes a company valuable. Or slowly spend it.</span></p>
+<p class="lede lede2">That’s why judgment matters.</p>
+
+</div></section>
+<section class="signoff kd-talk" aria-label="Kill Dull"><div class="w"><div class="sign"><img src="/assets/why/KD-lockup-A-on-dark.svg" alt="KILL DULL · THE DENSE IDEA COMPANY™"><p class="mono">Providing independent marketing judgment for brands.</p><a class="btn mono" href="/">WHAT →</a></div></div></section>
+</main>
+<footer class="footer" role="contentinfo"><div class="footer-inner"><div class="footer-bureau">DENSE IDEA COMPANY™.</div><div class="footer-index"><div class="footer-section"><div class="footer-section-label">DISCIPLINE</div><nav aria-label="Discipline"><a href="/how">Dense Ideas</a></nav></div><div class="footer-section"><div class="footer-section-label">BENCH</div><nav aria-label="Bench"><a href="/bench">How the Bench works</a><a href="/assessment">The Marketing Judgment Test</a><a href="/readings">Private Readings</a><a href="/readings#record">Published Readings</a></nav></div><div class="footer-section"><div class="footer-section-label">KILL DULL</div><nav aria-label="Kill Dull"><a href="/bureau">Department of Hard Evidence</a><a href="/accessibility" aria-label="Accessibility statement">Accessibility</a><a href="/privacy" aria-label="Privacy policy">Privacy</a><a href="/terms" aria-label="Terms of use">Terms</a><a href="/contact">Contact</a></nav></div></div><div class="footer-colophon"><span>&#169; 2026 Kill Dull. All rights reserved.</span></div></div></footer><script src="/assets/kd.js"></script><script src="/assets/kd-consent.js"></script><script src="/assets/kd-collect.js"></script><script src="/assets/ask-kill-dull.js" defer></script>
+<script src="/assets/why/brick3d.js"></script>
+</body></html>

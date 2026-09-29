@@ -142,6 +142,7 @@
   function routeKey(pathname){
     var p=pathname.replace(/\/$/,'');
     if(p===''||p==='/index.html')return 'home';
+    if(p==='/why'||p==='/why.html')return 'why';
     if(p==='/bench'||p==='/bench.html')return 'bench';
     if(p==='/readings'||p==='/readings.html')return 'readings';
     if(p==='/how'||p==='/how.html'||p==='/discipline'||p==='/discipline.html'||p==='/go-deeper'||p==='/go-deeper.html')return 'discipline';
@@ -164,12 +165,12 @@
     var tagline=document.querySelector('.masthead-tagline');
     if(tagline) tagline.textContent='';
     var desktop=document.getElementById('registrar-desktop');
-    var deskHtml='<a class="reg-item'+(key==='home'?' is-current':'')+'" href="/">WHAT</a><a class="reg-item'+(key==='discipline'?' is-current':'')+'" href="/how">HOW</a><a class="reg-item'+(key==='bench'?' is-current':'')+'" href="/bench">OFFER</a><a class="reg-item'+(key==='readings'?' is-current':'')+'" href="/readings">OUTCOME</a>';
+    var deskHtml='<a class="reg-item'+(key==='why'?' is-current':'')+'" href="/why">WHY</a><a class="reg-item'+(key==='home'?' is-current':'')+'" href="/">WHAT</a><a class="reg-item'+(key==='discipline'?' is-current':'')+'" href="/how">HOW</a><a class="reg-item'+(key==='bench'?' is-current':'')+'" href="/bench">OFFER</a><a class="reg-item'+(key==='readings'?' is-current':'')+'" href="/readings">OUTCOME</a>';
     if(desktop&&desktop.getAttribute('data-kd-nav')!==key){desktop.innerHTML=deskHtml;desktop.setAttribute('data-kd-nav',key);}
     var products=document.querySelector('.unified-nav-products');
     if(products) products.innerHTML='<a class="product-cta" href="/assessment"><span class="enter-text" data-kd-keep-arrow>MARKETING JUDGMENT TEST →</span></a>';
     var mobile=document.querySelector('.registrar-mobile');
-    if(mobile){var label=key==='discipline'?'HOW':key==='bench'?'OFFER':key==='readings'?'OUTCOME':key==='bureau'?'DENSE IDEA COMPANY™':key==='contact'||key==='assessment'?'MENU':key==='home'?'WHAT':'MENU';var mobHtml='<button class="reg-mobile-current" id="reg-mobile-btn" aria-expanded="false" aria-controls="reg-mobile-dropdown"><span id="reg-mobile-label"'+(key==='bureau'?' class="is-long"':'')+'>'+label+'</span><span class="reg-mobile-arrow" aria-hidden="true"></span></button><div class="reg-mobile-dropdown" id="reg-mobile-dropdown" hidden><a class="reg-item" href="/">WHAT</a><a class="reg-item" href="/how">HOW</a><a class="reg-item" href="/bench">OFFER</a><a class="reg-item" href="/readings">OUTCOME</a></div>';if(mobile.getAttribute('data-kd-nav')!==label){mobile.innerHTML=mobHtml;mobile.setAttribute('data-kd-nav',label);}}
+    if(mobile){var label=key==='why'?'WHY':key==='discipline'?'HOW':key==='bench'?'OFFER':key==='readings'?'OUTCOME':key==='bureau'?'DENSE IDEA COMPANY™':key==='contact'||key==='assessment'?'MENU':key==='home'?'WHAT':'MENU';var mobHtml='<button class="reg-mobile-current" id="reg-mobile-btn" aria-expanded="false" aria-controls="reg-mobile-dropdown"><span id="reg-mobile-label"'+(key==='bureau'?' class="is-long"':'')+'>'+label+'</span><span class="reg-mobile-arrow" aria-hidden="true"></span></button><div class="reg-mobile-dropdown" id="reg-mobile-dropdown" hidden><a class="reg-item" href="/why">WHY</a><a class="reg-item" href="/">WHAT</a><a class="reg-item" href="/how">HOW</a><a class="reg-item" href="/bench">OFFER</a><a class="reg-item" href="/readings">OUTCOME</a></div>';if(mobile.getAttribute('data-kd-nav')!==label){mobile.innerHTML=mobHtml;mobile.setAttribute('data-kd-nav',label);}}
     var burberry=document.querySelector('.readings-page img[alt="Burberry"]');
     if(burberry){burberry.src='/assets/burberry-logo.svg';burberry.classList.add('native-cream');}
     var starbucks=document.querySelector('.readings-page img[alt="Starbucks"]');
