@@ -169,7 +169,7 @@ addEventListener('why-tweaks', () => { shown = null; render(); });
 const q = new URLSearchParams(location.search);
 const go = () => { const vh = innerHeight, top = world.getBoundingClientRect().top + scrollY; let y = null;
   if (q.has('p')) y = top - vh * .35 + (+q.get('p')) * (world.offsetHeight - vh + vh * .35);
-  else if (q.get('s') === 'intro') y = 0; else if (q.get('s') === 'outro') y = $('outro').offsetTop;
+  else if (q.get('s') === 'intro') y = 0; else if (q.get('s') === 'outro' && $('outro')) y = $('outro').offsetTop;
   if (y !== null) { window.scrollTo(0, y); render(); } };
 if (q.has('p') || q.has('s')) { requestAnimationFrame(go); if (document.fonts) document.fonts.ready.then(go); }
 })();

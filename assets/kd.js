@@ -161,7 +161,7 @@
     var date=document.querySelector('.masthead-date');
     if(date) date.textContent='';
     var designation=document.querySelector('.masthead-designation');
-    if(designation) designation.textContent='PROVIDING INDEPENDENT MARKETING JUDGMENT FOR BRANDS';
+    if(designation) designation.textContent='INDEPENDENT MARKETING JUDGMENT FOR BRANDS';
     var tagline=document.querySelector('.masthead-tagline');
     if(tagline) tagline.textContent='';
     var desktop=document.getElementById('registrar-desktop');
