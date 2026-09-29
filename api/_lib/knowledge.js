@@ -31,7 +31,7 @@
 
 var PUBLIC_KNOWLEDGE = [
   '[/ — IDENTITY]',
-  'Kill Dull. The Dense Idea Company. Providing independent marketing judgment.',
+  'Kill Dull. The Dense Idea Company. Independent marketing judgment.',
   'Kill Dull brings independent scrutiny to consequential marketing commitments',
   'before they are made. One consequential commitment at a time to kill dull.',
   '',

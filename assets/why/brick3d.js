@@ -106,7 +106,7 @@ const size = () => {
     const w0 = plane.getBoundingClientRect().width, L0 = Math.min(w0 * .75, innerHeight * .9 / .8);
     plane.style.setProperty('--ph', Math.round(L0 * 1.1) + 'px');
     const cp = $('copy'), p1 = cp.querySelector('p'); plane.style.setProperty('--mt', Math.round(p1.offsetTop - L0 * .25) + 'px');
-    const lp = cp.querySelector('p:last-child'); cp.style.setProperty('--pb', Math.round(L0 * .35) + 'px');
+    const lp = cp.querySelector('p:last-of-type'); cp.style.setProperty('--pb', Math.round(L0 * .35) + 'px');
   } else { plane.style.removeProperty('--ph'); plane.style.removeProperty('--mt'); $('copy').style.removeProperty('--pb'); }
   const r = plane.getBoundingClientRect(); Wc = r.width; Hc = r.height;
   renderer.setPixelRatio(Math.min(2, devicePixelRatio || 1)); renderer.setSize(Wc, Hc, false);
@@ -125,7 +125,7 @@ const ease = t => (EASE[TW().easing] || EASE.Even)(t);
 let mx = 0, my = 0, shown = null;
 function progress() {
   if (rm) return 0;
-  const vh = innerHeight, top = world.getBoundingClientRect().top + scrollY, lp = document.querySelector('#copy p:last-child'), mob = innerWidth <= 760;
+  const vh = innerHeight, top = world.getBoundingClientRect().top + scrollY, lp = document.querySelector('#copy p:last-of-type'), mob = innerWidth <= 760;
   const Lpx = Math.min(Wc * .75, Hc * 1.5);
   const brickY = mob ? plane.getBoundingClientRect().height + 24 + lp.offsetHeight / 2 : vh / 2 + Lpx * .2 - lp.offsetHeight / 2;
   const endY = lp.getBoundingClientRect().top + scrollY + lp.offsetHeight / 2 - brickY, startY = top - vh * (TW().start ?? .6);
