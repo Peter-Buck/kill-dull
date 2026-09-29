@@ -97,8 +97,8 @@
 <div class="discipline-copy">
 <p>What will this commitment do for the customer — and to the company?</p>
 <p>Every commitment is different. The questions don’t change.</p>
-<button type="button" class="discipline-subhead discipline-fold" aria-expanded="true" aria-controls="fold-standards"><span>The 8 Standards</span><span class="discipline-fold-mark" aria-hidden="true"></span></button>
-<div class="discipline-register standards" id="fold-standards"><div class="discipline-row"><span>01</span><strong>RELEVANCE</strong><span>Does this solve a real customer problem or meet an expectation that matters?</span></div><div class="discipline-row"><span>02</span><strong>DISTINCTIVENESS</strong><span>Does this make the company easier to recognize — or easier to replace?</span></div><div class="discipline-row"><span>03</span><strong>PREFERENCE</strong><span>Does this create another reason to choose the company?</span></div><div class="discipline-row"><span>04</span><strong>COHERENCE</strong><span>Does this make the company add up better?</span></div><div class="discipline-row"><span>05</span><strong>IMITABILITY</strong><span>If competitors copy this tomorrow, what will still be ours?</span></div><div class="discipline-row"><span>06</span><strong>IDENTITY</strong><span>Does this make the company more itself — or less itself?</span></div><div class="discipline-row"><span>07</span><strong>PRECEDENT</strong><span>What will this yes teach the next yes?</span></div><div class="discipline-row"><span>08</span><strong>COMPOUNDING</strong><span>What happens if this becomes normal?</span></div></div>
+<button type="button" class="discipline-subhead discipline-fold" aria-expanded="false" aria-controls="fold-standards"><span>The 8 Standards</span><span class="discipline-fold-mark" aria-hidden="true"></span></button>
+<div class="discipline-register standards" id="fold-standards" hidden><div class="discipline-row"><span>01</span><strong>RELEVANCE</strong><span>Does this solve a real customer problem or meet an expectation that matters?</span></div><div class="discipline-row"><span>02</span><strong>DISTINCTIVENESS</strong><span>Does this make the company easier to recognize — or easier to replace?</span></div><div class="discipline-row"><span>03</span><strong>PREFERENCE</strong><span>Does this create another reason to choose the company?</span></div><div class="discipline-row"><span>04</span><strong>COHERENCE</strong><span>Does this make the company add up better?</span></div><div class="discipline-row"><span>05</span><strong>IMITABILITY</strong><span>If competitors copy this tomorrow, what will still be ours?</span></div><div class="discipline-row"><span>06</span><strong>IDENTITY</strong><span>Does this make the company more itself — or less itself?</span></div><div class="discipline-row"><span>07</span><strong>PRECEDENT</strong><span>What will this yes teach the next yes?</span></div><div class="discipline-row"><span>08</span><strong>COMPOUNDING</strong><span>What happens if this becomes normal?</span></div></div>
 <button type="button" class="discipline-subhead discipline-fold" aria-expanded="false" aria-controls="fold-temperature"><span>Temperature Checks</span><span class="discipline-fold-mark" aria-hidden="true"></span></button>
 <div class="discipline-register" id="fold-temperature" hidden><div class="discipline-row"><strong>HUMAN</strong><span>What might people do that the evidence says they shouldn’t?</span></div><div class="discipline-row"><strong>CULTURE</strong><span>What does this decision mean in the current and future culture it’s entering?</span></div><div class="discipline-row"><strong>ECONOMICS</strong><span>What changes when customers feel richer — or poorer?</span></div><div class="discipline-row"><strong>POLITICS</strong><span>What could politics or policy change about this decision?</span></div></div>
 <button type="button" class="discipline-subhead discipline-fold" aria-expanded="false" aria-controls="fold-judgment"><span>Judgment</span><span class="discipline-fold-mark" aria-hidden="true"></span></button>
@@ -244,21 +244,17 @@ if(window.IntersectionObserver){
 }
 })();</script>
 <script>(function(){
-/* One group open at a time. Clicking the open one closes it; clicking another
-   closes the current one first. Native buttons, so Enter and Space and the
-   site's focus ring come for free, and aria-expanded is the state. */
-var folds=[].slice.call(document.querySelectorAll('.discipline-fold'));
-if(!folds.length)return;
-function set(b,open){
-  b.setAttribute('aria-expanded',open?'true':'false');
-  var panel=document.getElementById(b.getAttribute('aria-controls'));
-  if(panel)panel.hidden=!open;
-}
-folds.forEach(function(b){
+/* Three independent disclosures. They are three parts of one methodology,
+   not three views of it, so opening one leaves the others as they were and
+   the reader can hold any of them open together, or none. The page opens
+   with all three closed. Native buttons, so Enter and Space and the site's
+   focus ring come for free, and aria-expanded is the state. */
+[].slice.call(document.querySelectorAll('.discipline-fold')).forEach(function(b){
   b.addEventListener('click',function(){
-    var wasOpen=b.getAttribute('aria-expanded')==='true';
-    folds.forEach(function(other){set(other,false);});
-    if(!wasOpen)set(b,true);
+    var open=b.getAttribute('aria-expanded')!=='true';
+    b.setAttribute('aria-expanded',open?'true':'false');
+    var panel=document.getElementById(b.getAttribute('aria-controls'));
+    if(panel)panel.hidden=!open;
   });
 });
 })();</script>
