@@ -39,8 +39,7 @@ function modules() {
         sendBriefing: m[3].sendBriefing,
         recipient: m[3].recipient,
         cache: m[4].createCache(),
-        bureauURL: m[5].bureauURL,
-        machine: m[5].machine
+        bureauURL: m[5].bureauURL
       };
     });
   }
@@ -68,20 +67,21 @@ function same(a, b) {
  * history ever carries a credential.
  *
  * Vercel's scheduler presents CRON_SECRET; that is the only credential that can
- * send. BUREAU's reader identity may ask for a dry run, which renders the identical
+ * send. BUREAU's read token may ask for a dry run, which renders the identical
  * briefing and sends nothing — it can already read the same model, so this
  * grants it nothing new. Both are compared in constant time and never echoed.
  *
  * If CRON_SECRET is not configured the job refuses to run rather than leaving
  * a mailer open to the internet.
  */
-async function authorised(req, mods) {
+function authorised(req) {
   var cronSecret = process.env.CRON_SECRET;
+  var readToken = process.env.INTELLIGENCE_READ_TOKEN;
   if (!cronSecret) return { ok: false, status: 503, reason: 'not_configured' };
 
   var auth = req.headers['authorization'] || '';
   if (same(auth, 'Bearer ' + cronSecret)) return { ok: true, by: 'schedule' };
-  if ((await mods.machine(req.headers)) === 'ok') return { ok: true, by: 'reader', dryOnly: true };
+  if (readToken && same(auth, 'Bearer ' + readToken)) return { ok: true, by: 'reader', dryOnly: true };
 
   return { ok: false, status: 401, reason: 'unauthorized' };
 }
@@ -119,7 +119,7 @@ module.exports = async function handler(req, res) {
   var mods = await modules();
   var url = new URL(req.url, 'https://' + (req.headers['host'] || 'killdull.com'));
 
-  var auth = await authorised(req, mods);
+  var auth = authorised(req);
   if (!auth.ok) return json(res, auth.status, { ok: false, error: auth.reason });
 
   // Whole seconds, so the end written into the email's link is exactly the end
