@@ -1,27 +1,90 @@
 // killdull.com/intelligence is a machine endpoint and a signpost. BUREAU's
-// server reads it with a bearer token; everyone else is sent to BUREAU. No
+// server reads it with its Vercel-signed identity; everyone else is sent to BUREAU. No
 // secret ever lives in a URL, and no window is answered that was not asked for.
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { machine, windowOf, bureauURL } from '../../lib/intel/access.mjs';
+import { generateKeyPairSync, sign } from 'node:crypto';
+import { machine, bureauIdentity, resetKeys, windowOf, bureauURL, READER } from '../../lib/intel/access.mjs';
 
-const TOKEN = 'read-token-for-tests-0123456789abcdef';
-const env = { INTELLIGENCE_READ_TOKEN: TOKEN };
 const now = new Date('2026-10-02T15:00:00Z');
 const p = (q) => new URLSearchParams(q);
 
-test('only the exact bearer token is a machine', () => {
-  assert.equal(machine({ authorization: `Bearer ${TOKEN}` }, env), 'ok');
-  assert.equal(machine({ authorization: `Bearer ${TOKEN}x` }, env), 'denied');
-  assert.equal(machine({ authorization: TOKEN }, env), 'denied');
-  assert.equal(machine({}, env), 'denied');
-  assert.equal(machine({ cookie: `kd_intel=${TOKEN}` }, env), 'denied', 'the old cookie is not a credential');
+// A stand-in for Vercel's OIDC issuer: a real RSA key, published as a JWKS.
+const { privateKey, publicKey } = generateKeyPairSync('rsa', { modulusLength: 2048 });
+const other = generateKeyPairSync('rsa', { modulusLength: 2048 });
+const jwk = { ...publicKey.export({ format: 'jwk' }), kid: 'k1', alg: 'RS256', use: 'sig' };
+let jwksCalls = 0;
+const fetchJwks = async (url) => {
+  jwksCalls++;
+  assert.match(url, /^https:\/\/oidc\.vercel\.com(\/peter-buck-s-projects)?\/\.well-known\/jwks$/);
+  return { ok: true, json: async () => ({ keys: [jwk] }) };
+};
+const NOW = Date.parse('2026-10-02T15:00:00Z');
+const b64 = (o) => Buffer.from(JSON.stringify(o)).toString('base64url');
+function jwt(over = {}, { key = privateKey, kid = 'k1', alg = 'RS256' } = {}) {
+  const t = Math.floor(NOW / 1000);
+  const claims = {
+    iss: 'https://oidc.vercel.com/peter-buck-s-projects', aud: 'https://vercel.com/peter-buck-s-projects',
+    sub: 'owner:peter-buck-s-projects:project:bureau:environment:production',
+    iat: t - 60, nbf: t - 60, exp: t + 3600,
+    owner: 'peter-buck-s-projects', owner_id: READER.ownerId, project: 'bureau', project_id: READER.projectId, environment: 'production',
+    ...over,
+  };
+  const head = b64({ typ: 'JWT', alg, kid });
+  const body = b64(claims);
+  return `${head}.${body}.${sign('RSA-SHA256', Buffer.from(`${head}.${body}`), key).toString('base64url')}`;
+}
+const opts = { now: NOW, fetch: fetchJwks };
+
+test("BUREAU's production identity, signed by Vercel, is the reader", async () => {
+  assert.equal(await bureauIdentity(jwt(), opts), true);
+  assert.equal(await machine({ authorization: `Bearer ${jwt()}` }, {}, opts), 'ok');
+  assert.equal(await bureauIdentity(jwt({ iss: 'https://oidc.vercel.com' }), opts), true, 'global issuer mode');
 });
 
-test('an unset token is not configured, never open', () => {
-  assert.equal(machine({ authorization: 'Bearer ' }, {}), 'not_configured');
-  assert.equal(machine({ authorization: 'Bearer undefined' }, {}), 'not_configured');
+test('anything else is denied: another project, a preview, another team, expired, forged, or a stranger', async () => {
+  for (const [why, token] of [
+    ['another project', jwt({ project_id: 'prj_other' })],
+    ['a BUREAU preview', jwt({ environment: 'preview' })],
+    ['another team', jwt({ owner_id: 'team_other' })],
+    ['expired', jwt({ exp: Math.floor(NOW / 1000) - 3600 })],
+    ['not yet valid', jwt({ nbf: Math.floor(NOW / 1000) + 3600 })],
+    ['a foreign issuer', jwt({ iss: 'https://evil.example' })],
+    ['signed by another key', jwt({}, { key: other.privateKey })],
+    ['an unknown key id', jwt({}, { kid: 'k2' })],
+    ['alg none', jwt({}, { alg: 'none' })],
+    ['garbage', 'a.b.c'],
+  ]) {
+    assert.equal(await bureauIdentity(token, opts), false, why);
+  }
+  const t = jwt().split('.');
+  const tampered = `${t[0]}.${b64({ ...JSON.parse(Buffer.from(t[1], 'base64url')), project_id: READER.projectId, environment: 'production', exp: 9e9 })}.${t[2]}`;
+  assert.equal(await bureauIdentity(tampered, opts), false, 'claims edited after signing');
+});
+
+test('no header, a cookie or a query secret is never a machine', async () => {
+  assert.equal(await machine({}, {}, opts), 'denied');
+  assert.equal(await machine({ cookie: 'kd_intel=x' }, {}, opts), 'denied');
+  assert.equal(await machine({ authorization: jwt() }, {}, opts), 'denied', 'must be a Bearer header');
+});
+
+test("Vercel's keys are cached rather than fetched on every request", async () => {
+  const before = jwksCalls;
+  for (let i = 0; i < 5; i++) await bureauIdentity(jwt(), opts);
+  assert.ok(jwksCalls - before <= 1);
+});
+
+test('an unreachable key set denies rather than admits', async () => {
+  resetKeys();
+  assert.equal(await bureauIdentity(jwt(), { now: NOW, fetch: async () => { throw new Error('down'); } }), false);
+  assert.equal(await bureauIdentity(jwt(), { now: NOW, fetch: async () => ({ ok: false, json: async () => ({}) }) }), false);
+});
+
+test('an optional static token still works only when configured, and only exactly', async () => {
+  assert.equal(await machine({ authorization: 'Bearer static-token-0123456789' }, { INTELLIGENCE_READ_TOKEN: 'static-token-0123456789' }, opts), 'ok');
+  assert.equal(await machine({ authorization: 'Bearer static-token-012345678' }, { INTELLIGENCE_READ_TOKEN: 'static-token-0123456789' }, opts), 'denied');
+  assert.equal(await machine({ authorization: 'Bearer undefined' }, {}, opts), 'denied');
 });
 
 test('the window: three lengths, an optional pinned end, nothing else', () => {

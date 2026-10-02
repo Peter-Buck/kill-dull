@@ -5,6 +5,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
+// The optional static reader token stands in for BUREAU's OIDC identity here;
+// the identity itself is tested against real signatures in access.test.mjs.
 const TOKEN = 'read-token-for-tests-0123456789abcdef';
 const CRON = 'cron-secret-for-tests-0123456789abcdef';
 process.env.INTELLIGENCE_READ_TOKEN = TOKEN;
@@ -45,6 +47,7 @@ test('THE OLD ?k= AND kd_intel COOKIE OPEN NOTHING', async () => {
 });
 
 test('a wrong bearer is redirected like any browser', async () => {
+  globalThis.fetch = async () => ({ ok: true, json: async () => ({ keys: [] }) });
   const res = await call(intelligence, '/intelligence', { authorization: 'Bearer nope' });
   assert.equal(res.statusCode, 302);
 });

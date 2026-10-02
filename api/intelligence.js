@@ -1,6 +1,7 @@
 // killdull.com/intelligence — a machine endpoint and a signpost.
 //
-// BUREAU's server reads Intelligence here with a bearer token and gets the
+// BUREAU's server reads Intelligence here — identified by the OIDC token Vercel
+// signs for BUREAU's production deployment — and gets the
 // model as JSON. Everyone else — a browser, an old bookmark, a link from an old
 // email — is redirected to BUREAU, where people sign in with Google and read
 // the same model. There is no human login on this host any more: no ?k=, no
@@ -53,17 +54,12 @@ module.exports = async function handler(req, res) {
   var url = new URL(req.url, 'https://killdull.com');
   var now = new Date();
   var win = mods.access.windowOf(url.searchParams, now);
-  var who = mods.access.machine(req.headers);
+  var who = await mods.access.machine(req.headers);
 
-  // Anyone without the bearer token is a person or a stranger: send them to
-  // BUREAU. Only the window travels; any other parameter, an old ?k= included,
-  // is dropped rather than forwarded.
+  // Anyone who is not BUREAU's production server is a person or a stranger:
+  // send them to BUREAU. Only the window travels; any other parameter, an old
+  // ?k= included, is dropped rather than forwarded.
   if (who !== 'ok') {
-    if (who === 'not_configured' && req.headers['authorization']) {
-      // A machine call while the token is unset is an operational fault, and
-      // reporting it as a redirect would hide it.
-      return json(res, 503, { ok: false, error: 'not_configured' });
-    }
     var asked = url.searchParams.has('hours') || url.searchParams.has('end');
     return redirect(res, mods.access.bureauURL(asked ? win : null));
   }
