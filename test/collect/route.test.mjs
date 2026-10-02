@@ -9,6 +9,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { Readable } from 'node:stream';
 
+process.env.VERCEL_ENV = 'production';
 process.env.POSTHOG_PROJECT_API_KEY = 'phc_test_key';
 process.env.POSTHOG_INGEST_HOST = 'https://eu.i.posthog.test';
 process.env.IPREGISTRY_API_KEY = 'ipreg_test_key';
@@ -133,13 +134,82 @@ test('a malformed origin is rejected rather than ignored', async () => {
   assert.equal((await call({ body: valid(), headers: { origin: 'not a url' } })).statusCode, 403);
 });
 
-test('the site itself, www, and a preview calling its own host all pass', async () => {
+test('the site itself and www pass, and every event names its origin', async () => {
   reset();
   assert.equal((await call({ body: valid(), headers: { origin: 'https://killdull.com' } })).statusCode, 204);
   assert.equal((await call({ body: valid(), headers: { origin: 'https://www.killdull.com', host: 'www.killdull.com' } })).statusCode, 204);
-  assert.equal((await call({
+  assert.equal(scene.sent.length, 2);
+  assert.equal(scene.sent[0].batch[0].properties.site_env, 'production');
+  assert.equal(scene.sent[0].batch[0].properties.site_host, 'killdull.com');
+  assert.equal(scene.sent[1].batch[0].properties.site_host, 'www.killdull.com');
+});
+
+/** The Upstash counter commands issued during the last call, as key names. */
+const counted = () => scene.calls
+  .filter((c) => c.url.endsWith('/pipeline') && c.init.body.includes('kd:collect:'))
+  .map((c) => JSON.parse(c.init.body)[0][1].replace(/^kd:collect:\d{4}-\d{2}-\d{2}:/, ''));
+
+test('A PREVIEW NEVER WRITES: a vercel.app host is refused as non_production', async () => {
+  reset();
+  const res = await call({
     body: valid(), headers: { origin: 'https://kill-dull-abc123.vercel.app', host: 'kill-dull-abc123.vercel.app' },
-  })).statusCode, 204);
+  });
+  assert.equal(res.statusCode, 204);
+  assert.equal(scene.sent.length, 0, 'nothing reached PostHog');
+  assert.deepEqual(counted(), ['rej:non_production']);
+  assert.equal(scene.calls.some((c) => c.url.includes('ipregistry')), false, 'no lookup either');
+});
+
+test('A PREVIEW NEVER WRITES: any non-production deployment is refused, whatever its host', async () => {
+  for (const env of ['preview', 'development', undefined]) {
+    reset();
+    const was = process.env.VERCEL_ENV;
+    if (env === undefined) delete process.env.VERCEL_ENV; else process.env.VERCEL_ENV = env;
+    try {
+      assert.equal((await call({ body: valid() })).statusCode, 204, String(env));
+      assert.equal(scene.sent.length, 0, String(env));
+      assert.deepEqual(counted(), ['rej:non_production'], String(env));
+    } finally { process.env.VERCEL_ENV = was; }
+  }
+});
+
+test('localhost is never production', async () => {
+  reset();
+  await call({ body: valid(), headers: { origin: 'http://localhost:3000', host: 'localhost:3000' } });
+  assert.equal(scene.sent.length, 0);
+});
+
+test('AN OPTED-OUT BROWSER IS REFUSED as internal, and is not identified by anything else', async () => {
+  reset();
+  const res = await call({ body: valid(), headers: { cookie: `kd_did=${DID}; kd_internal=1` } });
+  assert.equal(res.statusCode, 204);
+  assert.equal(scene.sent.length, 0);
+  assert.deepEqual(counted(), ['rej:internal']);
+  // Another visitor on the same network, same address, is unaffected.
+  reset();
+  await call({ body: valid() });
+  assert.equal(scene.sent.length, 1);
+});
+
+test('every accepted event is counted by name, and only by name', async () => {
+  reset();
+  await call({ body: valid({ event: 'assessment_started' }) });
+  assert.deepEqual(counted(), ['ok:assessment_started']);
+});
+
+test('stripped properties are counted as props_dropped, and the event is still kept', async () => {
+  reset();
+  await call({ body: valid({ props: { path: '/', answer: 'free text' } }) });
+  assert.equal(scene.sent.length, 1);
+  assert.deepEqual(counted(), ['rej:props_dropped', 'ok:content_view']);
+});
+
+test('refusal reasons are counted: unknown event, bad id, cookie mismatch', async () => {
+  reset();
+  await call({ body: valid({ event: 'nope' }) });
+  await call({ body: valid({ distinctId: '' }) });
+  await call({ body: valid(), headers: { cookie: 'kd_did=9f3c1a9e-0b2d-4c6f-9a81-2e5d7c4b0a13' } });
+  assert.deepEqual(counted(), ['rej:unknown_event', 'rej:bad_id', 'rej:cookie_mismatch']);
 });
 
 // ── GATE 2 · body size ──────────────────────────────────────────────────────
@@ -183,20 +253,34 @@ test('CONSENT FALSE OR MISSING IS 204 AND NOTHING IS PROCESSED', async () => {
     assert.equal(res.statusCode, 204, JSON.stringify(over));
   }
   assert.equal(scene.sent.length, 0, 'nothing ingested');
-  assert.equal(scene.calls.length, 0, 'no provider was consulted at all — not even the IP lookup');
+  // The only outbound call is the refusal counter: a reason name and a day.
+  assert.equal(scene.calls.filter((c) => !c.url.includes('upstash.test')).length, 0,
+    'no provider was consulted at all — not even the IP lookup');
+  for (const c of scene.calls) {
+    assert.match(c.init.body, /^\[\["INCR","kd:collect:\d{4}-\d{2}-\d{2}:rej:no_consent"\],\["EXPIRE",/);
+    assert.equal(c.init.body.includes(DID), false, 'the counter carries no id');
+  }
 });
 
 // ── GATE 5 · event allow-list ───────────────────────────────────────────────
 
-test('all ten approved events pass', async () => {
+test('all fifteen approved events pass', async () => {
   reset();
   const approved = ['content_view', 'content_dwell', 'reading_opened', 'contact_submitted',
-    'cta_click', 'email_click', 'linkedin_click', 'outbound_click', 'not_found_404', 'api_error'];
+    'cta_click', 'email_click', 'linkedin_click', 'outbound_click', 'not_found_404',
+    'assessment_started', 'assessment_completed', 'assessment_reading_downloaded',
+    'assessment_reading_emailed', 'ask_opened', 'ask_question_selected'];
   for (const event of approved) {
     const res = await call({ body: valid({ event }) });
     assert.equal(res.statusCode, 204, event);
   }
-  assert.equal(scene.sent.length, 10);
+  assert.equal(scene.sent.length, 15);
+});
+
+test('api_error is gone: nothing emitted it, so it is refused as unknown', async () => {
+  reset();
+  assert.equal((await call({ body: valid({ event: 'api_error' }) })).statusCode, 204);
+  assert.equal(scene.sent.length, 0);
 });
 
 test('PETER BUCK EVENTS REMAIN IMPOSSIBLE', async () => {

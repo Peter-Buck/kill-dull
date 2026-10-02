@@ -7,7 +7,7 @@
 
    What it does NOT do is the point of it. There is no third-party script, no
    autocapture, no session replay, no heatmap and no form listener. It never
-   reads the value of an input. It sends thirteen named events and nothing
+   reads the value of an input. It sends fifteen named events and nothing
    else, and it is completely silent until someone has pressed Accept.
 
    The four Assessment events are a funnel and only a funnel: that someone
@@ -110,6 +110,7 @@
   /* Kill Dull's routes. /bureau reports as COMPANY, which is what the page is
      called now; the path is unchanged because renaming it would break links. */
   function pageType(path) {
+    if (isNotFoundPage()) return 'NOT_FOUND';
     var p = (path || '/').replace(/\.html$/, '');
     if (p === '/' || p === '') return 'HOME';
     if (p.indexOf('/how') === 0 || p.indexOf('/discipline') === 0) return 'DISCIPLINE';
@@ -277,13 +278,39 @@
     }, true);
   }
 
+  /* The 404 page is served, with a 404 status, for any path that does not
+     exist — the address bar keeps the path that was asked for, so the page is
+     recognised by its own marker (body.kd-404), not by its URL. That path is
+     recorded, because it is the only way to find a broken link. */
+  function isNotFoundPage() {
+    return !!(document.body && document.body.classList && document.body.classList.contains('kd-404'));
+  }
   function emitNotFound() {
-    // The 404 page is served for an unmatched path; record that it happened,
-    // and the path that produced it, which is the only way to find broken links.
-    if (!document.body || document.body.getAttribute('data-page') === '404' ||
-        /(^|\/)404(\.html)?$/.test(location.pathname)) {
-      track('not_found_404', { path: location.pathname.slice(0, 64) });
-    }
+    if (isNotFoundPage()) track('not_found_404', { path: location.pathname.slice(0, 64) });
+  }
+
+  /* Ask Kill Dull. Two moments, watched from outside like the Readings: that
+     the panel was opened, and which of its predefined questions was opened, by
+     position (q1–q10). The widget has no free text; its answers are never sent.
+     The state is read after the widget has handled the click. */
+  function watchAsk() {
+    document.addEventListener('click', function (e) {
+      var t = e.target;
+      if (!t || !t.closest) return;
+      var trigger = t.closest('#ask-kill-dull-trigger');
+      var starter = trigger ? null : t.closest('.ask-kd-starter');
+      if (!trigger && !starter) return;
+      setTimeout(function () {
+        if (trigger && trigger.getAttribute('aria-expanded') === 'true') {
+          track('ask_opened', { location: pageType(location.pathname) });
+        }
+        if (starter && starter.getAttribute('aria-expanded') === 'true') {
+          var all = document.querySelectorAll('.ask-kd-starter');
+          var n = Array.prototype.indexOf.call(all, starter) + 1;
+          if (n > 0) track('ask_question_selected', { target: 'q' + n, location: pageType(location.pathname) });
+        }
+      }, 0);
+    }, true);
   }
 
   /* Consent changing is the only thing that turns this file on or off.
@@ -310,7 +337,7 @@
     watchReadings();
     watchContactForm();
     watchAssessment();
-    if (/(^|\/)404(\.html)?$/.test(location.pathname)) emitNotFound();
+    emitNotFound();
   }
 
   // Listeners are attached unconditionally; every one of them checks consent
@@ -321,6 +348,7 @@
   window.addEventListener('pagehide', leaving);
   document.addEventListener('click', onClick, true);
   window.addEventListener('kd-consent-changed', onConsentChanged);
+  watchAsk(); // every track() checks consent itself
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', start);

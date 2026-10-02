@@ -49,14 +49,14 @@ test('the page is marked not to be indexed', () => {
 
 test('a quiet window still renders a briefing, and explains the silence', () => {
   const html = emailHTML(quiet);
-  assert.match(html, /No events were recorded in this window/);
+  assert.match(html, /No activity was observed in this window/);
   assert.match(html, /declined consent/);
-  assert.match(briefingText(quiet), /No events were recorded/);
-  assert.equal(subjectFor(quiet), 'Kill Dull Intelligence — no recorded activity');
+  assert.match(briefingText(quiet), /No activity was observed/);
+  assert.equal(subjectFor(quiet), 'Kill Dull Intelligence — no observed activity');
 });
 
 test('the subject states the finding', () => {
-  assert.match(subjectFor(model), /^Kill Dull Intelligence — WPP, 1 visitor$/);
+  assert.match(subjectFor(model), /^Kill Dull Intelligence — WPP, 1 tracked visitor$/);
 });
 
 test('an unconfirmed company never reaches a subject line', () => {

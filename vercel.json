@@ -1,6 +1,17 @@
 {
   "redirects": [
     {
+      "source": "/:path((?!api/).*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "kill-dull.vercel.app"
+        }
+      ],
+      "destination": "https://killdull.com/:path",
+      "permanent": false
+    },
+    {
       "source": "/go-deeper",
       "destination": "/how",
       "permanent": false

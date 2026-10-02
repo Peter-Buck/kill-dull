@@ -8,7 +8,10 @@ import { EVENTS, sanitizeProps } from '../../lib/collect/schema.mjs';
 
 test('the event list describes only what Kill Dull actually does', () => {
   assert.deepEqual([...EVENTS].sort(), [
-    'api_error', 'contact_submitted', 'content_dwell', 'content_view',
+    'ask_opened', 'ask_question_selected',
+    'assessment_completed', 'assessment_reading_downloaded',
+    'assessment_reading_emailed', 'assessment_started',
+    'contact_submitted', 'content_dwell', 'content_view',
     'cta_click', 'email_click', 'linkedin_click', 'not_found_404',
     'outbound_click', 'reading_opened',
   ]);
@@ -59,13 +62,13 @@ test('a string over 64 characters is dropped, not truncated', () => {
 
 test('non-scalars are dropped — no nested objects, arrays or functions', () => {
   const out = sanitizeProps({
-    path: '/', target: { nested: true }, location: ['a'], reason: () => {}, code: 404,
+    path: '/', target: { nested: true }, location: ['a'], page_type: () => {}, dwell_bucket: 30,
   });
-  assert.deepEqual(out, { path: '/', code: 404 });
+  assert.deepEqual(out, { path: '/', dwell_bucket: 30 });
 });
 
 test('booleans and numbers are allowed types', () => {
-  assert.deepEqual(sanitizeProps({ status: true, code: 0 }), { status: true, code: 0 });
+  assert.deepEqual(sanitizeProps({ target: true, dwell_bucket: 0 }), { target: true, dwell_bucket: 0 });
 });
 
 test('geo and network keys cannot be claimed by the browser', () => {

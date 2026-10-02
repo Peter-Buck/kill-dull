@@ -25,7 +25,8 @@ function modules() {
       import('../../lib/intel/briefing.mjs'),
       import('../../lib/intel/render.mjs'),
       import('../../lib/intel/mail.mjs'),
-      import('../../lib/collect/cache.mjs')
+      import('../../lib/collect/cache.mjs'),
+      import('../../lib/intel/access.mjs')
     ]).then(function (m) {
       return {
         laHour: m[0].laHour,
@@ -37,7 +38,8 @@ function modules() {
         subjectFor: m[2].subjectFor,
         sendBriefing: m[3].sendBriefing,
         recipient: m[3].recipient,
-        cache: m[4].createCache()
+        cache: m[4].createCache(),
+        bureauURL: m[5].bureauURL
       };
     });
   }
@@ -61,28 +63,25 @@ function same(a, b) {
 }
 
 /**
- * Authenticated three ways, by two credentials.
+ * Bearer tokens only — nothing in the URL, so no link, log line or browser
+ * history ever carries a credential.
  *
- * Vercel's scheduler presents CRON_SECRET as a bearer token. A deliberate run
- * by hand presents either secret as ?k= — the scheduler's own credential,
- * because an operator triggering this job is standing in for the scheduler, or
- * the Intelligence secret, because whoever can read the briefing can ask for
- * it to be sent. Both are high-entropy server-side values, both are compared in
- * constant time, and neither is ever echoed back.
+ * Vercel's scheduler presents CRON_SECRET; that is the only credential that can
+ * send. BUREAU's read token may ask for a dry run, which renders the identical
+ * briefing and sends nothing — it can already read the same model, so this
+ * grants it nothing new. Both are compared in constant time and never echoed.
  *
- * If neither variable is configured the job refuses to run rather than leaving
+ * If CRON_SECRET is not configured the job refuses to run rather than leaving
  * a mailer open to the internet.
  */
-function authorised(req, url) {
+function authorised(req) {
   var cronSecret = process.env.CRON_SECRET;
-  var dash = process.env.DASHBOARD_AUTH_SECRET;
-  if (!cronSecret && !dash) return { ok: false, status: 503, reason: 'not_configured' };
+  var readToken = process.env.INTELLIGENCE_READ_TOKEN;
+  if (!cronSecret) return { ok: false, status: 503, reason: 'not_configured' };
 
   var auth = req.headers['authorization'] || '';
-  if (cronSecret && same(auth, 'Bearer ' + cronSecret)) return { ok: true, by: 'schedule' };
-
-  var k = url.searchParams.get('k');
-  if (same(k, cronSecret) || same(k, dash)) return { ok: true, by: 'manual' };
+  if (same(auth, 'Bearer ' + cronSecret)) return { ok: true, by: 'schedule' };
+  if (readToken && same(auth, 'Bearer ' + readToken)) return { ok: true, by: 'reader', dryOnly: true };
 
   return { ok: false, status: 401, reason: 'unauthorized' };
 }
@@ -120,18 +119,21 @@ module.exports = async function handler(req, res) {
   var mods = await modules();
   var url = new URL(req.url, 'https://' + (req.headers['host'] || 'killdull.com'));
 
-  var auth = authorised(req, url);
+  var auth = authorised(req);
   if (!auth.ok) return json(res, auth.status, { ok: false, error: auth.reason });
 
-  var now = new Date();
+  // Whole seconds, so the end written into the email's link is exactly the end
+  // the briefing was built with, and opening the link rebuilds the same window.
+  var now = new Date(Math.floor(Date.now() / 1000) * 1000);
   var hour = mods.laHour(now);
-  // A deliberate run, by either credential: ignore the hour guard and the
+  // A deliberate run with the scheduler's credential: ignore the hour guard and the
   // once-a-day claim, because the point of it is to run now.
   var force = url.searchParams.get('force') === '1';
   // A dry run builds the identical briefing and renders it, and sends nothing.
   // It is how this job is checked against real data without putting a test
   // email in Peter's inbox, and it is the same build() call the real run makes.
   var dry = url.searchParams.get('dry') === '1';
+  if (auth.dryOnly && (!dry || force)) return json(res, 403, { ok: false, error: 'dry_run_only' });
 
   // The DST guard. Exactly one of the two UTC entries is 08:00 in Los Angeles
   // on any given day; the other one stops here.
@@ -160,7 +162,9 @@ module.exports = async function handler(req, res) {
 
   var model = result.model;
   var meta = {
-    dashboardURL: process.env.DASHBOARD_URL || null,
+    // BUREAU, pinned to this exact window. No secret: BUREAU asks the reader to
+    // sign in, then rebuilds the same report from the same raw events.
+    dashboardURL: mods.bureauURL({ hours: 24, end: now }),
     note: (model.degraded && model.degraded.length) ? 'Partial read: ' + model.degraded.join('; ') + '.' : ''
   };
 

@@ -1,13 +1,14 @@
-// The private Intelligence page.
+// killdull.com/intelligence — a machine endpoint and a signpost.
 //
-// Same handler shape as api/collect.js and api/contact.js: a CommonJS function
-// with no dependencies and no build step, loading the pure ESM modules through
-// one memoised dynamic import with literal specifiers so the file tracer can
-// follow them.
+// BUREAU's server reads Intelligence here with a bearer token and gets the
+// model as JSON. Everyone else — a browser, an old bookmark, a link from an old
+// email — is redirected to BUREAU, where people sign in with Google and read
+// the same model. There is no human login on this host any more: no ?k=, no
+// cookie, no secret in any link. Nothing here is public.
 //
-// It reads Kill Dull's own PostHog project and renders the briefing. It is a
-// reporting surface only: it writes nothing, it does not touch collection, and
-// it never sees an IP address, because collection never stored one.
+// Same handler shape as api/collect.js: a CommonJS function with no
+// dependencies and no build step, loading the ESM modules through one
+// memoised dynamic import with literal specifiers so the file tracer follows them.
 
 'use strict';
 
@@ -15,96 +16,65 @@ var modulesPromise = null;
 function modules() {
   if (!modulesPromise) {
     modulesPromise = Promise.all([
-      import('../lib/intel/gate.mjs'),
-      import('../lib/intel/briefing.mjs'),
-      import('../lib/intel/render.mjs')
+      import('../lib/intel/access.mjs'),
+      import('../lib/intel/briefing.mjs')
     ]).then(function (m) {
-      return { gate: m[0].gate, build: m[1].build, pageHTML: m[2].pageHTML };
+      return { access: m[0], build: m[1].build };
     });
   }
   return modulesPromise;
 }
 
-// The three windows worth having. Anything else is rejected rather than
-// clamped, so a mistyped url cannot quietly answer a different question.
-var RANGES = [
-  { hours: 24, label: '24 hours' },
-  { hours: 72, label: '3 days' },
-  { hours: 168, label: '7 days' }
-];
-
-function html(res, status, body, extraHeaders) {
+function json(res, status, payload) {
   res.statusCode = status;
-  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.setHeader('Content-Type', 'application/json; charset=utf-8');
   // A briefing is private and perishable. Nothing caches it, anywhere.
   res.setHeader('Cache-Control', 'no-store, private');
   res.setHeader('X-Robots-Tag', 'noindex, nofollow, noarchive');
-  res.setHeader('Referrer-Policy', 'no-referrer');
-  if (extraHeaders && extraHeaders.setCookie) res.setHeader('Set-Cookie', extraHeaders.setCookie);
-  res.end(body);
+  res.end(JSON.stringify(payload, null, 2));
 }
 
-function plain(res, status, body) {
-  res.statusCode = status;
-  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+function redirect(res, location) {
+  res.statusCode = 302;
+  res.setHeader('Location', location);
   res.setHeader('Cache-Control', 'no-store, private');
   res.setHeader('X-Robots-Tag', 'noindex, nofollow, noarchive');
-  res.end(body);
+  res.setHeader('Referrer-Policy', 'no-referrer');
+  res.end();
 }
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'GET' && req.method !== 'HEAD') {
     res.setHeader('Allow', 'GET');
-    return plain(res, 405, 'Method not allowed.');
+    return json(res, 405, { ok: false, error: 'method_not_allowed' });
   }
 
   var mods = await modules();
-  var url = new URL(req.url, 'https://' + (req.headers['host'] || 'killdull.com'));
+  var url = new URL(req.url, 'https://killdull.com');
+  var now = new Date();
+  var win = mods.access.windowOf(url.searchParams, now);
+  var who = mods.access.machine(req.headers);
 
-  var pass = mods.gate(url, req.headers);
-  if (!pass.ok) {
-    // 401 and 503 are told apart deliberately: an unconfigured secret is an
-    // operational fault, and reporting it as "wrong key" would hide it. Neither
-    // answer reveals anything about the secret itself.
-    return plain(res, pass.status, pass.reason === 'not_configured'
-      ? 'Intelligence is not configured.'
-      : 'Not authorised.');
+  // Anyone without the bearer token is a person or a stranger: send them to
+  // BUREAU. Only the window travels; any other parameter, an old ?k= included,
+  // is dropped rather than forwarded.
+  if (who !== 'ok') {
+    if (who === 'not_configured' && req.headers['authorization']) {
+      // A machine call while the token is unset is an operational fault, and
+      // reporting it as a redirect would hide it.
+      return json(res, 503, { ok: false, error: 'not_configured' });
+    }
+    var asked = url.searchParams.has('hours') || url.searchParams.has('end');
+    return redirect(res, mods.access.bureauURL(asked ? win : null));
   }
 
-  var hours = parseInt(url.searchParams.get('hours') || '24', 10);
-  if (!RANGES.some(function (r) { return r.hours === hours; })) hours = 24;
+  if (!win) return json(res, 400, { ok: false, error: 'bad_window' });
 
-  var result = await mods.build({ hours: hours });
+  var result = await mods.build({ hours: win.hours, now: win.end || now });
   if (!result.ok) {
-    return plain(res, 503, 'Intelligence could not be built: ' + result.reason + '\n' +
-      'Window: ' + (result.window && result.window.label ? result.window.label : 'unknown'));
+    return json(res, 503, { ok: false, error: result.reason, window: result.window ? {
+      hours: result.window.hours, start: result.window.start, end: result.window.end, label: result.window.label
+    } : null });
   }
-
-  // The model, for verifying the data rather than the layout. Gated by the same
-  // secret as the page, and built from the same call, so it cannot disagree
-  // with what the page shows.
-  if (url.searchParams.get('format') === 'json') {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'application/json; charset=utf-8');
-    res.setHeader('Cache-Control', 'no-store, private');
-    if (pass.setCookie) res.setHeader('Set-Cookie', pass.setCookie);
-    return res.end(JSON.stringify(result.model, null, 2));
-  }
-
-  var key = url.searchParams.get('k');
-  var ranges = RANGES.map(function (r) {
-    return {
-      // The secret stays out of the nav once the cookie exists; it is only
-      // carried forward on the first visit, which is the one that set it.
-      href: '/intelligence?hours=' + r.hours + (key ? '&k=' + encodeURIComponent(key) : ''),
-      label: r.label,
-      current: r.hours === hours
-    };
-  });
-
-  var note = (result.model.degraded && result.model.degraded.length)
-    ? 'Partial read: ' + result.model.degraded.join('; ') + '.'
-    : '';
-
-  return html(res, 200, mods.pageHTML(result.model, { ranges: ranges, note: note }), pass);
+  return json(res, 200, result.model);
 };
