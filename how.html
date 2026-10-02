@@ -280,7 +280,7 @@ if(window.IntersectionObserver){
 var clip=document.querySelector('#fold-standards .standards-clip');
 var clipFold=document.querySelector('[aria-controls="fold-standards"]');
 if(clip&&clipFold)clipFold.addEventListener('click',function(){
-  if(clipFold.getAttribute('aria-expanded')==='true')clip.src=clip.getAttribute('data-src');
+  if(clipFold.getAttribute('aria-expanded')==='true')clip.src=clip.getAttribute('data-src')+(window.matchMedia&&window.matchMedia('(max-width:767px)').matches?'?compact':'');
   else clip.src='about:blank';
 });
 })();</script>
