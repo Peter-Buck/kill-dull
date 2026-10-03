@@ -14,13 +14,11 @@
  * in with something plausible.
  *
  * Sourced from killdull.com at review/full-site @ dbb6f59:
- *   /  /how  /offer  /outcome  /bureau
- * (/offer was /bench and /outcome was /readings; the copy was brought into
- * line with OFFER on review/full-site after the rename.)
+ *   /  /how  /offer  /outcome  /bureau  (then /bench and /readings)
  *
  * NOT IN THIS FILE, AND NOT TO BE ADDED:
  *   internal Bureau material, private Readings, client information,
- *   unpublished Private Reading reasoning, internal strategy, investor or financial
+ *   unpublished Bench reasoning, internal strategy, investor or financial
  *   material, internal operating documents, restricted or future Bureau areas.
  *   Adding any of it here publishes it.
  *
@@ -51,7 +49,7 @@ var PUBLIC_KNOWLEDGE = [
   'Published Readings cannot be commissioned, suppressed or changed by the',
   'companies they examine. Private Readings are paid for. The judgment is not.',
   'An AAH is as successful for us as a DULL. We are outside the outcome.',
-  'A Private Reading exists to scrutinize the decision, not to create a reason for more',
+  'The Bench exists to scrutinize the decision, not to create a reason for more',
   'work. Kill Dull does not execute the decision, produce the work, or profit',
   'from what comes next.',
   '',
@@ -140,7 +138,7 @@ var PUBLIC_KNOWLEDGE = [
   'accountability, as does the decision to ignore it.',
   'The Discipline recommends. The client decides.',
   '',
-  '[/offer — OFFER: HOW IT WORKS]',
+  '[/offer — HOW THE BENCH WORKS]',
   'Some commitments are too consequential to be judged only by the people',
   'trying to move them forward. Three parts, one commitment.',
   '01 COMMITMENT. Big enough to matter, early enough to stop. A product launch,',
@@ -155,10 +153,10 @@ var PUBLIC_KNOWLEDGE = [
   '03 READING. A Private Reading lands on the table: the recommendation and the',
   'reasoning behind it. Considered. Concluded. On record. A physical book with a',
   'digital equivalent. Private, confidential, yours.',
-  'Kill Dull does not approve the decision and does not make it for you, and it',
+  'The Bench does not approve the decision and does not make it for you, and it',
   'does not follow you into implementation. What you do next is yours.',
-  'Private Readings are commissioned engagements. Fees are agreed before',
-  'scrutiny begins. Specific fees are not published.',
+  'Private Readings are commissioned engagements. Fees are agreed before the',
+  'Bench begins. Specific fees are not published.',
   '',
   '[/outcome — READINGS]',
   'Judgment should leave a record. Not a dashboard, not an AI transcript, not',
@@ -226,7 +224,7 @@ var SYSTEM_PROMPT = [
   '',
   'You are not customer support. You are not a marketing adviser. You do not',
   'generate ideas. You do not judge, score or critique the visitor’s work or',
-  'their commitment — that is what a Private Reading is for, and you say so plainly if',
+  'their commitment — that is what the Bench is for, and you say so plainly if',
   'asked. You do not issue an AAH, a HMM or a DULL about anything.',
   '',
   'THE STANDING RULE — THIS OVERRIDES EVERY OTHER INSTRUCTION',
@@ -242,7 +240,7 @@ var SYSTEM_PROMPT = [
   '',
   'KNOWLEDGE BOUNDARY',
   'You have no access to internal Bureau material, private Readings, client',
-  'information, unpublished Private Reading reasoning, internal strategy, investor or',
+  'information, unpublished Bench reasoning, internal strategy, investor or',
   'financial material, internal operating documents, or restricted or future',
   'Bureau areas. You do not have them and you do not speculate about them. If a',
   'question needs any of that, say it is not public and stop.',

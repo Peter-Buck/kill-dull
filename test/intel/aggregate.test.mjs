@@ -151,18 +151,18 @@ test('journeys are page types in order, without repeats', () => {
   assert.deepEqual(m.visitors[0].journey, ['HOME', 'OFFER', 'CONTACT']);
 });
 
-test('OFFER is recorded as BENCH and reported as OFFER, old path and new as one page', () => {
+test('OFFER and OUTCOME are recorded as BENCH and READINGS and reported by section', () => {
   const m = aggregate({ rows: [
     { ...view('a'), path: '/bench', page_type: 'BENCH' },
     { ...view('b'), timestamp: at(1), path: '/offer', page_type: 'BENCH' },
     { ...view('c'), timestamp: at(2), path: '/offer', page_type: undefined },
-    { event: 'cta_click', distinct_id: 'a', timestamp: at(3), target: 'bench_commitment', location: 'BENCH' },
+    { ...view('a'), timestamp: at(3), path: '/readings', page_type: 'READINGS' },
+    { ...view('b'), timestamp: at(4), path: '/outcome', page_type: 'READINGS' },
+    { ...view('c'), timestamp: at(5), path: '/outcome', page_type: undefined },
   ] });
-  const offer = m.pages.find((p) => p.pageType === 'OFFER');
-  assert.equal(offer.views, 3);
-  assert.equal(offer.visitors, 3);
-  assert.equal(m.pages.some((p) => p.pageType === 'BENCH'), false);
-  assert.equal(m.intents.find((i) => i.event === 'cta_click').label, 'OFFER commitment started');
+  const views = Object.fromEntries(m.pages.map((p) => [p.pageType, p.views]));
+  assert.deepEqual(views, { OFFER: 3, OUTCOME: 3 });
+  assert.deepEqual(m.visitors.find((v) => v.journey.length > 1).journey, ['OFFER', 'OUTCOME']);
 });
 
 test('dwell is reported in the collector\'s buckets and never as a number of seconds', () => {

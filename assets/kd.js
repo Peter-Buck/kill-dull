@@ -96,7 +96,7 @@
        leaves when the cursor does, and its fixed frame is the point. The old
        gate said "narrower than 768px", which made an iPad in landscape a desk:
        the copy grows as the column narrows while the 2:3 frame shrinks with it,
-       so at 1024x768 every card on the homepage and OFFER lost the top of
+       so at 1024x768 every card on the homepage and the Bench lost the top of
        its panel, headline and all, exactly as a phone used to.
        The floor is the card's own width now rather than the viewport's. A
        zero-width float with a percentage top padding is measured against the
@@ -143,7 +143,7 @@
     var p=pathname.replace(/\/$/,'');
     if(p===''||p==='/index.html')return 'home';
     if(p==='/why'||p==='/why.html')return 'why';
-    if(p==='/offer'||p==='/offer.html')return 'offer';
+    if(p==='/offer'||p==='/offer.html')return 'bench';
     if(p==='/outcome'||p==='/outcome.html')return 'readings';
     if(p==='/how'||p==='/how.html'||p==='/discipline'||p==='/discipline.html'||p==='/go-deeper'||p==='/go-deeper.html')return 'discipline';
     if(p==='/bureau'||p==='/bureau.html')return 'bureau';
@@ -165,12 +165,12 @@
     var tagline=document.querySelector('.masthead-tagline');
     if(tagline) tagline.textContent='';
     var desktop=document.getElementById('registrar-desktop');
-    var deskHtml='<a class="reg-item'+(key==='why'?' is-current':'')+'" href="/why">WHY</a><a class="reg-item'+(key==='home'?' is-current':'')+'" href="/">WHAT</a><a class="reg-item'+(key==='discipline'?' is-current':'')+'" href="/how">HOW</a><a class="reg-item'+(key==='offer'?' is-current':'')+'" href="/offer">OFFER</a><a class="reg-item'+(key==='readings'?' is-current':'')+'" href="/outcome">OUTCOME</a>';
+    var deskHtml='<a class="reg-item'+(key==='why'?' is-current':'')+'" href="/why">WHY</a><a class="reg-item'+(key==='home'?' is-current':'')+'" href="/">WHAT</a><a class="reg-item'+(key==='discipline'?' is-current':'')+'" href="/how">HOW</a><a class="reg-item'+(key==='bench'?' is-current':'')+'" href="/offer">OFFER</a><a class="reg-item'+(key==='readings'?' is-current':'')+'" href="/outcome">OUTCOME</a>';
     if(desktop&&desktop.getAttribute('data-kd-nav')!==key){desktop.innerHTML=deskHtml;desktop.setAttribute('data-kd-nav',key);}
     var products=document.querySelector('.unified-nav-products');
     if(products) products.innerHTML='<a class="product-cta" href="/assessment"><span class="enter-text" data-kd-keep-arrow>MARKETING JUDGMENT TEST →</span></a>';
     var mobile=document.querySelector('.registrar-mobile');
-    if(mobile){var label=key==='why'?'WHY':key==='discipline'?'HOW':key==='offer'?'OFFER':key==='readings'?'OUTCOME':key==='bureau'?'DENSE IDEA COMPANY™':key==='contact'||key==='assessment'?'MENU':key==='home'?'WHAT':'MENU';var mobHtml='<button class="reg-mobile-current" id="reg-mobile-btn" aria-expanded="false" aria-controls="reg-mobile-dropdown"><span id="reg-mobile-label"'+(key==='bureau'?' class="is-long"':'')+'>'+label+'</span><span class="reg-mobile-arrow" aria-hidden="true"></span></button><div class="reg-mobile-dropdown" id="reg-mobile-dropdown" hidden><a class="reg-item" href="/why">WHY</a><a class="reg-item" href="/">WHAT</a><a class="reg-item" href="/how">HOW</a><a class="reg-item" href="/offer">OFFER</a><a class="reg-item" href="/outcome">OUTCOME</a></div>';if(mobile.getAttribute('data-kd-nav')!==label){mobile.innerHTML=mobHtml;mobile.setAttribute('data-kd-nav',label);}}
+    if(mobile){var label=key==='why'?'WHY':key==='discipline'?'HOW':key==='bench'?'OFFER':key==='readings'?'OUTCOME':key==='bureau'?'DENSE IDEA COMPANY™':key==='contact'||key==='assessment'?'MENU':key==='home'?'WHAT':'MENU';var mobHtml='<button class="reg-mobile-current" id="reg-mobile-btn" aria-expanded="false" aria-controls="reg-mobile-dropdown"><span id="reg-mobile-label"'+(key==='bureau'?' class="is-long"':'')+'>'+label+'</span><span class="reg-mobile-arrow" aria-hidden="true"></span></button><div class="reg-mobile-dropdown" id="reg-mobile-dropdown" hidden><a class="reg-item" href="/why">WHY</a><a class="reg-item" href="/">WHAT</a><a class="reg-item" href="/how">HOW</a><a class="reg-item" href="/offer">OFFER</a><a class="reg-item" href="/outcome">OUTCOME</a></div>';if(mobile.getAttribute('data-kd-nav')!==label){mobile.innerHTML=mobHtml;mobile.setAttribute('data-kd-nav',label);}}
     var burberry=document.querySelector('.readings-page img[alt="Burberry"]');
     if(burberry){burberry.src='/assets/burberry-logo.svg';burberry.classList.add('native-cream');}
     var starbucks=document.querySelector('.readings-page img[alt="Starbucks"]');
@@ -204,7 +204,7 @@
       }
     }
     var footer=document.querySelector('.footer');
-    if(footer) footer.innerHTML='<div class="footer-inner"><div class="footer-bureau">DENSE IDEA COMPANY™.</div><div class="footer-index"><div class="footer-section"><div class="footer-section-label">DISCIPLINE</div><nav aria-label="Discipline"><a href="/how">Dense Ideas</a></nav></div><div class="footer-section"><div class="footer-section-label">OFFER</div><nav aria-label="Offer"><a href="/offer">How it works</a><a href="/assessment">The Marketing Judgment Test</a><a href="/outcome">Private Readings</a><a href="/outcome#record">Published Readings</a></nav></div><div class="footer-section"><div class="footer-section-label">KILL DULL</div><nav aria-label="Kill Dull"><a href="/bureau">Department of Hard Evidence</a><a href="/accessibility" aria-label="Accessibility statement">Accessibility</a><a href="/privacy" aria-label="Privacy policy">Privacy</a><a href="/terms" aria-label="Terms of use">Terms</a><a href="/contact">Contact</a></nav></div></div><div class="footer-colophon"><span>© 2026 Kill Dull. All rights reserved.</span><button type="button" class="kd-consent-settings">Cookie settings</button></div></div>';
+    if(footer) footer.innerHTML='<div class="footer-inner"><div class="footer-bureau">DENSE IDEA COMPANY™.</div><div class="footer-index"><div class="footer-section"><div class="footer-section-label">DISCIPLINE</div><nav aria-label="Discipline"><a href="/how">Dense Ideas</a></nav></div><div class="footer-section"><div class="footer-section-label">BENCH</div><nav aria-label="Bench"><a href="/offer">How the Bench works</a><a href="/assessment">The Marketing Judgment Test</a><a href="/outcome">Private Readings</a><a href="/outcome#record">Published Readings</a></nav></div><div class="footer-section"><div class="footer-section-label">KILL DULL</div><nav aria-label="Kill Dull"><a href="/bureau">Department of Hard Evidence</a><a href="/accessibility" aria-label="Accessibility statement">Accessibility</a><a href="/privacy" aria-label="Privacy policy">Privacy</a><a href="/terms" aria-label="Terms of use">Terms</a><a href="/contact">Contact</a></nav></div></div><div class="footer-colophon"><span>© 2026 Kill Dull. All rights reserved.</span><button type="button" class="kd-consent-settings">Cookie settings</button></div></div>';
   }
 
   function normalizeCtas(){

@@ -181,7 +181,7 @@
     AAH: {
       head: 'YOUR MARKETING JUDGMENT HAS TEETH.',
       body: 'Consequential decisions are clearly framed, evidence can overturn preferred answers, meaningful challenge occurs before commitment and independent scrutiny exists.',
-      tail: 'On this evidence you may not have a Kill Dull problem. We would rather tell you that than sell you a Private Reading you don’t need.'
+      tail: 'On this evidence you may not have a Kill Dull problem. We would rather tell you that than sell you a Bench you don’t need.'
     },
     HMM: {
       head: 'YOUR MARKETING JUDGMENT HAS GAPS.',
