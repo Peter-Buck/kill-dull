@@ -2,7 +2,7 @@
  * ASK KILL DULL
  *
  * The public window into Kill Dull. It answers questions about Kill Dull. It
- * does not judge the visitor's commitment — that is the Bench.
+ * does not judge the visitor's commitment — that is what a Reading is for.
  *
  * The control is an icon only, placed in the persistent nav's empty top-left
  * grid column, opposite CONTACT. It is created here rather than authored into
@@ -35,7 +35,7 @@
     {
       q: 'What exactly does Kill Dull do?',
       a: 'Kill Dull brings independent scrutiny to consequential marketing commitments before they are made.\n\n' +
-         'One commitment goes before the Bench. Evidence and assumptions are interrogated across Product, Price, Place and Promotion. A judgment comes back — AAH. HMM. or DULL. — with the reasoning behind it.\n\n' +
+         'One commitment comes in. Evidence and assumptions are interrogated across Product, Price, Place and Promotion. A judgment comes back — AAH. HMM. or DULL. — with the reasoning behind it.\n\n' +
          'You decide what happens next.'
     },
     {
@@ -51,12 +51,10 @@
          'Private Readings are paid for. The judgment isn’t.'
     },
     {
-      q: 'What is The Bench?',
-      a: 'The Bench is where a consequential marketing commitment goes for independent scrutiny before it is made.\n\n' +
-         'You make the case. Then you leave.\n\n' +
-         'We interrogate the evidence, assumptions and consequences.\n\n' +
-         'What comes back is a Private Reading: our recommendation and the reasoning behind it.\n\n' +
-         'You decide.'
+      q: 'What is a Reading?',
+      a: 'Our judgment on one consequential marketing commitment, with the reasoning and evidence behind it.\n\n' +
+         'A Private Reading comes before you decide. Private. Confidential. Yours. A Published Reading looks at a decision already in the world and puts our judgment on the record.\n\n' +
+         'One Reading is a judgment. Many Readings become a record.'
     },
     {
       q: 'What is a Dense Idea?',
@@ -139,7 +137,7 @@
      Ten questions, each with its answer folded underneath it. One answer is
      open at a time: opening the next closes the last, so the list never grows
      past the height of the panel and the question you came for stays in view.
-     The same rule kd.js applies to the Bench cards.
+     The same rule kd.js applies to the OFFER cards.
      -------------------------------------------------------------------- */
 
   function buildRow(item, index) {
