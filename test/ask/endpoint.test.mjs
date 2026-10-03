@@ -147,6 +147,13 @@ test('no message a visitor sees names a raw route', () => {
   assert.equal(/var FALLBACK = '[^']*\/contact/.test(widget), false);
 });
 
+test('ASK is told to say "contact Kill Dull", never to write /contact', () => {
+  const { INSTRUCTIONS } = require('../../api/_lib/instructions.js');
+  assert.match(INSTRUCTIONS, /Never write "\/contact"/);
+  const uses = INSTRUCTIONS.split('\n').filter((l) => l.includes('/contact'));
+  assert.deepEqual(uses, ['- Never write "/contact". When directing someone to get in touch, say']);
+});
+
 test('the limiter identity is a salted daily hash, never the address', () => {
   const req = { headers: { 'x-forwarded-for': '203.0.113.9, 10.0.0.1' } };
   const id = handler.identity(req, 'salt');
