@@ -196,6 +196,7 @@
     readEl.textContent = '';
     var conversing = turns.length > 0;
     restartEl.hidden = !conversing;
+    panel.classList.toggle('is-opening', !conversing);
 
     // The opening is the title and the questions. Nothing explains them.
     if (!conversing) {

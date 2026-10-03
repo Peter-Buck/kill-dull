@@ -300,6 +300,11 @@
 .ask-kd-ask__field:focus { outline: none; }
 .ask-kd-ask__field:focus::placeholder { color: #8a8880; }
 
+/* Opening state only: the field's invitation in the site's yellow, so it reads
+   as a way in rather than as disabled text. The conversation keeps the grey. */
+.ask-kd-panel.is-opening .ask-kd-ask__field::placeholder,
+.ask-kd-panel.is-opening .ask-kd-ask__field:focus::placeholder { color: var(--yellow); }
+
 /* The one decisive action in the panel. */
 .ask-kd-ask__send {
   flex-shrink: 0;
