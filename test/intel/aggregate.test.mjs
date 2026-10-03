@@ -148,7 +148,21 @@ test('journeys are page types in order, without repeats', () => {
     { ...view('a'), timestamp: at(2), path: '/bench', page_type: 'BENCH' },
     { ...view('a'), timestamp: at(3), path: '/contact', page_type: 'CONTACT' },
   ] });
-  assert.deepEqual(m.visitors[0].journey, ['HOME', 'BENCH', 'CONTACT']);
+  assert.deepEqual(m.visitors[0].journey, ['HOME', 'OFFER', 'CONTACT']);
+});
+
+test('OFFER and OUTCOME are recorded as BENCH and READINGS and reported by section', () => {
+  const m = aggregate({ rows: [
+    { ...view('a'), path: '/bench', page_type: 'BENCH' },
+    { ...view('b'), timestamp: at(1), path: '/offer', page_type: 'BENCH' },
+    { ...view('c'), timestamp: at(2), path: '/offer', page_type: undefined },
+    { ...view('a'), timestamp: at(3), path: '/readings', page_type: 'READINGS' },
+    { ...view('b'), timestamp: at(4), path: '/outcome', page_type: 'READINGS' },
+    { ...view('c'), timestamp: at(5), path: '/outcome', page_type: undefined },
+  ] });
+  const views = Object.fromEntries(m.pages.map((p) => [p.pageType, p.views]));
+  assert.deepEqual(views, { OFFER: 3, OUTCOME: 3 });
+  assert.deepEqual(m.visitors.find((v) => v.journey.length > 1).journey, ['OFFER', 'OUTCOME']);
 });
 
 test('dwell is reported in the collector\'s buckets and never as a number of seconds', () => {
