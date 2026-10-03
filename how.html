@@ -30,20 +30,15 @@
    panel lends it its own rule so nothing doubles. The copy inside is set as
    the lede above it, one thought to a line, with a short beat between them. */
 .discipline-copy>.discipline-beat{margin-top:14px}.discipline-panel{margin-top:48px;border-top:1px solid #24222B}
-/* THE INTERROGATION LOOP - the whole judgment, above the four groups it explains.
-   Lighten drops the loop's own near-black onto the section's dark ground, so it
-   sits in the section rather than on a card. The 1px off-white line, drawn just
-   inside the frame so it stays visible edge to edge on a phone, marks the field
-   the interrogation happens in. */
-.interrogation-loop{display:block;width:100%;aspect-ratio:16/9;height:auto;border:0;margin:48px 0 0;background:transparent;mix-blend-mode:lighten;outline:1px solid var(--paper);outline-offset:-1px}
-/* THE STANDARDS clip, framed exactly as the loop is. The off-white line sits on the
-   clip's own 1px edge, so that edge no longer needs clipping away. */
-.standards-clip{display:block;width:100%;aspect-ratio:16/9;height:auto;border:0;margin:32px 0 0;background:transparent;mix-blend-mode:lighten;outline:1px solid var(--paper);outline-offset:-1px}.discipline-panel>.discipline-register:first-child{margin-top:0;border-top:0}
+/* THE HOW JOURNEY LOOP - the one animation on this page, at the head of The
+   Standards. Lighten drops its own near-black onto the section's dark ground; the
+   1px off-white line, drawn just inside the frame, stays visible edge to edge. */
+.journey-loop{display:block;width:100%;aspect-ratio:16/9;height:auto;border:0;margin:32px 0 0;background:transparent;mix-blend-mode:lighten;outline:1px solid var(--paper);outline-offset:-1px}.discipline-panel>.discipline-register:first-child{margin-top:0;border-top:0}
 .discipline-panel>p{max-width:58%;margin:0}.discipline-panel>p:first-child{margin-top:24px}.discipline-panel>p+p{margin-top:14px}.discipline-panel>p+.discipline-register{margin-top:40px}
 .discipline-label{margin:40px 0 0;font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:400;letter-spacing:.24em;color:#6f6d66}.discipline-panel>.discipline-label:first-child{margin-top:28px}.discipline-label+p{margin-top:16px!important}.discipline-label+.discipline-register{margin-top:16px}
 @media(prefers-reduced-motion:reduce){.discipline-fold-mark{transition:none}}
 /* Phones: the loop runs the full viewport width, centred, at its own 16:9. */
-@media(max-width:767px){.interrogation-loop,.standards-clip{width:100vw;max-width:none;margin-left:calc(50% - 50vw)}}
+@media(max-width:767px){.journey-loop{width:100vw;max-width:none;margin-left:calc(50% - 50vw)}}
 @media(max-width:767px){.discipline-copy>p,.discipline-copy>.discipline-question,.discipline-panel>p{max-width:100%}.discipline-register .discipline-row,.discipline-register.standards .discipline-row,.discipline-register.verdicts .discipline-row{grid-template-columns:1fr;gap:4px}.discipline-cols{grid-template-columns:1fr}}
 
 .discipline-page .viewport.is-dark{background:#24222B;color:#FFFFFF}.discipline-page .home-paper.is-dark .hero-line{color:#FFFFFF!important}.discipline-page .viewport.is-dark .product-orientation{color:#aaa69d}.discipline-page .viewport.is-dark .product-orientation:before{background:#504D57}.discipline-page .viewport.is-dark .discipline-register,.discipline-page .viewport.is-dark .discipline-panel,.discipline-page .viewport.is-dark .discipline-cols>div{border-top-color:#504D57}.discipline-page .viewport.is-dark .discipline-fold[aria-expanded="false"]{border-bottom-color:#504D57}.discipline-page .viewport.is-dark .discipline-row{border-bottom-color:#3E3B45}.discipline-page .viewport.is-dark .discipline-row span:last-child,.discipline-page .viewport.is-dark .discipline-cols p{color:#b9b6ae}.discipline-page .viewport.is-dark .discipline-label{color:#aaa69d}.discipline-page .viewport.is-dark .discipline-statement{border-top-color:#504D57;border-bottom-color:#504D57}
@@ -120,9 +115,8 @@
 <div class="discipline-copy">
 <p>What will this commitment do for the customer?<br>What will it do to the company?</p>
 <p class="discipline-beat">We interrogate it from every side.</p>
-<iframe class="interrogation-loop" data-src="/assets/interrogation-loop.html" title="The Kill Dull interrogation" loading="lazy"></iframe>
 <button type="button" class="discipline-subhead discipline-fold" aria-expanded="false" aria-controls="fold-standards"><span>The Standards</span><span class="discipline-fold-mark" aria-hidden="true"></span></button>
-<div class="discipline-panel" id="fold-standards" hidden><p>Every commitment puts different things at stake.</p><p>We follow the consequences through twelve lines of inquiry.</p><div class="discipline-register standards"><div class="discipline-row"><span>01</span><strong>RELEVANCE</strong><span>Does this matter to the people we need to matter to?</span></div><div class="discipline-row"><span>02</span><strong>DISTINCTIVENESS</strong><span>Does this make the company easier to recognize or easier to replace?</span></div><div class="discipline-row"><span>03</span><strong>VALUE</strong><span>Does this build perceived value or spend it?</span></div><div class="discipline-row"><span>04</span><strong>CREDIBILITY</strong><span>Will people believe this from us?</span></div><div class="discipline-row"><span>05</span><strong>DELIVERY</strong><span>Can we deliver what this decision asks people to believe?</span></div><div class="discipline-row"><span>06</span><strong>COHERENCE</strong><span>Does this make the company add up better?</span></div><div class="discipline-row"><span>07</span><strong>OWNERSHIP</strong><span>What about this can genuinely become ours?</span></div><div class="discipline-row"><span>08</span><strong>IDENTITY</strong><span>Does this make the company more itself or less itself?</span></div><div class="discipline-row"><span>09</span><strong>PRECEDENT</strong><span>What will this yes make easier to say yes to next?</span></div><div class="discipline-row"><span>10</span><strong>COMPOUNDING</strong><span>What happens if we keep doing this?</span></div><div class="discipline-row"><span>11</span><strong>ALIGNMENT</strong><span>What else has to move for this to work?</span></div><div class="discipline-row"><span>12</span><strong>STEWARDSHIP</strong><span>What must we protect while we change?</span></div></div><iframe class="standards-clip" data-src="/assets/standards-clip.html" title="The Standards" loading="lazy"></iframe><p>Not every Standard matters equally every time.</p><p>That’s why judgment matters.</p></div>
+<div class="discipline-panel" id="fold-standards" hidden><p>Every commitment puts different things at stake.</p><p>We follow the consequences through twelve lines of inquiry.</p><iframe class="journey-loop" data-src="/assets/how-journey-loop.html" title="How Kill Dull judges a commitment" loading="lazy"></iframe><div class="discipline-register standards"><div class="discipline-row"><span>01</span><strong>RELEVANCE</strong><span>Does this matter to the people we need to matter to?</span></div><div class="discipline-row"><span>02</span><strong>DISTINCTIVENESS</strong><span>Does this make the company easier to recognize or easier to replace?</span></div><div class="discipline-row"><span>03</span><strong>VALUE</strong><span>Does this build perceived value or spend it?</span></div><div class="discipline-row"><span>04</span><strong>CREDIBILITY</strong><span>Will people believe this from us?</span></div><div class="discipline-row"><span>05</span><strong>DELIVERY</strong><span>Can we deliver what this decision asks people to believe?</span></div><div class="discipline-row"><span>06</span><strong>COHERENCE</strong><span>Does this make the company add up better?</span></div><div class="discipline-row"><span>07</span><strong>OWNERSHIP</strong><span>What about this can genuinely become ours?</span></div><div class="discipline-row"><span>08</span><strong>IDENTITY</strong><span>Does this make the company more itself or less itself?</span></div><div class="discipline-row"><span>09</span><strong>PRECEDENT</strong><span>What will this yes make easier to say yes to next?</span></div><div class="discipline-row"><span>10</span><strong>COMPOUNDING</strong><span>What happens if we keep doing this?</span></div><div class="discipline-row"><span>11</span><strong>ALIGNMENT</strong><span>What else has to move for this to work?</span></div><div class="discipline-row"><span>12</span><strong>STEWARDSHIP</strong><span>What must we protect while we change?</span></div></div><p>Not every Standard matters equally every time.</p><p>That’s why judgment matters.</p></div>
 <button type="button" class="discipline-subhead discipline-fold" aria-expanded="false" aria-controls="fold-conditions"><span>Human Nature + Conditions</span><span class="discipline-fold-mark" aria-hidden="true"></span></button>
 <div class="discipline-panel" id="fold-conditions" hidden><h3 class="discipline-label">HUMAN NATURE</h3><p>Evidence can tell us what people did.</p><p>It can’t guarantee what people will do next.</p><p>What will people actually notice, want, believe, remember, resist or choose?</p><p>Sometimes removing friction creates value.</p><p>Sometimes the friction is the value.</p><h3 class="discipline-label">CONDITIONS</h3><div class="discipline-register"><div class="discipline-row"><strong>CULTURE</strong><span>What could change what this decision means?</span></div><div class="discipline-row"><strong>ECONOMICS</strong><span>What changes when people feel richer or poorer?</span></div><div class="discipline-row"><strong>TECHNOLOGY</strong><span>What could technology change about this decision?</span></div><div class="discipline-row"><strong>POLITICS</strong><span>What could politics or policy change?</span></div><div class="discipline-row"><strong>PLANET</strong><span>What could the physical world change about this decision?</span></div></div><p>The world moves too.</p></div>
 <button type="button" class="discipline-subhead discipline-fold" aria-expanded="false" aria-controls="fold-time"><span>Time</span><span class="discipline-fold-mark" aria-hidden="true"></span></button>
@@ -283,24 +277,13 @@ if(window.IntersectionObserver){
     if(panel)panel.hidden=!open;
   });
 });
-/* The Standards clip loads when its fold opens and is unloaded when it closes,
-   so every reopening plays it from the start. Phones get its compact version. */
-var clip=document.querySelector('#fold-standards .standards-clip');
-var clipFold=document.querySelector('[aria-controls="fold-standards"]');
-if(clip&&clipFold)clipFold.addEventListener('click',function(){
-  if(clipFold.getAttribute('aria-expanded')==='true')clip.src=clip.getAttribute('data-src')+(window.matchMedia&&window.matchMedia('(max-width:767px)').matches?'?compact':'');
-  else clip.src='about:blank';
+/* The journey loop loads when The Standards opens and is unloaded when it
+   closes, so every opening plays it from the start. */
+var loop=document.querySelector('#fold-standards .journey-loop');
+var loopFold=document.querySelector('[aria-controls="fold-standards"]');
+if(loop&&loopFold)loopFold.addEventListener('click',function(){
+  if(loopFold.getAttribute('aria-expanded')==='true')loop.src=loop.getAttribute('data-src');
+  else loop.src='about:blank';
 });
-/* The interrogation loop starts when it first comes into view, so it is seen
-   from its beginning rather than joined part way round. */
-var loop=document.querySelector('.interrogation-loop');
-if(loop){
-  var start=function(){if(!loop.getAttribute('src'))loop.src=loop.getAttribute('data-src');};
-  if(window.IntersectionObserver){
-    new IntersectionObserver(function(entries,obs){
-      if(entries[0].isIntersecting){start();obs.disconnect();}
-    },{threshold:0.25}).observe(loop);
-  }else start();
-}
 })();</script>
 </body></html>
