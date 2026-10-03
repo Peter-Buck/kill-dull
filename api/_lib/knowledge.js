@@ -14,7 +14,7 @@
  * in with something plausible.
  *
  * Sourced from killdull.com at review/full-site @ dbb6f59:
- *   /  /how  /bench  /readings  /bureau
+ *   /  /how  /offer  /outcome  /bureau  (then /bench and /readings)
  *
  * NOT IN THIS FILE, AND NOT TO BE ADDED:
  *   internal Bureau material, private Readings, client information,
@@ -138,7 +138,7 @@ var PUBLIC_KNOWLEDGE = [
   'accountability, as does the decision to ignore it.',
   'The Discipline recommends. The client decides.',
   '',
-  '[/bench — HOW THE BENCH WORKS]',
+  '[/offer — HOW THE BENCH WORKS]',
   'Some commitments are too consequential to be judged only by the people',
   'trying to move them forward. Three parts, one commitment.',
   '01 COMMITMENT. Big enough to matter, early enough to stop. A product launch,',
@@ -158,7 +158,7 @@ var PUBLIC_KNOWLEDGE = [
   'Private Readings are commissioned engagements. Fees are agreed before the',
   'Bench begins. Specific fees are not published.',
   '',
-  '[/readings — READINGS]',
+  '[/outcome — READINGS]',
   'Judgment should leave a record. Not a dashboard, not an AI transcript, not',
   'another deck destined for a folder. A position. Considered. Concluded. On record.',
   'A Private Reading comes before the commitment: commissioned by the client,',
@@ -209,8 +209,8 @@ var PUBLIC_KNOWLEDGE = [
   'Corrections: Kill Dull can be wrong; corrections are made on the record.',
   '',
   '[SITE]',
-  'Pages: / (why), /how (how — the Dense Idea Discipline), /bench,',
-  '/readings, /bureau (Department of Hard Evidence), /contact, and',
+  'Pages: / (why), /how (how — the Dense Idea Discipline), /offer,',
+  '/outcome, /bureau (Department of Hard Evidence), /contact, and',
   '/accessibility, /privacy, /terms. To start an engagement or reach Kill Dull,',
   'the page is /contact.'
 ].join('\n');

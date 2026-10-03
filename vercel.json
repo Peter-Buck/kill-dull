@@ -82,13 +82,33 @@
       "permanent": true
     },
     {
+      "source": "/bench",
+      "destination": "/offer",
+      "permanent": true
+    },
+    {
       "source": "/bench.html",
-      "destination": "/bench",
+      "destination": "/offer",
+      "permanent": true
+    },
+    {
+      "source": "/offer.html",
+      "destination": "/offer",
+      "permanent": true
+    },
+    {
+      "source": "/readings",
+      "destination": "/outcome",
       "permanent": true
     },
     {
       "source": "/readings.html",
-      "destination": "/readings",
+      "destination": "/outcome",
+      "permanent": true
+    },
+    {
+      "source": "/outcome.html",
+      "destination": "/outcome",
       "permanent": true
     },
     {
@@ -136,12 +156,12 @@
       "destination": "/how.html"
     },
     {
-      "source": "/bench",
-      "destination": "/bench.html"
+      "source": "/offer",
+      "destination": "/offer.html"
     },
     {
-      "source": "/readings",
-      "destination": "/readings.html"
+      "source": "/outcome",
+      "destination": "/outcome.html"
     },
     {
       "source": "/bureau",

@@ -28,8 +28,8 @@
   var BOUNDARY = 'Public material only.';
 
   /*
-    Sources, in order: /bureau, /bureau, / and /bench, /bench, /,
-    /how, /bench, /bench and /how, / , / and /bureau.
+    Sources, in order: /bureau, /bureau, / and /offer, /offer, /,
+    /how, /offer, /offer and /how, / , / and /bureau.
   */
   var STARTERS = [
     {

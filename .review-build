@@ -11,7 +11,7 @@ still hidden.
      X-Robots-Tag: noindex, nofollow, noarchive, nosnippet, noimageindex
      is served on /(.*) — every page and every asset.
   2. Every public page carries <meta name="robots" content="noindex, nofollow">
-     index, discipline, bench, readings, bureau, accessibility, privacy,
+     index, discipline, offer, outcome, bureau, accessibility, privacy,
      terms, faq.
 
 Also at launch: robots.txt exists in the repository but is NOT deployed —

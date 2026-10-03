@@ -108,15 +108,17 @@
   }
 
   /* Kill Dull's routes. /bureau reports as COMPANY, which is what the page is
-     called now; the path is unchanged because renaming it would break links. */
+     called now; the path is unchanged because renaming it would break links.
+     /offer and /outcome keep reporting as BENCH and READINGS so the record
+     stays continuous across the rename from /bench and /readings. */
   function pageType(path) {
     if (isNotFoundPage()) return 'NOT_FOUND';
     var p = (path || '/').replace(/\.html$/, '');
     if (p === '/' || p === '') return 'HOME';
     if (p.indexOf('/how') === 0 || p.indexOf('/discipline') === 0) return 'DISCIPLINE';
     if (p.indexOf('/why') === 0) return 'WHY';
-    if (p.indexOf('/bench') === 0) return 'BENCH';
-    if (p.indexOf('/readings') === 0) return 'READINGS';
+    if (p.indexOf('/offer') === 0) return 'BENCH';
+    if (p.indexOf('/outcome') === 0) return 'READINGS';
     if (p.indexOf('/bureau') === 0) return 'COMPANY';
     if (p.indexOf('/contact') === 0) return 'CONTACT';
     if (p.indexOf('/assessment') === 0) return 'ASSESSMENT';
