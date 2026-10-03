@@ -1,8 +1,9 @@
 /**
  * ASK KILL DULL
  *
- * The public window into Kill Dull. It answers questions about Kill Dull. It
- * does not judge the visitor's commitment — that is the Bench.
+ * The public window into Kill Dull. It answers questions about Kill Dull from
+ * the public record. It does not judge the visitor's commitment — that is
+ * the Bench.
  *
  * The control is an icon only, placed in the persistent nav's empty top-left
  * grid column, opposite CONTACT. It is created here rather than authored into
@@ -10,107 +11,61 @@
  * .unified-nav-products and .registrar-mobile on every load. A direct child of
  * #registrar is outside all three, so it survives, whichever script runs first.
  *
- * THE STANDING RULE, which governs the copy in this file:
- *   ASK KILL DULL may explain approved Kill Dull doctrine.
- *   It may not create Kill Dull doctrine.
- * Every authored answer below is drawn from a live killdull.com page.
+ * One conversation, two states.
+ *   Opening: the title, ten suggested questions, the question field.
+ *   Conversation: each question and its answer in order, the question field
+ *   for the next one, and START OVER, which clears the conversation and
+ *   returns to the opening.
+ * A suggested question and a typed question are the same thing: either is
+ * sent to /api/ask with the conversation so far and answered from the public
+ * site. Nothing here is answered from text written into this file.
  *
- * Ten questions, ten authored answers, and nothing else. The panel asks the
- * model nothing: there is no free-text field, so every word a visitor can
- * read here is a word Kill Dull wrote. The model's half of the boundary
- * (api/_lib/knowledge.js, /api/ask) is held in the repository, unbuilt, for
- * whenever the field comes back.
+ * The conversation lives in this page's memory only. Nothing is written to
+ * cookies or storage; reloading or leaving the page ends it.
  */
 (function () {
   'use strict';
 
+  var ENDPOINT = '/api/ask';
   var TITLE = 'ASK KILL DULL';
+  var PLACEHOLDER = 'Ask Kill Dull';
   var BOUNDARY = 'Public material only.';
+  var FALLBACK = 'That did not go through. Try again, or contact Kill Dull.';
+  var MAX_CHARS = 2000;
 
-  /*
-    Sources, in order: /bureau, /bureau, / and /offer, /offer, /,
-    /how, /offer, /offer and /how, / , / and /bureau.
-  */
+  // The ids are fixed so analytics can tell the questions apart (q1–q10).
   var STARTERS = [
-    {
-      q: 'What exactly does Kill Dull do?',
-      a: 'Kill Dull brings independent scrutiny to consequential marketing commitments before they are made.\n\n' +
-         'One commitment goes before the Bench. Evidence and assumptions are interrogated across Product, Price, Place and Promotion. A judgment comes back — AAH. HMM. or DULL. — with the reasoning behind it.\n\n' +
-         'You decide what happens next.'
-    },
-    {
-      q: 'Why does Kill Dull exist?',
-      a: 'Companies have plenty of marketing expertise. What they don’t always have is an independent place to scrutinize the whole decision before they commit.\n\n' +
-         'Kill Dull exists to provide it.'
-    },
-    {
-      q: 'What makes Kill Dull different?',
-      a: 'Kill Dull is independent of the outcome.\n\n' +
-         'An AAH is as successful for us as a DULL.\n\n' +
-         'A company cannot buy an AAH or negotiate away a DULL. Published Readings cannot be commissioned, suppressed or changed by the companies they examine.\n\n' +
-         'Private Readings are paid for. The judgment isn’t.'
-    },
-    {
-      q: 'What is The Bench?',
-      a: 'The Bench is where a consequential marketing commitment goes for independent scrutiny before it is made.\n\n' +
-         'You make the case. Then you leave.\n\n' +
-         'We interrogate the evidence, assumptions and consequences.\n\n' +
-         'What comes back is a Private Reading: our recommendation and the reasoning behind it.\n\n' +
-         'You decide.'
-    },
-    {
-      q: 'What is a Dense Idea?',
-      a: 'An idea that keeps a company recognizably itself while everything around it changes.\n\n' +
-         'Dense Ideas don’t just last. They compound.\n\n' +
-         'Consistency repeats. Coherence connects. Density generates. Compounding endures.'
-    },
-    {
-      q: 'What do AAH. HMM. DULL. mean?',
-      a: 'The three judgments.\n\n' +
-         'AAH. The commitment deserves to be made.\n\n' +
-         'HMM. Not enough to responsibly say AAH or DULL.\n\n' +
-         'DULL. The commitment does not deserve to be made in its present form.'
-    },
-    {
-      q: 'What kind of decisions do you examine?',
-      a: 'Big enough to matter. Early enough to stop.\n\n' +
-         'A product launch. Market entry. Repositioning. Brand architecture. Naming. Partnership. Customer-experience change. Major AI commitment. Distribution change.\n\n' +
-         'A commitment you’re actually considering.'
-    },
-    {
-      q: 'Why should this happen before commitment?',
-      a: 'Because scrutiny is worth more while the decision is still cheap to change.\n\n' +
-         'Once a commitment is made, the pressure shifts from questioning it to defending it.\n\n' +
-         'We also ask what happens if you don’t proceed. Doing nothing is still a decision.'
-    },
-    {
-      q: 'How does Kill Dull think about judgment?',
-      a: 'Evidence and instinct both matter.\n\n' +
-         'Data without judgment is analysis. Gut without evidence is opinion. Good decisions need both.\n\n' +
-         'Decisions accumulate. Every decision leaves a precedent. Precedent changes what feels reasonable next time.\n\n' +
-         'EVERY YES TRAINS THE NEXT YES.\n\n' +
-         'A company can make a long series of perfectly reasonable decisions and become less itself.'
-    },
-    {
-      q: 'Why would a company pay for this?',
-      a: 'Because the cost of scrutiny is small compared with the cost of getting a consequential commitment wrong.\n\n' +
-         'System1 and eatbigfish estimate dull US advertising would require $189B in additional media investment to match the predicted results of non-dull advertising. McKinsey estimates better marketing analytics can free 15–20% of marketing spending.\n\n' +
-         'Different research, different definitions, different parts of marketing. And only part of the bill.'
-    }
+    'What exactly does Kill Dull do?',
+    'Why does Kill Dull exist?',
+    'What makes Kill Dull different?',
+    'What is The Bench?',
+    'What is a Dense Idea?',
+    'What do AAH. HMM. DULL. mean?',
+    'What kind of decisions do you examine?',
+    'Why should this happen before commitment?',
+    'How does Kill Dull think about judgment?',
+    'Why would a company pay for this?'
   ];
 
   /* ---------------------------------------------------------------------- */
-
 
   var nav = document.getElementById('registrar');
   if (!nav) return;
 
   var trigger = null;
   var panel = null;
-  var readEl = null;   // the scrolling reading surface
-  var listEl = null;   // the ruled list of questions inside it
+  var restartEl = null;
+  var readEl = null;
+  var fieldEl = null;
+  var sendEl = null;
   var open = false;
-  var openRow = null;
+  var loading = false;
+  // What is sent: alternating user / assistant turns.
+  var history = [];
+  // What is shown: the same turns, plus notices that are never sent.
+  var turns = [];
+  // Bumped by START OVER, so an answer to a cleared conversation is dropped.
+  var generation = 0;
 
   function el(tag, cls, text) {
     var n = document.createElement(tag);
@@ -135,58 +90,6 @@
     trigger.addEventListener('click', function () { setOpen(!open); });
   }
 
-  /* -- the index ---------------------------------------------------------
-     Ten questions, each with its answer folded underneath it. One answer is
-     open at a time: opening the next closes the last, so the list never grows
-     past the height of the panel and the question you came for stays in view.
-     The same rule kd.js applies to the Bench cards.
-     -------------------------------------------------------------------- */
-
-  function buildRow(item, index) {
-    var id = 'ask-kd-a' + index;
-
-    var question = el('button', 'ask-kd-starter');
-    question.type = 'button';
-    question.setAttribute('aria-expanded', 'false');
-    question.setAttribute('aria-controls', id);
-    question.appendChild(el('span', null, item.q));
-    question.appendChild(el('span', 'ask-kd-starter__mark'));
-
-    var answer = el('div', 'ask-kd-answer');
-    answer.id = id;
-    answer.hidden = true;
-    answer.appendChild(el('div', 'ask-kd-answer__body', item.a));
-
-    var row = { question: question, answer: answer };
-    question.addEventListener('click', function () { toggle(row); });
-
-    listEl.appendChild(question);
-    listEl.appendChild(answer);
-  }
-
-  function shut(row) {
-    row.answer.hidden = true;
-    row.question.setAttribute('aria-expanded', 'false');
-    row.question.classList.remove('is-open');
-  }
-
-  function toggle(row) {
-    if (openRow === row) {
-      shut(row);
-      openRow = null;
-      return;
-    }
-    if (openRow) shut(openRow);
-
-    row.answer.hidden = false;
-    row.question.setAttribute('aria-expanded', 'true');
-    row.question.classList.add('is-open');
-    openRow = row;
-
-    // Land on the question, not below it.
-    readEl.scrollTop = row.question.offsetTop - readEl.offsetTop;
-  }
-
   function buildPanel() {
     panel = el('div', 'ask-kd-panel');
     panel.id = 'ask-kill-dull-panel';
@@ -195,6 +98,12 @@
     panel.setAttribute('aria-label', 'Ask Kill Dull');
 
     var record = el('div', 'ask-kd-record');
+    restartEl = el('button', 'ask-kd-record__restart', 'Start over');
+    restartEl.type = 'button';
+    restartEl.hidden = true;
+    restartEl.addEventListener('click', startOver);
+    record.appendChild(restartEl);
+
     var close = el('button', 'ask-kd-record__close', 'Close');
     close.type = 'button';
     close.addEventListener('click', function () {
@@ -205,18 +114,182 @@
     panel.appendChild(record);
 
     readEl = el('div', 'ask-kd-read');
+    readEl.setAttribute('role', 'log');
+    readEl.setAttribute('aria-live', 'polite');
     panel.appendChild(readEl);
 
-    // The title is the whole opening. Nothing explains the questions.
-    readEl.appendChild(el('h2', 'ask-kd-title', TITLE));
-    listEl = el('div', 'ask-kd-starters');
-    readEl.appendChild(listEl);
-    STARTERS.forEach(buildRow);
+    var ask = el('form', 'ask-kd-ask');
+    fieldEl = el('input', 'ask-kd-ask__field');
+    fieldEl.type = 'text';
+    fieldEl.autocomplete = 'off';
+    fieldEl.maxLength = MAX_CHARS;
+    fieldEl.placeholder = PLACEHOLDER;
+    fieldEl.setAttribute('aria-label', 'Ask Kill Dull a question');
+    fieldEl.addEventListener('input', syncSend);
+
+    sendEl = el('button', 'ask-kd-ask__send', 'Ask');
+    sendEl.type = 'submit';
+    sendEl.disabled = true;
+
+    ask.addEventListener('submit', function (e) {
+      e.preventDefault();
+      send(fieldEl.value);
+    });
+    ask.appendChild(fieldEl);
+    ask.appendChild(sendEl);
+    panel.appendChild(ask);
 
     panel.appendChild(el('div', 'ask-kd-boundary', BOUNDARY));
     panel.addEventListener('keydown', onPanelKeyDown);
 
     document.body.appendChild(panel);
+    render();
+  }
+
+  function syncSend() {
+    if (sendEl) sendEl.disabled = loading || !fieldEl.value.trim();
+  }
+
+  /* -- rendering --------------------------------------------------------- */
+
+  function starterList() {
+    var list = el('div', 'ask-kd-starters');
+    STARTERS.forEach(function (q, i) {
+      var btn = el('button', 'ask-kd-starter');
+      btn.type = 'button';
+      btn.setAttribute('data-ask-starter', 'q' + (i + 1));
+      btn.appendChild(el('span', null, q));
+      btn.appendChild(el('span', 'ask-kd-starter__mark'));
+      btn.addEventListener('click', function () { send(q); });
+      list.appendChild(btn);
+    });
+    return list;
+  }
+
+  function turn(label, body, kind) {
+    var t = el('div', 'ask-kd-turn ask-kd-turn--' + kind);
+    t.appendChild(el('div', 'ask-kd-turn__label', label));
+    t.appendChild(el('div', 'ask-kd-turn__body', body));
+    return t;
+  }
+
+  // A notice is fixed text, never an answer. "contact Kill Dull" in it becomes
+  // a link to /contact; everything else stays plain text.
+  function noticeTurn(text) {
+    var t = el('div', 'ask-kd-turn ask-kd-turn--answer ask-kd-turn--notice');
+    t.appendChild(el('div', 'ask-kd-turn__label', 'Kill Dull'));
+    var body = el('div', 'ask-kd-turn__body');
+    text.split(/(contact Kill Dull)/i).forEach(function (part) {
+      if (/^contact Kill Dull$/i.test(part)) {
+        var a = el('a', 'ask-kd-link', part);
+        a.href = '/contact';
+        body.appendChild(a);
+      } else if (part) {
+        body.appendChild(document.createTextNode(part));
+      }
+    });
+    t.appendChild(body);
+    return t;
+  }
+
+  function render() {
+    readEl.textContent = '';
+    var conversing = turns.length > 0;
+    restartEl.hidden = !conversing;
+
+    // The opening is the title and the questions. Nothing explains them.
+    if (!conversing) {
+      readEl.appendChild(el('h2', 'ask-kd-title', TITLE));
+      readEl.appendChild(starterList());
+      readEl.scrollTop = 0;
+      return;
+    }
+
+    turns.forEach(function (t) {
+      if (t.kind === 'question') readEl.appendChild(turn('Question', t.text, 'question'));
+      else if (t.kind === 'notice') readEl.appendChild(noticeTurn(t.text));
+      else readEl.appendChild(turn('Kill Dull', t.text, 'answer'));
+    });
+
+    if (loading) {
+      var w = el('div', 'ask-kd-turn ask-kd-turn--answer');
+      w.appendChild(el('div', 'ask-kd-turn__label', 'Kill Dull'));
+      var working = el('div', 'ask-kd-working');
+      working.appendChild(el('span', 'ask-kd-working__mark'));
+      working.appendChild(el('span', null, 'Examining'));
+      w.appendChild(working);
+      readEl.appendChild(w);
+    }
+
+    // Land on the exchange just added, not below it.
+    var questions = readEl.querySelectorAll('.ask-kd-turn--question');
+    var last = questions[questions.length - 1];
+    readEl.scrollTop = last ? last.offsetTop - readEl.offsetTop : readEl.scrollHeight;
+  }
+
+  /* -- conversation ------------------------------------------------------ */
+
+  function send(text) {
+    var question = (text || '').trim().slice(0, MAX_CHARS);
+    if (!question || loading) return;
+
+    fieldEl.value = '';
+    history.push({ role: 'user', content: question });
+    turns.push({ kind: 'question', text: question });
+
+    loading = true;
+    syncSend();
+    render();
+
+    var mine = generation;
+    var ok = false;
+
+    fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: history })
+    })
+      .then(function (res) {
+        ok = res.ok;
+        return res.json()['catch'](function () { return {}; });
+      })
+      .then(function (data) {
+        if (mine !== generation) return;
+        var answer = data && typeof data.text === 'string' && data.text ? data.text : FALLBACK;
+        if (ok && !data.notice) {
+          history.push({ role: 'assistant', content: answer });
+          turns.push({ kind: 'answer', text: answer });
+        } else {
+          // A failure, a limit or a decline is not part of the conversation:
+          // the question is withdrawn from what is sent next, so the visitor
+          // can simply ask again or ask something else.
+          history.pop();
+          turns.push({ kind: 'notice', text: answer });
+        }
+      })
+      ['catch'](function () {
+        if (mine !== generation) return;
+        history.pop();
+        turns.push({ kind: 'notice', text: FALLBACK });
+      })
+      .then(function () {
+        if (mine !== generation) return;
+        loading = false;
+        render();
+        syncSend();
+        if (open) fieldEl.focus();
+      });
+  }
+
+  function startOver() {
+    generation++;
+    history = [];
+    turns = [];
+    loading = false;
+    fieldEl.value = '';
+    render();
+    syncSend();
+    fieldEl.focus();
   }
 
   /* -- open / close / position ------------------------------------------- */
@@ -240,7 +313,10 @@
     }
     if (e.key !== 'Tab') return;
 
-    var focusable = panel.querySelectorAll('button:not([disabled])');
+    var focusable = Array.prototype.filter.call(
+      panel.querySelectorAll('button:not([disabled]), input:not([disabled])'),
+      function (n) { return !n.hidden; }
+    );
     if (focusable.length < 2) return;
     var first = focusable[0];
     var last = focusable[focusable.length - 1];
@@ -269,6 +345,7 @@
 
     if (open) {
       position();
+      render();
       window.addEventListener('resize', position);
       window.addEventListener('scroll', position, { passive: true });
       document.addEventListener('click', onDocumentClick);
@@ -276,9 +353,6 @@
       window.removeEventListener('resize', position);
       window.removeEventListener('scroll', position);
       document.removeEventListener('click', onDocumentClick);
-      // Next opening starts from the index, not from where you left off.
-      if (openRow) { shut(openRow); openRow = null; }
-      if (readEl) readEl.scrollTop = 0;
     }
   }
 

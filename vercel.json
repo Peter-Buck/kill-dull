@@ -1,4 +1,10 @@
 {
+  "functions": {
+    "api/ask.js": {
+      "maxDuration": 60,
+      "includeFiles": "{index,why,how,offer,outcome,bureau,assessment,contact,privacy,terms,accessibility}.html"
+    }
+  },
   "redirects": [
     {
       "source": "/:path((?!api/).*)",
