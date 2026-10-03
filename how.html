@@ -32,8 +32,10 @@
 .discipline-copy>.discipline-beat{margin-top:14px}.discipline-panel{margin-top:48px;border-top:1px solid #24222B}
 /* THE INTERROGATION LOOP - the whole judgment, above the four groups it explains.
    Lighten drops the loop's own near-black onto the section's dark ground, so it
-   sits in the section rather than on a card. */
-.interrogation-loop{display:block;width:100%;aspect-ratio:16/9;height:auto;border:0;margin:48px 0 0;background:transparent;mix-blend-mode:lighten}.discipline-panel>.discipline-register:first-child{margin-top:0;border-top:0}
+   sits in the section rather than on a card. The 1px off-white line, drawn just
+   inside the frame so it stays visible edge to edge on a phone, marks the field
+   the interrogation happens in. */
+.interrogation-loop{display:block;width:100%;aspect-ratio:16/9;height:auto;border:0;margin:48px 0 0;background:transparent;mix-blend-mode:lighten;outline:1px solid var(--paper);outline-offset:-1px}.discipline-panel>.discipline-register:first-child{margin-top:0;border-top:0}
 .discipline-panel>p{max-width:58%;margin:0}.discipline-panel>p:first-child{margin-top:24px}.discipline-panel>p+p{margin-top:14px}.discipline-panel>p+.discipline-register{margin-top:40px}
 .discipline-label{margin:40px 0 0;font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:400;letter-spacing:.24em;color:#6f6d66}.discipline-panel>.discipline-label:first-child{margin-top:28px}.discipline-label+p{margin-top:16px!important}.discipline-label+.discipline-register{margin-top:16px}
 @media(prefers-reduced-motion:reduce){.discipline-fold-mark{transition:none}}
