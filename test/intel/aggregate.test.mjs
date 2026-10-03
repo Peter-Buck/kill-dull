@@ -148,7 +148,21 @@ test('journeys are page types in order, without repeats', () => {
     { ...view('a'), timestamp: at(2), path: '/bench', page_type: 'BENCH' },
     { ...view('a'), timestamp: at(3), path: '/contact', page_type: 'CONTACT' },
   ] });
-  assert.deepEqual(m.visitors[0].journey, ['HOME', 'BENCH', 'CONTACT']);
+  assert.deepEqual(m.visitors[0].journey, ['HOME', 'OFFER', 'CONTACT']);
+});
+
+test('OFFER is recorded as BENCH and reported as OFFER, old path and new as one page', () => {
+  const m = aggregate({ rows: [
+    { ...view('a'), path: '/bench', page_type: 'BENCH' },
+    { ...view('b'), timestamp: at(1), path: '/offer', page_type: 'BENCH' },
+    { ...view('c'), timestamp: at(2), path: '/offer', page_type: undefined },
+    { event: 'cta_click', distinct_id: 'a', timestamp: at(3), target: 'bench_commitment', location: 'BENCH' },
+  ] });
+  const offer = m.pages.find((p) => p.pageType === 'OFFER');
+  assert.equal(offer.views, 3);
+  assert.equal(offer.visitors, 3);
+  assert.equal(m.pages.some((p) => p.pageType === 'BENCH'), false);
+  assert.equal(m.intents.find((i) => i.event === 'cta_click').label, 'OFFER commitment started');
 });
 
 test('dwell is reported in the collector\'s buckets and never as a number of seconds', () => {

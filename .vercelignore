@@ -4,6 +4,14 @@
 /*
 
 !assets/
+# HELD Readings are not published: their cards live in docs/held-readings.html,
+# outside the deploy, and their images stay out of it too.
+assets/reading-patagonia.webp
+assets/reading-muji.webp
+assets/reading-wd40.webp
+assets/reading-new-yorker.webp
+# The nail-bench photograph is retired from OFFER and not served.
+assets/kill-dull-nailbench.webp
 !api/
 
 # ASK KILL DULL asks the model nothing while the free-text field is out, so

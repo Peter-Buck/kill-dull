@@ -24,7 +24,7 @@ var MAX_BODY_BYTES = 16 * 1024;
 // is not one of these five was not sent by the form.
 var ABOUT_OPTIONS = [
   'KILL DULL',
-  'THE BENCH',
+  'A PRIVATE READING',
   'A MARKETING DECISION',
   'PUBLISHED READINGS',
   'SOMETHING ELSE'
