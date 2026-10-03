@@ -12,16 +12,23 @@ import { emailHTML, briefingText, subjectFor } from '../../lib/intel/render.mjs'
 const env = { POSTHOG_PERSONAL_API_KEY: 'phx_test', POSTHOG_PROJECT_ID: '1', POSTHOG_HOST: 'https://eu.posthog.com' };
 const COLS = ['event', 'distinct_id', 'timestamp'];
 
+// Behaves as PostHog does for a personal API key: OFFSET is refused with a 400, and
+// pages are read by keyset on the event id.
 function fakePostHog(total, { cap = Infinity } = {}) {
   const queries = [];
+  const ids = Array.from({ length: total }, (_, i) => `00000000-0000-4000-8000-${String(i).padStart(12, '0')}`);
   globalThis.fetch = async (url, init) => {
     const q = JSON.parse(init.body).query.query;
     queries.push(q);
+    if (/\bOFFSET\b/.test(q)) return { ok: false, status: 400, json: async () => ({ type: 'validation_error', code: 'hogql_query_error', detail: 'OFFSET is not supported on queries made with a personal API key.' }) };
     if (/SELECT count\(\)/.test(q)) return { ok: true, json: async () => ({ columns: ['count()'], results: [[total]] }) };
-    const [, limit, offset] = q.match(/LIMIT (\d+) OFFSET (\d+)/).map(Number);
-    const n = Math.max(0, Math.min(limit, total - offset, cap - offset));
-    const results = Array.from({ length: n }, (_, i) => ['content_view', `v${offset + i}`, '2026-10-01 10:00:00']);
-    return { ok: true, json: async () => ({ columns: COLS, results }) };
+    const limit = Number(q.match(/LIMIT (\d+)/)[1]);
+    const after = (q.match(/toString\(uuid\) > '([^']+)'/) || [])[1];
+    const from = after ? ids.indexOf(after) + 1 : 0;
+    const slice = ids.slice(from, Math.min(from + limit, cap));
+    // Timestamps run backwards against ids, so the reader must restore time order itself.
+    const results = slice.map((id) => ['content_view', `v${id.slice(-4)}`, `2026-10-01T10:${String(59 - (ids.indexOf(id) % 60)).padStart(2, '0')}:00Z`, id]);
+    return { ok: true, json: async () => ({ columns: [...COLS, 'kd_key'], results }) };
   };
   return queries;
 }
@@ -32,7 +39,11 @@ test('every row is read across pages, and the read says it is complete', async (
   assert.equal(r.rows.length, 25);
   assert.equal(r.total, 25);
   assert.equal(r.complete, true);
-  assert.equal(q.filter((x) => /OFFSET/.test(x)).length, 3);
+  assert.equal(q.filter((x) => /kd_key/.test(x)).length, 3, 'three keyset pages');
+  assert.equal(q.some((x) => /OFFSET/.test(x)), false, 'never OFFSET');
+  assert.equal(new Set(r.rows.map((x) => x.distinct_id)).size, 25, 'no row read twice');
+  const t = r.rows.map((x) => Date.parse(x.timestamp));
+  assert.deepEqual(t, [...t].sort((a, b) => a - b), 'rows come back in time order');
 });
 
 test('A SHORT READ IS REPORTED AS INCOMPLETE, never as the whole window', async () => {
