@@ -52,6 +52,7 @@ test('a question is answered from the instructions and the public record', async
   const res = await ask([{ role: 'user', content: Q }]);
   assert.equal(res.statusCode, 200);
   assert.equal(res.payload.text, 'An answer.');
+  assert.equal(res.payload.notice, undefined);
   const body = calls[0].body;
   assert.equal(body.system[0].cache_control.type, 'ephemeral');
   assert.match(body.system[0].text, /<public_record>[\s\S]*=== \/offer ===[\s\S]*<\/public_record>/);
@@ -75,7 +76,8 @@ test('a refusal is answered plainly, with no second model', async () => {
   reply.body = { stop_reason: 'refusal', stop_details: { type: 'refusal', category: 'cyber' }, content: [], usage: {} };
   const res = await ask([{ role: 'user', content: Q }]);
   assert.equal(res.statusCode, 200);
-  assert.match(res.payload.text, /isn’t something ASK KILL DULL can answer/);
+  assert.equal(res.payload.text, 'That’s not something Ask Kill Dull can answer. Contact Kill Dull if you’d like to take it further.');
+  assert.equal(res.payload.notice, true, 'kept out of the conversation');
   assert.equal(calls.length, 1);
 });
 
@@ -135,6 +137,14 @@ test('NOTHING A VISITOR TYPED, NO ANSWER AND NO ADDRESS REACHES A LOG', async ()
   const all = logs.join('\n');
   assert.ok(logs.length > 0);
   for (const s of [secret, 'answer text', '203.0.113.9']) assert.equal(all.includes(s), false, s);
+});
+
+test('no message a visitor sees names a raw route', () => {
+  const src = fs.readFileSync(path.join(ROOT, 'api/ask.js'), 'utf8');
+  const block = src.slice(src.indexOf('var TEXT = {'), src.indexOf('};', src.indexOf('var TEXT = {')));
+  assert.equal(/\/contact|ASK KILL DULL/.test(block), false);
+  const widget = fs.readFileSync(path.join(ROOT, 'assets/ask-kill-dull.js'), 'utf8');
+  assert.equal(/var FALLBACK = '[^']*\/contact/.test(widget), false);
 });
 
 test('the limiter identity is a salted daily hash, never the address', () => {

@@ -30,7 +30,7 @@
   var TITLE = 'ASK KILL DULL';
   var PLACEHOLDER = 'Ask Kill Dull';
   var BOUNDARY = 'Public material only.';
-  var FALLBACK = 'That did not go through. Try again, or use /contact.';
+  var FALLBACK = 'That did not go through. Try again, or contact Kill Dull.';
   var MAX_CHARS = 2000;
 
   // The ids are fixed so analytics can tell the questions apart (q1–q10).
@@ -173,6 +173,25 @@
     return t;
   }
 
+  // A notice is fixed text, never an answer. "contact Kill Dull" in it becomes
+  // a link to /contact; everything else stays plain text.
+  function noticeTurn(text) {
+    var t = el('div', 'ask-kd-turn ask-kd-turn--answer ask-kd-turn--notice');
+    t.appendChild(el('div', 'ask-kd-turn__label', 'Kill Dull'));
+    var body = el('div', 'ask-kd-turn__body');
+    text.split(/(contact Kill Dull)/i).forEach(function (part) {
+      if (/^contact Kill Dull$/i.test(part)) {
+        var a = el('a', 'ask-kd-link', part);
+        a.href = '/contact';
+        body.appendChild(a);
+      } else if (part) {
+        body.appendChild(document.createTextNode(part));
+      }
+    });
+    t.appendChild(body);
+    return t;
+  }
+
   function render() {
     readEl.textContent = '';
     var conversing = turns.length > 0;
@@ -188,7 +207,8 @@
 
     turns.forEach(function (t) {
       if (t.kind === 'question') readEl.appendChild(turn('Question', t.text, 'question'));
-      else readEl.appendChild(turn('Kill Dull', t.text, t.kind === 'notice' ? 'answer ask-kd-turn--notice' : 'answer'));
+      else if (t.kind === 'notice') readEl.appendChild(noticeTurn(t.text));
+      else readEl.appendChild(turn('Kill Dull', t.text, 'answer'));
     });
 
     if (loading) {
@@ -236,12 +256,13 @@
       .then(function (data) {
         if (mine !== generation) return;
         var answer = data && typeof data.text === 'string' && data.text ? data.text : FALLBACK;
-        if (ok) {
+        if (ok && !data.notice) {
           history.push({ role: 'assistant', content: answer });
           turns.push({ kind: 'answer', text: answer });
         } else {
-          // Not part of the conversation: the question is withdrawn from what
-          // is sent next, so the visitor can simply ask again.
+          // A failure, a limit or a decline is not part of the conversation:
+          // the question is withdrawn from what is sent next, so the visitor
+          // can simply ask again or ask something else.
           history.pop();
           turns.push({ kind: 'notice', text: answer });
         }

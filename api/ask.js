@@ -39,14 +39,16 @@ var LIMITS = { maxMessages: 40, maxCharsPerMessage: 2000, maxCharsTotal: 40000 }
 var PER_MINUTE = 15;
 var PER_DAY = 150;
 
+// Fixed messages, sent instead of an answer. They are marked as notices so
+// the widget keeps them out of the conversation and links "contact Kill Dull".
 var TEXT = {
-  failed: 'That did not go through. Try again, or use /contact.',
-  unavailable: 'ASK KILL DULL isn’t available right now. Use /contact to reach Kill Dull.',
+  failed: 'That did not go through. Try again, or contact Kill Dull.',
+  unavailable: 'Ask Kill Dull isn’t available right now. You can still contact Kill Dull.',
   busy: 'Too many questions at once. Give it a moment.',
-  daily: 'That’s the limit for today. Use /contact to reach Kill Dull.',
-  refused: 'That one isn’t something ASK KILL DULL can answer. Use /contact to reach Kill Dull.',
-  long: 'That answer ran long. Ask it more narrowly, or use /contact.',
-  full: 'This conversation has run long. START OVER to keep asking.'
+  daily: 'That’s the limit for today. You can still contact Kill Dull.',
+  refused: 'That’s not something Ask Kill Dull can answer. Contact Kill Dull if you’d like to take it further.',
+  long: 'That answer ran long. Try asking it more narrowly, or contact Kill Dull.',
+  full: 'This conversation has run long. Start over to keep asking.'
 };
 
 // Same-origin, plus the apex and www serving the same site. No *.vercel.app:
@@ -114,7 +116,11 @@ async function checkLimits(req) {
 }
 
 function send(res, status, text) {
-  res.status(status).json({ text: text });
+  res.status(status).json({ text: text, notice: true });
+}
+
+function answer(res, text) {
+  res.status(200).json({ text: text });
 }
 
 /** Accept only what the widget sends: plain-text user/assistant turns. */
@@ -244,7 +250,7 @@ module.exports = async function handler(req, res) {
       .join('\n')
       .trim();
 
-    return send(res, 200, text || TEXT.failed);
+    return text ? answer(res, text) : send(res, 502, TEXT.failed);
   } catch (err) {
     console.error('ask: ' + (err && err.name === 'AbortError' ? 'upstream timeout' : 'request failed'));
     return send(res, 502, TEXT.failed);

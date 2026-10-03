@@ -241,6 +241,8 @@
 
 /* A message that is not part of the conversation: it failed, or a limit. */
 .ask-kd-turn--notice .ask-kd-turn__body { color: var(--ask-quiet); }
+.ask-kd-link { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.ask-kd-link:hover { background: var(--yellow); }
 
 /* Working. One element moves, on a step — the site processes, it does not fidget. */
 .ask-kd-working {
