@@ -72,6 +72,8 @@ module.exports = async function handler(req, res) {
 
   var result = await mods.build({ hours: win.hours, now: win.end || now });
   if (!result.ok) {
+    // The reason only (e.g. posthog_http_400) — never a credential, a query or a response body.
+    console.error(JSON.stringify({ where: 'intelligence', fault: result.reason, hours: win.hours, pinned: !!win.end }));
     return json(res, 503, { ok: false, error: result.reason, window: result.window ? {
       hours: result.window.hours, start: result.window.start, end: result.window.end, label: result.window.label
     } : null });
