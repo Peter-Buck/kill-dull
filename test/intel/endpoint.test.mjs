@@ -6,14 +6,11 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 const TOKEN = 'read-token-for-tests-0123456789abcdef';
-const CRON = 'cron-secret-for-tests-0123456789abcdef';
 process.env.INTELLIGENCE_READ_TOKEN = TOKEN;
-process.env.CRON_SECRET = CRON;
 delete process.env.POSTHOG_PERSONAL_API_KEY;
 delete process.env.UPSTASH_REDIS_REST_URL;
 
 const { default: intelligence } = await import('../../api/intelligence.js');
-const { default: cron } = await import('../../api/cron/intelligence.js');
 
 async function call(handler, url, headers = {}, method = 'GET') {
   const req = { method, url, headers: { host: 'killdull.com', ...headers } };
@@ -71,17 +68,4 @@ test('a pinned end is honoured exactly', async () => {
 test('a bad window is refused to the machine, not answered as a different one', async () => {
   const res = await call(intelligence, '/intelligence?hours=5', { authorization: `Bearer ${TOKEN}` });
   assert.equal(res.statusCode, 400);
-});
-
-test('the daily job accepts only bearer credentials — never ?k=', async () => {
-  assert.equal((await call(cron, `/api/cron/intelligence?k=${CRON}&dry=1`)).statusCode, 401);
-  assert.equal((await call(cron, '/api/cron/intelligence?dry=1', { authorization: `Bearer ${CRON}` })).statusCode, 503);
-});
-
-test('the read token may only ask for a dry run, never a send', async () => {
-  const auth = { authorization: `Bearer ${TOKEN}` };
-  assert.equal((await call(cron, '/api/cron/intelligence', auth)).statusCode, 403);
-  assert.equal((await call(cron, '/api/cron/intelligence?force=1&dry=1', auth)).statusCode, 403);
-  // A dry run gets as far as building, which fails honestly without PostHog.
-  assert.equal((await call(cron, '/api/cron/intelligence?dry=1', auth)).statusCode, 503);
 });

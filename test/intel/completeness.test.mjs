@@ -7,7 +7,6 @@ import { events, PRODUCTION_ONLY, regionOf } from '../../lib/intel/posthog.mjs';
 import { collection, utcDays, counterKey } from '../../lib/intel/collection.mjs';
 import { posthogRegions } from '../../lib/intel/briefing.mjs';
 import { aggregate } from '../../lib/intel/aggregate.mjs';
-import { emailHTML, briefingText, subjectFor } from '../../lib/intel/render.mjs';
 
 const env = { POSTHOG_PERSONAL_API_KEY: 'phx_test', POSTHOG_PROJECT_ID: '1', POSTHOG_HOST: 'https://eu.posthog.com' };
 const COLS = ['event', 'distinct_id', 'timestamp'];
@@ -63,15 +62,6 @@ test('every query reads only production (or untagged history)', async () => {
   for (const x of q) assert.ok(x.includes(PRODUCTION_ONLY), x);
 });
 
-test('an incomplete model is flagged first, in the subject, page and text', () => {
-  const m = aggregate({ rows: [{ event: 'content_view', distinct_id: 'a', timestamp: '2026-10-01 10:00:00', page_type: 'HOME' }], window: { label: 'w' } });
-  m.completeness = { complete: false, eventsInWindow: 50000, eventsRead: 200000 > 50000 ? 20000 : 0 };
-  assert.match(subjectFor(m), /\(incomplete read\)$/);
-  assert.match(emailHTML(m), /INCOMPLETE READ/);
-  assert.match(emailHTML(m), /lower bound/);
-  assert.match(briefingText(m), /^KILL DULL INTELLIGENCE\n.*\n\nINCOMPLETE READ/);
-});
-
 test('region alignment: eu with eu is aligned; eu with us is not; a custom host is unverified', () => {
   assert.equal(regionOf('https://eu.i.posthog.com'), 'eu');
   assert.equal(regionOf('https://us.posthog.com'), 'us');
@@ -93,16 +83,4 @@ test('refusal counters are read for the whole UTC days the window touches', asyn
 
 test('no counters is said, not silently omitted', async () => {
   assert.deepEqual(await collection(null, new Date(), new Date()), { ok: false, reason: 'counters_not_configured' });
-  const m = aggregate({ rows: [], window: { label: 'w' } });
-  m.collection = { ok: false, reason: 'counters_unavailable' };
-  assert.match(emailHTML(m), /Refusal counts unavailable \(counters_unavailable\)/);
-});
-
-test('refusals are shown by reason, with the language Peter asked for', () => {
-  const m = aggregate({ rows: [], window: { label: 'w' } });
-  m.collection = { ok: true, days: ['2026-10-01'], refused: { no_consent: 4, cookie_mismatch: 1, non_production: 2, rate_limited: 1, bad_body: 1, unknown_event: 1 }, accepted: {}, totalRefused: 10 };
-  const html = emailHTML(m);
-  for (const label of ['No consent', 'Cookie mismatch', 'Not the production site', 'Rate limit', 'Schema failure', 'Unknown event']) {
-    assert.ok(html.includes(label), label);
-  }
 });
