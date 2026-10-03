@@ -292,9 +292,11 @@
   }
 
   /* Ask Kill Dull. Two moments, watched from outside like the Readings: that
-     the panel was opened, and which of its predefined questions was opened, by
-     position (q1–q10). The widget has no free text; its answers are never sent.
-     The state is read after the widget has handled the click. */
+     the panel was opened, and which of its suggested questions was chosen, by
+     its fixed id (data-ask-starter, q1–q10). What a visitor types and every
+     answer are never read here: no listener touches the field or the
+     conversation. The trigger's state is read after the widget has handled
+     the click. */
   function watchAsk() {
     document.addEventListener('click', function (e) {
       var t = e.target;
@@ -302,14 +304,13 @@
       var trigger = t.closest('#ask-kill-dull-trigger');
       var starter = trigger ? null : t.closest('.ask-kd-starter');
       if (!trigger && !starter) return;
+      var id = starter ? starter.getAttribute('data-ask-starter') : null;
       setTimeout(function () {
         if (trigger && trigger.getAttribute('aria-expanded') === 'true') {
           track('ask_opened', { location: pageType(location.pathname) });
         }
-        if (starter && starter.getAttribute('aria-expanded') === 'true') {
-          var all = document.querySelectorAll('.ask-kd-starter');
-          var n = Array.prototype.indexOf.call(all, starter) + 1;
-          if (n > 0) track('ask_question_selected', { target: 'q' + n, location: pageType(location.pathname) });
+        if (id && /^q(10|[1-9])$/.test(id)) {
+          track('ask_question_selected', { target: id, location: pageType(location.pathname) });
         }
       }, 0);
     }, true);
